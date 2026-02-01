@@ -202,7 +202,8 @@ class SearchManager {
         if (this.results.length === 0) {
             this.resultsContainer.innerHTML = `
                 <div class="search-no-results">
-                    No results found. Try a different search term.
+                    No results found on this page. Try navigating to another page or browse the sidebar.
+                    <div class="search-scope-note">Search covers page titles and current page content.</div>
                 </div>
             `;
             return;
@@ -233,6 +234,11 @@ class SearchManager {
                 </div>
             `;
         }).join('');
+
+        // Add search scope note at bottom
+        this.resultsContainer.innerHTML += `
+            <div class="search-scope-note">Searching page titles + current page content</div>
+        `;
 
         // Bind click events to results
         this.resultsContainer.querySelectorAll('.search-result').forEach(el => {

@@ -346,6 +346,48 @@ Walk me through possible causes step by step."</code></pre>
 
 Show me the changes before applying."</code></pre>
                     </div>
+
+                    <h2 id="claude-prompt-library">Prompt Library</h2>
+                    <div data-skill="beginner">
+                        <p>Copy-paste prompts for common tasks. Click any prompt to copy it to your clipboard.</p>
+
+                        <h3>Analysis & Research</h3>
+                        <div class="prompt-library">
+                            <pre><code>"Analyze this file and list 3 potential race conditions or concurrency issues."</code></pre>
+                            <pre><code>"Map out the data flow from user input to database storage in this module."</code></pre>
+                            <pre><code>"Find all places where errors could be swallowed silently without logging."</code></pre>
+                            <pre><code>"List all external API calls in this codebase and their failure handling."</code></pre>
+                        </div>
+
+                        <h3>Planning & Architecture</h3>
+                        <div class="prompt-library">
+                            <pre><code>"Create a step-by-step plan to add [feature]. Save it to PLAN.md."</code></pre>
+                            <pre><code>"Review the current architecture and suggest 3 improvements for scalability."</code></pre>
+                            <pre><code>"What are the risks of changing this function's signature? List all callers."</code></pre>
+                            <pre><code>"Design a migration strategy from [old approach] to [new approach] with rollback steps."</code></pre>
+                        </div>
+
+                        <h3>Implementation</h3>
+                        <div class="prompt-library">
+                            <pre><code>"Read PLAN.md and execute steps 1-5, updating the file with DONE status as you go."</code></pre>
+                            <pre><code>"Add comprehensive error handling to this function. Include typed errors and logging."</code></pre>
+                            <pre><code>"Generate unit tests for this module covering happy path, edge cases, and error conditions."</code></pre>
+                            <pre><code>"Add TypeScript types to this JavaScript file. Use strict mode, no 'any' types."</code></pre>
+                        </div>
+
+                        <h3>Review & Quality</h3>
+                        <div class="prompt-library">
+                            <pre><code>"Review this PR diff for security vulnerabilities, focusing on OWASP Top 10."</code></pre>
+                            <pre><code>"Check this code for N+1 query problems and suggest optimizations."</code></pre>
+                            <pre><code>"Verify all user inputs are validated before use. List any missing validations."</code></pre>
+                            <pre><code>"Generate a conventional commit message for the current staged changes."</code></pre>
+                        </div>
+
+                        <div class="callout claude">
+                            <div class="callout-title">&#128161; Pro Tip</div>
+                            <p>Combine these with context: <code>/add src/module.ts</code> before your prompt, or use <code>#</code> to save project-specific prompts to CLAUDE.md.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Gemini CLI Tab -->
@@ -549,6 +591,48 @@ Find all instances of:
 3. Console.log statements
 
 List file:line for each occurrence."</code></pre>
+                    </div>
+
+                    <h2 id="gemini-prompt-library">Prompt Library</h2>
+                    <div data-skill="beginner">
+                        <p>Copy-paste prompts optimized for Gemini's large context window. Use <code>@</code> to reference files.</p>
+
+                        <h3>Codebase Exploration</h3>
+                        <div class="prompt-library">
+                            <pre><code>"@src/**/*.ts Create a dependency graph of all modules. Show which files import what."</code></pre>
+                            <pre><code>"@**/*.ts Find all TODO and FIXME comments. Group by priority and age."</code></pre>
+                            <pre><code>"@packages/**/* Map the architecture of this monorepo. List each package's purpose."</code></pre>
+                            <pre><code>"What does this codebase do? Give me a 2-paragraph executive summary."</code></pre>
+                        </div>
+
+                        <h3>Large-Scale Analysis</h3>
+                        <div class="prompt-library">
+                            <pre><code>"@src/**/*.ts Find all duplicate or near-duplicate code. Suggest consolidation."</code></pre>
+                            <pre><code>"@**/*.ts List every database query. Flag any that might cause N+1 problems."</code></pre>
+                            <pre><code>"@src/**/* Analyze error handling patterns. Are errors handled consistently?"</code></pre>
+                            <pre><code>"@**/*.json @**/*.yaml Audit all config files for hardcoded secrets or env-specific values."</code></pre>
+                        </div>
+
+                        <h3>Batch Operations</h3>
+                        <div class="prompt-library">
+                            <pre><code>"@src/components/**/*.tsx Add JSDoc to all exported functions. Show changes first."</code></pre>
+                            <pre><code>"@**/*.ts Convert all callback-style functions to async/await. List files to change."</code></pre>
+                            <pre><code>"@src/**/*.js Generate TypeScript type definitions for each file. Output to types/"</code></pre>
+                            <pre><code>"@tests/**/*.test.ts Analyze test coverage gaps. What scenarios are untested?"</code></pre>
+                        </div>
+
+                        <h3>Documentation</h3>
+                        <div class="prompt-library">
+                            <pre><code>"@src/**/* Generate a README.md with: overview, setup, architecture, and API docs."</code></pre>
+                            <pre><code>"@src/api/**/*.ts Create OpenAPI/Swagger documentation for all endpoints."</code></pre>
+                            <pre><code>"@**/*.ts Generate a glossary of domain terms used in this codebase."</code></pre>
+                            <pre><code>"Create an onboarding guide for a new developer joining this project."</code></pre>
+                        </div>
+
+                        <div class="callout gemini">
+                            <div class="callout-title">&#129504; Gemini Context Advantage</div>
+                            <p>Gemini 3 Pro can hold 2M tokens - load your entire codebase with <code>@src/**/*</code> then ask multiple questions without reloading.</p>
+                        </div>
                     </div>
                 </div>
             </div>
