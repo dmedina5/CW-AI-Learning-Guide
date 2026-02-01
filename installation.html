@@ -87,7 +87,7 @@
 
             <div class="page-content">
                 <h1>&#128230; Installation Guide</h1>
-                <p class="page-intro">Get both Claude Code and Gemini CLI set up on your machine. Both tools require Node.js 18+ as a prerequisite.</p>
+                <p class="page-intro">Get both Claude Code and Gemini CLI set up on your machine. Choose your platform below for tailored installation instructions.</p>
 
                 <!-- Skill Filter -->
                 <div class="skill-filter-bar">
@@ -121,45 +121,122 @@
                     <h2 id="claude-prereqs">Prerequisites</h2>
                     <div data-skill="beginner">
                         <ul>
-                            <li><strong>Git for Windows</strong> - Required for Git Bash (<a href="https://git-scm.com/download/win" target="_blank">download here</a>)</li>
                             <li><strong>Claude Pro/Max account</strong> or <strong>Console access</strong> - For authentication</li>
+                            <li><strong>macOS 13.0+</strong>, <strong>Ubuntu 20.04+/Debian 10+</strong>, or <strong>Windows 10 1809+</strong></li>
+                            <li><strong>4 GB+ RAM</strong> and internet connection</li>
                         </ul>
 
                         <div class="callout whale">
-                            <div class="callout-title">&#128161; Windows Native Installation</div>
-                            <p>Claude Code now has native Windows support - no WSL required! This provides faster file access and better Windows tool integration.</p>
+                            <div class="callout-title">&#128161; Native Installation Recommended</div>
+                            <p>Claude Code has native installers for all platforms that auto-update in the background. No Node.js required!</p>
                         </div>
                     </div>
 
-                    <h2 id="claude-install">Installation (Windows)</h2>
+                    <h2 id="claude-install">Installation</h2>
                     <div data-skill="beginner">
-                        <h3>Option 1: PowerShell (Easiest)</h3>
-                        <ol>
-                            <li>Open PowerShell as Administrator (Press <kbd>Win + X</kbd>, select "Windows PowerShell (Admin)")</li>
-                            <li>Run the installation command:</li>
-                        </ol>
-                        <pre><code>irm https://claude.ai/install.ps1 | iex</code></pre>
-
-                        <div class="callout warning">
-                            <div class="callout-title">&#9888;&#65039; Execution Policy Error?</div>
-                            <p>If you get an execution policy error, first run:</p>
-                            <pre><code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code></pre>
-                            <p>Then retry the installation command.</p>
+                        <!-- Platform Tabs -->
+                        <div class="platform-tabs" data-group="claude-install">
+                            <button class="platform-tab-btn" data-platform="mac">
+                                <span class="platform-icon">&#127822;</span> Mac
+                            </button>
+                            <button class="platform-tab-btn" data-platform="windows">
+                                <span class="platform-icon">&#128187;</span> Windows
+                            </button>
+                            <button class="platform-tab-btn" data-platform="linux">
+                                <span class="platform-icon">&#128039;</span> Linux
+                            </button>
                         </div>
 
-                        <h3>Option 2: Command Prompt</h3>
-                        <ol>
-                            <li>Open Command Prompt (Press <kbd>Win + R</kbd>, type <code>cmd</code>, press Enter)</li>
-                            <li>Run this command:</li>
-                        </ol>
-                        <pre><code>curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd</code></pre>
+                        <!-- Mac Installation -->
+                        <div class="platform-content" data-group="claude-install" data-platform="mac">
+                            <h3>Option 1: Native Installer (Recommended)</h3>
+                            <p>Open Terminal and run:</p>
+                            <pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
 
-                        <h3>Option 3: WinGet</h3>
-                        <pre><code>winget install Anthropic.ClaudeCode</code></pre>
+                            <div class="callout success">
+                                <div class="callout-title">&#9989; Auto-Updates Included</div>
+                                <p>The native installer automatically updates Claude Code in the background. No manual updates needed!</p>
+                            </div>
 
-                        <h3>Option 4: npm (Cross-platform)</h3>
-                        <pre><code># Install globally via npm (requires Node.js 18+)
+                            <h3>Option 2: Homebrew</h3>
+                            <pre><code>brew install --cask claude-code</code></pre>
+
+                            <div class="callout warning">
+                                <div class="callout-title">&#9888;&#65039; Homebrew Note</div>
+                                <p>Homebrew installations do not auto-update. Run <code>brew upgrade claude-code</code> periodically to get the latest version.</p>
+                            </div>
+
+                            <h3>Option 3: npm (Deprecated)</h3>
+                            <pre><code># Only if native installer doesn't work
 npm install -g @anthropic-ai/claude-code</code></pre>
+                        </div>
+
+                        <!-- Windows Installation -->
+                        <div class="platform-content" data-group="claude-install" data-platform="windows">
+                            <div class="callout whale">
+                                <div class="callout-title">&#128161; Windows Native Support</div>
+                                <p>Claude Code now has native Windows support - no WSL required! Requires <a href="https://git-scm.com/download/win" target="_blank">Git for Windows</a> for Git Bash.</p>
+                            </div>
+
+                            <h3>Option 1: PowerShell (Easiest)</h3>
+                            <ol>
+                                <li>Open PowerShell as Administrator (Press <kbd>Win + X</kbd>, select "Windows PowerShell (Admin)")</li>
+                                <li>Run the installation command:</li>
+                            </ol>
+                            <pre><code>irm https://claude.ai/install.ps1 | iex</code></pre>
+
+                            <div class="callout warning">
+                                <div class="callout-title">&#9888;&#65039; Execution Policy Error?</div>
+                                <p>If you get an execution policy error, first run:</p>
+                                <pre><code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code></pre>
+                                <p>Then retry the installation command.</p>
+                            </div>
+
+                            <h3>Option 2: Command Prompt</h3>
+                            <ol>
+                                <li>Open Command Prompt (Press <kbd>Win + R</kbd>, type <code>cmd</code>, press Enter)</li>
+                                <li>Run this command:</li>
+                            </ol>
+                            <pre><code>curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd</code></pre>
+
+                            <h3>Option 3: WinGet</h3>
+                            <pre><code>winget install Anthropic.ClaudeCode</code></pre>
+                            <p><em>Note: WinGet installations do not auto-update. Run <code>winget upgrade Anthropic.ClaudeCode</code> to update.</em></p>
+
+                            <h3>Option 4: npm (Deprecated)</h3>
+                            <pre><code># Only if native installer doesn't work (requires Node.js 18+)
+npm install -g @anthropic-ai/claude-code</code></pre>
+                        </div>
+
+                        <!-- Linux Installation -->
+                        <div class="platform-content" data-group="claude-install" data-platform="linux">
+                            <h3>Option 1: Native Installer (Recommended)</h3>
+                            <p>Works on Ubuntu 20.04+, Debian 10+, and most distributions:</p>
+                            <pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+
+                            <div class="callout success">
+                                <div class="callout-title">&#9989; Auto-Updates Included</div>
+                                <p>The native installer automatically updates Claude Code in the background.</p>
+                            </div>
+
+                            <h3>Option 2: Homebrew (Linux)</h3>
+                            <pre><code>brew install --cask claude-code</code></pre>
+
+                            <h3>Alpine Linux / musl-based Distros</h3>
+                            <p>Additional dependencies required:</p>
+                            <pre><code># Install dependencies first
+apk add libgcc libstdc++ ripgrep
+
+# Set environment variable
+export USE_BUILTIN_RIPGREP=0
+
+# Then install
+curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+
+                            <h3>Option 3: npm (Deprecated)</h3>
+                            <pre><code># Only if native installer doesn't work
+npm install -g @anthropic-ai/claude-code</code></pre>
+                        </div>
                     </div>
 
                     <h2 id="claude-verify">Verify Installation</h2>
@@ -196,36 +273,118 @@ $env:ANTHROPIC_API_KEY = "sk-ant-your-key-here"
 [System.Environment]::SetEnvironmentVariable('ANTHROPIC_API_KEY', 'sk-ant-your-key-here', 'User')</code></pre>
                     </div>
 
-                    <h2 id="claude-windows-issues">Windows-Specific Issues</h2>
+                    <h2 id="claude-platform-issues">Platform-Specific Troubleshooting</h2>
                     <div data-skill="beginner">
-                        <h3>"claude command not found"</h3>
-                        <p>The installer should add Claude Code to your PATH automatically. If not:</p>
-                        <ol>
-                            <li>Press <kbd>Win + Pause/Break</kbd> (or Settings > System > About > Advanced system settings)</li>
-                            <li>Click "Environment Variables"</li>
-                            <li>Under "User variables", find or create <code>PATH</code></li>
-                            <li>Add: <code>%USERPROFILE%\.local\bin</code></li>
-                            <li>Click OK and restart your terminal</li>
-                        </ol>
+                        <!-- Platform Tabs for Troubleshooting -->
+                        <div class="platform-tabs" data-group="claude-troubleshoot">
+                            <button class="platform-tab-btn" data-platform="mac">
+                                <span class="platform-icon">&#127822;</span> Mac
+                            </button>
+                            <button class="platform-tab-btn" data-platform="windows">
+                                <span class="platform-icon">&#128187;</span> Windows
+                            </button>
+                            <button class="platform-tab-btn" data-platform="linux">
+                                <span class="platform-icon">&#128039;</span> Linux
+                            </button>
+                        </div>
 
-                        <h3>"Git Bash not found"</h3>
-                        <ol>
-                            <li>Install <a href="https://git-scm.com/download/win" target="_blank">Git for Windows</a></li>
-                            <li>Find your Git Bash installation (usually <code>C:\Program Files\Git\bin\bash.exe</code>)</li>
-                            <li>Set the environment variable in PowerShell:</li>
-                        </ol>
-                        <pre><code>[System.Environment]::SetEnvironmentVariable('CLAUDE_CODE_GIT_BASH_PATH', 'C:\Program Files\Git\bin\bash.exe', 'User')</code></pre>
-                        <ol start="4">
-                            <li>Restart your terminal</li>
-                        </ol>
+                        <!-- Mac Troubleshooting -->
+                        <div class="platform-content" data-group="claude-troubleshoot" data-platform="mac">
+                            <h3>"claude command not found"</h3>
+                            <p>Add Claude Code to your PATH:</p>
+                            <pre><code># Add to ~/.zshrc or ~/.bashrc
+export PATH="$HOME/.local/bin:$PATH"
 
-                        <h3>Authentication Issues</h3>
-                        <p>Reset credentials by deleting the auth file:</p>
-                        <pre><code># PowerShell
-Remove-Item "$env:USERPROFILE\.config\claude-code\auth.json"
+# Reload your shell
+source ~/.zshrc  # or source ~/.bashrc</code></pre>
+
+                            <h3>Permission Denied on Install</h3>
+                            <pre><code># Fix permissions for local bin directory
+mkdir -p ~/.local/bin
+chmod 755 ~/.local/bin</code></pre>
+
+                            <h3>Authentication Issues</h3>
+                            <pre><code># Reset credentials
+rm -rf ~/.claude
+rm ~/.claude.json
+
+# Restart Claude Code
+claude</code></pre>
+
+                            <h3>Verify Installation</h3>
+                            <pre><code># Check installation type and version
+claude doctor</code></pre>
+                        </div>
+
+                        <!-- Windows Troubleshooting -->
+                        <div class="platform-content" data-group="claude-troubleshoot" data-platform="windows">
+                            <h3>"claude command not found"</h3>
+                            <p>The installer should add Claude Code to your PATH automatically. If not:</p>
+                            <ol>
+                                <li>Press <kbd>Win + Pause/Break</kbd> (or Settings > System > About > Advanced system settings)</li>
+                                <li>Click "Environment Variables"</li>
+                                <li>Under "User variables", find or create <code>PATH</code></li>
+                                <li>Add: <code>%USERPROFILE%\.local\bin</code></li>
+                                <li>Click OK and restart your terminal</li>
+                            </ol>
+
+                            <h3>"Git Bash not found"</h3>
+                            <ol>
+                                <li>Install <a href="https://git-scm.com/download/win" target="_blank">Git for Windows</a></li>
+                                <li>Find your Git Bash installation (usually <code>C:\Program Files\Git\bin\bash.exe</code>)</li>
+                                <li>Set the environment variable in PowerShell:</li>
+                            </ol>
+                            <pre><code>[System.Environment]::SetEnvironmentVariable('CLAUDE_CODE_GIT_BASH_PATH', 'C:\Program Files\Git\bin\bash.exe', 'User')</code></pre>
+                            <ol start="4">
+                                <li>Restart your terminal</li>
+                            </ol>
+
+                            <h3>Authentication Issues</h3>
+                            <p>Reset credentials by deleting the auth file:</p>
+                            <pre><code># PowerShell
+Remove-Item -Path "$env:USERPROFILE\.claude" -Recurse -Force
+Remove-Item -Path "$env:USERPROFILE\.claude.json" -Force
 
 # Then restart Claude Code
 claude</code></pre>
+                        </div>
+
+                        <!-- Linux Troubleshooting -->
+                        <div class="platform-content" data-group="claude-troubleshoot" data-platform="linux">
+                            <h3>"claude command not found"</h3>
+                            <p>Add Claude Code to your PATH:</p>
+                            <pre><code># Add to ~/.bashrc or ~/.zshrc
+export PATH="$HOME/.local/bin:$PATH"
+
+# Reload your shell
+source ~/.bashrc</code></pre>
+
+                            <h3>Search Not Working (ripgrep issues)</h3>
+                            <pre><code># Ubuntu/Debian
+sudo apt install ripgrep
+
+# Fedora
+sudo dnf install ripgrep
+
+# Arch
+sudo pacman -S ripgrep</code></pre>
+
+                            <h3>Authentication Issues</h3>
+                            <pre><code># Reset credentials
+rm -rf ~/.claude
+rm ~/.claude.json
+
+# Restart Claude Code
+claude</code></pre>
+
+                            <h3>WSL-Specific</h3>
+                            <p>Both WSL 1 and WSL 2 are supported. WSL 2 supports sandboxing for enhanced security.</p>
+                            <pre><code># Check WSL version
+wsl -l -v
+
+# Upgrade to WSL 2 if needed
+wsl --set-version Ubuntu 2</code></pre>
+                        </div>
                     </div>
 
                     <h2 id="claude-ide">IDE Integration</h2>
@@ -252,7 +411,47 @@ claude</code></pre>
 
                     <h2 id="claude-first-run">First Run</h2>
                     <div data-skill="beginner">
-                        <pre><code># Navigate to your project
+                        <!-- Platform Tabs for First Run -->
+                        <div class="platform-tabs" data-group="claude-firstrun">
+                            <button class="platform-tab-btn" data-platform="mac">
+                                <span class="platform-icon">&#127822;</span> Mac
+                            </button>
+                            <button class="platform-tab-btn" data-platform="windows">
+                                <span class="platform-icon">&#128187;</span> Windows
+                            </button>
+                            <button class="platform-tab-btn" data-platform="linux">
+                                <span class="platform-icon">&#128039;</span> Linux
+                            </button>
+                        </div>
+
+                        <!-- Mac First Run -->
+                        <div class="platform-content" data-group="claude-firstrun" data-platform="mac">
+                            <pre><code># Navigate to your project
+cd ~/Projects/your-project
+
+# Start Claude Code
+claude
+
+# Test with a simple prompt
+> "What does this project do?"
+
+# Get help
+> /help</code></pre>
+
+                            <div class="callout whale">
+                                <div class="callout-title">&#127822; Mac Benefits</div>
+                                <ul>
+                                    <li><strong>Native Apple Silicon support</strong> - Optimized for M1/M2/M3</li>
+                                    <li><strong>Signed & notarized</strong> - Verified by Apple</li>
+                                    <li><strong>Terminal.app or iTerm2</strong> - Use your preferred terminal</li>
+                                    <li><strong>Zsh/Bash compatible</strong> - Works with default macOS shell</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Windows First Run -->
+                        <div class="platform-content" data-group="claude-firstrun" data-platform="windows">
+                            <pre><code># Navigate to your project
 cd "C:\path\to\your\project"
 
 # Start Claude Code
@@ -264,23 +463,49 @@ claude
 # Get help
 > /help</code></pre>
 
+                            <div class="callout whale">
+                                <div class="callout-title">&#128187; Windows Benefits</div>
+                                <ul>
+                                    <li><strong>No WSL overhead</strong> - Direct Windows integration</li>
+                                    <li><strong>Faster file access</strong> - No filesystem translation</li>
+                                    <li><strong>Works in PowerShell and CMD</strong> - Use your preferred terminal</li>
+                                    <li><strong>Native tool integration</strong> - Git, npm, etc. work directly</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Linux First Run -->
+                        <div class="platform-content" data-group="claude-firstrun" data-platform="linux">
+                            <pre><code># Navigate to your project
+cd ~/projects/your-project
+
+# Start Claude Code
+claude
+
+# Test with a simple prompt
+> "What does this project do?"
+
+# Get help
+> /help</code></pre>
+
+                            <div class="callout whale">
+                                <div class="callout-title">&#128039; Linux Benefits</div>
+                                <ul>
+                                    <li><strong>Native performance</strong> - No virtualization layer</li>
+                                    <li><strong>WSL supported</strong> - Works in WSL 1 and WSL 2</li>
+                                    <li><strong>Sandboxing available</strong> - Enhanced security on WSL 2</li>
+                                    <li><strong>Shell flexibility</strong> - Bash, Zsh, Fish compatible</li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <div class="callout success">
-                            <div class="callout-title">&#9989; Success Indicators</div>
+                            <div class="callout-title">&#9989; Success Indicators (All Platforms)</div>
                             <ul>
                                 <li>Claude responds without errors</li>
                                 <li>File operations work (try reading a file)</li>
                                 <li>Commands like <code>/help</code> display properly</li>
                                 <li><code>claude doctor</code> passes all checks</li>
-                            </ul>
-                        </div>
-
-                        <div class="callout whale">
-                            <div class="callout-title">&#128011; Windows Benefits</div>
-                            <ul>
-                                <li><strong>No WSL overhead</strong> - Direct Windows integration</li>
-                                <li><strong>Faster file access</strong> - No filesystem translation</li>
-                                <li><strong>Works in PowerShell and CMD</strong> - Use your preferred terminal</li>
-                                <li><strong>Native tool integration</strong> - Git, npm, etc. work directly</li>
                             </ul>
                         </div>
                     </div>
@@ -291,7 +516,7 @@ claude
                     <h2 id="gemini-prereqs">Prerequisites</h2>
                     <div data-skill="beginner">
                         <ul>
-                            <li><strong>Node.js 18+</strong> - Check with <code>node --version</code></li>
+                            <li><strong>Node.js 20+</strong> - Check with <code>node --version</code></li>
                             <li><strong>npm or yarn</strong> - Comes with Node.js</li>
                             <li><strong>Google Account</strong> - For authentication</li>
                         </ul>
@@ -304,19 +529,113 @@ claude
 
                     <h2 id="gemini-install">Installation</h2>
                     <div data-skill="beginner">
-                        <h3>Step 1: Install Gemini CLI</h3>
-                        <pre><code># Install globally via npm
-npm install -g @google/gemini-cli
+                        <!-- Platform Tabs -->
+                        <div class="platform-tabs" data-group="gemini-install">
+                            <button class="platform-tab-btn" data-platform="mac">
+                                <span class="platform-icon">&#127822;</span> Mac
+                            </button>
+                            <button class="platform-tab-btn" data-platform="windows">
+                                <span class="platform-icon">&#128187;</span> Windows
+                            </button>
+                            <button class="platform-tab-btn" data-platform="linux">
+                                <span class="platform-icon">&#128039;</span> Linux
+                            </button>
+                        </div>
 
-# Or via yarn
-yarn global add @google/gemini-cli</code></pre>
+                        <!-- Mac Installation -->
+                        <div class="platform-content" data-group="gemini-install" data-platform="mac">
+                            <h3>Option 1: Homebrew (Recommended)</h3>
+                            <p>The easiest way to install on Mac:</p>
+                            <pre><code>brew install gemini-cli</code></pre>
 
-                        <h3>Step 2: Verify Installation</h3>
-                        <pre><code># Check version
-gemini --version
+                            <div class="callout success">
+                                <div class="callout-title">&#9989; Homebrew Benefits</div>
+                                <p>Homebrew handles Node.js dependencies automatically and makes updates easy with <code>brew upgrade gemini-cli</code>.</p>
+                            </div>
 
-# View help
-gemini --help</code></pre>
+                            <h3>Option 2: npm Global Install</h3>
+                            <pre><code># Requires Node.js 20+
+npm install -g @google/gemini-cli</code></pre>
+
+                            <h3>Option 3: Apple Silicon (M1/M2/M3)</h3>
+                            <pre><code># Ensure native architecture
+arch -arm64 npm install -g @google/gemini-cli
+
+# Verify installation
+gemini --version</code></pre>
+
+                            <h3>Option 4: MacPorts</h3>
+                            <pre><code>sudo port install gemini-cli</code></pre>
+
+                            <h3>Option 5: Run Without Installing (npx)</h3>
+                            <pre><code># Try it without installing
+npx @google/gemini-cli</code></pre>
+                        </div>
+
+                        <!-- Windows Installation -->
+                        <div class="platform-content" data-group="gemini-install" data-platform="windows">
+                            <h3>Step 1: Ensure Node.js 20+ is Installed</h3>
+                            <pre><code># Check Node.js version
+node --version
+
+# If below 20, download from nodejs.org</code></pre>
+
+                            <h3>Option 1: npm Global Install (Recommended)</h3>
+                            <pre><code>npm install -g @google/gemini-cli</code></pre>
+
+                            <h3>Option 2: yarn</h3>
+                            <pre><code>yarn global add @google/gemini-cli</code></pre>
+
+                            <h3>Option 3: Run Without Installing (npx)</h3>
+                            <pre><code># Try it without installing
+npx @google/gemini-cli</code></pre>
+
+                            <h3>Verify Installation</h3>
+                            <pre><code>gemini --version</code></pre>
+
+                            <div class="callout warning">
+                                <div class="callout-title">&#9888;&#65039; PATH Issues?</div>
+                                <p>If <code>gemini</code> is not recognized, ensure npm global bin is in your PATH:</p>
+                                <pre><code># Find npm global path
+npm config get prefix
+
+# Add to PATH: %APPDATA%\npm</code></pre>
+                            </div>
+                        </div>
+
+                        <!-- Linux Installation -->
+                        <div class="platform-content" data-group="gemini-install" data-platform="linux">
+                            <h3>Option 1: Homebrew (Recommended)</h3>
+                            <pre><code>brew install gemini-cli</code></pre>
+
+                            <h3>Option 2: npm Global Install</h3>
+                            <pre><code># Requires Node.js 20+
+npm install -g @google/gemini-cli</code></pre>
+
+                            <h3>Option 3: Using Conda (Isolated Environment)</h3>
+                            <pre><code># Create environment with Node.js
+conda create -y -n gemini_env -c conda-forge nodejs
+conda activate gemini_env
+
+# Install Gemini CLI
+npm install -g @google/gemini-cli</code></pre>
+
+                            <h3>Option 4: Run Without Installing (npx)</h3>
+                            <pre><code>npx @google/gemini-cli</code></pre>
+
+                            <h3>Option 5: Docker (Sandbox Mode)</h3>
+                            <pre><code># Run in isolated container
+docker run -it --rm node:20 npx @google/gemini-cli</code></pre>
+
+                            <div class="callout warning">
+                                <div class="callout-title">&#9888;&#65039; Permission Issues?</div>
+                                <p>Avoid using <code>sudo</code> with npm. Fix permissions instead:</p>
+                                <pre><code>mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc</code></pre>
+                            </div>
+                        </div>
                     </div>
 
                     <h2 id="gemini-auth">Authentication</h2>
@@ -344,11 +663,42 @@ export GOOGLE_API_KEY="your-api-key-here"
                     <h2 id="gemini-config">Configuration</h2>
                     <div data-skill="intermediate">
                         <h3>Config File Location</h3>
-                        <pre><code># Gemini config is stored at:
+                        <!-- Platform Tabs for Config -->
+                        <div class="platform-tabs" data-group="gemini-config">
+                            <button class="platform-tab-btn" data-platform="mac">
+                                <span class="platform-icon">&#127822;</span> Mac
+                            </button>
+                            <button class="platform-tab-btn" data-platform="windows">
+                                <span class="platform-icon">&#128187;</span> Windows
+                            </button>
+                            <button class="platform-tab-btn" data-platform="linux">
+                                <span class="platform-icon">&#128039;</span> Linux
+                            </button>
+                        </div>
+
+                        <div class="platform-content" data-group="gemini-config" data-platform="mac">
+                            <pre><code># Gemini config is stored at:
 ~/.config/gemini/config.json
 
-# Or on Windows:
-%APPDATA%\gemini\config.json</code></pre>
+# Or using XDG:
+$XDG_CONFIG_HOME/gemini/config.json</code></pre>
+                        </div>
+
+                        <div class="platform-content" data-group="gemini-config" data-platform="windows">
+                            <pre><code># Gemini config is stored at:
+%APPDATA%\gemini\config.json
+
+# Typically:
+C:\Users\YourName\AppData\Roaming\gemini\config.json</code></pre>
+                        </div>
+
+                        <div class="platform-content" data-group="gemini-config" data-platform="linux">
+                            <pre><code># Gemini config is stored at:
+~/.config/gemini/config.json
+
+# Or using XDG:
+$XDG_CONFIG_HOME/gemini/config.json</code></pre>
+                        </div>
 
                         <h3>Common Configuration Options</h3>
                         <pre><code>{
@@ -425,34 +775,114 @@ gemini
                 </div>
 
                 <!-- Troubleshooting Section (shared) -->
-                <h2 id="troubleshooting">&#128736; Troubleshooting</h2>
+                <h2 id="troubleshooting">&#128736; General Troubleshooting</h2>
                 <div data-skill="beginner">
-                    <h3>Common Issues</h3>
+                    <h3>Common Issues (All Platforms)</h3>
 
-                    <h4>Node.js Version Too Old</h4>
-                    <pre><code># Check your version
+                    <!-- Platform Tabs for General Troubleshooting -->
+                    <div class="platform-tabs" data-group="general-troubleshoot">
+                        <button class="platform-tab-btn" data-platform="mac">
+                            <span class="platform-icon">&#127822;</span> Mac
+                        </button>
+                        <button class="platform-tab-btn" data-platform="windows">
+                            <span class="platform-icon">&#128187;</span> Windows
+                        </button>
+                        <button class="platform-tab-btn" data-platform="linux">
+                            <span class="platform-icon">&#128039;</span> Linux
+                        </button>
+                    </div>
+
+                    <!-- Mac Troubleshooting -->
+                    <div class="platform-content" data-group="general-troubleshoot" data-platform="mac">
+                        <h4>Node.js Version Too Old (for npm installs)</h4>
+                        <pre><code># Check your version
 node --version
 
-# If below 18, update Node.js:
-# Using nvm:
-nvm install 18
-nvm use 18</code></pre>
+# Update using Homebrew:
+brew install node@20
 
-                    <h4>Permission Denied on Install</h4>
-                    <pre><code># On macOS/Linux, you may need sudo:
-sudo npm install -g @anthropic-ai/claude-code
+# Or using nvm:
+nvm install 20
+nvm use 20</code></pre>
 
-# Better solution - fix npm permissions:
+                        <h4>Permission Denied on npm Install</h4>
+                        <pre><code># DO NOT use sudo with npm! Fix permissions instead:
 mkdir ~/.npm-global
 npm config set prefix '~/.npm-global'
-# Add to PATH in ~/.bashrc or ~/.zshrc:
-export PATH=~/.npm-global/bin:$PATH</code></pre>
 
-                    <h4>Authentication Fails</h4>
+# Add to ~/.zshrc:
+export PATH=~/.npm-global/bin:$PATH
+source ~/.zshrc</code></pre>
+
+                        <h4>Homebrew Issues</h4>
+                        <pre><code># Update Homebrew
+brew update
+
+# Fix permissions
+sudo chown -R $(whoami) /usr/local/Homebrew
+
+# Reinstall if needed
+brew reinstall claude-code</code></pre>
+                    </div>
+
+                    <!-- Windows Troubleshooting -->
+                    <div class="platform-content" data-group="general-troubleshoot" data-platform="windows">
+                        <h4>Node.js Version Too Old (for npm installs)</h4>
+                        <pre><code># Check your version
+node --version
+
+# Download latest from nodejs.org
+# Or use nvm-windows:
+nvm install 20
+nvm use 20</code></pre>
+
+                        <h4>npm Global Install Location</h4>
+                        <pre><code># Find npm global bin path
+npm config get prefix
+
+# Default is: %APPDATA%\npm
+# Add this to your PATH if commands aren't found</code></pre>
+
+                        <h4>PowerShell Execution Policy</h4>
+                        <pre><code># If scripts won't run:
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code></pre>
+                    </div>
+
+                    <!-- Linux Troubleshooting -->
+                    <div class="platform-content" data-group="general-troubleshoot" data-platform="linux">
+                        <h4>Node.js Version Too Old (for npm installs)</h4>
+                        <pre><code># Check your version
+node --version
+
+# Using nvm (recommended):
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+source ~/.bashrc
+nvm install 20
+nvm use 20
+
+# Or using NodeSource:
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs</code></pre>
+
+                        <h4>Permission Denied on npm Install</h4>
+                        <pre><code># DO NOT use sudo with npm! Fix permissions instead:
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+
+# Add to ~/.bashrc:
+export PATH=~/.npm-global/bin:$PATH
+source ~/.bashrc</code></pre>
+
+                        <h4>Snap/Flatpak Node.js Issues</h4>
+                        <p>Snap and Flatpak versions of Node.js may have permission issues. Use nvm or system packages instead.</p>
+                    </div>
+
+                    <h4>Authentication Fails (All Platforms)</h4>
                     <ul>
                         <li>Check your API key is correct</li>
                         <li>Ensure environment variable is set in current shell</li>
-                        <li>Try logging out and back in: <code>gemini auth logout && gemini auth login</code></li>
+                        <li>For Gemini: Try <code>gemini auth logout && gemini auth login</code></li>
+                        <li>For Claude: Delete auth files and restart (see platform-specific troubleshooting above)</li>
                     </ul>
                 </div>
 
