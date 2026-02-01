@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Cases | CW Vibe Code Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Auth Loading -->
+    <div id="auth-loading">
+        <div class="loading-content">
+            <h2>Verifying CoverWhale Credentials...</h2>
+            <div class="loading-spinner"></div>
+            <p>Accessing Vibe Coding Environment</p>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app-content" class="app-layout" style="display: none;">
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" aria-label="Toggle menu">&#9776;</button>
+
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay"></div>
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo">&#128011;</span>
+                <span class="brand">CW Vibe Code</span>
+            </div>
+
+            <div class="nav-section">
+                <a href="index.html" class="nav-link">
+                    <span class="nav-icon">&#127968;</span> Home
+                </a>
+                <a href="installation.html" class="nav-link">
+                    <span class="nav-icon">&#128230;</span> Installation
+                </a>
+                <a href="fundamentals.html" class="nav-link">
+                    <span class="nav-icon">&#129504;</span> Fundamentals
+                </a>
+                <a href="tips-tricks.html" class="nav-link">
+                    <span class="nav-icon">&#128161;</span> Tips & Tricks
+                </a>
+                <a href="use-cases.html" class="nav-link active">
+                    <span class="nav-icon">&#128011;</span> Use Cases
+                </a>
+                <a href="workflows.html" class="nav-link">
+                    <span class="nav-icon">&#128260;</span> Workflows
+                </a>
+                <a href="advanced.html" class="nav-link">
+                    <span class="nav-icon">&#127919;</span> Advanced
+                </a>
+                <a href="cheatsheet.html" class="nav-link">
+                    <span class="nav-icon">&#128203;</span> Cheatsheet
+                </a>
+            </div>
+
+            <div class="nav-footer">
+                <div class="user-info">
+                    <span class="user-email" id="user-email"></span>
+                    <button class="logout-btn" onclick="auth.logout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <button class="search-trigger" aria-label="Search documentation">
+                    <span class="search-icon">&#128269;</span>
+                    <span>Search docs...</span>
+                    <kbd>Ctrl+K</kbd>
+                </button>
+                <div class="top-bar-actions">
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <span class="theme-icon dark">&#127769;</span>
+                        <span class="theme-icon light">&#9728;&#65039;</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <h1>&#128011; Cover Whale Use Cases</h1>
+                <p class="page-intro">Real-world and hypothetical applications of AI-augmented development tailored for Cover Whale's insurance technology stack. Claude Code examples reflect actual implementations, while Gemini CLI examples represent potential use cases leveraging its large context window.</p>
+
+                <!-- Skill Filter -->
+                <div class="skill-filter-bar">
+                    <span class="filter-label">Show:</span>
+                    <label class="filter-chip active">
+                        <input type="checkbox" checked data-level="beginner">
+                        <span class="chip beginner">Beginner</span>
+                    </label>
+                    <label class="filter-chip active">
+                        <input type="checkbox" checked data-level="intermediate">
+                        <span class="chip intermediate">Intermediate</span>
+                    </label>
+                    <label class="filter-chip active">
+                        <input type="checkbox" checked data-level="advanced">
+                        <span class="chip advanced">Advanced</span>
+                    </label>
+                </div>
+
+                <!-- Tool Tabs -->
+                <div class="tool-tabs">
+                    <button class="tab-btn active" data-tab="claude">
+                        <span class="tab-icon">&#129302;</span> Claude Code
+                    </button>
+                    <button class="tab-btn" data-tab="gemini">
+                        <span class="tab-icon">&#10024;</span> Gemini CLI
+                    </button>
+                    <button class="tab-btn" data-tab="both">
+                        <span class="tab-icon">&#129309;</span> Both Together
+                    </button>
+                </div>
+
+                <!-- Claude Code Tab -->
+                <div class="tab-content active" data-tab="claude">
+                    <h2 id="claude-coverages">Coverages by State Tool</h2>
+                    <div data-skill="intermediate">
+                        <p>Build a carrier eligibility dashboard that auto-updates via database monitoring and Slack notifications.</p>
+
+                        <pre><code>"Build a 'Coverages by State' tool with the following specifications:
+
+## HTML Dashboard Features:
+1. Create index.html with a responsive state-by-carrier matrix grid
+2. Display carrier eligibility status (Y/N/turned off) per state
+3. Color-coded cells: green=active, red=inactive, gray=N/A
+4. Sortable columns and filterable rows
+5. Last updated timestamp in header
+6. Mobile-responsive design with horizontal scroll
+
+## Carrier Mappings:
+Map company IDs to carrier display names:
+- Company 5245 → 'Accredited Non-Admitted 1st'
+- [Add other carrier mappings as needed]
+
+## Database Query Structure:
+Generate SQL queries that:
+1. Retrieve company-state relationships with activation status
+2. Include 'dsg_allowed' flag for lottery authorization
+3. Join carrier table for full carrier information
+
+## Monitor Script (check-eligibility.js):
+Create a Node.js script that:
+1. Connects to MySQL database with retry logic (3 attempts, 5s delay)
+2. Queries current eligibility state for all carriers/states
+3. Computes MD5 hash of concatenated state data for change detection
+4. Compares hash against saved state in monitor_state.json
+5. If changes detected:
+   - Update index.html with new carrier data
+   - Save new hash to monitor_state.json
+   - Return change summary for notifications
+
+## GitHub Actions Workflow (carrier-monitor.yml):
+name: 'Carrier Eligibility Monitor'
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Every 5 minutes
+  workflow_dispatch:       # Manual trigger
+
+jobs:
+  check-eligibility:
+    runs-on: self-hosted
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install mysql2
+      - run: node .github/scripts/check-eligibility.js
+        env:
+          DB_HOST: secrets.DB_HOST
+          DB_PORT: secrets.DB_PORT
+          DB_USER: secrets.DB_USER
+          DB_PASSWORD: secrets.DB_PASSWORD
+          DB_NAME: secrets.DB_NAME
+      - name: Commit changes
+        run: |
+          git config user.name 'github-actions'
+          git config user.email 'actions@github.com'
+          git add index.html monitor_state.json
+          git diff --staged --quiet || git commit -m 'Update eligibility'
+          git push
+
+Deploy to Vercel for automatic hosting updates on push."</code></pre>
+
+                        <h3>Setting Up Slack Webhook Notifications</h3>
+                        <pre><code>## Slack Integration Steps:
+
+# 1. Create Slack App & Webhook
+- Go to api.slack.com/apps → Create New App
+- Choose 'From scratch', name it 'Carrier Monitor'
+- Enable 'Incoming Webhooks' under Features
+- Click 'Add New Webhook to Workspace'
+- Select channel (e.g., #carrier-eligibility-alerts)
+- Copy the Webhook URL
+
+# 2. Add to GitHub Secrets
+- Repository → Settings → Secrets → Actions
+- New secret: SLACK_WEBHOOK_URL = [your webhook URL]
+
+# 3. Update check-eligibility.js to send notifications:
+"Add Slack notification to the eligibility script:
+
+async function sendSlackNotification(changes) {
+  const webhookUrl = process.env.SLACK_WEBHOOK_URL;
+  if (!webhookUrl || changes.length === 0) return;
+
+  const blocks = [
+    {
+      type: 'header',
+      text: { type: 'plain_text', text: '🚨 Carrier Eligibility Changes' }
+    },
+    {
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: changes.map(c =>
+          \`• *\${c.carrier}* in *\${c.state}*: \${c.oldStatus} → \${c.newStatus}\`
+        ).join('\\n')
+      }
+    },
+    {
+      type: 'context',
+      elements: [{
+        type: 'mrkdwn',
+        text: \`<https://coverages-by-state.vercel.app|View Dashboard>\`
+      }]
+    }
+  ];
+
+  await fetch(webhookUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ blocks })
+  });
+}
+
+Call this after detecting changes in the main function."
+
+# 4. Update workflow to include Slack secret:
+- run: node .github/scripts/check-eligibility.js
+  env:
+    SLACK_WEBHOOK_URL: secrets.SLACK_WEBHOOK_URL
+    # ... other DB secrets</code></pre>
+
+                        <div class="callout claude">
+                            <div class="callout-title">&#128202; Real-World Implementation</div>
+                            <p>This tool is live at <a href="https://github.com/dmedina5/coverages-by-state" target="_blank">github.com/dmedina5/coverages-by-state</a>. Claude helped build the entire HTML dashboard, monitoring script, and GitHub Actions automation.</p>
+                        </div>
+                    </div>
+
+                    <h2 id="claude-knowledge-base">Cover Whale Knowledge Base</h2>
+                    <div data-skill="advanced">
+                        <p>Build a searchable knowledge base by migrating 2,000+ Confluence pages to GitHub with automated daily syncing and AI-powered natural language search via a custom Claude Code skill.</p>
+
+                        <pre><code>"Build a Cover Whale Knowledge Base system with:
+
+## Repository Structure:
+coverwhale-knowledge-base/
+├── collaboration/        # Team meetings, notes, brainstorming
+├── documentation/        # Technical guides, manuals, how-tos
+├── knowledge-base/       # FAQs, troubleshooting, solutions
+├── software-project/     # Architecture, specs, design docs
+├── team/                 # Onboarding, processes, policies
+├── other/                # Uncategorized content
+├── .claude/skills/coverwhale-kb-search/SKILL.md  # Claude skill
+└── .github/workflows/confluence-sync.yml         # Daily sync
+
+## Markdown Format with Frontmatter:
+Each migrated page should have:
+---
+title: Page Title
+confluence_id: 123456
+space: CW
+space_name: Cover Whale
+version: 5
+author: John Doe
+url: https://coverwhale.atlassian.net/wiki/...
+labels: [api, authentication, security]
+extracted_date: 2026-01-11T19:42:58
+---
+
+# Page Content
+
+[Converted markdown content...]
+
+---
+**Source:** [Original Title](confluence_url)
+**Confluence ID:** 123456
+
+## Confluence Sync Workflow (confluence-sync.yml):
+name: Confluence Daily Sync
+on:
+  schedule:
+    - cron: '0 7 * * *'  # 2:00 AM EST daily
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - name: Run Confluence Sync
+        env:
+          CONFLUENCE_URL: secrets.CONFLUENCE_URL
+          CONFLUENCE_EMAIL: secrets.CONFLUENCE_EMAIL
+          CONFLUENCE_API_TOKEN: secrets.CONFLUENCE_API_TOKEN
+        run: python3 confluence_daily_sync.py
+      - name: Commit and push changes
+        run: |
+          git config user.name 'Confluence Sync Bot'
+          git add .
+          git diff --staged --quiet || git commit -m 'Auto-sync'
+          git push
+
+## Claude Code Custom Skill (SKILL.md):
+Create a skill for natural language knowledge base search:
+
+---
+name: coverwhale-kb-search
+description: Search the Cover Whale knowledge base (2,000+ pages)
+allowed-tools: Grep, Read, Glob
+user-invocable: true
+model: haiku
+---
+
+# Search Strategy:
+1. Use Grep with files_with_matches first (minimal tokens)
+2. Prioritize by category:
+   - knowledge-base/ → FAQs, troubleshooting
+   - documentation/ → Technical guides
+   - team/ → Processes and policies
+   - software-project/ → Architecture specs
+   - collaboration/ → Meeting notes
+3. Read only top 2-3 most relevant files
+4. Check frontmatter to verify relevance
+5. Provide concise answers with file:line references
+
+# Example queries the skill handles:
+- 'How does the claims process work?'
+- 'Where is the Kubernetes documentation?'
+- 'What are the onboarding steps for engineers?'
+- 'Show me PV2 migration guides'
+
+Generate the complete migration script, sync workflow, and
+Claude skill configuration."</code></pre>
+
+                        <div class="callout claude">
+                            <div class="callout-title">&#128202; Real-World Implementation</div>
+                            <p>This knowledge base is live at <a href="https://github.com/dmedina5/coverwhale-knowledge-base" target="_blank">github.com/dmedina5/coverwhale-knowledge-base</a> with <strong>2,166 pages</strong> across 312 Confluence spaces. Claude built the migration scripts, GitHub Actions workflow, and the custom Claude Code skill for AI-powered search.</p>
+                        </div>
+                    </div>
+
+                    <h2 id="claude-debugging">Complex Debugging</h2>
+                    <div data-skill="intermediate">
+                        <div class="callout warning" style="margin-bottom: 16px;">
+                            <div class="callout-title">&#128161; Hypothetical Example</div>
+                            <p>This debugging workflow demonstrates how Claude Code could assist with complex calculation issues.</p>
+                        </div>
+                        <pre><code># Share the bug context
+"We have a bug where renewal premiums are sometimes calculated
+incorrectly for policies with mid-term endorsements.
+
+Here's the relevant code:
+/add src/services/renewal.ts
+/add src/services/endorsement.ts
+
+Here's a failing test case:
+- Original premium: $5,000
+- Endorsement at day 180: +$500 coverage
+- Expected renewal: $5,250
+- Actual renewal: $5,000
+
+Walk me through the calculation step by step and identify
+where it goes wrong."</code></pre>
+                    </div>
+
+                    <h2 id="claude-refactoring">API Refactoring</h2>
+                    <div data-skill="advanced">
+                        <div class="callout warning" style="margin-bottom: 16px;">
+                            <div class="callout-title">&#128161; Hypothetical Example</div>
+                            <p>This refactoring workflow demonstrates how Claude Code's plan mode could guide major architectural changes.</p>
+                        </div>
+                        <pre><code># Plan the refactoring
+> (Shift+Tab for plan mode)
+
+"We need to migrate our quote API from REST to GraphQL.
+Current implementation: /add src/routes/quote.ts
+
+Requirements:
+1. Maintain backward compatibility with existing clients
+2. Add GraphQL schema and resolvers
+3. Implement rate limiting
+4. Add comprehensive logging
+
+Create a migration plan with specific steps."
+
+# After reviewing the plan, execute
+> (Shift+Tab to exit plan mode)
+"Execute the plan, starting with step 1"</code></pre>
+                    </div>
+
+                    <h2 id="claude-tests">Test Case Generation</h2>
+                    <div data-skill="beginner">
+                        <p>Generate basic test cases for validation modules.</p>
+                        <pre><code>/add src/utils/validation.ts
+
+"Generate comprehensive test cases for this validation module:
+1. Happy path tests for each function
+2. Edge cases (empty strings, null, undefined)
+3. Boundary value tests
+4. Error condition tests
+
+Use Vitest syntax and follow our existing test patterns in
+__tests__ folders."</code></pre>
+                    </div>
+
+                    <h2 id="claude-e2e">Parallel E2E Test Automation with MCP Playwright</h2>
+                    <div data-skill="advanced">
+                        <p>Design comprehensive E2E test cases for parallel execution using MCP Playwright. This approach achieves ~80% time reduction by running 5 tests simultaneously.</p>
+
+                        <pre><code>"Design a parallel E2E test automation framework for our quote
+creation flow using MCP Playwright. The framework should support
+running 5 tests simultaneously via browser tabs.
+
+## Test Case JSON Structure:
+Create test_cases.json with this schema per test case:
+{
+  'row': [unique identifier],
+  'state': [2-letter state code],
+  'dot_number': [DOT number to lookup],
+  'vehicles': [number of vehicles],
+  'drivers': [number of drivers],
+  'al_limit': [auto liability limit, e.g., 750000],
+  'um_required': [boolean - uninsured motorist required],
+  'pip_required': [boolean - PIP required],
+  'enable_al': [boolean - enable auto liability],
+  'enable_apd': [boolean - enable auto physical damage],
+  'enable_mtc': [boolean - enable motor truck cargo],
+  'enable_tgl': [boolean - enable trailer general liability],
+  'enable_ntl': [boolean - enable non-trucking liability],
+  'is_dump_truck': [boolean],
+  'commodities': [array of {name, percentage}],
+  'vehicle_classes': [array of class numbers],
+  'vehicle_body_types': [array like 'Tractor', 'Box Truck'],
+  'trailer_types': [array like 'Utility Trailer', 'Dump Trailer'],
+  'template_type': [e.g., 'general_freight', 'dump_truck'],
+  'expected_status': ['Quoted' | 'Declined' | 'Referred'],
+  'steps': [array of step objects - see below]
+}
+
+## Step Object Schema:
+Each step in the steps array should have:
+{
+  'step': [step number as string],
+  'section': [form section name],
+  'action': [description of action],
+  'field': [field name or identifier],
+  'value': [value to enter or select],
+  'notes': [any additional context]
+}
+
+## Example Steps Sequence:
+1. Navigate to New Quote - URL: /transportation/create
+2. Enter DOT Number - triggers FMCSA data auto-population
+3. Wait for FMCSA data - verify fields populate (5-10s)
+4. Override Mailing State - set to test state
+5. Override Garaging State - set to test state
+6. Verify address populated
+7. Verify city populated
+8. Verify zip populated
+9. Continue to Producer section
+10. Select Agency
+11. Continue to Coverages
+12. Select required coverages based on enable_* flags
+13. Continue to Operations
+14. Select operation type
+15. Add vehicles with body types and trailer types
+16. Add commodities with percentages
+17. Add drivers
+18. Fill losses section
+19. Set coverage limits
+20. Submit and extract results
+
+## Parallel Execution Architecture:
+Create a RealParallelQuoteExecutor class with:
+
+class RealParallelQuoteExecutor:
+    def __init__(self, batch_size=5, headless=True):
+        self.batch_size = batch_size
+        self.mcp_client = MCPPlaywrightClient(headless)
+
+    async def execute_batch(self, test_cases):
+        '''Run batch_size tests in parallel using asyncio.gather()'''
+        tasks = []
+        for i, test in enumerate(test_cases[:self.batch_size]):
+            tab_index = await self.mcp_client.create_tab()
+            tasks.append(self.run_single_test(test, tab_index))
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        return results
+
+    async def run_single_test(self, test_case, tab_index):
+        '''Execute one test in a specific browser tab'''
+        await self.mcp_client.select_tab(tab_index)
+        # Execute all steps from test_case['steps']
+        ...
+
+## MCP Playwright Commands Used:
+- browser_start: Initialize browser with headless option
+- browser_navigate: Navigate to URLs
+- browser_fill_form: Batch fill form fields
+- browser_click: Click buttons/elements
+- browser_wait_for: Wait for elements to appear
+- browser_tabs: Manage multiple tabs (new, select, close)
+- browser_run_code: Execute custom JavaScript for complex operations
+- browser_snapshot: Capture page state for debugging
+
+## Expected Performance:
+| Metric | Sequential | Parallel | Improvement |
+|--------|-----------|----------|-------------|
+| Per-test time | 7 min | 7 min | Same |
+| Concurrent | 1 | 5 | 5× |
+| Total (19 tests) | 133 min | ~28 min | **80%** |
+
+Generate the complete test_cases.json structure and parallel
+executor implementation following this architecture."</code></pre>
+
+                        <div class="callout claude">
+                            <div class="callout-title">&#9889; Parallel Testing Benefits</div>
+                            <p>By using MCP Playwright with tab-based parallelism, a 19-test suite drops from over 2 hours to under 30 minutes. Each test runs in its own browser tab managed by asyncio.gather() for true concurrency.</p>
+                        </div>
+                    </div>
+
+                    <h2 id="claude-docs">Documentation Generation</h2>
+                    <div data-skill="beginner">
+                        <pre><code>/add src/services/policy.ts
+
+"Generate JSDoc documentation for all exported functions
+in this file. Include:
+- @description with clear explanation
+- @param with types and descriptions
+- @returns with type and description
+- @throws for any error conditions
+- @example with realistic usage"</code></pre>
+                    </div>
+                </div>
+
+                <!-- Gemini CLI Tab -->
+                <div class="tab-content" data-tab="gemini">
+                    <div class="callout warning">
+                        <div class="callout-title">&#128161; Potential Use Cases</div>
+                        <p>The following Gemini CLI examples are <strong>hypothetical applications</strong> demonstrating how Gemini's large context window could be leveraged for Cover Whale workflows. These have not yet been implemented but represent promising opportunities.</p>
+                    </div>
+
+                    <h2 id="gemini-analysis">Large Codebase Analysis</h2>
+                    <div data-skill="intermediate">
+                        <p>Gemini 3's massive context window (up to 2M tokens with Pro) can hold entire systems for analysis. Use <strong>Deep Think</strong> mode for complex architectural questions.</p>
+
+                        <pre><code># Load all policy-related code
+> @packages/policy/**/*.ts
+> @packages/core/src/policy/**/*.ts
+
+"Analyze the entire policy system:
+1. Create a dependency graph between modules
+2. Identify circular dependencies
+3. Find duplicated logic
+4. List all database queries and their locations
+5. Map out the data flow for policy creation"</code></pre>
+
+                        <div class="callout gemini">
+                            <div class="callout-title">&#129504; Why Gemini 3 for Analysis</div>
+                            <p>Gemini 3 Pro can hold your entire codebase (2M tokens) in context, making cross-file analysis seamless. Use <strong>Deep Think</strong> for architectural insights.</p>
+                        </div>
+                    </div>
+
+                    <h2 id="gemini-migration">Data Migration Scripts</h2>
+                    <div data-skill="intermediate">
+                        <pre><code># Load schema files
+> @prisma/schema.prisma @src/types/policy.ts
+
+"We need to migrate policy data from the old schema to new.
+Old: Policy has coverages as JSON field
+New: Policy has many Coverage records (normalized)
+
+Generate a migration script that:
+1. Reads all existing policies
+2. Extracts coverage data from JSON
+3. Creates proper Coverage records
+4. Updates policy references
+5. Includes rollback capability
+6. Logs progress for large datasets"</code></pre>
+                    </div>
+
+                    <h2 id="gemini-batch">Batch Documentation</h2>
+                    <div data-skill="intermediate">
+                        <pre><code># Document entire API
+> @src/routes/**/*.ts
+
+"For each route file:
+1. Generate OpenAPI/Swagger documentation
+2. Include request/response schemas
+3. Add example payloads
+4. Document error responses
+5. Output to docs/api/ directory
+
+Process files one by one and show progress."</code></pre>
+                    </div>
+
+                    <h2 id="gemini-search">Cross-Repository Search</h2>
+                    <div data-skill="advanced">
+                        <pre><code># Find all deprecated patterns
+> @**/*.ts @**/*.tsx
+
+"Search the entire codebase for:
+1. Direct API calls not using our httpClient wrapper
+2. Hardcoded environment-specific values
+3. Uses of deprecated moment.js (should use date-fns)
+4. Console.log statements not wrapped in logger
+5. Any TODO or FIXME comments
+
+Output as a CSV with: file, line, issue, suggested fix"</code></pre>
+                    </div>
+
+                    <h2 id="gemini-excel">Excel Automation</h2>
+                    <div data-skill="beginner">
+                        <pre><code>"Generate a Node.js script using xlsx library to:
+1. Read policy data from 'policies.xlsx'
+2. Validate each row against our PolicyInput schema
+3. Flag rows with validation errors
+4. Output valid rows to 'valid_policies.json'
+5. Output error report to 'import_errors.xlsx'
+
+Include proper error handling and progress logging."</code></pre>
+                    </div>
+
+                    <h2 id="gemini-parsing">API Response Parsing</h2>
+                    <div data-skill="intermediate">
+                        <pre><code># Load type definitions and existing parsers
+> @src/types/external/*.ts @src/parsers/*.ts
+
+"We're integrating with a new carrier API. Here's their
+response format: [paste sample response]
+
+Generate:
+1. TypeScript types for the response
+2. A parser that transforms to our internal PolicyData type
+3. Validation for required fields
+4. Proper error handling for malformed responses
+5. Unit tests for the parser"</code></pre>
+                    </div>
+                </div>
+
+                <!-- Both Together Tab -->
+                <div class="tab-content" data-tab="both">
+                    <div class="callout warning">
+                        <div class="callout-title">&#128161; Proposed Workflows</div>
+                        <p>These multi-tool orchestration patterns are <strong>proposed workflows</strong> that demonstrate the potential of combining Claude Code and Gemini CLI. They represent future opportunities for enhanced productivity.</p>
+                    </div>
+
+                    <h2 id="orchestration">Multi-Tool Orchestration</h2>
+                    <div data-skill="advanced">
+                        <p>The most powerful workflows use both tools in concert.</p>
+
+                        <div class="callout purple">
+                            <div class="callout-title">&#127919; The Relay Race Pattern</div>
+                            <p>Use Claude for thinking and planning, Gemini for broad execution, then Claude for review.</p>
+                        </div>
+
+                        <h3>Example: Major Refactoring Project</h3>
+
+                        <h4>Phase 1: Research (Gemini)</h4>
+                        <pre><code># Gemini: Analyze the current state
+> @packages/**/*.ts
+
+"Create a comprehensive analysis of our authentication system:
+1. All files involved
+2. Current flow diagrams
+3. External dependencies
+4. Known issues from code comments
+
+Save the analysis to ANALYSIS.md"</code></pre>
+
+                        <h4>Phase 2: Planning (Claude)</h4>
+                        <pre><code># Claude: Create the migration plan
+/add ANALYSIS.md
+
+"Based on this analysis, create a detailed migration plan
+to implement OAuth 2.0 with refresh tokens.
+
+Requirements:
+- Backward compatible with existing sessions
+- Gradual rollout capability
+- Comprehensive test coverage
+
+Create PLAN.md with ordered steps, risks, and rollback procedures."</code></pre>
+
+                        <h4>Phase 3: Execution (Gemini)</h4>
+                        <pre><code># Gemini: Execute the plan
+> @PLAN.md
+
+"Read the plan and execute steps 1-5.
+For each step:
+1. Show what you'll change
+2. Make the change
+3. Verify it compiles
+4. Update the plan with 'DONE' status
+
+Stop after step 5 for checkpoint."</code></pre>
+
+                        <h4>Phase 4: Review (Claude)</h4>
+                        <pre><code># Claude: Review the changes
+"Review all changes since the last commit:
+git diff HEAD~5
+
+Check for:
+1. Security vulnerabilities
+2. Missed edge cases
+3. Breaking changes
+4. Missing tests
+
+Create REVIEW.md with findings."</code></pre>
+                    </div>
+
+                    <h2 id="parallel-research">Parallel Research</h2>
+                    <div data-skill="intermediate">
+                        <pre><code># Terminal 1 (Gemini): Broad research
+> @src/**/*.ts
+"Find all places where we handle policy cancellation"
+
+# Terminal 2 (Claude): Deep analysis
+/add src/services/cancellation.ts
+"Analyze this cancellation logic for edge cases"
+
+# Combine findings in a shared document</code></pre>
+                    </div>
+
+                    <h2 id="hybrid-debugging">Hybrid Debugging</h2>
+                    <div data-skill="advanced">
+                        <pre><code># Step 1: Gemini finds all related code
+> @**/*.ts
+"Find all code paths that touch the 'premium' field
+on Policy objects. List files and line numbers."
+
+# Step 2: Claude deep-dives into the issue
+/add [files from Gemini's list]
+"We have a bug where premium sometimes becomes NaN.
+Based on these files, trace the calculation flow
+and identify where the NaN could originate."
+
+# Step 3: Gemini implements the fix broadly
+> @BUGFIX.md (containing Claude's analysis)
+"Implement the fix across all affected files.
+Add validation to prevent NaN propagation."</code></pre>
+                    </div>
+
+                    <h2 id="documentation-workflow">Documentation Workflow</h2>
+                    <div data-skill="intermediate">
+                        <h3>Generate, Then Polish</h3>
+                        <pre><code># Gemini: Generate bulk documentation
+> @src/api/**/*.ts
+"Generate JSDoc for all exported functions.
+Output to docs/api-reference.md"
+
+# Claude: Review and improve
+/add docs/api-reference.md
+"Review this generated documentation:
+1. Fix any inaccuracies
+2. Add missing context
+3. Improve examples
+4. Ensure consistency"</code></pre>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="search-modal">
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <span class="search-icon">&#128269;</span>
+                <input type="text" placeholder="Search documentation..." autofocus>
+            </div>
+            <div class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/copy-code.js"></script>
+    <script src="js/filter.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>

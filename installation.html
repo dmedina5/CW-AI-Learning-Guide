@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation | CW Vibe Code Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Auth Loading -->
+    <div id="auth-loading">
+        <div class="loading-content">
+            <h2>Verifying CoverWhale Credentials...</h2>
+            <div class="loading-spinner"></div>
+            <p>Accessing Vibe Coding Environment</p>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app-content" class="app-layout" style="display: none;">
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" aria-label="Toggle menu">&#9776;</button>
+
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay"></div>
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo">&#128011;</span>
+                <span class="brand">CW Vibe Code</span>
+            </div>
+
+            <div class="nav-section">
+                <a href="index.html" class="nav-link">
+                    <span class="nav-icon">&#127968;</span> Home
+                </a>
+                <a href="installation.html" class="nav-link active">
+                    <span class="nav-icon">&#128230;</span> Installation
+                </a>
+                <a href="fundamentals.html" class="nav-link">
+                    <span class="nav-icon">&#129504;</span> Fundamentals
+                </a>
+                <a href="tips-tricks.html" class="nav-link">
+                    <span class="nav-icon">&#128161;</span> Tips & Tricks
+                </a>
+                <a href="use-cases.html" class="nav-link">
+                    <span class="nav-icon">&#128011;</span> Use Cases
+                </a>
+                <a href="workflows.html" class="nav-link">
+                    <span class="nav-icon">&#128260;</span> Workflows
+                </a>
+                <a href="advanced.html" class="nav-link">
+                    <span class="nav-icon">&#127919;</span> Advanced
+                </a>
+                <a href="cheatsheet.html" class="nav-link">
+                    <span class="nav-icon">&#128203;</span> Cheatsheet
+                </a>
+            </div>
+
+            <div class="nav-footer">
+                <div class="user-info">
+                    <span class="user-email" id="user-email"></span>
+                    <button class="logout-btn" onclick="auth.logout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <button class="search-trigger" aria-label="Search documentation">
+                    <span class="search-icon">&#128269;</span>
+                    <span>Search docs...</span>
+                    <kbd>Ctrl+K</kbd>
+                </button>
+                <div class="top-bar-actions">
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <span class="theme-icon dark">&#127769;</span>
+                        <span class="theme-icon light">&#9728;&#65039;</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <h1>&#128230; Installation Guide</h1>
+                <p class="page-intro">Get both Claude Code and Gemini CLI set up on your machine. Both tools require Node.js 18+ as a prerequisite.</p>
+
+                <!-- Skill Filter -->
+                <div class="skill-filter-bar">
+                    <span class="filter-label">Show:</span>
+                    <label class="filter-chip active">
+                        <input type="checkbox" checked data-level="beginner">
+                        <span class="chip beginner">Beginner</span>
+                    </label>
+                    <label class="filter-chip active">
+                        <input type="checkbox" checked data-level="intermediate">
+                        <span class="chip intermediate">Intermediate</span>
+                    </label>
+                    <label class="filter-chip active">
+                        <input type="checkbox" checked data-level="advanced">
+                        <span class="chip advanced">Advanced</span>
+                    </label>
+                </div>
+
+                <!-- Tool Tabs -->
+                <div class="tool-tabs">
+                    <button class="tab-btn active" data-tab="claude">
+                        <span class="tab-icon">&#129302;</span> Claude Code
+                    </button>
+                    <button class="tab-btn" data-tab="gemini">
+                        <span class="tab-icon">&#10024;</span> Gemini CLI
+                    </button>
+                </div>
+
+                <!-- Claude Code Tab -->
+                <div class="tab-content active" data-tab="claude">
+                    <h2 id="claude-prereqs">Prerequisites</h2>
+                    <div data-skill="beginner">
+                        <ul>
+                            <li><strong>Git for Windows</strong> - Required for Git Bash (<a href="https://git-scm.com/download/win" target="_blank">download here</a>)</li>
+                            <li><strong>Claude Pro/Max account</strong> or <strong>Console access</strong> - For authentication</li>
+                        </ul>
+
+                        <div class="callout whale">
+                            <div class="callout-title">&#128161; Windows Native Installation</div>
+                            <p>Claude Code now has native Windows support - no WSL required! This provides faster file access and better Windows tool integration.</p>
+                        </div>
+                    </div>
+
+                    <h2 id="claude-install">Installation (Windows)</h2>
+                    <div data-skill="beginner">
+                        <h3>Option 1: PowerShell (Easiest)</h3>
+                        <ol>
+                            <li>Open PowerShell as Administrator (Press <kbd>Win + X</kbd>, select "Windows PowerShell (Admin)")</li>
+                            <li>Run the installation command:</li>
+                        </ol>
+                        <pre><code>irm https://claude.ai/install.ps1 | iex</code></pre>
+
+                        <div class="callout warning">
+                            <div class="callout-title">&#9888;&#65039; Execution Policy Error?</div>
+                            <p>If you get an execution policy error, first run:</p>
+                            <pre><code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code></pre>
+                            <p>Then retry the installation command.</p>
+                        </div>
+
+                        <h3>Option 2: Command Prompt</h3>
+                        <ol>
+                            <li>Open Command Prompt (Press <kbd>Win + R</kbd>, type <code>cmd</code>, press Enter)</li>
+                            <li>Run this command:</li>
+                        </ol>
+                        <pre><code>curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd</code></pre>
+
+                        <h3>Option 3: WinGet</h3>
+                        <pre><code>winget install Anthropic.ClaudeCode</code></pre>
+
+                        <h3>Option 4: npm (Cross-platform)</h3>
+                        <pre><code># Install globally via npm (requires Node.js 18+)
+npm install -g @anthropic-ai/claude-code</code></pre>
+                    </div>
+
+                    <h2 id="claude-verify">Verify Installation</h2>
+                    <div data-skill="beginner">
+                        <p>After installation completes, <strong>close and reopen your terminal</strong>, then run:</p>
+                        <pre><code>claude --version</code></pre>
+                        <p>You should see the Claude Code version number.</p>
+
+                        <h3>Run Diagnostics</h3>
+                        <pre><code># Check that everything is configured correctly
+claude doctor</code></pre>
+                    </div>
+
+                    <h2 id="claude-auth">Authentication</h2>
+                    <div data-skill="beginner">
+                        <h3>First Run Authentication</h3>
+                        <ol>
+                            <li>Navigate to your project folder:</li>
+                        </ol>
+                        <pre><code>cd "C:\path\to\your\project"</code></pre>
+                        <ol start="2">
+                            <li>Start Claude Code:</li>
+                        </ol>
+                        <pre><code>claude</code></pre>
+                        <ol start="3">
+                            <li>Authenticate when prompted (you'll need a Claude Pro/Max account or Console access)</li>
+                        </ol>
+
+                        <h3>API Key Authentication (Alternative)</h3>
+                        <pre><code># Set environment variable in PowerShell
+$env:ANTHROPIC_API_KEY = "sk-ant-your-key-here"
+
+# Or set permanently for your user
+[System.Environment]::SetEnvironmentVariable('ANTHROPIC_API_KEY', 'sk-ant-your-key-here', 'User')</code></pre>
+                    </div>
+
+                    <h2 id="claude-windows-issues">Windows-Specific Issues</h2>
+                    <div data-skill="beginner">
+                        <h3>"claude command not found"</h3>
+                        <p>The installer should add Claude Code to your PATH automatically. If not:</p>
+                        <ol>
+                            <li>Press <kbd>Win + Pause/Break</kbd> (or Settings > System > About > Advanced system settings)</li>
+                            <li>Click "Environment Variables"</li>
+                            <li>Under "User variables", find or create <code>PATH</code></li>
+                            <li>Add: <code>%USERPROFILE%\.local\bin</code></li>
+                            <li>Click OK and restart your terminal</li>
+                        </ol>
+
+                        <h3>"Git Bash not found"</h3>
+                        <ol>
+                            <li>Install <a href="https://git-scm.com/download/win" target="_blank">Git for Windows</a></li>
+                            <li>Find your Git Bash installation (usually <code>C:\Program Files\Git\bin\bash.exe</code>)</li>
+                            <li>Set the environment variable in PowerShell:</li>
+                        </ol>
+                        <pre><code>[System.Environment]::SetEnvironmentVariable('CLAUDE_CODE_GIT_BASH_PATH', 'C:\Program Files\Git\bin\bash.exe', 'User')</code></pre>
+                        <ol start="4">
+                            <li>Restart your terminal</li>
+                        </ol>
+
+                        <h3>Authentication Issues</h3>
+                        <p>Reset credentials by deleting the auth file:</p>
+                        <pre><code># PowerShell
+Remove-Item "$env:USERPROFILE\.config\claude-code\auth.json"
+
+# Then restart Claude Code
+claude</code></pre>
+                    </div>
+
+                    <h2 id="claude-ide">IDE Integration</h2>
+                    <div data-skill="intermediate">
+                        <h3>VS Code Extension</h3>
+                        <ol>
+                            <li>Open VS Code</li>
+                            <li>Go to Extensions (<kbd>Ctrl+Shift+X</kbd>)</li>
+                            <li>Search "Claude Code"</li>
+                            <li>Install the official Anthropic extension</li>
+                        </ol>
+
+                        <h3>Cursor Integration</h3>
+                        <p>Cursor has built-in Claude support. Go to Settings > AI > Claude and enter your API key.</p>
+
+                        <h3>Using Claude Code in Terminal</h3>
+                        <p>You can run Claude Code in the integrated terminal of any IDE:</p>
+                        <ul>
+                            <li><strong>VS Code:</strong> <kbd>Ctrl+`</kbd> to open terminal, then <code>claude</code></li>
+                            <li><strong>Cursor:</strong> Terminal panel, then <code>claude</code></li>
+                            <li><strong>JetBrains:</strong> Terminal tab, then <code>claude</code></li>
+                        </ul>
+                    </div>
+
+                    <h2 id="claude-first-run">First Run</h2>
+                    <div data-skill="beginner">
+                        <pre><code># Navigate to your project
+cd "C:\path\to\your\project"
+
+# Start Claude Code
+claude
+
+# Test with a simple prompt
+> "What does this project do?"
+
+# Get help
+> /help</code></pre>
+
+                        <div class="callout success">
+                            <div class="callout-title">&#9989; Success Indicators</div>
+                            <ul>
+                                <li>Claude responds without errors</li>
+                                <li>File operations work (try reading a file)</li>
+                                <li>Commands like <code>/help</code> display properly</li>
+                                <li><code>claude doctor</code> passes all checks</li>
+                            </ul>
+                        </div>
+
+                        <div class="callout whale">
+                            <div class="callout-title">&#128011; Windows Benefits</div>
+                            <ul>
+                                <li><strong>No WSL overhead</strong> - Direct Windows integration</li>
+                                <li><strong>Faster file access</strong> - No filesystem translation</li>
+                                <li><strong>Works in PowerShell and CMD</strong> - Use your preferred terminal</li>
+                                <li><strong>Native tool integration</strong> - Git, npm, etc. work directly</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gemini CLI Tab -->
+                <div class="tab-content" data-tab="gemini">
+                    <h2 id="gemini-prereqs">Prerequisites</h2>
+                    <div data-skill="beginner">
+                        <ul>
+                            <li><strong>Node.js 18+</strong> - Check with <code>node --version</code></li>
+                            <li><strong>npm or yarn</strong> - Comes with Node.js</li>
+                            <li><strong>Google Account</strong> - For authentication</li>
+                        </ul>
+
+                        <div class="callout whale">
+                            <div class="callout-title">&#127873; Free Tier Benefits</div>
+                            <p>Gemini CLI offers a generous free tier: <strong>1 million tokens</strong>, <strong>60 requests per minute</strong>, and <strong>1000 requests per day</strong>.</p>
+                        </div>
+                    </div>
+
+                    <h2 id="gemini-install">Installation</h2>
+                    <div data-skill="beginner">
+                        <h3>Step 1: Install Gemini CLI</h3>
+                        <pre><code># Install globally via npm
+npm install -g @google/gemini-cli
+
+# Or via yarn
+yarn global add @google/gemini-cli</code></pre>
+
+                        <h3>Step 2: Verify Installation</h3>
+                        <pre><code># Check version
+gemini --version
+
+# View help
+gemini --help</code></pre>
+                    </div>
+
+                    <h2 id="gemini-auth">Authentication</h2>
+                    <div data-skill="beginner">
+                        <h3>Option A: OAuth Login (Recommended)</h3>
+                        <pre><code># Authenticate with Google
+gemini auth login
+
+# This opens a browser for Google OAuth
+# Follow the prompts to authorize</code></pre>
+
+                        <h3>Option B: API Key</h3>
+                        <pre><code># Set environment variable
+export GOOGLE_API_KEY="your-api-key-here"
+
+# Get API key from Google AI Studio:
+# https://aistudio.google.com/apikey</code></pre>
+
+                        <div class="callout gemini">
+                            <div class="callout-title">&#128273; API Key vs OAuth</div>
+                            <p><strong>OAuth</strong> is easier and uses your Google account. <strong>API Key</strong> is better for automation and scripts.</p>
+                        </div>
+                    </div>
+
+                    <h2 id="gemini-config">Configuration</h2>
+                    <div data-skill="intermediate">
+                        <h3>Config File Location</h3>
+                        <pre><code># Gemini config is stored at:
+~/.config/gemini/config.json
+
+# Or on Windows:
+%APPDATA%\gemini\config.json</code></pre>
+
+                        <h3>Common Configuration Options</h3>
+                        <pre><code>{
+  "model": "gemini-3-flash",
+  "temperature": 0.7,
+  "maxTokens": 8192,
+  "sandbox": true,
+  "autoApprove": ["read", "list"]
+}</code></pre>
+                    </div>
+
+                    <h2 id="gemini-verify">First Run Verification</h2>
+                    <div data-skill="beginner">
+                        <pre><code># Start Gemini CLI
+gemini
+
+# Test with a simple prompt
+> "Hello, confirm you're working"
+
+# Check token usage
+> /tokens</code></pre>
+
+                        <div class="callout success">
+                            <div class="callout-title">&#9989; Success Indicators</div>
+                            <ul>
+                                <li>Gemini responds without authentication errors</li>
+                                <li><code>/tokens</code> shows your usage</li>
+                                <li>File operations work (try reading a file)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2 id="gemini-models">Available Models</h2>
+                    <div data-skill="intermediate">
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Model</th>
+                                        <th>Context</th>
+                                        <th>Best For</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>gemini-3-pro</code></td>
+                                        <td>2M tokens</td>
+                                        <td>Latest, best reasoning</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>gemini-3-flash</code></td>
+                                        <td>1M tokens</td>
+                                        <td>Fast responses, general use</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>gemini-3-deep-think</code></td>
+                                        <td>1M tokens</td>
+                                        <td>Complex reasoning, planning</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>gemini-2.0-flash</code></td>
+                                        <td>1M tokens</td>
+                                        <td>Stable, proven reliability</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>gemini-2.0-pro</code></td>
+                                        <td>2M tokens</td>
+                                        <td>Large codebases</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Troubleshooting Section (shared) -->
+                <h2 id="troubleshooting">&#128736; Troubleshooting</h2>
+                <div data-skill="beginner">
+                    <h3>Common Issues</h3>
+
+                    <h4>Node.js Version Too Old</h4>
+                    <pre><code># Check your version
+node --version
+
+# If below 18, update Node.js:
+# Using nvm:
+nvm install 18
+nvm use 18</code></pre>
+
+                    <h4>Permission Denied on Install</h4>
+                    <pre><code># On macOS/Linux, you may need sudo:
+sudo npm install -g @anthropic-ai/claude-code
+
+# Better solution - fix npm permissions:
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+# Add to PATH in ~/.bashrc or ~/.zshrc:
+export PATH=~/.npm-global/bin:$PATH</code></pre>
+
+                    <h4>Authentication Fails</h4>
+                    <ul>
+                        <li>Check your API key is correct</li>
+                        <li>Ensure environment variable is set in current shell</li>
+                        <li>Try logging out and back in: <code>gemini auth logout && gemini auth login</code></li>
+                    </ul>
+                </div>
+
+                <!-- IDE Selection Section -->
+                <h2 id="ide-selection">&#128187; Choosing Your IDE</h2>
+                <div data-skill="beginner">
+                    <p>While Claude Code and Gemini CLI run in your terminal, you'll want a good IDE for viewing and editing code. The 2026 IDE landscape has evolved dramatically with AI-first editors.</p>
+
+                    <div class="callout purple">
+                        <div class="callout-title">&#128161; IDE vs CLI Tools</div>
+                        <p><strong>Claude Code</strong> and <strong>Gemini CLI</strong> are terminal-based agents that work alongside your IDE. Many developers run the CLI in a terminal panel within their IDE, or in a separate terminal window.</p>
+                    </div>
+                </div>
+
+                <h3 id="ide-comparison">IDE Comparison</h3>
+                <div data-skill="beginner">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>IDE</th>
+                                    <th>AI Integration</th>
+                                    <th>Price</th>
+                                    <th>Best For</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>VS Code</strong></td>
+                                    <td>Copilot, extensions</td>
+                                    <td>Free (+$10/mo Copilot)</td>
+                                    <td>Most developers, flexibility</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cursor</strong></td>
+                                    <td>Native AI-first</td>
+                                    <td>$20/month</td>
+                                    <td>AI maximalists</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Windsurf</strong></td>
+                                    <td>Cascade agent</td>
+                                    <td>$15/month</td>
+                                    <td>Agentic workflows</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Zed</strong></td>
+                                    <td>Agent panel, MCP</td>
+                                    <td>Free / $20/mo Pro</td>
+                                    <td>Performance, privacy</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Google Antigravity</strong></td>
+                                    <td>Gemini 3 native</td>
+                                    <td>Free (preview)</td>
+                                    <td>Google ecosystem</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>JetBrains</strong></td>
+                                    <td>AI Assistant</td>
+                                    <td>$16.90/month+</td>
+                                    <td>Java, Kotlin, enterprise</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <h3 id="ide-vscode">VS Code</h3>
+                <div data-skill="beginner">
+                    <p><strong>Visual Studio Code</strong> remains the world's most widely adopted development environment. Its strength is flexibility - you can integrate any AI stack.</p>
+
+                    <h4>Setup</h4>
+                    <ol>
+                        <li>Download from <a href="https://code.visualstudio.com/" target="_blank">code.visualstudio.com</a></li>
+                        <li>Install recommended extensions for your language</li>
+                        <li>Open integrated terminal (<kbd>Ctrl+`</kbd>) and run <code>claude</code> or <code>gemini</code></li>
+                    </ol>
+
+                    <h4>AI Extensions</h4>
+                    <ul>
+                        <li><strong>GitHub Copilot</strong> - $10/month, inline completions</li>
+                        <li><strong>Claude Code Extension</strong> - Official Anthropic extension</li>
+                        <li><strong>Continue</strong> - Open source AI assistant</li>
+                        <li><strong>Cline</strong> - Autonomous coding agent</li>
+                    </ul>
+
+                    <div class="callout success">
+                        <div class="callout-title">&#9989; Recommendation</div>
+                        <p>VS Code + terminal Claude Code/Gemini CLI is the <strong>safe, proven choice</strong> for most developers at Cover Whale.</p>
+                    </div>
+                </div>
+
+                <h3 id="ide-cursor">Cursor</h3>
+                <div data-skill="intermediate">
+                    <p><strong>Cursor</strong> is the breakout AI-native IDE of the mid-2020s. Built as a VS Code fork, it looks familiar but AI is the core, not a plugin.</p>
+
+                    <h4>Key Features</h4>
+                    <ul>
+                        <li><strong>Composer</strong> - Multi-file edit agent</li>
+                        <li><strong>Deep repo indexing</strong> - Understands your entire codebase</li>
+                        <li><strong>Inline chat</strong> - Read and modify files from chat</li>
+                        <li><strong>Tab completion</strong> - Context-aware suggestions</li>
+                    </ul>
+
+                    <h4>Setup</h4>
+                    <pre><code># Download from cursor.com
+# Import VS Code settings automatically
+# Add your API keys in Settings > AI</code></pre>
+
+                    <h4>Pricing</h4>
+                    <p><strong>$20/month</strong> for Pro (vs $10 for VS Code + Copilot)</p>
+
+                    <div class="callout whale">
+                        <div class="callout-title">&#128161; Cursor + Claude Code</div>
+                        <p>You can run Claude Code in Cursor's terminal for the best of both worlds - Cursor's UI + Claude's agentic capabilities.</p>
+                    </div>
+                </div>
+
+                <h3 id="ide-windsurf">Windsurf</h3>
+                <div data-skill="intermediate">
+                    <p><strong>Windsurf</strong> positions itself as the first true agentic IDE with its Cascade AI agent.</p>
+
+                    <h4>Key Features</h4>
+                    <ul>
+                        <li><strong>Cascade</strong> - Multi-file reasoning, repo-scale comprehension</li>
+                        <li><strong>Memories</strong> - Learns your coding style and patterns</li>
+                        <li><strong>Turbo Mode</strong> - AI executes terminal commands autonomously</li>
+                        <li><strong>Image-to-Code</strong> - Drop Figma designs to generate components</li>
+                        <li><strong>MCP Integrations</strong> - GitHub, Slack, Stripe, Figma, databases</li>
+                    </ul>
+
+                    <h4>Setup</h4>
+                    <pre><code># Download from windsurf.com
+# Sign in with Google or GitHub
+# Enable Cascade in the sidebar</code></pre>
+
+                    <h4>Pricing</h4>
+                    <p><strong>$15/month</strong> - cheaper than Cursor with similar features</p>
+
+                    <h4>Supported Models</h4>
+                    <p>GPT-5.2-Codex, Claude Opus 4.5, Gemini models</p>
+                </div>
+
+                <h3 id="ide-zed">Zed</h3>
+                <div data-skill="intermediate">
+                    <p><strong>Zed</strong> is a next-generation editor built in Rust by the creators of Atom. It's the fastest AI code editor available.</p>
+
+                    <h4>Performance</h4>
+                    <ul>
+                        <li><strong>10x faster startup</strong> - 0.12s vs VS Code's 1.2s</li>
+                        <li><strong>5x less memory</strong> - 142MB vs 730MB</li>
+                        <li><strong>~120 FPS</strong> - GPU-accelerated rendering</li>
+                    </ul>
+
+                    <h4>AI Features</h4>
+                    <ul>
+                        <li><strong>Agent Panel</strong> - Agentic editing interface</li>
+                        <li><strong>Edit Predictions</strong> - Built-in LLM for suggestions</li>
+                        <li><strong>MCP Support</strong> - Connect external tools and memory</li>
+                        <li><strong>Local Models</strong> - Run Ollama models privately</li>
+                    </ul>
+
+                    <h4>Setup</h4>
+                    <pre><code># Download from zed.dev
+# Available on macOS, Linux, Windows
+# Sign in for AI features or use API keys</code></pre>
+
+                    <h4>Pricing</h4>
+                    <p><strong>Free</strong> (50 AI prompts/month) or <strong>$20/month Pro</strong> (500 prompts)</p>
+
+                    <div class="callout whale">
+                        <div class="callout-title">&#9889; Best For</div>
+                        <p>Developers who prioritize speed and want privacy-first AI with local model support.</p>
+                    </div>
+                </div>
+
+                <h3 id="ide-antigravity">Google Antigravity</h3>
+                <div data-skill="intermediate">
+                    <p><strong>Google Antigravity</strong> is Google's new AI-first IDE announced November 2025 alongside Gemini 3. It represents a paradigm shift to agent-first development.</p>
+
+                    <h4>Key Features</h4>
+                    <ul>
+                        <li><strong>Agent-First Design</strong> - AI agents operate autonomously, not just assisting</li>
+                        <li><strong>Editor View</strong> - Traditional IDE with agent sidebar</li>
+                        <li><strong>Manager View</strong> - Orchestrate multiple agents in parallel</li>
+                        <li><strong>Planning Mode</strong> - Generates thinking artifacts, task lists, intervention points</li>
+                        <li><strong>Fast Mode</strong> - Direct command execution for quick actions</li>
+                    </ul>
+
+                    <h4>Multi-Model Support</h4>
+                    <ul>
+                        <li>Gemini 3 Pro, Flash, Deep Think</li>
+                        <li>Claude Sonnet 4.5, Opus 4.5</li>
+                        <li>GPT-OSS-120B (open source)</li>
+                    </ul>
+
+                    <h4>Setup</h4>
+                    <pre><code># Download from antigravity.google
+# Sign in with Google account
+# Free during public preview</code></pre>
+
+                    <h4>Pricing (Current & Planned)</h4>
+                    <ul>
+                        <li><strong>Now:</strong> 100% free during public preview</li>
+                        <li><strong>Individual:</strong> Free with limited rate limits</li>
+                        <li><strong>Pro:</strong> ~$20/month (higher limits)</li>
+                        <li><strong>Enterprise:</strong> ~$40-60/user/month (SSO, admin controls)</li>
+                    </ul>
+
+                    <div class="callout warning">
+                        <div class="callout-title">&#9888;&#65039; Security Note</div>
+                        <p>A vulnerability was discovered in late November 2025 that could expose users to backdoor attacks. Google is actively working on a fix. Use with caution for sensitive codebases.</p>
+                    </div>
+                </div>
+
+                <h3 id="ide-jetbrains">JetBrains IDEs</h3>
+                <div data-skill="intermediate">
+                    <p><strong>JetBrains IDEs</strong> (IntelliJ IDEA, PyCharm, WebStorm, GoLand) remain the gold standard for deeply typed languages.</p>
+
+                    <h4>AI Assistant Features</h4>
+                    <ul>
+                        <li><strong>Code completion</strong> - Single lines and entire blocks</li>
+                        <li><strong>Next edit suggestions</strong> - Predicts your next changes</li>
+                        <li><strong>Agent mode chat</strong> - Multi-agent interface for complex tasks</li>
+                        <li><strong>Custom models</strong> - Connect your own API keys</li>
+                    </ul>
+
+                    <h4>2025.3 Updates</h4>
+                    <ul>
+                        <li><strong>Unified product</strong> - Community + Ultimate merged</li>
+                        <li><strong>Multi-agent experience</strong> - Switch agents from same chat</li>
+                        <li><strong>AI Credits tracking</strong> - Monitor usage in IDE</li>
+                    </ul>
+
+                    <h4>Best For</h4>
+                    <ul>
+                        <li>Java and Kotlin development</li>
+                        <li>Enterprise teams with existing JetBrains licenses</li>
+                        <li>Projects requiring deep language analysis</li>
+                    </ul>
+
+                    <h4>Using with Claude/Gemini</h4>
+                    <pre><code># Run Claude Code in JetBrains terminal
+# Terminal > New Terminal
+claude
+
+# Or use the AI Assistant plugin alongside CLI tools</code></pre>
+                </div>
+
+                <h3 id="ide-recommendation">Cover Whale Recommendation</h3>
+                <div data-skill="beginner">
+                    <div class="callout whale">
+                        <div class="callout-title">&#128011; Our Stack</div>
+                        <p>For most Cover Whale developers, we recommend:</p>
+                        <ol>
+                            <li><strong>VS Code</strong> or <strong>Cursor</strong> as your primary IDE</li>
+                            <li><strong>Claude Code</strong> in terminal for complex reasoning tasks</li>
+                            <li><strong>Gemini CLI</strong> for large codebase operations</li>
+                        </ol>
+                        <p>This combination gives you flexibility, proven stability, and access to the best AI capabilities for different task types.</p>
+                    </div>
+
+                    <h4>Quick Decision Guide</h4>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>If you want...</th>
+                                    <th>Choose</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Proven stability, maximum flexibility</td>
+                                    <td><strong>VS Code</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Deepest AI integration</td>
+                                    <td><strong>Cursor</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Agentic workflows, good value</td>
+                                    <td><strong>Windsurf</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Maximum performance, privacy</td>
+                                    <td><strong>Zed</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Google ecosystem, cutting edge</td>
+                                    <td><strong>Google Antigravity</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Java/Kotlin enterprise development</td>
+                                    <td><strong>JetBrains</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="search-modal">
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <span class="search-icon">&#128269;</span>
+                <input type="text" placeholder="Search documentation..." autofocus>
+            </div>
+            <div class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/copy-code.js"></script>
+    <script src="js/filter.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>

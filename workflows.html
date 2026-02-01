@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workflows | CW Vibe Code Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Auth Loading -->
+    <div id="auth-loading">
+        <div class="loading-content">
+            <h2>Verifying CoverWhale Credentials...</h2>
+            <div class="loading-spinner"></div>
+            <p>Accessing Vibe Coding Environment</p>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app-content" class="app-layout" style="display: none;">
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" aria-label="Toggle menu">&#9776;</button>
+
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay"></div>
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo">&#128011;</span>
+                <span class="brand">CW Vibe Code</span>
+            </div>
+
+            <div class="nav-section">
+                <a href="index.html" class="nav-link">
+                    <span class="nav-icon">&#127968;</span> Home
+                </a>
+                <a href="installation.html" class="nav-link">
+                    <span class="nav-icon">&#128230;</span> Installation
+                </a>
+                <a href="fundamentals.html" class="nav-link">
+                    <span class="nav-icon">&#129504;</span> Fundamentals
+                </a>
+                <a href="tips-tricks.html" class="nav-link">
+                    <span class="nav-icon">&#128161;</span> Tips & Tricks
+                </a>
+                <a href="use-cases.html" class="nav-link">
+                    <span class="nav-icon">&#128011;</span> Use Cases
+                </a>
+                <a href="workflows.html" class="nav-link active">
+                    <span class="nav-icon">&#128260;</span> Workflows
+                </a>
+                <a href="advanced.html" class="nav-link">
+                    <span class="nav-icon">&#127919;</span> Advanced
+                </a>
+                <a href="cheatsheet.html" class="nav-link">
+                    <span class="nav-icon">&#128203;</span> Cheatsheet
+                </a>
+            </div>
+
+            <div class="nav-footer">
+                <div class="user-info">
+                    <span class="user-email" id="user-email"></span>
+                    <button class="logout-btn" onclick="auth.logout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <button class="search-trigger" aria-label="Search documentation">
+                    <span class="search-icon">&#128269;</span>
+                    <span>Search docs...</span>
+                    <kbd>Ctrl+K</kbd>
+                </button>
+                <div class="top-bar-actions">
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <span class="theme-icon dark">&#127769;</span>
+                        <span class="theme-icon light">&#9728;&#65039;</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <h1>&#128260; Workflows</h1>
+                <p class="page-intro">Proven workflow patterns for effective AI-augmented development. From simple task loops to complex multi-agent orchestration.</p>
+
+                <!-- Skill Filter -->
+                <div class="skill-filter-bar">
+                    <span class="filter-label">Show:</span>
+                    <label class="filter-chip active">
+                        <input type="checkbox" checked data-level="beginner">
+                        <span class="chip beginner">Beginner</span>
+                    </label>
+                    <label class="filter-chip active">
+                        <input type="checkbox" checked data-level="intermediate">
+                        <span class="chip intermediate">Intermediate</span>
+                    </label>
+                    <label class="filter-chip active">
+                        <input type="checkbox" checked data-level="advanced">
+                        <span class="chip advanced">Advanced</span>
+                    </label>
+                </div>
+
+                <!-- Tool Tabs -->
+                <div class="tool-tabs">
+                    <button class="tab-btn active" data-tab="claude">
+                        <span class="tab-icon">&#129302;</span> Claude Code
+                    </button>
+                    <button class="tab-btn" data-tab="gemini">
+                        <span class="tab-icon">&#10024;</span> Gemini CLI
+                    </button>
+                    <button class="tab-btn" data-tab="combined">
+                        <span class="tab-icon">&#129309;</span> Combined
+                    </button>
+                </div>
+
+                <!-- Claude Code Tab -->
+                <div class="tab-content active" data-tab="claude">
+                    <h2 id="claude-explore-plan">Explore - Plan - Execute - Commit</h2>
+                    <div data-skill="beginner">
+                        <p>The fundamental Claude workflow for any development task.</p>
+
+                        <div class="card-grid">
+                            <div class="card">
+                                <h4>1. Explore</h4>
+                                <p>Understand the codebase and current state</p>
+                                <pre><code>/add relevant/files.ts
+"Explain how X works"</code></pre>
+                            </div>
+                            <div class="card">
+                                <h4>2. Plan</h4>
+                                <p>Design the solution before implementing</p>
+                                <pre><code># Enter plan mode
+(Shift+Tab)
+"Create a plan to..."</code></pre>
+                            </div>
+                            <div class="card">
+                                <h4>3. Execute</h4>
+                                <p>Implement the changes incrementally</p>
+                                <pre><code># Exit plan mode
+(Shift+Tab)
+"Execute step 1"</code></pre>
+                            </div>
+                            <div class="card">
+                                <h4>4. Commit</h4>
+                                <p>Review and commit changes</p>
+                                <pre><code>"Review changes and
+create a commit message"</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 id="claude-checklist">Checklist-Driven Development</h2>
+                    <div data-skill="intermediate">
+                        <p>Break complex tasks into explicit checklists for reliable execution.</p>
+
+                        <pre><code># Start with a checklist prompt
+"I need to add user authentication. Create a checklist:
+
+[ ] Create User model
+[ ] Add password hashing utility
+[ ] Create auth middleware
+[ ] Add login/logout routes
+[ ] Add session handling
+[ ] Create tests
+
+Execute each item one at a time. After completing each,
+show me the changes and mark it done. Wait for my approval
+before moving to the next item."</code></pre>
+
+                        <div class="callout claude">
+                            <div class="callout-title">&#9989; Checklist Benefits</div>
+                            <ul>
+                                <li>Clear progress tracking</li>
+                                <li>Easy to pause and resume</li>
+                                <li>Natural rollback points</li>
+                                <li>Prevents scope creep</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2 id="claude-review">Code Review Workflow</h2>
+                    <div data-skill="beginner">
+                        <pre><code># Option 1: Review staged changes
+"Review git diff --staged for:
+- Bugs
+- Security issues
+- Performance problems
+- Style violations"
+
+# Option 2: Review specific files
+/add src/new-feature.ts
+"Review this code thoroughly"
+
+# Option 3: Review a PR
+"Review the changes in PR #123"</code></pre>
+                    </div>
+
+                    <h2 id="claude-debug">Debugging Workflow</h2>
+                    <div data-skill="intermediate">
+                        <pre><code># Step 1: Share the problem
+"I'm seeing this error: [paste error]
+It happens when: [describe conditions]"
+
+# Step 2: Add relevant context
+/add suspected/file.ts
+/add related/file.ts
+
+# Step 3: Guided investigation
+"Walk me through possible causes.
+Don't fix anything yet, just analyze."
+
+# Step 4: Confirm and fix
+"Your theory about X seems right.
+Please implement the fix."
+
+# Step 5: Verify
+"Now run the tests to verify the fix"</code></pre>
+                    </div>
+
+                    <h2 id="claude-tdd">Test-Driven Development</h2>
+                    <div data-skill="intermediate">
+                        <pre><code># Step 1: Write tests first
+"I need a function that calculates compound interest.
+Write the tests first:
+- Basic calculation
+- Edge cases (zero principal, zero rate)
+- Large numbers
+- Negative values (should throw)
+
+Use Vitest syntax."
+
+# Step 2: Run tests (they should fail)
+"Run the tests to confirm they fail"
+
+# Step 3: Implement
+"Now implement the function to make all tests pass"
+
+# Step 4: Verify
+"Run tests again to confirm they pass"</code></pre>
+                    </div>
+                </div>
+
+                <!-- Gemini CLI Tab -->
+                <div class="tab-content" data-tab="gemini">
+                    <h2 id="gemini-investigate">Investigate - Todo - Execute - Verify</h2>
+                    <div data-skill="beginner">
+                        <p>Gemini's built-in workflow uses sub-agents for complex tasks.</p>
+
+                        <div class="card-grid">
+                            <div class="card">
+                                <h4>1. Investigate</h4>
+                                <p>codebase_investigator maps the terrain</p>
+                                <pre><code>"Investigate how
+auth works"</code></pre>
+                            </div>
+                            <div class="card">
+                                <h4>2. Todo</h4>
+                                <p>write_todos creates task list</p>
+                                <pre><code>"Create a todo list
+for adding OAuth"</code></pre>
+                            </div>
+                            <div class="card">
+                                <h4>3. Execute</h4>
+                                <p>Replace and run_shell_command</p>
+                                <pre><code>"Execute the todo
+list step by step"</code></pre>
+                            </div>
+                            <div class="card">
+                                <h4>4. Verify</h4>
+                                <p>Run tests and validate</p>
+                                <pre><code>"Run tests and
+verify changes"</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 id="gemini-session">Session-Based Development</h2>
+                    <div data-skill="intermediate">
+                        <p>Use Gemini's checkpointing for long-running tasks.</p>
+
+                        <pre><code># Start new feature session
+> /save feature-user-profile-start
+
+# Work on the feature
+> @src/models/user.ts "Add profile fields"
+> "Create profile API endpoints"
+> "Add validation"
+
+# Save progress checkpoint
+> /save feature-user-profile-v1
+
+# Next day, resume
+> /load feature-user-profile-v1
+> "Continue where we left off"
+
+# Save final version
+> /save feature-user-profile-complete</code></pre>
+
+                        <div class="callout gemini">
+                            <div class="callout-title">&#128190; Session Tips</div>
+                            <ul>
+                                <li>Save before risky operations</li>
+                                <li>Use descriptive session names</li>
+                                <li>Save at natural breakpoints</li>
+                                <li>Clean up old sessions periodically</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2 id="gemini-batch">Batch Processing Workflow</h2>
+                    <div data-skill="intermediate">
+                        <pre><code># Load all target files
+> @src/components/**/*.tsx
+
+# Define the batch operation
+"For each component file:
+1. Add PropTypes validation
+2. Add default props where missing
+3. Convert class components to functional
+
+Process one file at a time. Show changes before applying.
+Track progress and report: [x/total] completed"</code></pre>
+                    </div>
+
+                    <h2 id="gemini-migration">Migration Workflow</h2>
+                    <div data-skill="advanced">
+                        <pre><code># Step 1: Analyze current state
+> @**/*.ts
+"Identify all uses of the old API pattern:
+fetch('/api/...')"
+
+# Step 2: Create migration script
+"Generate a migration that:
+1. Finds all matching patterns
+2. Replaces with new httpClient calls
+3. Preserves error handling
+4. Adds type annotations"
+
+# Step 3: Execute with verification
+"Execute the migration. After each file:
+1. Run TypeScript compiler
+2. Run relevant tests
+Stop if any failures occur."
+
+# Step 4: Generate report
+"Generate migration report:
+- Files changed
+- Patterns replaced
+- Any manual fixes needed"</code></pre>
+                    </div>
+
+                    <h2 id="gemini-documentation">Documentation Workflow</h2>
+                    <div data-skill="beginner">
+                        <pre><code># Generate API documentation
+> @src/api/**/*.ts
+
+"For the entire API:
+1. Generate OpenAPI spec (openapi.yaml)
+2. Create README with overview
+3. Add example requests for each endpoint
+4. Document error responses
+
+Output to docs/ directory"
+
+# Review and refine
+"Review the generated docs and:
+1. Fix any inaccuracies
+2. Add diagrams where helpful
+3. Improve examples"</code></pre>
+                    </div>
+                </div>
+
+                <!-- Combined Tab -->
+                <div class="tab-content" data-tab="combined">
+                    <h2 id="combined-relay">The Relay Race</h2>
+                    <div data-skill="intermediate">
+                        <p>The ultimate workflow: combine strengths of both tools.</p>
+
+                        <div class="callout purple">
+                            <div class="callout-title">&#127942; The Handoff Protocol</div>
+                            <ol>
+                                <li><strong>Claude</strong> analyzes and creates a plan</li>
+                                <li><strong>Gemini</strong> executes the plan broadly</li>
+                                <li><strong>Claude</strong> reviews the results</li>
+                                <li>Repeat until complete</li>
+                            </ol>
+                        </div>
+
+                        <h3>Phase 1: Analysis (Claude)</h3>
+                        <pre><code># Claude analyzes the problem
+/add src/legacy/payment.ts
+
+"This legacy payment module needs modernization.
+Analyze and create a detailed plan in PLAN.md covering:
+1. Current architecture issues
+2. Proposed new structure
+3. Migration steps
+4. Risk assessment
+5. Rollback procedures"</code></pre>
+
+                        <h3>Phase 2: Execution (Gemini)</h3>
+                        <pre><code># Gemini executes the plan
+> @PLAN.md @src/legacy/payment.ts
+
+"Execute the plan steps 1-3:
+1. Create new module structure
+2. Migrate core functions
+3. Add new tests
+
+Update PLAN.md with progress after each step."</code></pre>
+
+                        <h3>Phase 3: Review (Claude)</h3>
+                        <pre><code># Claude reviews the changes
+/add PLAN.md
+"Show me git diff since last commit"
+
+"Review all changes against the original plan:
+1. Are the changes correct?
+2. Any missed edge cases?
+3. Test coverage adequate?
+4. Ready for step 4?"</code></pre>
+                    </div>
+
+                    <h2 id="combined-parallel">Parallel Instances</h2>
+                    <div data-skill="advanced">
+                        <pre><code># Setup: 4 terminal windows
+
+# Terminal 1: Claude (Research)
+claude
+"Focus on reading and analyzing code only"
+
+# Terminal 2: Claude (Implementation)
+claude
+"Focus on writing code based on plans"
+
+# Terminal 3: Gemini (Broad operations)
+gemini
+"Focus on large-scale changes"
+
+# Terminal 4: Gemini (Testing)
+gemini
+"Focus on running tests and validation"
+
+# Workflow:
+# 1. Research Claude investigates
+# 2. Writes findings to RESEARCH.md
+# 3. Implementation Claude creates plan
+# 4. Broad Gemini executes plan
+# 5. Testing Gemini validates changes
+# 6. Research Claude reviews results</code></pre>
+                    </div>
+
+                    <h2 id="combined-supervisor">The Supervisor Pattern</h2>
+                    <div data-skill="advanced">
+                        <p>Use a lightweight agent to maintain high-level progress tracking.</p>
+
+                        <pre><code># Supervisor (separate chat or window)
+# Maintains MASTER_TASKS.md with overall progress
+
+# Worker agents report to supervisor
+# After completing a task:
+
+# In Claude session:
+"Task complete. Update HANDOFF.md with:
+- What was done
+- Current state
+- Next recommended step"
+
+# Supervisor reviews HANDOFF.md and assigns next task
+# to appropriate worker (Claude or Gemini)</code></pre>
+
+                        <h3>Master Task File Structure</h3>
+                        <pre><code># MASTER_TASKS.md
+
+## Project: Payment System Modernization
+
+### Completed
+- [x] Analysis of legacy code (Claude, 2024-01-15)
+- [x] New module structure (Gemini, 2024-01-15)
+
+### In Progress
+- [ ] Migrate core functions (Gemini, started 2024-01-16)
+
+### Pending
+- [ ] Add comprehensive tests
+- [ ] Integration testing
+- [ ] Documentation update
+- [ ] Code review
+- [ ] Deployment plan
+
+### Blocked
+- [ ] External API integration (waiting on vendor docs)</code></pre>
+                    </div>
+
+                    <h2 id="combined-context">Context Handoff Protocol</h2>
+                    <div data-skill="intermediate">
+                        <pre><code># When switching from one agent to another:
+
+# Step 1: Commit current work
+> git commit -am "WIP: [current state]"
+
+# Step 2: Create handoff document
+# HANDOFF.md:
+---
+## Handoff: Claude -> Gemini
+Date: 2024-01-16
+
+### Current State
+- Refactored payment validation
+- Tests passing
+
+### Files Changed
+- src/payment/validate.ts
+- src/payment/validate.test.ts
+
+### Next Steps
+1. Apply same pattern to src/payment/process.ts
+2. Apply to src/payment/refund.ts
+3. Run full test suite
+
+### Context
+- Using zod for validation
+- Following existing error patterns
+---
+
+# Step 3: Start new agent with handoff
+> @HANDOFF.md "Continue from handoff"</code></pre>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="search-modal">
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <span class="search-icon">&#128269;</span>
+                <input type="text" placeholder="Search documentation..." autofocus>
+            </div>
+            <div class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/copy-code.js"></script>
+    <script src="js/filter.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>

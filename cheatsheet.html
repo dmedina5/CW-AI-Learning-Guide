@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheatsheet | CW Vibe Code Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Cheatsheet-specific styles */
+        .cheatsheet-intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .print-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--gradient-whale);
+            color: var(--text-inverse);
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: transform var(--transition-fast);
+        }
+
+        .print-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @media print {
+            .print-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Auth Loading -->
+    <div id="auth-loading">
+        <div class="loading-content">
+            <h2>Verifying CoverWhale Credentials...</h2>
+            <div class="loading-spinner"></div>
+            <p>Accessing Vibe Coding Environment</p>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app-content" class="app-layout" style="display: none;">
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" aria-label="Toggle menu">&#9776;</button>
+
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay"></div>
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo">&#128011;</span>
+                <span class="brand">CW Vibe Code</span>
+            </div>
+
+            <div class="nav-section">
+                <a href="index.html" class="nav-link">
+                    <span class="nav-icon">&#127968;</span> Home
+                </a>
+                <a href="installation.html" class="nav-link">
+                    <span class="nav-icon">&#128230;</span> Installation
+                </a>
+                <a href="fundamentals.html" class="nav-link">
+                    <span class="nav-icon">&#129504;</span> Fundamentals
+                </a>
+                <a href="tips-tricks.html" class="nav-link">
+                    <span class="nav-icon">&#128161;</span> Tips & Tricks
+                </a>
+                <a href="use-cases.html" class="nav-link">
+                    <span class="nav-icon">&#128011;</span> Use Cases
+                </a>
+                <a href="workflows.html" class="nav-link">
+                    <span class="nav-icon">&#128260;</span> Workflows
+                </a>
+                <a href="advanced.html" class="nav-link">
+                    <span class="nav-icon">&#127919;</span> Advanced
+                </a>
+                <a href="cheatsheet.html" class="nav-link active">
+                    <span class="nav-icon">&#128203;</span> Cheatsheet
+                </a>
+            </div>
+
+            <div class="nav-footer">
+                <div class="user-info">
+                    <span class="user-email" id="user-email"></span>
+                    <button class="logout-btn" onclick="auth.logout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <button class="search-trigger" aria-label="Search documentation">
+                    <span class="search-icon">&#128269;</span>
+                    <span>Search docs...</span>
+                    <kbd>Ctrl+K</kbd>
+                </button>
+                <div class="top-bar-actions">
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <span class="theme-icon dark">&#127769;</span>
+                        <span class="theme-icon light">&#9728;&#65039;</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <h1>&#128203; Quick Reference Cheatsheet</h1>
+                <div class="cheatsheet-intro">
+                    <p>Side-by-side comparison of Claude Code and Gemini CLI commands, shortcuts, and patterns.</p>
+                    <button class="print-btn" onclick="window.print()">
+                        &#128424; Print Cheatsheet
+                    </button>
+                </div>
+
+                <!-- Side-by-Side Comparison -->
+                <div class="comparison-grid">
+                    <!-- Claude Column -->
+                    <div class="comparison-column claude">
+                        <div class="comparison-header">
+                            <span class="icon">&#129302;</span>
+                            <h3>Claude Code</h3>
+                        </div>
+
+                        <h4>Installation</h4>
+                        <pre><code>npm i -g @anthropic-ai/claude-code
+claude</code></pre>
+
+                        <h4>Keyboard Shortcuts</h4>
+                        <div class="table-wrapper">
+                            <table>
+                                <tr>
+                                    <td><kbd>Escape</kbd></td>
+                                    <td>Stop action</td>
+                                </tr>
+                                <tr>
+                                    <td><kbd>Escape</kbd> x2</td>
+                                    <td>History</td>
+                                </tr>
+                                <tr>
+                                    <td><kbd>Shift+Tab</kbd></td>
+                                    <td>Plan mode</td>
+                                </tr>
+                                <tr>
+                                    <td><kbd>#</kbd></td>
+                                    <td>Update CLAUDE.md</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <h4>Essential Commands</h4>
+                        <pre><code>/add file.ts      # Add context
+/clear            # Clear context
+/compact          # Reduce context
+/reset            # Reset session
+/permissions      # View perms
+/sandbox on|off   # Toggle sandbox
+/help             # Show help</code></pre>
+
+                        <h4>File Patterns</h4>
+                        <pre><code>/add src/*.ts
+/add src/**/*.ts
+/add package.json</code></pre>
+
+                        <h4>Config File</h4>
+                        <pre><code># ./CLAUDE.md (project)
+# ~/.claude/CLAUDE.md (user)</code></pre>
+
+                        <h4>Flags</h4>
+                        <pre><code>claude -p "prompt"
+claude --add file.ts
+claude --dangerously-skip-permissions</code></pre>
+
+                        <h4>Custom Extensions</h4>
+                        <pre><code># Slash Commands
+~/.claude/commands/
+.claude/commands/
+
+# Skills (with tool restrictions)
+~/.claude/skills/skill-name/SKILL.md
+.claude/skills/skill-name/SKILL.md
+
+# SKILL.md frontmatter
+---
+name: skill-name
+description: When to use
+allowed-tools: Grep, Read
+user-invocable: true
+model: haiku
+---</code></pre>
+
+                        <h4>Context Limit</h4>
+                        <p><strong>200K tokens</strong></p>
+
+                        <h4>Best For</h4>
+                        <ul>
+                            <li>Deep reasoning</li>
+                            <li>Complex debugging</li>
+                            <li>Architecture design</li>
+                            <li>Code review</li>
+                        </ul>
+                    </div>
+
+                    <!-- Gemini Column -->
+                    <div class="comparison-column gemini">
+                        <div class="comparison-header">
+                            <span class="icon">&#10024;</span>
+                            <h3>Gemini CLI</h3>
+                        </div>
+
+                        <h4>Installation</h4>
+                        <pre><code>npm i -g @google/gemini-cli
+gemini auth login</code></pre>
+
+                        <h4>Keyboard Shortcuts</h4>
+                        <div class="table-wrapper">
+                            <table>
+                                <tr>
+                                    <td><kbd>@</kbd></td>
+                                    <td>File reference</td>
+                                </tr>
+                                <tr>
+                                    <td><kbd>Ctrl+C</kbd></td>
+                                    <td>Stop</td>
+                                </tr>
+                                <tr>
+                                    <td><kbd>Up/Down</kbd></td>
+                                    <td>History</td>
+                                </tr>
+                                <tr>
+                                    <td><kbd>Tab</kbd></td>
+                                    <td>Autocomplete</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <h4>Essential Commands</h4>
+                        <pre><code>/save name        # Save session
+/load name        # Load session
+/clear            # Clear context
+/tokens           # Show usage
+/model name       # Change model
+/config           # View settings
+/sessions         # List sessions</code></pre>
+
+                        <h4>File Patterns</h4>
+                        <pre><code>@src/*.ts
+@src/**/*.ts
+@package.json</code></pre>
+
+                        <h4>Config File</h4>
+                        <pre><code># ./GEMINI.md (project)
+# ~/.config/gemini/config.json</code></pre>
+
+                        <h4>Flags</h4>
+                        <pre><code>gemini "prompt"
+gemini --no-interactive
+gemini --format json</code></pre>
+
+                        <h4>Context Limit</h4>
+                        <p><strong>Up to 2M tokens</strong> (Gemini 3 Pro)</p>
+
+                        <h4>Best For</h4>
+                        <ul>
+                            <li>Large codebases</li>
+                            <li>Batch operations</li>
+                            <li>Cross-file search</li>
+                            <li>Documentation gen</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Common Patterns Section -->
+                <h2 id="common-patterns">&#128736; Common Patterns</h2>
+
+                <div class="comparison-grid">
+                    <div class="comparison-column claude">
+                        <h4>Add Files to Context</h4>
+                        <pre><code>/add src/app.ts
+"Read src/app.ts"</code></pre>
+
+                        <h4>Run Tests</h4>
+                        <pre><code>"Run the tests"
+"Run pnpm test"</code></pre>
+
+                        <h4>Review Code</h4>
+                        <pre><code>/add file.ts
+"Review this for bugs"</code></pre>
+
+                        <h4>Generate Tests</h4>
+                        <pre><code>/add src/utils.ts
+"Generate Vitest tests"</code></pre>
+
+                        <h4>Debug Issue</h4>
+                        <pre><code>"Error: [paste error]
+What's causing this?"</code></pre>
+
+                        <h4>Refactor</h4>
+                        <pre><code>/add old-code.ts
+"Refactor to use async/await"</code></pre>
+                    </div>
+
+                    <div class="comparison-column gemini">
+                        <h4>Add Files to Context</h4>
+                        <pre><code>@src/app.ts
+@src/app.ts "explain"</code></pre>
+
+                        <h4>Run Tests</h4>
+                        <pre><code>"Run the tests"
+"Execute: pnpm test"</code></pre>
+
+                        <h4>Review Code</h4>
+                        <pre><code>@file.ts
+"Review this for bugs"</code></pre>
+
+                        <h4>Generate Tests</h4>
+                        <pre><code>@src/utils.ts
+"Generate Vitest tests"</code></pre>
+
+                        <h4>Debug Issue</h4>
+                        <pre><code>"Error: [paste error]
+What's causing this?"</code></pre>
+
+                        <h4>Refactor</h4>
+                        <pre><code>@old-code.ts
+"Refactor to use async/await"</code></pre>
+                    </div>
+                </div>
+
+                <!-- Workflow Quick Reference -->
+                <h2 id="workflows-quick">&#128260; Workflow Quick Reference</h2>
+
+                <div class="comparison-grid">
+                    <div class="comparison-column claude">
+                        <h4>Standard Workflow</h4>
+                        <ol>
+                            <li>Explore: <code>/add files</code></li>
+                            <li>Plan: <code>Shift+Tab</code></li>
+                            <li>Execute: <code>Shift+Tab</code></li>
+                            <li>Commit: Review + commit</li>
+                        </ol>
+
+                        <h4>Reset When Confused</h4>
+                        <pre><code>/reset   # Full reset
+/compact # Summarize context</code></pre>
+
+                        <h4>Danger Mode Alias</h4>
+                        <pre><code>alias cc='claude --dangerously-skip-permissions'</code></pre>
+                    </div>
+
+                    <div class="comparison-column gemini">
+                        <h4>Standard Workflow</h4>
+                        <ol>
+                            <li>Load: <code>@files</code></li>
+                            <li>Investigate: Auto sub-agent</li>
+                            <li>Execute: Auto todo list</li>
+                            <li>Verify: Run tests</li>
+                        </ol>
+
+                        <h4>Session Management</h4>
+                        <pre><code>/save name  # Checkpoint
+/load name  # Resume</code></pre>
+
+                        <h4>Memory</h4>
+                        <pre><code>"Remember: I use 2-space indent"</code></pre>
+                    </div>
+                </div>
+
+                <!-- Decision Guide -->
+                <h2 id="decision-guide">&#129300; When to Use Which?</h2>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Best Tool</th>
+                                <th>Why</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Complex debugging</td>
+                                <td><span class="badge claude">Claude</span></td>
+                                <td>Deep reasoning</td>
+                            </tr>
+                            <tr>
+                                <td>Architecture design</td>
+                                <td><span class="badge claude">Claude</span></td>
+                                <td>Nuanced tradeoffs</td>
+                            </tr>
+                            <tr>
+                                <td>Code review</td>
+                                <td><span class="badge claude">Claude</span></td>
+                                <td>Careful analysis</td>
+                            </tr>
+                            <tr>
+                                <td>Large refactoring</td>
+                                <td><span class="badge gemini">Gemini</span></td>
+                                <td>1M token context</td>
+                            </tr>
+                            <tr>
+                                <td>Codebase search</td>
+                                <td><span class="badge gemini">Gemini</span></td>
+                                <td>Broad coverage</td>
+                            </tr>
+                            <tr>
+                                <td>Batch documentation</td>
+                                <td><span class="badge gemini">Gemini</span></td>
+                                <td>Many files at once</td>
+                            </tr>
+                            <tr>
+                                <td>Major feature</td>
+                                <td><span class="badge primary">Both</span></td>
+                                <td>Plan + Execute</td>
+                            </tr>
+                            <tr>
+                                <td>Migration project</td>
+                                <td><span class="badge primary">Both</span></td>
+                                <td>Relay race pattern</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Quick Tips -->
+                <h2 id="quick-tips">&#9889; Quick Tips</h2>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>&#128161; Escape, Not Ctrl+C</h4>
+                        <p>In Claude, always use <kbd>Escape</kbd> to stop. <kbd>Ctrl+C</kbd> kills the process.</p>
+                    </div>
+                    <div class="card">
+                        <h4>&#128190; Save Before Risky Ops</h4>
+                        <p>In Gemini, <code>/save checkpoint</code> before major changes.</p>
+                    </div>
+                    <div class="card">
+                        <h4>&#128203; Config File is Key</h4>
+                        <p>Keep CLAUDE.md / GEMINI.md updated for best results.</p>
+                    </div>
+                    <div class="card">
+                        <h4>&#128260; Reset at 20 Turns</h4>
+                        <p>Claude quality degrades after ~20 turns. Use <code>/reset</code>.</p>
+                    </div>
+                    <div class="card">
+                        <h4>&#127919; @ for Files in Gemini</h4>
+                        <p>Use <code>@file.ts</code> syntax for fastest file loading.</p>
+                    </div>
+                    <div class="card">
+                        <h4>&#129504; Plan Mode First</h4>
+                        <p>For complex tasks, start in plan mode (Shift+Tab in Claude).</p>
+                    </div>
+                </div>
+
+                <!-- Environment Variables -->
+                <h2 id="env-vars">&#128273; Environment Variables</h2>
+
+                <div class="comparison-grid">
+                    <div class="comparison-column claude">
+                        <pre><code># API Key
+ANTHROPIC_API_KEY=sk-ant-...
+
+# Optional
+CLAUDE_LOG_FILE=~/.claude/log
+CLAUDE_CONFIG_DIR=~/.claude</code></pre>
+                    </div>
+
+                    <div class="comparison-column gemini">
+                        <pre><code># API Key (if not using OAuth)
+GOOGLE_API_KEY=...
+
+# Optional
+GEMINI_LOG_FILE=~/.config/gemini/log
+GEMINI_CONFIG_DIR=~/.config/gemini</code></pre>
+                    </div>
+                </div>
+
+                <!-- IDE Quick Reference -->
+                <h2 id="ide-reference">&#128187; IDE Quick Reference</h2>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>IDE</th>
+                                <th>AI Style</th>
+                                <th>Price</th>
+                                <th>Best For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>VS Code</strong></td>
+                                <td>Plugin-based (Copilot, etc.)</td>
+                                <td>Free + $10/mo</td>
+                                <td>Flexibility, stability</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cursor</strong></td>
+                                <td>AI-native (Composer)</td>
+                                <td>$20/month</td>
+                                <td>AI maximalists</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Windsurf</strong></td>
+                                <td>Agentic (Cascade)</td>
+                                <td>$15/month</td>
+                                <td>Agentic workflows</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Zed</strong></td>
+                                <td>Agent panel + MCP</td>
+                                <td>Free / $20/mo</td>
+                                <td>Performance, privacy</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Antigravity</strong></td>
+                                <td>Gemini 3 native</td>
+                                <td>Free (preview)</td>
+                                <td>Google ecosystem</td>
+                            </tr>
+                            <tr>
+                                <td><strong>JetBrains</strong></td>
+                                <td>AI Assistant</td>
+                                <td>$16.90/mo+</td>
+                                <td>Java, Kotlin, enterprise</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>IDE + CLI Pairings</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>&#128640; Recommended</h4>
+                        <p><strong>VS Code/Cursor</strong> + Claude Code + Gemini CLI</p>
+                        <p>Flexibility + deep reasoning + large context</p>
+                    </div>
+                    <div class="card">
+                        <h4>&#9889; Performance</h4>
+                        <p><strong>Zed</strong> + Claude Code + Gemini CLI</p>
+                        <p>Speed + CLI agents in external terminal</p>
+                    </div>
+                    <div class="card">
+                        <h4>&#127968; Google Stack</h4>
+                        <p><strong>Antigravity</strong> (has Gemini 3 built-in)</p>
+                        <p>Add Claude Code for alternative reasoning</p>
+                    </div>
+                    <div class="card">
+                        <h4>&#127959; Enterprise Java</h4>
+                        <p><strong>IntelliJ IDEA</strong> + CLI agents in terminal</p>
+                        <p>Deep language support + AI augmentation</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="search-modal">
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <span class="search-icon">&#128269;</span>
+                <input type="text" placeholder="Search documentation..." autofocus>
+            </div>
+            <div class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/copy-code.js"></script>
+    <script src="js/filter.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>

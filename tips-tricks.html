@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tips & Tricks | CW Vibe Code Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Auth Loading -->
+    <div id="auth-loading">
+        <div class="loading-content">
+            <h2>Verifying CoverWhale Credentials...</h2>
+            <div class="loading-spinner"></div>
+            <p>Accessing Vibe Coding Environment</p>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app-content" class="app-layout" style="display: none;">
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" aria-label="Toggle menu">&#9776;</button>
+
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay"></div>
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo">&#128011;</span>
+                <span class="brand">CW Vibe Code</span>
+            </div>
+
+            <div class="nav-section">
+                <a href="index.html" class="nav-link">
+                    <span class="nav-icon">&#127968;</span> Home
+                </a>
+                <a href="installation.html" class="nav-link">
+                    <span class="nav-icon">&#128230;</span> Installation
+                </a>
+                <a href="fundamentals.html" class="nav-link">
+                    <span class="nav-icon">&#129504;</span> Fundamentals
+                </a>
+                <a href="tips-tricks.html" class="nav-link active">
+                    <span class="nav-icon">&#128161;</span> Tips & Tricks
+                </a>
+                <a href="use-cases.html" class="nav-link">
+                    <span class="nav-icon">&#128011;</span> Use Cases
+                </a>
+                <a href="workflows.html" class="nav-link">
+                    <span class="nav-icon">&#128260;</span> Workflows
+                </a>
+                <a href="advanced.html" class="nav-link">
+                    <span class="nav-icon">&#127919;</span> Advanced
+                </a>
+                <a href="cheatsheet.html" class="nav-link">
+                    <span class="nav-icon">&#128203;</span> Cheatsheet
+                </a>
+            </div>
+
+            <div class="nav-footer">
+                <div class="user-info">
+                    <span class="user-email" id="user-email"></span>
+                    <button class="logout-btn" onclick="auth.logout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <button class="search-trigger" aria-label="Search documentation">
+                    <span class="search-icon">&#128269;</span>
+                    <span>Search docs...</span>
+                    <kbd>Ctrl+K</kbd>
+                </button>
+                <div class="top-bar-actions">
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <span class="theme-icon dark">&#127769;</span>
+                        <span class="theme-icon light">&#9728;&#65039;</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <h1>&#128161; Tips & Tricks</h1>
+                <p class="page-intro">Power-user techniques and shortcuts to maximize your productivity with Claude Code and Gemini CLI.</p>
+
+                <!-- Skill Filter -->
+                <div class="skill-filter-bar">
+                    <span class="filter-label">Show:</span>
+                    <label class="filter-chip active">
+                        <input type="checkbox" checked data-level="beginner">
+                        <span class="chip beginner">Beginner</span>
+                    </label>
+                    <label class="filter-chip active">
+                        <input type="checkbox" checked data-level="intermediate">
+                        <span class="chip intermediate">Intermediate</span>
+                    </label>
+                    <label class="filter-chip active">
+                        <input type="checkbox" checked data-level="advanced">
+                        <span class="chip advanced">Advanced</span>
+                    </label>
+                </div>
+
+                <!-- Tool Tabs -->
+                <div class="tool-tabs">
+                    <button class="tab-btn active" data-tab="claude">
+                        <span class="tab-icon">&#129302;</span> Claude Code
+                    </button>
+                    <button class="tab-btn" data-tab="gemini">
+                        <span class="tab-icon">&#10024;</span> Gemini CLI
+                    </button>
+                </div>
+
+                <!-- Claude Code Tab -->
+                <div class="tab-content active" data-tab="claude">
+                    <h2 id="claude-keyboard">Keyboard Shortcuts</h2>
+                    <div data-skill="beginner">
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Shortcut</th>
+                                        <th>Action</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><kbd>Escape</kbd></td>
+                                        <td>Stop current action</td>
+                                        <td>Use this, NOT Ctrl+C</td>
+                                    </tr>
+                                    <tr>
+                                        <td><kbd>Escape</kbd> x2</td>
+                                        <td>Message history</td>
+                                        <td>Browse previous messages</td>
+                                    </tr>
+                                    <tr>
+                                        <td><kbd>Shift+Tab</kbd></td>
+                                        <td>Toggle plan mode</td>
+                                        <td>Think before executing</td>
+                                    </tr>
+                                    <tr>
+                                        <td><kbd>#</kbd></td>
+                                        <td>Update CLAUDE.md</td>
+                                        <td>Quick context update</td>
+                                    </tr>
+                                    <tr>
+                                        <td><kbd>Tab</kbd></td>
+                                        <td>Accept suggestion</td>
+                                        <td>In multi-line input</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="callout warning">
+                            <div class="callout-title">&#9888;&#65039; Escape, Not Ctrl+C</div>
+                            <p>Always use <kbd>Escape</kbd> to stop Claude, not <kbd>Ctrl+C</kbd>. Ctrl+C terminates the entire process, while Escape gracefully interrupts the current operation.</p>
+                        </div>
+                    </div>
+
+                    <h2 id="claude-commands">Essential Commands</h2>
+                    <div data-skill="beginner">
+                        <h3>Context Management</h3>
+                        <pre><code># Add file to context
+/add src/components/Button.tsx
+
+# Add multiple files
+/add src/**/*.ts
+
+# Clear context and start fresh
+/clear
+
+# Compact context (summarize and reduce)
+/compact
+
+# Reset session
+/reset</code></pre>
+
+                        <h3>Mode Commands</h3>
+                        <pre><code># View/change permissions
+/permissions
+
+# Toggle sandbox mode
+/sandbox on
+/sandbox off
+
+# Enter plan mode (also Shift+Tab)
+/plan
+
+# View help
+/help</code></pre>
+                    </div>
+
+                    <h2 id="claude-workflows">Quick Workflows</h2>
+                    <div data-skill="intermediate">
+                        <h3>The Hash Key Trick</h3>
+                        <p>Press <kbd>#</kbd> to quickly add notes to your CLAUDE.md without leaving the conversation:</p>
+                        <pre><code># Type # then your note
+# "Remember: use camelCase for variables in this project"
+
+# Claude adds it to CLAUDE.md automatically</code></pre>
+
+                        <h3>Plan Mode Pattern</h3>
+                        <pre><code># 1. Enter plan mode
+> (press Shift+Tab)
+
+# 2. Describe what you want
+> "I need to refactor the auth module to use JWT"
+
+# 3. Claude creates a plan without executing
+
+# 4. Review and approve/modify
+
+# 5. Exit plan mode to execute
+> (press Shift+Tab again)</code></pre>
+                    </div>
+
+                    <div data-skill="advanced">
+                        <h3>Multi-Instance Setup</h3>
+                        <pre><code># Terminal 1: Research agent
+claude "Focus on reading and understanding code only"
+
+# Terminal 2: Implementation agent
+claude "Focus on writing code based on plans"
+
+# Share context via files
+# Research agent writes PLAN.md
+# Implementation agent reads PLAN.md</code></pre>
+
+                        <h3>Git Integration</h3>
+                        <pre><code># Review changes before committing
+> "Show me a summary of all changes since last commit"
+
+# Generate commit message
+> "Generate a conventional commit message for these changes"
+
+# Create PR description
+> "Create a PR description with summary and test plan"</code></pre>
+                    </div>
+
+                    <h2 id="claude-skills-tips">Creating Custom Skills</h2>
+                    <div data-skill="intermediate">
+                        <h3>Quick Skill Setup</h3>
+                        <pre><code># Create a skill directory
+mkdir -p .claude/skills/my-skill
+
+# Create SKILL.md with frontmatter
+cat > .claude/skills/my-skill/SKILL.md << 'EOF'
+---
+name: my-skill
+description: Brief description for auto-invocation
+allowed-tools: Grep, Read, Glob
+user-invocable: true
+model: haiku
+---
+
+# My Custom Skill
+
+Instructions for what the skill should do...
+
+## Usage
+/my-skill [arguments]
+EOF
+
+# Now use it!
+/my-skill</code></pre>
+
+                        <h3>Skill Frontmatter Cheatsheet</h3>
+                        <pre><code>---
+name: skill-name          # Required: invoked as /skill-name
+description: ...          # Required: helps auto-invocation
+allowed-tools: A, B, C    # Optional: restrict tools
+user-invocable: true      # Optional: allow /skill-name
+model: haiku|sonnet|opus  # Optional: override model
+---</code></pre>
+                    </div>
+
+                    <div data-skill="advanced">
+                        <h3>Real-World Skill Example</h3>
+                        <pre><code># .claude/skills/cw-search/SKILL.md
+---
+name: cw-search
+description: Search Cover Whale knowledge base and codebase
+allowed-tools: Grep, Read, Glob
+user-invocable: true
+model: haiku
+---
+
+# Cover Whale Search Skill
+
+## Search Strategy
+1. Use Grep with files_with_matches first
+2. Prioritize documentation/ and knowledge-base/
+3. Read only top 2-3 relevant files
+4. Return file:line references
+
+## Response Format
+- Direct answer first
+- Source file references
+- Offer to read more if needed
+
+# Usage examples:
+# /cw-search billing process
+# /cw-search kubernetes setup</code></pre>
+
+                        <div class="callout claude">
+                            <div class="callout-title">&#128161; Skill Tips</div>
+                            <ul>
+                                <li>Use <code>model: haiku</code> for search/lookup (fast & cheap)</li>
+                                <li>Use <code>model: sonnet</code> for code generation</li>
+                                <li>Restrict tools to minimize risk and tokens</li>
+                                <li>Put team skills in <code>.claude/skills/</code> (git-tracked)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2 id="claude-prompts">Powerful Prompts</h2>
+                    <div data-skill="intermediate">
+                        <h3>Code Review</h3>
+                        <pre><code>"Review the changes in this file for:
+1. Potential bugs
+2. Performance issues
+3. Security vulnerabilities
+4. Code style violations
+Be specific and suggest fixes."</code></pre>
+
+                        <h3>Debugging</h3>
+                        <pre><code>"This function returns undefined sometimes.
+Here's the code: [paste or /add file]
+Here's the error: [paste error]
+Walk me through possible causes step by step."</code></pre>
+
+                        <h3>Refactoring</h3>
+                        <pre><code>"Refactor this function to:
+1. Use async/await instead of callbacks
+2. Add proper error handling
+3. Add TypeScript types
+4. Keep the same external interface
+
+Show me the changes before applying."</code></pre>
+                    </div>
+                </div>
+
+                <!-- Gemini CLI Tab -->
+                <div class="tab-content" data-tab="gemini">
+                    <h2 id="gemini-keyboard">Keyboard Shortcuts</h2>
+                    <div data-skill="beginner">
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Shortcut</th>
+                                        <th>Action</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><kbd>@</kbd></td>
+                                        <td>File reference</td>
+                                        <td>Add file to context</td>
+                                    </tr>
+                                    <tr>
+                                        <td><kbd>Ctrl+C</kbd></td>
+                                        <td>Stop generation</td>
+                                        <td>Interrupt current output</td>
+                                    </tr>
+                                    <tr>
+                                        <td><kbd>Up/Down</kbd></td>
+                                        <td>History navigation</td>
+                                        <td>Browse previous prompts</td>
+                                    </tr>
+                                    <tr>
+                                        <td><kbd>Tab</kbd></td>
+                                        <td>Autocomplete</td>
+                                        <td>File paths after @</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <h2 id="gemini-at-symbol">The @ Symbol</h2>
+                    <div data-skill="beginner">
+                        <p>The <code>@</code> symbol is Gemini's file reference syntax. It's faster than explicitly asking to read files.</p>
+
+                        <pre><code># Reference single file
+> @src/app.ts "What does this file do?"
+
+# Reference multiple files
+> @src/auth/*.ts "How does authentication work?"
+
+# Reference with glob patterns
+> @packages/**/index.ts "List all package entry points"
+
+# Reference in context
+> @package.json @tsconfig.json "Are these configurations aligned?"</code></pre>
+
+                        <div class="callout gemini">
+                            <div class="callout-title">&#128161; @ Tip</div>
+                            <p>Use <kbd>Tab</kbd> after <code>@</code> to autocomplete file paths. Gemini indexes your project for fast suggestions.</p>
+                        </div>
+                    </div>
+
+                    <h2 id="gemini-commands">Essential Commands</h2>
+                    <div data-skill="beginner">
+                        <h3>Session Management</h3>
+                        <pre><code># Save current session
+/save my-feature-session
+
+# Load saved session
+/load my-feature-session
+
+# List saved sessions
+/sessions
+
+# Clear current context
+/clear
+
+# Show token usage
+/tokens</code></pre>
+
+                        <h3>Configuration</h3>
+                        <pre><code># Change model
+/model gemini-2.0-pro
+
+# Toggle sandbox mode
+/sandbox
+
+# View current settings
+/config</code></pre>
+                    </div>
+
+                    <h2 id="gemini-checkpoints">Checkpointing</h2>
+                    <div data-skill="intermediate">
+                        <p>Gemini's checkpoint system lets you save and resume sessions, which is invaluable for long-running tasks.</p>
+
+                        <pre><code># Save checkpoint before risky operation
+> /save before-refactor
+
+# Do some work...
+
+# If things go wrong, restore
+> /load before-refactor
+
+# Save final state
+> /save after-refactor-complete</code></pre>
+
+                        <h3>Checkpoint Naming Convention</h3>
+                        <pre><code># Use descriptive names
+/save 2024-01-15-auth-migration-step1
+/save feature-user-profile-wip
+/save bugfix-login-investigation</code></pre>
+                    </div>
+
+                    <h2 id="gemini-memory">Memory Management</h2>
+                    <div data-skill="intermediate">
+                        <h3>Saving Preferences</h3>
+                        <pre><code># Save coding style
+> "Remember: I use 2-space indentation, single quotes, and semicolons"
+
+# Save project context
+> "Remember: This project uses pnpm and Vitest"
+
+# Save workflow preferences
+> "Remember: Always run tests before suggesting commits"</code></pre>
+
+                        <h3>Querying Memory</h3>
+                        <pre><code># What do you know?
+> "What do you remember about my preferences?"
+
+# Specific query
+> "What indentation style do I use?"</code></pre>
+                    </div>
+
+                    <h2 id="gemini-token-caching">Token Caching</h2>
+                    <div data-skill="advanced">
+                        <p>Gemini 3 features improved token caching for repeated contexts, making subsequent queries faster and cheaper. With the 2M token context of Gemini 3 Pro, caching becomes even more valuable.</p>
+
+                        <pre><code># First query loads files (slower, uses more tokens)
+> @src/**/*.ts "Explain the architecture"
+
+# Subsequent queries reuse cached context (faster)
+> "Now, what about error handling?"
+> "And how is logging implemented?"
+
+# Check token usage
+> /tokens</code></pre>
+
+                        <div class="callout gemini">
+                            <div class="callout-title">&#128176; Cost Optimization</div>
+                            <p>Load large contexts once at the start of a session, then ask multiple questions. Cached tokens are significantly cheaper.</p>
+                        </div>
+                    </div>
+
+                    <h2 id="gemini-headless">Headless Mode</h2>
+                    <div data-skill="advanced">
+                        <p>Run Gemini without interactive mode for automation:</p>
+
+                        <pre><code># Single query
+gemini "Explain the main function in @src/index.ts"
+
+# With file output
+gemini "Generate tests for @src/utils.ts" > tests.ts
+
+# In scripts
+#!/bin/bash
+gemini "Review @$1 for security issues" | tee review.md</code></pre>
+
+                        <h3>CI/CD Integration</h3>
+                        <pre><code># In GitHub Actions
+- name: AI Code Review
+  run: |
+    gemini "Review the changes in this PR for issues" \
+      --diff "${{ github.event.pull_request.diff_url }}"</code></pre>
+                    </div>
+
+                    <h2 id="gemini-prompts">Powerful Prompts</h2>
+                    <div data-skill="intermediate">
+                        <h3>Large Codebase Analysis</h3>
+                        <pre><code>"@src/**/*.ts
+Analyze this entire codebase and:
+1. Identify the main architectural patterns
+2. List all external dependencies
+3. Find potential code duplication
+4. Suggest consolidation opportunities"</code></pre>
+
+                        <h3>Batch Operations</h3>
+                        <pre><code>"@src/components/**/*.tsx
+For each component file:
+1. Add JSDoc comments to exported functions
+2. Add prop type documentation
+3. Do NOT change any logic
+
+Show me the changes for review first."</code></pre>
+
+                        <h3>Cross-File Search</h3>
+                        <pre><code>"@**/*.ts
+Find all instances of:
+1. Direct database queries (not using the ORM)
+2. Hardcoded API endpoints
+3. Console.log statements
+
+List file:line for each occurrence."</code></pre>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="search-modal">
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <span class="search-icon">&#128269;</span>
+                <input type="text" placeholder="Search documentation..." autofocus>
+            </div>
+            <div class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/copy-code.js"></script>
+    <script src="js/filter.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>

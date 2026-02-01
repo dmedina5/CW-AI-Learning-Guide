@@ -1,92 +1,130 @@
-# Cover Whale Claude Code Guide
+# Cover Whale Vibe Code Guide
 
-🐋 **Internal Documentation for Claude Code at Cover Whale**
+**Internal Documentation for AI-Augmented Development at Cover Whale**
 
-A comprehensive guide to mastering Claude Code for Cover Whale team members. From first-time setup to advanced automation workflows—everything you need to supercharge your productivity with AI-assisted development.
+A comprehensive multi-page guide to mastering Claude Code and Gemini CLI for Cover Whale team members. From first-time setup to advanced multi-agent workflows - everything you need to supercharge your productivity with AI-assisted development.
 
-## 🌐 Live Guide
+## Live Guide
 
-Visit the guide at: **[https://dmedina5.github.io/CW-Claude-Code-Guide/](https://dmedina5.github.io/CW-Claude-Code-Guide/)**
+Visit the guide at: **[https://dmedina5.github.io/CW-Vibe-Code-Guide/](https://dmedina5.github.io/CW-Vibe-Code-Guide/)**
 
-## 🔐 Authentication
+## Authentication
 
 This guide is **restricted to CoverWhale team members only**. Authentication is enforced via Google OAuth:
 
-- ✅ Only `@coverwhale.com` email addresses can access
-- 🔒 Authentication backend: [https://coverwhale-auth.vercel.app](https://coverwhale-auth.vercel.app)
-- 🚀 Automatic redirect to Google sign-in for unauthorized users
+- Only `@coverwhale.com` email addresses can access
+- Authentication backend: [https://coverwhale-auth.vercel.app](https://coverwhale-auth.vercel.app)
+- Automatic redirect to Google sign-in for unauthorized users
 
-## 📚 What's Inside
+## Features
 
-- **Quick Start Guide** - For new users getting started with Claude Code
-- **Mental Model** - Understanding how Claude Code really works
-- **Foundational Setup** - CLAUDE.md, slash commands, context hygiene
-- **Claude-Specific Tips** - Prompt patterns and best practices
-- **Cover Whale Use Cases** - Insurance-specific workflows and examples
-- **Common Failure Modes** - What goes wrong and how to fix it
-- **Workflow Frameworks** - Advanced patterns for maximum productivity
-- **Advanced Techniques** - Headless automation, MCP, parallel instances
+- **Multi-Page Navigation** - Organized sections for easy learning
+- **Claude/Gemini Tabs** - Side-by-side content for both tools
+- **Copy Code Buttons** - One-click copy on all code blocks
+- **Skill Level Filters** - Show/hide Beginner, Intermediate, Advanced content
+- **Dark/Light Mode** - Theme toggle with persistence
+- **Ctrl+K Search** - Quick search across all documentation
+- **Responsive Design** - Works on desktop and mobile
+- **Print-Friendly Cheatsheet** - For quick reference
 
-## 🛠️ Tech Stack
+## What's Inside
+
+| Page | Description |
+|------|-------------|
+| **Home** | Overview, tool comparison, quick links |
+| **Installation** | Setup guides for Claude Code and Gemini CLI |
+| **Fundamentals** | Mental models, context management, CLAUDE.md/GEMINI.md |
+| **Tips & Tricks** | Keyboard shortcuts, commands, power-user techniques |
+| **Use Cases** | Cover Whale-specific workflows and examples |
+| **Workflows** | Proven patterns: Explore-Plan-Execute, Relay Race |
+| **Advanced** | Headless mode, MCP, Docker, automation pipelines |
+| **Cheatsheet** | Side-by-side quick reference (printable) |
+
+## Tech Stack
 
 - **Authentication**: Custom Google OAuth with CoverWhale domain restriction
 - **Hosting**: GitHub Pages
-- **Design**: Custom CSS with Cover Whale branding
-- **Source**: Adapted from "Mastering Claude Code" by Devansh
+- **Design**: Custom CSS with lighter purple palette for readability
+- **JavaScript**: Modular ES6 for tabs, search, copy, themes, filters
 
-## 📝 Attribution
+## Repository Structure
 
-This guide is adapted from the original "Mastering Claude Code" by [Devansh](https://artificialintelligencemadesimple.substack.com/) (Chocolate Milk Cult Newsletter), enhanced and customized for Cover Whale's team with:
+```
+CW-Vibe-Code-Guide/
+├── index.html              # Landing page
+├── installation.html       # Installation guide
+├── fundamentals.html       # Mental model, context, setup
+├── tips-tricks.html        # Tool-specific tips
+├── use-cases.html          # Cover Whale use cases
+├── workflows.html          # Workflow frameworks
+├── advanced.html           # Advanced techniques
+├── cheatsheet.html         # Quick reference
+├── css/
+│   └── styles.css          # Shared styles
+├── js/
+│   ├── auth.js             # Authentication
+│   ├── tabs.js             # Tab switching
+│   ├── nav.js              # Navigation
+│   ├── copy-code.js        # Copy functionality
+│   ├── theme.js            # Dark/light mode
+│   ├── filter.js           # Skill level filtering
+│   └── search.js           # Ctrl+K search
+├── .nojekyll               # Disable Jekyll processing
+└── README.md               # This file
+```
 
-- Additional beginner content and installation guides
-- Cover Whale-specific use cases and examples
-- Internal branding and styling
-- Authentication for internal access only
-
-## 🚀 Local Development
+## Local Development
 
 To run locally:
 
 ```bash
 # Clone the repository
-git clone git@github.com:dmedina5/CW-Claude-Code-Guide.git
-cd CW-Claude-Code-Guide
+git clone git@github.com:dmedina5/CW-Vibe-Code-Guide.git
+cd CW-Vibe-Code-Guide
+
+# Start local server
+python -m http.server 8000
 
 # Open in browser
-open index.html
-# or
-python3 -m http.server 8000
+open http://localhost:8000
 ```
 
 **Note**: Authentication will work on GitHub Pages but not on localhost (unless you update the auth.js redirect URI).
 
-## 📄 Repository Structure
+## Verification Checklist
 
-```
-CW-Claude-Code-Guide/
-├── index.html          # Main guide HTML with authentication
-├── auth.js             # Google OAuth authentication logic
-└── README.md           # This file
-```
+After making changes, verify:
 
-## 🔧 Maintenance
+- [ ] All pages load without JavaScript errors
+- [ ] Tab switching works on all pages
+- [ ] Copy buttons copy correct content
+- [ ] Skill filters show/hide content properly
+- [ ] Dark/light mode persists across pages
+- [ ] Search finds content across all pages
+- [ ] Navigation highlights current page
+- [ ] Mobile responsive (test at 375px, 768px)
+- [ ] Authentication works after deployment
+
+## Maintenance
 
 - **Owner**: Daniel Medina (daniel.medina@coverwhale.com)
 - **Last Updated**: January 2026
 - **Updates**: Pull requests welcome from CoverWhale team members
 
-## 📞 Support
+## Support
 
 - **Questions about Claude Code?** Reach out to IT Support or your team lead
+- **Questions about Gemini CLI?** Check the official Google docs or ask the team
 - **Feedback on this guide?** Contact the Core Systems team
 - **Authentication issues?** Email daniel.medina@coverwhale.com
 
-## 📖 Additional Resources
+## Additional Resources
 
 - [Official Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
+- [Gemini CLI Documentation](https://ai.google.dev/gemini-cli)
 - [Claude.ai Help Center](https://support.anthropic.com)
-- [Anthropic News & Updates](https://www.anthropic.com/news)
+- [Google AI Studio](https://aistudio.google.com)
 
 ---
 
-**Internal Use Only** • Cover Whale Insurance • 2026
+**Internal Use Only** | Cover Whale Insurance | 2026

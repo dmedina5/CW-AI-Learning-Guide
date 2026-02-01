@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced | CW Vibe Code Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Auth Loading -->
+    <div id="auth-loading">
+        <div class="loading-content">
+            <h2>Verifying CoverWhale Credentials...</h2>
+            <div class="loading-spinner"></div>
+            <p>Accessing Vibe Coding Environment</p>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app-content" class="app-layout" style="display: none;">
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" aria-label="Toggle menu">&#9776;</button>
+
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay"></div>
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo">&#128011;</span>
+                <span class="brand">CW Vibe Code</span>
+            </div>
+
+            <div class="nav-section">
+                <a href="index.html" class="nav-link">
+                    <span class="nav-icon">&#127968;</span> Home
+                </a>
+                <a href="installation.html" class="nav-link">
+                    <span class="nav-icon">&#128230;</span> Installation
+                </a>
+                <a href="fundamentals.html" class="nav-link">
+                    <span class="nav-icon">&#129504;</span> Fundamentals
+                </a>
+                <a href="tips-tricks.html" class="nav-link">
+                    <span class="nav-icon">&#128161;</span> Tips & Tricks
+                </a>
+                <a href="use-cases.html" class="nav-link">
+                    <span class="nav-icon">&#128011;</span> Use Cases
+                </a>
+                <a href="workflows.html" class="nav-link">
+                    <span class="nav-icon">&#128260;</span> Workflows
+                </a>
+                <a href="advanced.html" class="nav-link active">
+                    <span class="nav-icon">&#127919;</span> Advanced
+                </a>
+                <a href="cheatsheet.html" class="nav-link">
+                    <span class="nav-icon">&#128203;</span> Cheatsheet
+                </a>
+            </div>
+
+            <div class="nav-footer">
+                <div class="user-info">
+                    <span class="user-email" id="user-email"></span>
+                    <button class="logout-btn" onclick="auth.logout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <button class="search-trigger" aria-label="Search documentation">
+                    <span class="search-icon">&#128269;</span>
+                    <span>Search docs...</span>
+                    <kbd>Ctrl+K</kbd>
+                </button>
+                <div class="top-bar-actions">
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <span class="theme-icon dark">&#127769;</span>
+                        <span class="theme-icon light">&#9728;&#65039;</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <h1>&#127919; Advanced Techniques</h1>
+                <p class="page-intro">Power-user features including headless automation, MCP integration, containerization, and system prompt optimization.</p>
+
+                <!-- Skill Filter -->
+                <div class="skill-filter-bar">
+                    <span class="filter-label">Show:</span>
+                    <label class="filter-chip active">
+                        <input type="checkbox" checked data-level="beginner">
+                        <span class="chip beginner">Beginner</span>
+                    </label>
+                    <label class="filter-chip active">
+                        <input type="checkbox" checked data-level="intermediate">
+                        <span class="chip intermediate">Intermediate</span>
+                    </label>
+                    <label class="filter-chip active">
+                        <input type="checkbox" checked data-level="advanced">
+                        <span class="chip advanced">Advanced</span>
+                    </label>
+                </div>
+
+                <!-- Tool Tabs -->
+                <div class="tool-tabs">
+                    <button class="tab-btn active" data-tab="claude">
+                        <span class="tab-icon">&#129302;</span> Claude Code
+                    </button>
+                    <button class="tab-btn" data-tab="gemini">
+                        <span class="tab-icon">&#10024;</span> Gemini CLI
+                    </button>
+                    <button class="tab-btn" data-tab="orchestration">
+                        <span class="tab-icon">&#9881;&#65039;</span> Orchestration
+                    </button>
+                </div>
+
+                <!-- Claude Code Tab -->
+                <div class="tab-content active" data-tab="claude">
+                    <h2 id="claude-headless">Headless Mode</h2>
+                    <div data-skill="advanced">
+                        <p>Run Claude without interactive mode for automation and scripting.</p>
+
+                        <pre><code># Single command execution
+claude -p "Explain the main function in src/index.ts"
+
+# With file context
+claude -p "Review this file" --add src/app.ts
+
+# Output to file
+claude -p "Generate tests for src/utils.ts" > tests.ts
+
+# In scripts
+#!/bin/bash
+claude -p "Summarize changes" --diff HEAD~1 > changelog.md</code></pre>
+
+                        <h3>CI/CD Integration</h3>
+                        <pre><code># GitHub Actions example
+- name: AI Code Review
+  run: |
+    claude -p "Review the following diff for bugs and security issues:
+    $(git diff ${{ github.event.before }} ${{ github.sha }})" \
+    --output-format json > review.json</code></pre>
+                    </div>
+
+                    <h2 id="claude-mcp">MCP Server Integration</h2>
+                    <div data-skill="advanced">
+                        <p>Model Context Protocol (MCP) extends Claude with custom tools and data sources.</p>
+
+                        <pre><code># Configure MCP server in ~/.claude/config.json
+{
+  "mcpServers": {
+    "database": {
+      "command": "mcp-server-postgres",
+      "args": ["--connection-string", "postgres://..."]
+    },
+    "jira": {
+      "command": "mcp-server-jira",
+      "args": ["--token", "$JIRA_TOKEN"]
+    }
+  }
+}</code></pre>
+
+                        <h3>Using MCP Tools</h3>
+                        <pre><code># Once configured, Claude can use MCP tools
+"Query the database for all policies created this month"
+
+"Create a Jira ticket for this bug"
+
+"Fetch the latest deployment status"</code></pre>
+
+                        <div class="callout claude">
+                            <div class="callout-title">&#128268; MCP Benefits</div>
+                            <ul>
+                                <li>Direct database access without writing queries</li>
+                                <li>Integration with project management tools</li>
+                                <li>Custom tool creation for your workflow</li>
+                                <li>Secure credential handling</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2 id="claude-hooks">Hooks System</h2>
+                    <div data-skill="advanced">
+                        <p>Run custom scripts before/after Claude operations.</p>
+
+                        <pre><code># ~/.claude/hooks/pre-edit.sh
+#!/bin/bash
+# Run before any file edit
+echo "Backing up $1..."
+cp "$1" "$1.backup"
+
+# ~/.claude/hooks/post-commit.sh
+#!/bin/bash
+# Run after commits
+echo "Running lint..."
+npm run lint --fix</code></pre>
+
+                        <h3>Hook Configuration</h3>
+                        <pre><code># In ~/.claude/config.json
+{
+  "hooks": {
+    "preEdit": "~/.claude/hooks/pre-edit.sh",
+    "postCommit": "~/.claude/hooks/post-commit.sh",
+    "preShell": "~/.claude/hooks/pre-shell.sh"
+  }
+}</code></pre>
+                    </div>
+
+                    <h2 id="claude-custom-commands">Custom Slash Commands</h2>
+                    <div data-skill="intermediate">
+                        <pre><code># ~/.claude/commands/review.md
+---
+name: review
+description: Code review with Cover Whale standards
+---
+
+Review the provided code for:
+1. Bug potential
+2. Security vulnerabilities (OWASP Top 10)
+3. Performance issues
+4. Cover Whale coding standards compliance
+5. Test coverage adequacy
+
+Format as markdown with severity levels.
+
+# Usage in Claude
+/review src/payment/process.ts</code></pre>
+
+                        <h3>Team-Shared Commands</h3>
+                        <pre><code># In project root: .claude/commands/deploy-check.md
+---
+name: deploy-check
+description: Pre-deployment verification
+---
+
+Before deployment, verify:
+1. All tests pass
+2. No console.log in production code
+3. Environment variables documented
+4. Database migrations ready
+5. Rollback plan documented
+
+Run checks and generate report.</code></pre>
+                    </div>
+
+                    <h2 id="claude-skills">Custom Skills</h2>
+                    <div data-skill="advanced">
+                        <p>Skills are more powerful than slash commands - they're reusable prompt templates with tool restrictions, model selection, and can be automatically invoked based on context.</p>
+
+                        <div class="callout claude">
+                            <div class="callout-title">&#129302; Skills vs. Slash Commands</div>
+                            <p><strong>Slash Commands</strong> are simple prompt templates invoked with <code>/command</code>. <strong>Skills</strong> are full-featured modules with tool permissions, model selection, and automatic triggering capabilities.</p>
+                        </div>
+
+                        <h3>Skill Directory Structure</h3>
+                        <pre><code># Skills can be personal or project-shared
+~/.claude/skills/           # Personal skills (all projects)
+.claude/skills/             # Project skills (team-shared)
+
+# Each skill is a folder with a SKILL.md file
+.claude/skills/
+├── coverwhale-kb-search/
+│   └── SKILL.md
+├── code-review/
+│   └── SKILL.md
+└── test-generator/
+    └── SKILL.md</code></pre>
+
+                        <h3>SKILL.md File Format</h3>
+                        <pre><code># .claude/skills/coverwhale-kb-search/SKILL.md
+---
+name: coverwhale-kb-search
+description: Search Cover Whale knowledge base (2,000+ Confluence pages)
+allowed-tools: Grep, Read, Glob
+user-invocable: true
+model: haiku
+---
+
+# Cover Whale Knowledge Base Search Skill
+
+This skill efficiently searches the knowledge base repository.
+
+## When to Use This Skill
+
+Automatically invoke when users ask about:
+- Cover Whale processes (billing, claims, endorsements)
+- DevOps infrastructure, Kubernetes, cloud architecture
+- PV2 project documentation and migration guides
+- Onboarding guides and team processes
+- Technical documentation and APIs
+
+## Search Strategy
+
+1. **Start with Grep** (minimal tokens)
+   - Use `output_mode: "files_with_matches"` first
+   - Search in specific category directories
+
+2. **Prioritize by Category**
+   - knowledge-base/ → FAQs, troubleshooting
+   - documentation/ → Technical guides
+   - team/ → Processes and policies
+
+3. **Read Only Relevant Files**
+   - Top 2-3 most relevant files
+   - Check frontmatter to verify relevance
+
+## Response Format
+
+Always structure responses as:
+1. **Direct Answer** - Concise answer
+2. **Source References** - File paths and line numbers
+3. **Follow-up Offer** - Related documents available</code></pre>
+
+                        <h3>Frontmatter Options</h3>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Required</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>name</code></td>
+                                        <td>Yes</td>
+                                        <td>Skill identifier (used with <code>/skill-name</code>)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>description</code></td>
+                                        <td>Yes</td>
+                                        <td>When to use this skill (helps Claude auto-invoke)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>allowed-tools</code></td>
+                                        <td>No</td>
+                                        <td>Restrict which tools the skill can use (e.g., <code>Grep, Read, Glob</code>)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>user-invocable</code></td>
+                                        <td>No</td>
+                                        <td>If <code>true</code>, user can invoke with <code>/skill-name</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>model</code></td>
+                                        <td>No</td>
+                                        <td>Override model: <code>haiku</code> (fast/cheap), <code>sonnet</code>, or <code>opus</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>Example: Code Review Skill</h3>
+                        <pre><code># .claude/skills/cw-review/SKILL.md
+---
+name: cw-review
+description: Code review with Cover Whale security and quality standards
+allowed-tools: Read, Grep, Glob
+user-invocable: true
+---
+
+# Cover Whale Code Review Skill
+
+## Review Checklist
+
+When reviewing code, check for:
+
+### Security (OWASP Top 10)
+- SQL injection vulnerabilities
+- XSS in user inputs
+- Hardcoded credentials or secrets
+- Insecure direct object references
+
+### Cover Whale Standards
+- TypeScript strict mode compliance
+- Decimal.js for money calculations
+- Proper error handling with typed errors
+- Test coverage for new code
+
+### Performance
+- N+1 query patterns
+- Unbounded list operations
+- Missing pagination
+- Inefficient loops
+
+## Output Format
+
+```markdown
+## Code Review: [filename]
+
+### 🔴 Critical Issues
+[Security vulnerabilities, data loss risks]
+
+### 🟡 Warnings
+[Performance issues, code smells]
+
+### 🟢 Suggestions
+[Style improvements, refactoring opportunities]
+
+### ✅ Good Practices Noted
+[Positive feedback]
+```
+
+# Usage
+/cw-review src/services/payment.ts</code></pre>
+
+                        <h3>Example: Test Generator Skill</h3>
+                        <pre><code># .claude/skills/cw-test/SKILL.md
+---
+name: cw-test
+description: Generate Vitest tests following Cover Whale patterns
+allowed-tools: Read, Write, Glob
+user-invocable: true
+model: sonnet
+---
+
+# Cover Whale Test Generator
+
+Generate comprehensive tests using Vitest and Testing Library.
+
+## Test Structure
+
+```typescript
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+
+describe('[ModuleName]', () => {
+  describe('[functionName]', () => {
+    it('should [expected behavior]', () => {
+      // Arrange
+      // Act
+      // Assert
+    });
+  });
+});
+```
+
+## Required Test Categories
+
+1. **Happy Path** - Normal expected inputs
+2. **Edge Cases** - Empty, null, undefined, boundary values
+3. **Error Cases** - Invalid inputs, thrown exceptions
+4. **Integration** - Component interactions (when applicable)
+
+## Cover Whale Patterns
+
+- Use `vi.mock()` for external dependencies
+- Use factories for test data: `createTestPolicy()`
+- Place tests in `__tests__/` adjacent to source
+- Name pattern: `[filename].test.ts`
+
+# Usage
+/cw-test src/utils/validation.ts</code></pre>
+
+                        <h3>Auto-Invocation</h3>
+                        <p>Skills with good descriptions are automatically suggested by Claude when relevant:</p>
+                        <pre><code># If user asks:
+"How do I find documentation about the claims process?"
+
+# Claude recognizes this matches the coverwhale-kb-search skill
+# description and automatically invokes it
+
+# Or user can explicitly invoke:
+/coverwhale-kb-search claims process</code></pre>
+
+                        <div class="callout warning">
+                            <div class="callout-title">&#9888;&#65039; Skill Best Practices</div>
+                            <ul>
+                                <li>Keep skills focused on a single purpose</li>
+                                <li>Use <code>model: haiku</code> for search/lookup skills (cost-efficient)</li>
+                                <li>Use <code>model: sonnet</code> or <code>opus</code> for complex reasoning</li>
+                                <li>Restrict <code>allowed-tools</code> to minimize risk</li>
+                                <li>Write clear descriptions for better auto-invocation</li>
+                                <li>Include example usage at the end of SKILL.md</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2 id="claude-prompt-optimization">System Prompt Optimization</h2>
+                    <div data-skill="advanced">
+                        <p>Optimize your CLAUDE.md for better responses.</p>
+
+                        <pre><code># Effective CLAUDE.md structure
+
+# Project: CW Premium Calculator
+
+## CRITICAL (Read First)
+- TypeScript strict mode - never use `any`
+- All money calculations use Decimal.js
+- Test coverage required for new code
+
+## Build Commands
+```bash
+pnpm install && pnpm build && pnpm test
+```
+
+## Architecture (Brief)
+Monorepo: /packages/{core,api,web}
+ORM: Prisma with PostgreSQL
+Testing: Vitest + Testing Library
+
+## Current Sprint Context
+Working on: Policy renewal automation
+Key files: packages/core/src/renewal/
+Blockers: None
+
+## Code Style (Enforced)
+- 2 space indent, single quotes
+- Functional patterns preferred
+- Explicit return types on exported functions</code></pre>
+
+                        <div class="callout warning">
+                            <div class="callout-title">&#9888;&#65039; CLAUDE.md Antipatterns</div>
+                            <ul>
+                                <li>Don't include entire file contents</li>
+                                <li>Avoid vague instructions like "write good code"</li>
+                                <li>Don't duplicate info Claude can read from files</li>
+                                <li>Keep it under 500 lines for best results</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gemini CLI Tab -->
+                <div class="tab-content" data-tab="gemini">
+                    <h2 id="gemini-headless">Headless Automation</h2>
+                    <div data-skill="advanced">
+                        <pre><code># Single query
+gemini "Explain src/index.ts" --no-interactive
+
+# With output format
+gemini "List all TODO comments" --format json > todos.json
+
+# Batch processing script
+#!/bin/bash
+for file in src/**/*.ts; do
+  gemini "Add JSDoc to $file" --output "$file"
+done</code></pre>
+
+                        <h3>Streaming Output</h3>
+                        <pre><code># Stream output for long operations
+gemini "Analyze entire codebase" --stream | tee analysis.log
+
+# Watch mode for continuous operation
+gemini --watch "Monitor test results and suggest fixes"</code></pre>
+                    </div>
+
+                    <h2 id="gemini-mcp">MCP Integration</h2>
+                    <div data-skill="advanced">
+                        <p>Gemini also supports MCP for extended capabilities.</p>
+
+                        <pre><code># ~/.config/gemini/mcp.json
+{
+  "servers": {
+    "filesystem": {
+      "command": "mcp-server-filesystem",
+      "args": ["--root", "/home/user/projects"]
+    },
+    "github": {
+      "command": "mcp-server-github",
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      }
+    }
+  }
+}</code></pre>
+
+                        <h3>Using MCP with Gemini</h3>
+                        <pre><code># Once configured
+> "List all open PRs in our repo"
+> "Create a branch for this feature"
+> "Fetch issue #123 details"</code></pre>
+                    </div>
+
+                    <h2 id="gemini-skills">Skill Creation</h2>
+                    <div data-skill="advanced">
+                        <p>Create custom skills that Gemini can learn and use.</p>
+
+                        <pre><code># Teaching Gemini a new skill
+> "Learn this skill: When I say 'cw-lint', run our custom
+   linting process:
+   1. Run eslint with --fix
+   2. Run prettier
+   3. Run type-check
+   4. Report any remaining issues"
+
+# Gemini saves as a skill
+
+# Later usage
+> "cw-lint src/"</code></pre>
+
+                        <h3>Skill File Format</h3>
+                        <pre><code># ~/.config/gemini/skills/cw-deploy-check.yaml
+name: cw-deploy-check
+description: Pre-deployment checklist for Cover Whale
+triggers:
+  - "deploy check"
+  - "pre-deploy"
+  - "ready to deploy?"
+steps:
+  - run: "pnpm test"
+    expect: success
+  - run: "pnpm build"
+    expect: success
+  - check: "No console.log in src/"
+  - check: "All env vars documented"
+output: deployment-readiness-report.md</code></pre>
+                    </div>
+
+                    <h2 id="gemini-context-management">Advanced Context Management</h2>
+                    <div data-skill="advanced">
+                        <pre><code># Context prioritization
+> /context priority high @src/core/**/*.ts
+> /context priority low @src/legacy/**/*.ts
+
+# Context windowing for huge codebases
+> /context window 1000000  # Use 1M of 2M tokens (Gemini 3 Pro)
+
+# Context snapshots
+> /context snapshot pre-refactor
+> /context restore pre-refactor
+
+# Context diff
+> /context diff  # Show what's changed in context</code></pre>
+                    </div>
+
+                    <h2 id="gemini-caching">Token Caching Strategies</h2>
+                    <div data-skill="advanced">
+                        <pre><code># Warm up cache with common context
+> @src/types/**/*.ts @src/utils/**/*.ts
+> "Index these files for future queries"
+
+# Check cache status
+> /cache status
+
+# Force cache refresh
+> /cache refresh @src/models/*.ts
+
+# Cache analytics
+> /cache stats
+# Shows: hit rate, tokens saved, cost savings</code></pre>
+
+                        <div class="callout gemini">
+                            <div class="callout-title">&#128176; Caching ROI</div>
+                            <p>With good caching strategy, you can reduce token costs by 60-80% for repeated operations on the same codebase.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orchestration Tab -->
+                <div class="tab-content" data-tab="orchestration">
+                    <h2 id="orch-docker">Docker Containerization</h2>
+                    <div data-skill="advanced">
+                        <p>Run AI agents in isolated containers for security and reproducibility.</p>
+
+                        <pre><code># Dockerfile for Claude Code environment
+FROM node:20-slim
+
+# Install Claude Code
+RUN npm install -g @anthropic-ai/claude-code
+
+# Create workspace
+WORKDIR /workspace
+
+# Copy project files
+COPY . .
+
+# Set up CLAUDE.md
+COPY CLAUDE.md /workspace/CLAUDE.md
+
+# Entry point
+CMD ["claude", "--dangerously-skip-permissions"]</code></pre>
+
+                        <h3>Docker Compose for Multi-Agent</h3>
+                        <pre><code># docker-compose.yml
+version: '3.8'
+services:
+  claude-research:
+    build: .
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - AGENT_ROLE=research
+    volumes:
+      - ./workspace:/workspace
+      - ./shared:/shared
+
+  gemini-execute:
+    image: google/gemini-cli
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - AGENT_ROLE=execute
+    volumes:
+      - ./workspace:/workspace
+      - ./shared:/shared</code></pre>
+                    </div>
+
+                    <h2 id="orch-writer-reviewer">Writer-Reviewer Pattern</h2>
+                    <div data-skill="advanced">
+                        <p>Separate writing and reviewing into different agent instances.</p>
+
+                        <pre><code># Terminal 1: Writer Agent (Claude)
+claude
+"You are the WRITER. Your job is to implement features.
+After each implementation, write to PENDING_REVIEW.md"
+
+# Terminal 2: Reviewer Agent (Claude or Gemini)
+claude  # or gemini
+"You are the REVIEWER. Monitor PENDING_REVIEW.md.
+When new entries appear:
+1. Review the changes thoroughly
+2. Write feedback to REVIEW_FEEDBACK.md
+3. Mark the entry as REVIEWED"
+
+# Workflow:
+# 1. Writer implements feature
+# 2. Writer adds to PENDING_REVIEW.md
+# 3. Reviewer reviews and provides feedback
+# 4. Writer addresses feedback
+# 5. Repeat until approved</code></pre>
+
+                        <div class="callout purple">
+                            <div class="callout-title">&#129302;&#129302; Why Separate Agents</div>
+                            <ul>
+                                <li>Fresh context for reviews (no implementation bias)</li>
+                                <li>Simulates real code review process</li>
+                                <li>Catches issues the writer might miss</li>
+                                <li>Creates audit trail</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2 id="orch-voice">Voice Input Setup</h2>
+                    <div data-skill="intermediate">
+                        <p>Use voice input for hands-free coding.</p>
+
+                        <pre><code># macOS: Use built-in dictation
+# Enable in System Preferences > Keyboard > Dictation
+
+# Linux: Install voice input
+sudo apt install speech-dispatcher
+# Configure with your preferred STT engine
+
+# Windows: Use Windows Speech Recognition
+# Or install vosk for offline recognition
+
+# Workflow:
+# 1. Press dictation hotkey
+# 2. Speak your prompt
+# 3. Claude/Gemini processes as normal text</code></pre>
+
+                        <h3>Voice Command Patterns</h3>
+                        <pre><code># Speak naturally
+"Read the file source slash utils dot ts"
+"Run the tests"
+"Show me the last commit"
+"Add a function that calculates compound interest"
+
+# Pro tip: Create voice shortcuts
+"Review this" -> expands to full review prompt
+"Fix it" -> applies suggested fix</code></pre>
+                    </div>
+
+                    <h2 id="orch-automation">Full Automation Pipeline</h2>
+                    <div data-skill="advanced">
+                        <pre><code>#!/bin/bash
+# automated-feature.sh - Full feature implementation pipeline
+
+FEATURE_DESC="$1"
+BRANCH_NAME="$2"
+
+# Step 1: Create branch
+git checkout -b "$BRANCH_NAME"
+
+# Step 2: Research phase (Gemini)
+gemini "Analyze codebase for implementing: $FEATURE_DESC" \
+  --output RESEARCH.md
+
+# Step 3: Planning phase (Claude)
+claude -p "Based on RESEARCH.md, create implementation plan" \
+  --add RESEARCH.md \
+  --output PLAN.md
+
+# Step 4: Implementation (Gemini)
+gemini "@PLAN.md Execute the implementation plan" \
+  --auto-approve
+
+# Step 5: Review (Claude)
+claude -p "Review all changes since branch creation" \
+  --diff "main..HEAD" \
+  --output REVIEW.md
+
+# Step 6: Generate PR
+if grep -q "APPROVED" REVIEW.md; then
+  gh pr create \
+    --title "$FEATURE_DESC" \
+    --body "$(cat PLAN.md REVIEW.md)"
+fi</code></pre>
+                    </div>
+
+                    <h2 id="orch-monitoring">Agent Monitoring</h2>
+                    <div data-skill="advanced">
+                        <pre><code># Log all agent interactions
+export CLAUDE_LOG_FILE=~/.claude/logs/session.log
+export GEMINI_LOG_FILE=~/.config/gemini/logs/session.log
+
+# Monitor token usage
+watch -n 60 'claude --usage && gemini /tokens'
+
+# Cost tracking script
+#!/bin/bash
+# track-costs.sh
+CLAUDE_TOKENS=$(cat ~/.claude/logs/*.log | grep "tokens:" | awk '{sum+=$2} END {print sum}')
+GEMINI_TOKENS=$(cat ~/.config/gemini/logs/*.log | grep "tokens:" | awk '{sum+=$2} END {print sum}')
+
+echo "Today's usage:"
+echo "Claude: $CLAUDE_TOKENS tokens (~\$$(echo "$CLAUDE_TOKENS * 0.00001" | bc))"
+echo "Gemini: $GEMINI_TOKENS tokens (free tier)"</code></pre>
+                    </div>
+
+                    <h2 id="orch-ide-integration">IDE Integration Strategies</h2>
+                    <div data-skill="intermediate">
+                        <p>Maximize productivity by integrating CLI agents with modern AI-native IDEs.</p>
+
+                        <h3>VS Code + CLI Agents</h3>
+                        <pre><code># Split terminal setup
+# Terminal 1: Claude Code for complex reasoning
+claude
+
+# Terminal 2: Gemini CLI for broad operations
+gemini
+
+# Use VS Code's native features for:
+# - File navigation and search
+# - Git integration
+# - Extension ecosystem</code></pre>
+
+                        <h3>Cursor + Claude Code</h3>
+                        <pre><code># Cursor provides:
+# - Composer for multi-file edits
+# - Inline chat with codebase context
+
+# Claude Code in terminal provides:
+# - Deep reasoning for complex problems
+# - Plan mode for architectural decisions
+
+# Workflow:
+# 1. Use Cursor Composer for quick edits
+# 2. Switch to Claude Code for complex debugging
+# 3. Use Cursor's git UI for commits</code></pre>
+
+                        <h3>Windsurf + Gemini CLI</h3>
+                        <pre><code># Windsurf's Cascade handles:
+# - Multi-file reasoning
+# - Image-to-code generation
+# - Memory of your coding patterns
+
+# Gemini CLI (Gemini 3) complements with:
+# - Up to 2M token context for entire codebases
+# - Deep Think mode for complex reasoning
+# - Checkpointing for long sessions
+# - Headless automation
+
+# Workflow:
+# 1. Cascade for exploratory coding
+# 2. Gemini CLI for large-scale refactoring
+# 3. Cascade's MCP for external integrations</code></pre>
+
+                        <h3>Google Antigravity Setup</h3>
+                        <pre><code># Antigravity is built around Gemini 3
+# But supports multiple models:
+
+# In Antigravity settings:
+{
+  "defaultModel": "gemini-3-pro",
+  "fallbackModels": [
+    "claude-opus-4.5",
+    "gemini-3-flash"
+  ],
+  "agentMode": "planning"  // or "fast"
+}
+
+# Manager View for parallel agents:
+# 1. Agent 1: Research (Gemini 3 Deep Think)
+# 2. Agent 2: Implementation (Claude Opus)
+# 3. Agent 3: Testing (Gemini Flash)</code></pre>
+
+                        <h3>Multi-IDE Workflow</h3>
+                        <div class="callout purple">
+                            <div class="callout-title">&#127919; Power User Setup</div>
+                            <p>Run different IDEs for different strengths:</p>
+                            <ul>
+                                <li><strong>Zed</strong> - Fast file browsing and quick edits</li>
+                                <li><strong>Cursor</strong> - AI-heavy feature development</li>
+                                <li><strong>Terminal</strong> - Claude/Gemini CLI for complex reasoning</li>
+                                <li><strong>JetBrains</strong> - Deep Java/Kotlin refactoring</li>
+                            </ul>
+                        </div>
+
+                        <pre><code># Example: Large Migration Project
+
+# Zed (fast navigation)
+# - Browse legacy code quickly
+# - Make small targeted fixes
+
+# Cursor (AI-assisted)
+# - Use Composer for new module scaffolding
+# - Inline chat for pattern questions
+
+# Claude Code (terminal)
+# - Analyze complex business logic
+# - Create detailed migration plan
+
+# Gemini CLI (terminal)
+# - Execute plan across 100+ files
+# - Batch update imports and references</code></pre>
+                    </div>
+
+                    <h2 id="orch-ide-comparison">IDE + Agent Compatibility Matrix</h2>
+                    <div data-skill="intermediate">
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>IDE</th>
+                                        <th>Claude Code</th>
+                                        <th>Gemini CLI</th>
+                                        <th>Best Combo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>VS Code</strong></td>
+                                        <td>Terminal + Extension</td>
+                                        <td>Terminal</td>
+                                        <td>Flexibility king</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Cursor</strong></td>
+                                        <td>Terminal (complement Composer)</td>
+                                        <td>Terminal</td>
+                                        <td>AI-first + deep reasoning</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Windsurf</strong></td>
+                                        <td>Terminal</td>
+                                        <td>Terminal (complement Cascade)</td>
+                                        <td>Agentic + large context</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Zed</strong></td>
+                                        <td>External terminal</td>
+                                        <td>External terminal</td>
+                                        <td>Speed + CLI agents</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Antigravity</strong></td>
+                                        <td>Supported as model</td>
+                                        <td>Native (Gemini 3)</td>
+                                        <td>Full Google stack</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>JetBrains</strong></td>
+                                        <td>Terminal</td>
+                                        <td>Terminal</td>
+                                        <td>Enterprise + typed langs</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="search-modal">
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <span class="search-icon">&#128269;</span>
+                <input type="text" placeholder="Search documentation..." autofocus>
+            </div>
+            <div class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/copy-code.js"></script>
+    <script src="js/filter.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>
