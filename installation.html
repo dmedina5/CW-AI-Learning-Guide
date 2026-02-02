@@ -886,183 +886,15 @@ source ~/.bashrc</code></pre>
                     </ul>
                 </div>
 
-                <!-- IDE Selection Section -->
-                <h2 id="ide-selection">&#128187; Choosing Your IDE</h2>
+                <!-- IDE Integration Section -->
+                <h2 id="ide-selection">&#128187; IDE Integration</h2>
                 <div data-skill="beginner">
-                    <p>While Claude Code and Gemini CLI run in your terminal, you'll want a good IDE for viewing and editing code. The 2026 IDE landscape has evolved dramatically with AI-first editors.</p>
-
-                    <div class="callout whale">
-                        <div class="callout-title">&#128161; Recommended: Google Antigravity (Free)</div>
-                        <p><strong>Google Antigravity</strong> is our recommended IDE for Cover Whale developers. It's completely free for individual use, has native Gemini 3 integration, and supports multi-agent workflows out of the box. You can also use your terminal directly with Claude Code and Gemini CLI.</p>
-                    </div>
-                </div>
-
-                <h3 id="ide-comparison">IDE Comparison</h3>
-                <div data-skill="beginner">
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>IDE</th>
-                                    <th>AI Integration</th>
-                                    <th>Price</th>
-                                    <th>Best For</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>VS Code</strong></td>
-                                    <td>Copilot, extensions</td>
-                                    <td>Free (+$10/mo Copilot)</td>
-                                    <td>Most developers, flexibility</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Cursor</strong></td>
-                                    <td>Native AI-first</td>
-                                    <td>$20/month</td>
-                                    <td>AI maximalists</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Windsurf</strong></td>
-                                    <td>Cascade agent</td>
-                                    <td>$15/month</td>
-                                    <td>Agentic workflows</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Zed</strong></td>
-                                    <td>Agent panel, MCP</td>
-                                    <td>Free / $20/mo Pro</td>
-                                    <td>Performance, privacy</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Google Antigravity</strong></td>
-                                    <td>Gemini 3 native</td>
-                                    <td>Free (preview)</td>
-                                    <td>Google ecosystem</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>JetBrains</strong></td>
-                                    <td>AI Assistant</td>
-                                    <td>$16.90/month+</td>
-                                    <td>Java, Kotlin, enterprise</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <h3 id="ide-vscode">VS Code</h3>
-                <div data-skill="beginner">
-                    <p><strong>Visual Studio Code</strong> remains the world's most widely adopted development environment. Its strength is flexibility - you can integrate any AI stack.</p>
-
-                    <h4>Setup</h4>
-                    <ol>
-                        <li>Download from <a href="https://code.visualstudio.com/" target="_blank">code.visualstudio.com</a></li>
-                        <li>Install recommended extensions for your language</li>
-                        <li>Open integrated terminal (<kbd>Ctrl+`</kbd>) and run <code>claude</code> or <code>gemini</code></li>
-                    </ol>
-
-                    <h4>AI Extensions</h4>
-                    <ul>
-                        <li><strong>GitHub Copilot</strong> - $10/month, inline completions</li>
-                        <li><strong>Claude Code Extension</strong> - Official Anthropic extension</li>
-                        <li><strong>Continue</strong> - Open source AI assistant</li>
-                        <li><strong>Cline</strong> - Autonomous coding agent</li>
-                    </ul>
-
-                    <div class="callout success">
-                        <div class="callout-title">&#9989; Recommendation</div>
-                        <p>VS Code + terminal Claude Code/Gemini CLI is the <strong>safe, proven choice</strong> for most developers at Cover Whale.</p>
-                    </div>
-                </div>
-
-                <h3 id="ide-cursor">Cursor</h3>
-                <div data-skill="intermediate">
-                    <p><strong>Cursor</strong> is the breakout AI-native IDE of the mid-2020s. Built as a VS Code fork, it looks familiar but AI is the core, not a plugin.</p>
-
-                    <h4>Key Features</h4>
-                    <ul>
-                        <li><strong>Composer</strong> - Multi-file edit agent</li>
-                        <li><strong>Deep repo indexing</strong> - Understands your entire codebase</li>
-                        <li><strong>Inline chat</strong> - Read and modify files from chat</li>
-                        <li><strong>Tab completion</strong> - Context-aware suggestions</li>
-                    </ul>
-
-                    <h4>Setup</h4>
-                    <pre><code># Download from cursor.com
-# Import VS Code settings automatically
-# Add your API keys in Settings > AI</code></pre>
-
-                    <h4>Pricing</h4>
-                    <p><strong>$20/month</strong> for Pro (vs $10 for VS Code + Copilot)</p>
-
-                    <div class="callout whale">
-                        <div class="callout-title">&#128161; Cursor + Claude Code</div>
-                        <p>You can run Claude Code in Cursor's terminal for the best of both worlds - Cursor's UI + Claude's agentic capabilities.</p>
-                    </div>
-                </div>
-
-                <h3 id="ide-windsurf">Windsurf</h3>
-                <div data-skill="intermediate">
-                    <p><strong>Windsurf</strong> positions itself as the first true agentic IDE with its Cascade AI agent.</p>
-
-                    <h4>Key Features</h4>
-                    <ul>
-                        <li><strong>Cascade</strong> - Multi-file reasoning, repo-scale comprehension</li>
-                        <li><strong>Memories</strong> - Learns your coding style and patterns</li>
-                        <li><strong>Turbo Mode</strong> - AI executes terminal commands autonomously</li>
-                        <li><strong>Image-to-Code</strong> - Drop Figma designs to generate components</li>
-                        <li><strong>MCP Integrations</strong> - GitHub, Slack, Stripe, Figma, databases</li>
-                    </ul>
-
-                    <h4>Setup</h4>
-                    <pre><code># Download from windsurf.com
-# Sign in with Google or GitHub
-# Enable Cascade in the sidebar</code></pre>
-
-                    <h4>Pricing</h4>
-                    <p><strong>$15/month</strong> - cheaper than Cursor with similar features</p>
-
-                    <h4>Supported Models</h4>
-                    <p>GPT-5.2-Codex, Claude Opus 4.5, Gemini models</p>
-                </div>
-
-                <h3 id="ide-zed">Zed</h3>
-                <div data-skill="intermediate">
-                    <p><strong>Zed</strong> is a next-generation editor built in Rust by the creators of Atom. It's the fastest AI code editor available.</p>
-
-                    <h4>Performance</h4>
-                    <ul>
-                        <li><strong>10x faster startup</strong> - 0.12s vs VS Code's 1.2s</li>
-                        <li><strong>5x less memory</strong> - 142MB vs 730MB</li>
-                        <li><strong>~120 FPS</strong> - GPU-accelerated rendering</li>
-                    </ul>
-
-                    <h4>AI Features</h4>
-                    <ul>
-                        <li><strong>Agent Panel</strong> - Agentic editing interface</li>
-                        <li><strong>Edit Predictions</strong> - Built-in LLM for suggestions</li>
-                        <li><strong>MCP Support</strong> - Connect external tools and memory</li>
-                        <li><strong>Local Models</strong> - Run Ollama models privately</li>
-                    </ul>
-
-                    <h4>Setup</h4>
-                    <pre><code># Download from zed.dev
-# Available on macOS, Linux, Windows
-# Sign in for AI features or use API keys</code></pre>
-
-                    <h4>Pricing</h4>
-                    <p><strong>Free</strong> (50 AI prompts/month) or <strong>$20/month Pro</strong> (500 prompts)</p>
-
-                    <div class="callout whale">
-                        <div class="callout-title">&#9889; Best For</div>
-                        <p>Developers who prioritize speed and want privacy-first AI with local model support.</p>
-                    </div>
+                    <p>While Claude Code and Gemini CLI run in your terminal, you'll want a good IDE for viewing and editing code. We recommend <strong>Google Antigravity</strong> for its free pricing and native AI capabilities.</p>
                 </div>
 
                 <h3 id="ide-antigravity">Google Antigravity (Recommended)</h3>
                 <div data-skill="beginner">
-                    <p><strong>Google Antigravity</strong> is Google's new AI-first IDE announced November 2025 alongside Gemini 3. It represents a paradigm shift to agent-first development and is <strong>completely free for individual use</strong>.</p>
+                    <p><strong>Google Antigravity</strong> is Google's AI-first IDE announced November 2025 alongside Gemini 3. It's <strong>completely free for individual use</strong> and represents a paradigm shift to agent-first development.</p>
 
                     <div class="callout whale">
                         <div class="callout-title">&#127873; Why Antigravity?</div>
@@ -1108,90 +940,17 @@ source ~/.bashrc</code></pre>
                     </div>
                 </div>
 
-                <h3 id="ide-jetbrains">JetBrains IDEs</h3>
-                <div data-skill="intermediate">
-                    <p><strong>JetBrains IDEs</strong> (IntelliJ IDEA, PyCharm, WebStorm, GoLand) remain the gold standard for deeply typed languages.</p>
-
-                    <h4>AI Assistant Features</h4>
-                    <ul>
-                        <li><strong>Code completion</strong> - Single lines and entire blocks</li>
-                        <li><strong>Next edit suggestions</strong> - Predicts your next changes</li>
-                        <li><strong>Agent mode chat</strong> - Multi-agent interface for complex tasks</li>
-                        <li><strong>Custom models</strong> - Connect your own API keys</li>
-                    </ul>
-
-                    <h4>2025.3 Updates</h4>
-                    <ul>
-                        <li><strong>Unified product</strong> - Community + Ultimate merged</li>
-                        <li><strong>Multi-agent experience</strong> - Switch agents from same chat</li>
-                        <li><strong>AI Credits tracking</strong> - Monitor usage in IDE</li>
-                    </ul>
-
-                    <h4>Best For</h4>
-                    <ul>
-                        <li>Java and Kotlin development</li>
-                        <li>Enterprise teams with existing JetBrains licenses</li>
-                        <li>Projects requiring deep language analysis</li>
-                    </ul>
-
-                    <h4>Using with Claude/Gemini</h4>
-                    <pre><code># Run Claude Code in JetBrains terminal
-# Terminal > New Terminal
-claude
-
-# Or use the AI Assistant plugin alongside CLI tools</code></pre>
-                </div>
-
-                <h3 id="ide-recommendation">Cover Whale Recommendation</h3>
+                <h3 id="other-ides">Other IDEs</h3>
                 <div data-skill="beginner">
-                    <div class="callout whale">
-                        <div class="callout-title">&#128011; Our Stack</div>
-                        <p>For most Cover Whale developers, we recommend:</p>
-                        <ol>
-                            <li><strong>Google Antigravity</strong> (free Individual plan) as your primary IDE</li>
-                            <li><strong>Claude Code</strong> in terminal for complex reasoning tasks</li>
-                            <li><strong>Gemini CLI</strong> for large codebase operations</li>
-                        </ol>
-                        <p>Antigravity is free, has native Gemini 3 support, and multi-agent capabilities built-in. You can also simply use your terminal directly with the CLI tools.</p>
-                    </div>
-
-                    <h4>Quick Decision Guide</h4>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>If you want...</th>
-                                    <th>Choose</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Free, AI-native, multi-agent support (Recommended)</td>
-                                    <td><strong>Google Antigravity</strong></td>
-                                </tr>
-                                <tr>
-                                    <td>Proven stability, maximum flexibility</td>
-                                    <td><strong>VS Code</strong></td>
-                                </tr>
-                                <tr>
-                                    <td>Deepest AI integration</td>
-                                    <td><strong>Cursor</strong></td>
-                                </tr>
-                                <tr>
-                                    <td>Agentic workflows, good value</td>
-                                    <td><strong>Windsurf</strong></td>
-                                </tr>
-                                <tr>
-                                    <td>Maximum performance, privacy</td>
-                                    <td><strong>Zed</strong></td>
-                                </tr>
-                                <tr>
-                                    <td>Java/Kotlin enterprise development</td>
-                                    <td><strong>JetBrains</strong></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <p>If Google Antigravity doesn't fit your workflow, these are other popular options:</p>
+                    <ul>
+                        <li><strong>VS Code</strong> - Free, extensible, works with Copilot and other AI extensions</li>
+                        <li><strong>Cursor</strong> - AI-native VS Code fork with deep integration ($20/month)</li>
+                        <li><strong>Windsurf</strong> - Agentic IDE with Cascade AI agent ($15/month)</li>
+                        <li><strong>Zed</strong> - High-performance editor with agent panel (Free / $20/month Pro)</li>
+                        <li><strong>JetBrains IDEs</strong> - Best for Java/Kotlin enterprise development ($16.90/month+)</li>
+                    </ul>
+                    <p>All of these support running Claude Code and Gemini CLI in their integrated terminals.</p>
                 </div>
             </div>
         </main>
