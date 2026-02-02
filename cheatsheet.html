@@ -141,8 +141,8 @@ claude</code></pre>
 
                         <h4>Keyboard Shortcuts</h4>
                         <!-- Platform Tabs for Claude Shortcuts -->
-                        <div class="platform-tabs" data-group="claude-shortcuts">
-                            <button class="platform-tab-btn" data-platform="windows">
+                        <div class="platform-tabs" data-group="claude-cheat-shortcuts">
+                            <button class="platform-tab-btn active" data-platform="windows">
                                 <span class="platform-icon">&#128187;</span> Windows
                             </button>
                             <button class="platform-tab-btn" data-platform="mac">
@@ -151,7 +151,7 @@ claude</code></pre>
                         </div>
 
                         <!-- Windows Claude Shortcuts -->
-                        <div class="platform-content" data-group="claude-shortcuts" data-platform="windows">
+                        <div class="platform-content active" data-group="claude-cheat-shortcuts" data-platform="windows">
                             <div class="table-wrapper">
                                 <table>
                                     <tr><td><kbd>Escape</kbd></td><td>Stop action</td></tr>
@@ -160,7 +160,6 @@ claude</code></pre>
                                     <tr><td><kbd>Alt+M</kbd></td><td>Toggle permissions</td></tr>
                                     <tr><td><kbd>Alt+P</kbd></td><td>Switch model</td></tr>
                                     <tr><td><kbd>Alt+T</kbd></td><td>Extended thinking</td></tr>
-                                    <tr><td><kbd>Ctrl+C</kbd></td><td>Cancel input</td></tr>
                                     <tr><td><kbd>Ctrl+L</kbd></td><td>Clear screen</td></tr>
                                     <tr><td><kbd>Ctrl+R</kbd></td><td>Reverse search</td></tr>
                                     <tr><td><kbd>Up/Down</kbd></td><td>Command history</td></tr>
@@ -169,7 +168,7 @@ claude</code></pre>
                         </div>
 
                         <!-- Mac Claude Shortcuts -->
-                        <div class="platform-content" data-group="claude-shortcuts" data-platform="mac">
+                        <div class="platform-content" data-group="claude-cheat-shortcuts" data-platform="mac">
                             <div class="table-wrapper">
                                 <table>
                                     <tr><td><kbd>Escape</kbd></td><td>Stop action</td></tr>
@@ -178,11 +177,11 @@ claude</code></pre>
                                     <tr><td><kbd>Option+M</kbd></td><td>Toggle permissions</td></tr>
                                     <tr><td><kbd>Option+P</kbd></td><td>Switch model</td></tr>
                                     <tr><td><kbd>Option+T</kbd></td><td>Extended thinking</td></tr>
-                                    <tr><td><kbd>Ctrl+C</kbd></td><td>Cancel input</td></tr>
                                     <tr><td><kbd>Ctrl+L</kbd></td><td>Clear screen</td></tr>
                                     <tr><td><kbd>Ctrl+R</kbd></td><td>Reverse search</td></tr>
                                     <tr><td><kbd>Option+Enter</kbd></td><td>Multiline input</td></tr>
                                     <tr><td><kbd>Cmd+V</kbd></td><td>Paste image (iTerm2)</td></tr>
+                                    <tr><td><kbd>Up/Down</kbd></td><td>Command history</td></tr>
                                 </table>
                             </div>
                         </div>
@@ -253,8 +252,8 @@ gemini auth login</code></pre>
 
                         <h4>Keyboard Shortcuts</h4>
                         <!-- Platform Tabs for Gemini Shortcuts -->
-                        <div class="platform-tabs" data-group="gemini-shortcuts">
-                            <button class="platform-tab-btn" data-platform="windows">
+                        <div class="platform-tabs" data-group="gemini-cheat-shortcuts">
+                            <button class="platform-tab-btn active" data-platform="windows">
                                 <span class="platform-icon">&#128187;</span> Windows
                             </button>
                             <button class="platform-tab-btn" data-platform="mac">
@@ -263,7 +262,7 @@ gemini auth login</code></pre>
                         </div>
 
                         <!-- Windows Gemini Shortcuts -->
-                        <div class="platform-content" data-group="gemini-shortcuts" data-platform="windows">
+                        <div class="platform-content active" data-group="gemini-cheat-shortcuts" data-platform="windows">
                             <div class="table-wrapper">
                                 <table>
                                     <tr><td><kbd>@</kbd></td><td>File reference</td></tr>
@@ -273,15 +272,15 @@ gemini auth login</code></pre>
                                     <tr><td><kbd>Ctrl+Y</kbd></td><td>YOLO mode toggle</td></tr>
                                     <tr><td><kbd>Ctrl+L</kbd></td><td>Clear screen</td></tr>
                                     <tr><td><kbd>Ctrl+S</kbd></td><td>Print full response</td></tr>
-                                    <tr><td><kbd>Ctrl+T</kbd></td><td>Tool descriptions</td></tr>
                                     <tr><td><kbd>Tab</kbd></td><td>Autocomplete</td></tr>
                                     <tr><td><kbd>Alt+Z</kbd></td><td>Undo</td></tr>
+                                    <tr><td><kbd>Up/Down</kbd></td><td>History navigation</td></tr>
                                 </table>
                             </div>
                         </div>
 
                         <!-- Mac Gemini Shortcuts -->
-                        <div class="platform-content" data-group="gemini-shortcuts" data-platform="mac">
+                        <div class="platform-content" data-group="gemini-cheat-shortcuts" data-platform="mac">
                             <div class="table-wrapper">
                                 <table>
                                     <tr><td><kbd>@</kbd></td><td>File reference</td></tr>
@@ -291,10 +290,10 @@ gemini auth login</code></pre>
                                     <tr><td><kbd>Ctrl+Y</kbd></td><td>YOLO mode toggle</td></tr>
                                     <tr><td><kbd>Ctrl+L</kbd></td><td>Clear screen</td></tr>
                                     <tr><td><kbd>Ctrl+S</kbd></td><td>Print full response</td></tr>
-                                    <tr><td><kbd>Ctrl+T</kbd></td><td>Tool descriptions</td></tr>
                                     <tr><td><kbd>Tab</kbd></td><td>Autocomplete</td></tr>
                                     <tr><td><kbd>Cmd+Z</kbd></td><td>Undo</td></tr>
                                     <tr><td><kbd>Option+M</kbd></td><td>Toggle Markdown</td></tr>
+                                    <tr><td><kbd>Up/Down</kbd></td><td>History navigation</td></tr>
                                 </table>
                             </div>
                         </div>
@@ -544,79 +543,30 @@ GEMINI_CONFIG_DIR=~/.config/gemini</code></pre>
                 <!-- IDE Quick Reference -->
                 <h2 id="ide-reference">&#128187; IDE Quick Reference</h2>
 
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>IDE</th>
-                                <th>AI Style</th>
-                                <th>Price</th>
-                                <th>Best For</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>VS Code</strong></td>
-                                <td>Plugin-based (Copilot, etc.)</td>
-                                <td>Free + $10/mo</td>
-                                <td>Flexibility, stability</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Cursor</strong></td>
-                                <td>AI-native (Composer)</td>
-                                <td>$20/month</td>
-                                <td>AI maximalists</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Windsurf</strong></td>
-                                <td>Agentic (Cascade)</td>
-                                <td>$15/month</td>
-                                <td>Agentic workflows</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Zed</strong></td>
-                                <td>Agent panel + MCP</td>
-                                <td>Free / $20/mo</td>
-                                <td>Performance, privacy</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Antigravity</strong></td>
-                                <td>Gemini 3 native</td>
-                                <td>Free (preview)</td>
-                                <td>Google ecosystem</td>
-                            </tr>
-                            <tr>
-                                <td><strong>JetBrains</strong></td>
-                                <td>AI Assistant</td>
-                                <td>$16.90/mo+</td>
-                                <td>Java, Kotlin, enterprise</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="card" style="border-left: 4px solid var(--accent-whale); margin-bottom: 24px;">
+                    <h4 style="color: var(--accent-whale); margin-top: 0;">&#127873; Recommended: Google Antigravity (Free)</h4>
+                    <p style="margin-bottom: 8px;"><strong>Free Individual plan</strong> with native Gemini 3, multi-agent support, and no setup complexity.</p>
+                    <pre style="margin: 0;"><code># Download from antigravity.google
+# Sign in with Google account</code></pre>
                 </div>
 
-                <h3>IDE + CLI Pairings</h3>
-                <div class="card-grid">
-                    <div class="card">
-                        <h4>&#128640; Recommended</h4>
-                        <p><strong>VS Code/Cursor</strong> + Claude Code + Gemini CLI</p>
-                        <p>Flexibility + deep reasoning + large context</p>
-                    </div>
-                    <div class="card">
-                        <h4>&#9889; Performance</h4>
-                        <p><strong>Zed</strong> + Claude Code + Gemini CLI</p>
-                        <p>Speed + CLI agents in external terminal</p>
-                    </div>
-                    <div class="card">
-                        <h4>&#127968; Google Stack</h4>
-                        <p><strong>Antigravity</strong> (has Gemini 3 built-in)</p>
-                        <p>Add Claude Code for alternative reasoning</p>
-                    </div>
-                    <div class="card">
-                        <h4>&#127959; Enterprise Java</h4>
-                        <p><strong>IntelliJ IDEA</strong> + CLI agents in terminal</p>
-                        <p>Deep language support + AI augmentation</p>
-                    </div>
+                <h4>Other IDE Options</h4>
+                <ul>
+                    <li><strong>VS Code</strong> - Free, extensible, works with Copilot</li>
+                    <li><strong>Cursor</strong> - AI-native VS Code fork ($20/mo)</li>
+                    <li><strong>Windsurf</strong> - Agentic IDE with Cascade ($15/mo)</li>
+                    <li><strong>Zed</strong> - High-performance editor (Free / $20/mo)</li>
+                    <li><strong>JetBrains</strong> - Best for Java/Kotlin ($16.90/mo+)</li>
+                    <li><strong>Terminal only</strong> - Use Claude Code + Gemini CLI directly</li>
+                </ul>
+
+                <h4>Our Stack</h4>
+                <div class="card">
+                    <ol style="margin: 0; padding-left: 20px;">
+                        <li><strong>Google Antigravity</strong> (free) as primary IDE</li>
+                        <li><strong>Claude Code</strong> in terminal for complex reasoning</li>
+                        <li><strong>Gemini CLI</strong> for large codebase operations</li>
+                    </ol>
                 </div>
             </div>
         </main>
