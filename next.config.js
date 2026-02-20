@@ -5,8 +5,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: process.env.NODE_ENV === 'production' ? '/CW-Vibe-Code-Guide' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/CW-Vibe-Code-Guide/' : '',
+  basePath: process.env.NODE_ENV === 'production' ? '/CW-AI-Learning-Guide' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/CW-AI-Learning-Guide/' : '',
 };
 
 module.exports = nextConfig;

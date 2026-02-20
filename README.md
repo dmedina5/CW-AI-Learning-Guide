@@ -1,12 +1,12 @@
-# Cover Whale Vibe Code Guide
+# Cover Whale AI Learning Guide
 
-**Internal Documentation for AI-Augmented Development at Cover Whale**
+**Internal AI Learning Platform for Cover Whale**
 
-A comprehensive multi-page guide to mastering Claude Code and Gemini CLI for Cover Whale team members. From first-time setup to advanced multi-agent workflows - everything you need to supercharge your productivity with AI-assisted development.
+A comprehensive Next.js learning platform covering AI fundamentals, prompt engineering, vibe coding, and agentic AI - built for Cover Whale team members at every skill level.
 
 ## Live Guide
 
-Visit the guide at: **[https://dmedina5.github.io/CW-Vibe-Code-Guide/](https://dmedina5.github.io/CW-Vibe-Code-Guide/)**
+Visit the guide at: **[https://dmedina5.github.io/CW-AI-Learning-Guide/](https://dmedina5.github.io/CW-AI-Learning-Guide/)**
 
 ## Authentication
 
@@ -18,112 +18,89 @@ This guide is **restricted to CoverWhale team members only**. Authentication is 
 
 ## Features
 
-- **Multi-Page Navigation** - Organized sections for easy learning
-- **Claude/Gemini Tabs** - Side-by-side content for both tools
-- **Copy Code Buttons** - One-click copy on all code blocks
-- **Skill Level Filters** - Show/hide Beginner, Intermediate, Advanced content
-- **Dark/Light Mode** - Theme toggle with persistence
-- **Ctrl+K Search** - Quick search across all documentation
+- **Tiered Content** - Beginner, Intermediate, Expert, and Advanced levels with filtering
+- **Interactive Demos** - Context prediction, prompt comparison, reality filter toggle
+- **Prompt Builder** - Full CRISP Framework tool with Simple/Advanced modes
+- **Claude/Gemini Tabs** - Side-by-side content for both AI tools
+- **Platform Tabs** - Windows/Mac/Linux with localStorage persistence
+- **Ctrl+K Search** - Global search across all pages
+- **Progress Tracking** - Per-section completion state
 - **Responsive Design** - Works on desktop and mobile
-- **Print-Friendly Cheatsheet** - For quick reference
 
 ## What's Inside
 
-| Page | Description |
-|------|-------------|
-| **Home** | Overview, tool comparison, quick links |
-| **Installation** | Setup guides for Claude Code and Gemini CLI |
-| **Fundamentals** | Mental models, context management, CLAUDE.md/GEMINI.md |
-| **Tips & Tricks** | Keyboard shortcuts, commands, power-user techniques |
-| **Use Cases** | Cover Whale-specific workflows and examples |
-| **Workflows** | Proven patterns: Explore-Plan-Execute, Relay Race |
-| **Advanced** | Headless mode, MCP, Docker, automation pipelines |
-| **Cheatsheet** | Side-by-side quick reference (printable) |
+| Page | Tier | Description |
+|------|------|-------------|
+| **Home** | -- | Overview, learning path, quick links |
+| **AI Basics** | Beginner | Core AI concepts and terminology |
+| **Prompt Engineering** | Beginner/Intermediate | 7-tab guide to effective prompting |
+| **Prompt Builder** | Intermediate | Interactive CRISP Framework tool |
+| **Vibe Coding** | Beginner | Introduction to AI-assisted development |
+| **Installation** | Beginner | Setup guides for Claude Code and Gemini CLI |
+| **Fundamentals** | Intermediate | Context management, CLAUDE.md/GEMINI.md |
+| **Workflows** | Expert | Proven patterns: Explore-Plan-Execute, Relay Race |
+| **Tips & Tricks** | Expert | Keyboard shortcuts, commands, power-user techniques |
+| **Cheatsheet** | Expert | Side-by-side quick reference |
+| **Agentic AI** | Advanced | Multi-agent workflows, MCP, automation |
+| **Use Cases** | Expert | Cover Whale-specific workflows and examples |
+| **Resources** | -- | Glossary and quick reference |
 
 ## Tech Stack
 
-- **Authentication**: Custom Google OAuth with CoverWhale domain restriction
-- **Hosting**: GitHub Pages
-- **Design**: Custom CSS with lighter purple palette for readability
-- **JavaScript**: Modular ES6 for tabs, search, copy, themes, filters
+- **Framework**: Next.js 14 (App Router, static export)
+- **Styling**: Tailwind CSS with custom design tokens
+- **Authentication**: Google OAuth via coverwhale-auth Vercel backend
+- **Hosting**: GitHub Pages with GitHub Actions CI/CD
+- **Language**: TypeScript
 
 ## Repository Structure
 
 ```
-CW-Vibe-Code-Guide/
-├── index.html              # Landing page
-├── installation.html       # Installation guide
-├── fundamentals.html       # Mental model, context, setup
-├── tips-tricks.html        # Tool-specific tips
-├── use-cases.html          # Cover Whale use cases
-├── workflows.html          # Workflow frameworks
-├── advanced.html           # Advanced techniques
-├── cheatsheet.html         # Quick reference
-├── css/
-│   └── styles.css          # Shared styles
-├── js/
-│   ├── auth.js             # Authentication
-│   ├── tabs.js             # Tab switching
-│   ├── nav.js              # Navigation
-│   ├── copy-code.js        # Copy functionality
-│   ├── theme.js            # Dark/light mode
-│   ├── filter.js           # Skill level filtering
-│   └── search.js           # Ctrl+K search
-├── .nojekyll               # Disable Jekyll processing
-└── README.md               # This file
+CW-AI-Learning-Guide/
+├── src/
+│   ├── app/                 # Next.js pages (App Router)
+│   ├── components/          # React components
+│   │   ├── auth/            # AuthProvider, AuthGuard, LoginScreen
+│   │   ├── content/         # TierBadge, Card, CodeBlock, Tabs, etc.
+│   │   ├── interactive/     # ContextDemo, PromptBuilder, QuizBlock, etc.
+│   │   ├── layout/          # Sidebar, TopBar, Footer
+│   │   └── ui/              # SearchModal
+│   ├── hooks/               # useAuth, useLocalStorage, usePlatform
+│   ├── lib/                 # auth, constants
+│   └── styles/              # Global CSS
+├── public/                  # Static assets
+├── .github/workflows/       # GitHub Actions deploy workflow
+├── next.config.js           # Static export + basePath config
+└── README.md
 ```
 
 ## Local Development
 
-To run locally:
-
 ```bash
 # Clone the repository
-git clone git@github.com:dmedina5/CW-Vibe-Code-Guide.git
-cd CW-Vibe-Code-Guide
+git clone git@github.com:dmedina5/CW-AI-Learning-Guide.git
+cd CW-AI-Learning-Guide
 
-# Start local server
-python -m http.server 8000
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
 
 # Open in browser
-open http://localhost:8000
+open http://localhost:3000
 ```
-
-**Note**: Authentication will work on GitHub Pages but not on localhost (unless you update the auth.js redirect URI).
-
-## Verification Checklist
-
-After making changes, verify:
-
-- [ ] All pages load without JavaScript errors
-- [ ] Tab switching works on all pages
-- [ ] Copy buttons copy correct content
-- [ ] Skill filters show/hide content properly
-- [ ] Dark/light mode persists across pages
-- [ ] Search finds content across all pages
-- [ ] Navigation highlights current page
-- [ ] Mobile responsive (test at 375px, 768px)
-- [ ] Authentication works after deployment
 
 ## Maintenance
 
 - **Owner**: Daniel Medina (daniel.medina@coverwhale.com)
-- **Last Updated**: January 2026
-- **Updates**: Pull requests welcome from CoverWhale team members
+- **Last Updated**: February 2026
 
 ## Support
 
-- **Questions about Claude Code?** Reach out to IT Support or your team lead
-- **Questions about Gemini CLI?** Check the official Google docs or ask the team
+- **Questions?** Reach out to IT Support or your team lead
 - **Feedback on this guide?** Contact the Core Systems team
 - **Authentication issues?** Email daniel.medina@coverwhale.com
-
-## Additional Resources
-
-- [Official Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
-- [Gemini CLI Documentation](https://ai.google.dev/gemini-cli)
-- [Claude.ai Help Center](https://support.anthropic.com)
-- [Google AI Studio](https://aistudio.google.com)
 
 ---
 
