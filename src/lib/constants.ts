@@ -45,6 +45,14 @@ export const NAV_ITEMS = [
     href: '/ai-basics',
     icon: 'Brain',
     tier: 'beginner' as TierKey,
+    children: [
+      { label: 'Overview', href: '/ai-basics', tier: 'beginner' as TierKey },
+      { label: 'Core Concepts', href: '/ai-basics/core-concepts', tier: 'beginner' as TierKey },
+      { label: 'How It Works', href: '/ai-basics/how-it-works', tier: 'beginner' as TierKey },
+      { label: 'Innovation Flywheel', href: '/ai-basics/innovation', tier: 'beginner' as TierKey },
+      { label: 'Models', href: '/ai-basics/models', tier: 'beginner' as TierKey },
+      { label: 'Strengths & Limits', href: '/ai-basics/strengths', tier: 'beginner' as TierKey },
+    ],
   },
   {
     label: 'Prompt Engineering',
