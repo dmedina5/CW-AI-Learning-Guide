@@ -69,7 +69,7 @@ export default function HomePage() {
             className="text-[10px] uppercase font-bold tracking-widest px-4 py-1.5 rounded-full"
             style={{ background: 'var(--cw-primary-light)', color: 'var(--cw-primary)' }}
           >
-            Internal Platform
+            Internal Guide
           </span>
           <span
             className="text-[10px] uppercase font-bold tracking-widest px-4 py-1.5 rounded-full"
@@ -79,7 +79,7 @@ export default function HomePage() {
           </span>
         </div>
 
-        <h1 className="mb-4">AI Learning Platform</h1>
+        <h1 className="mb-4">AI Learning Guide</h1>
         <p className="text-xl max-w-2xl mx-auto mb-8" style={{ color: 'var(--cw-ink-secondary)' }}>
           Demystifying AI &amp; building our future together. A structured learning program
           for <strong>every role</strong> at Cover Whale &mdash; no technical background required.
@@ -107,7 +107,7 @@ export default function HomePage() {
         <div className="section-label">Why we&apos;re here</div>
         <h2 className="mb-4">AI isn&apos;t coming &mdash; it&apos;s already here</h2>
         <p className="mb-6">
-          This platform removes the mystery, cuts through the hype, and gives every person at
+          This guide removes the mystery, cuts through the hype, and gives every person at
           Cover Whale the confidence to start leveraging AI <span className="text-highlight">today</span>.
         </p>
 
@@ -198,7 +198,7 @@ export default function HomePage() {
       {/* Collaboration credit */}
       <Callout variant="purple">
         <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-          <strong>Built with AI:</strong> This platform was created using Claude Code
+          <strong>Built with AI:</strong> This guide was created using Claude Code
           &mdash; a real-world example of the tools you&apos;ll learn to use here.
         </p>
       </Callout>

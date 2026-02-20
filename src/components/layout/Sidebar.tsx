@@ -65,7 +65,7 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
             }}
           />
           <span className="font-bold text-sm" style={{ color: 'var(--cw-ink)' }}>
-            AI Learning Platform
+            AI Learning Guide
           </span>
         </div>
 

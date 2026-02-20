@@ -92,7 +92,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-cw-purple border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <h2 className="text-xl font-semibold text-cw-ink mb-2">Verifying CoverWhale Credentials...</h2>
-          <p className="text-cw-ink-muted">Accessing AI Learning Platform</p>
+          <p className="text-cw-ink-muted">Accessing AI Learning Guide</p>
         </div>
       </div>
     );

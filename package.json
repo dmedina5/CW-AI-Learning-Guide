@@ -1,8 +1,8 @@
 {
-  "name": "cw-ai-learning-platform",
+  "name": "cw-ai-learning-guide",
   "version": "2.0.0",
   "private": true,
-  "description": "Cover Whale AI Learning Platform - Internal training and resources",
+  "description": "Cover Whale AI Learning Guide - Internal training and resources",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

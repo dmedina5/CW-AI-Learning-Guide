@@ -1,8 +1,8 @@
 # Cover Whale AI Learning Guide
 
-**Internal AI Learning Platform for Cover Whale**
+**Internal AI Learning Guide for Cover Whale**
 
-A comprehensive Next.js learning platform covering AI fundamentals, prompt engineering, vibe coding, and agentic AI - built for Cover Whale team members at every skill level.
+A comprehensive Next.js learning guide covering AI fundamentals, prompt engineering, vibe coding, and agentic AI - built for Cover Whale team members at every skill level.
 
 ## Live Guide
 

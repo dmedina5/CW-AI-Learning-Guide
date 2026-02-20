@@ -20,7 +20,7 @@ export function LoginScreen() {
             }}
           />
           <h1 className="text-2xl font-extrabold mb-2" style={{ color: 'var(--cw-ink)' }}>
-            AI Learning Platform
+            AI Learning Guide
           </h1>
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
             Sign in with your Cover Whale account to access training resources
