@@ -198,7 +198,7 @@ export default function HomePage() {
       {/* Collaboration credit */}
       <Callout variant="purple">
         <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-          <strong>Built with AI:</strong> This platform was created using Claude Code and Gemini CLI
+          <strong>Built with AI:</strong> This platform was created using Claude Code
           &mdash; a real-world example of the tools you&apos;ll learn to use here.
         </p>
       </Callout>

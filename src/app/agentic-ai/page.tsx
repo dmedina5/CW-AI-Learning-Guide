@@ -58,7 +58,7 @@ export default function AgenticAIPage() {
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
             <span className="text-highlight">The key difference:</span> Traditional AI responds to prompts.
             Agentic AI takes a goal and figures out the steps to achieve it, using tools and making
-            decisions along the way. Claude Code and Gemini CLI are examples of agentic tools.
+            decisions along the way. Claude Code is our primary example of an agentic tool.
           </p>
         </Callout>
       </section>
@@ -82,11 +82,11 @@ export default function AgenticAIPage() {
             },
             {
               title: 'Stage 2: AI as a Coding Assistant',
-              description: 'Use Claude Code or Gemini CLI in your terminal. AI reads your files, suggests edits, runs commands. You approve each action.',
+              description: 'Use Claude Code in your terminal. AI reads your files, suggests edits, runs commands. You approve each action.',
             },
             {
               title: 'Stage 3: Multi-Agent Workflows',
-              description: 'Run multiple AI agents in parallel. Claude analyzes, Gemini executes. Use HANDOFF.md for context transfer between agents.',
+              description: 'Run multiple Claude Code instances in parallel. Separate research, implementation, and testing roles. Share context via markdown files.',
             },
             {
               title: 'Stage 4: Automated Pipelines',
@@ -167,9 +167,9 @@ export default function AgenticAIPage() {
             {
               stage: 'RESOLUTION',
               title: 'Review & Test',
-              desc: 'Automated tests run. Gemini CLI validates across the full codebase. Review agent checks quality.',
+              desc: 'Automated tests run. Claude Code validates across the full codebase. Review agent checks quality.',
               color: '#3A9E6E',
-              agent: 'Gemini CLI + Review Agent',
+              agent: 'Claude Code + Review Agent',
             },
             {
               stage: 'DEPLOY',
@@ -227,7 +227,7 @@ export default function AgenticAIPage() {
           The Agentic <span className="text-highlight">Tool Landscape</span>
         </h2>
         <p className="mb-6" style={{ color: 'var(--cw-ink-secondary)' }}>
-          Beyond Claude Code and Gemini CLI, there is a growing ecosystem of tools for building and
+          Beyond Claude Code, there is a growing ecosystem of tools for building and
           orchestrating AI agent workflows. Here are the key categories and tools to know.
         </p>
 
@@ -345,15 +345,15 @@ export default function AgenticAIPage() {
           steps={[
             {
               title: 'Master the basics first',
-              description: 'Get comfortable with Claude Code and Gemini CLI as individual tools before orchestrating them together.',
+              description: 'Get comfortable with Claude Code as your primary tool before orchestrating multiple agents.',
             },
             {
               title: 'Identify your first pipeline',
               description: 'Pick a repetitive workflow (code review, documentation, testing) and map it as a series of agent steps.',
             },
             {
-              title: 'Start with the Relay Race pattern',
-              description: 'Use Claude for planning/review and Gemini for execution. Pass context via HANDOFF.md files.',
+              title: 'Start with multi-instance Claude',
+              description: 'Run separate Claude Code sessions for research, implementation, and testing. Share context via markdown files.',
             },
             {
               title: 'Add automation gradually',
@@ -381,10 +381,11 @@ claude -p "Based on INVESTIGATION.md, create a fix plan. \\
   Write to PLAN.md with specific file changes needed." \\
   --add INVESTIGATION.md
 
-# Step 3: Gemini executes the plan
-gemini "@PLAN.md Execute the fix plan. \\
+# Step 3: Second Claude instance executes the plan
+claude -p "Based on PLAN.md, implement the fix. \\
   Make the code changes described. \\
-  Run tests after each change."
+  Run tests after each change." \\
+  --add PLAN.md
 
 # Step 4: Claude reviews
 claude -p "Review all changes since the last commit. \\

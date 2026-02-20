@@ -107,8 +107,5 @@ export const NAV_ITEMS = [
   },
 ] as const;
 
-export const TOOL_TABS = ['Claude', 'Gemini', 'Shared'] as const;
-export type ToolTab = typeof TOOL_TABS[number];
-
 export const PLATFORM_TABS = ['Windows', 'Mac', 'Linux'] as const;
 export type PlatformTab = typeof PLATFORM_TABS[number];
