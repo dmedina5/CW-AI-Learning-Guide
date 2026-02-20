@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Primary - CW Purple */
+  --cw-primary: #6B2D8B;
+  --cw-primary-dark: #4E1F6A;
+  --cw-primary-light: rgba(107, 45, 139, 0.1);
+  --cw-primary-005: rgba(107, 45, 139, 0.05);
+
+  /* Semantic */
+  --cw-success: #3A9E6E;
+  --cw-warning: #D95550;
+  --cw-info: #4A6FA5;
+
+  /* Surface (AI Deck light theme) */
+  --cw-bg: #c3c3d5;
+  --cw-bg-warm: #bbbcce;
+  --cw-bg-alt: #b5b5c8;
+  --cw-surface: rgba(255, 255, 255, 0.55);
+  --cw-surface-hover: rgba(255, 255, 255, 0.75);
+
+  /* Text */
+  --cw-ink: #111118;
+  --cw-ink-80: #2D2D3A;
+  --cw-ink-secondary: #3D3D4E;
+  --cw-ink-40: #484858;
+  --cw-ink-muted: #888895;
+  --cw-ink-10: #DDDDE0;
+
+  /* Borders */
+  --cw-border: rgba(0, 0, 0, 0.08);
+
+  /* Tier Colors */
+  --tier-beginner: #3A9E6E;
+  --tier-intermediate: #4A6FA5;
+  --tier-expert: #D95550;
+  --tier-advanced: #6B2D8B;
+}
+
+@layer base {
+  body {
+    @apply font-sans antialiased;
+    background: var(--cw-bg);
+    color: var(--cw-ink);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans font-extrabold tracking-tight;
+    color: var(--cw-ink);
+  }
+
+  h1 {
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+  }
+
+  h2 {
+    font-size: clamp(24px, 3vw, 36px);
+    line-height: 1.15;
+    letter-spacing: -1px;
+  }
+
+  h3 {
+    @apply text-xl font-semibold;
+    letter-spacing: -0.2px;
+  }
+
+  p {
+    @apply text-lg leading-relaxed;
+    color: var(--cw-ink-secondary);
+    max-width: 720px;
+  }
+
+  code {
+    @apply font-mono text-sm;
+  }
+}
+
+@layer components {
+  /* Glass card effect from AI Deck */
+  .glass-card {
+    background: var(--cw-surface);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--cw-border);
+    border-radius: 16px;
+    transition: background 0.2s;
+  }
+
+  .glass-card:hover {
+    background: var(--cw-surface-hover);
+  }
+
+  /* Label style from AI Deck */
+  .section-label {
+    @apply text-xs uppercase font-semibold tracking-widest;
+    color: var(--cw-primary);
+    letter-spacing: 4px;
+    margin-bottom: 14px;
+  }
+
+  /* Highlight text */
+  .text-highlight {
+    color: var(--cw-primary);
+    @apply font-semibold;
+  }
+
+  /* Note/callout boxes from AI Deck */
+  .note-box {
+    @apply flex items-start gap-4 p-6 rounded-xl;
+    background: var(--cw-surface);
+    border: 1px solid var(--cw-border);
+    max-width: 720px;
+  }
+
+  .note-box.warning {
+    background: rgba(255, 240, 238, 0.7);
+    border-color: rgba(217, 85, 80, 0.1);
+  }
+
+  .note-bar {
+    @apply w-[3px] flex-shrink-0 rounded-sm self-stretch;
+  }
+
+  .note-bar.purple { background: var(--cw-primary); }
+  .note-bar.coral { background: var(--cw-warning); }
+  .note-bar.sage { background: var(--cw-success); }
+  .note-bar.blue { background: var(--cw-info); }
+
+  /* Section slide numbers from AI Deck */
+  .section-number {
+    @apply font-black leading-none;
+    font-size: 100px;
+    letter-spacing: -4px;
+    color: rgba(0, 0, 0, 0.06);
+  }
+
+  /* Code panel */
+  .code-panel {
+    background: var(--cw-ink);
+    color: #a0a0ad;
+    @apply rounded-2xl p-6 text-sm leading-relaxed relative overflow-hidden;
+  }
+
+  .code-panel::before {
+    content: '';
+    @apply absolute top-0 left-0 right-0 h-[2px];
+    background: var(--cw-primary);
+  }
+
+  /* Pill button */
+  .pill-btn {
+    @apply px-5 py-2.5 rounded-full text-sm font-medium transition-all;
+    border: 1px solid var(--cw-ink-10);
+    color: var(--cw-ink-secondary);
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .pill-btn:hover {
+    border-color: var(--cw-ink-muted);
+    color: var(--cw-ink);
+  }
+
+  .pill-btn.active {
+    background: var(--cw-primary);
+    color: #fff;
+    border-color: var(--cw-primary);
+  }
+
+  /* Scrollbar styling */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+  }
+}
+
+/* Page transition animation */
+.page-enter {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+/* Smooth show/hide for tier filtering */
+[data-tier] {
+  transition: opacity 0.3s, max-height 0.4s, margin 0.3s, padding 0.3s;
+  overflow: hidden;
+}
+
+[data-tier].tier-hidden {
+  opacity: 0;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
