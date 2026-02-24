@@ -196,9 +196,22 @@ export default function InstallationPage() {
                 </Card>
 
                 <Card>
-                  <h4 className="mb-3">Option 4: npm (Deprecated)</h4>
-                  <CodeBlock code={`# Only if native installer doesn't work (requires Node.js 18+)
-npm install -g @anthropic-ai/claude-code`} />
+                  <h4 className="mb-3">Option 4: npm (Fallback)</h4>
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    Only if the native installers above don&apos;t work. Requires <strong>Node.js 18+</strong> and <strong>npm</strong>.
+                  </p>
+                  <Callout variant="warning" className="mb-3">
+                    <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                      <strong>Prerequisite: Install Node.js first.</strong> Download the LTS installer from{' '}
+                      <a href="https://nodejs.org" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>
+                        nodejs.org
+                      </a>{' '}
+                      and run it. Make sure <strong>&ldquo;Add to PATH&rdquo;</strong> is checked during installation.
+                      Close and reopen your terminal after installing. Verify with{' '}
+                      <code>node --version</code> and <code>npm --version</code>.
+                    </p>
+                  </Callout>
+                  <CodeBlock code={`npm install -g @anthropic-ai/claude-code`} />
                 </Card>
 
                 <Callout variant="blue" className="mt-6">
