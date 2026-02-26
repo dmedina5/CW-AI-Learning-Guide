@@ -92,18 +92,42 @@ export const NAV_ITEMS = [
     href: '/agentic-ai',
     icon: 'Bot',
     tier: 'advanced' as TierKey,
+    children: [
+      { label: 'Overview', href: '/agentic-ai', tier: 'advanced' as TierKey },
+      { label: 'What Are Agents', href: '/agentic-ai#what-are-agents', tier: 'advanced' as TierKey },
+      { label: 'Evolution', href: '/agentic-ai#personal-to-orchestration', tier: 'advanced' as TierKey },
+      { label: 'Map Your Workflow', href: '/agentic-ai#mapping-workflow', tier: 'advanced' as TierKey },
+      { label: 'Pipeline Example', href: '/agentic-ai#pipeline', tier: 'advanced' as TierKey },
+      { label: 'Tool Landscape', href: '/agentic-ai#tool-landscape', tier: 'advanced' as TierKey },
+      { label: 'Getting Started', href: '/agentic-ai#getting-started', tier: 'advanced' as TierKey },
+      { label: 'Skills', href: '/agentic-ai/skills', tier: 'beginner' as TierKey },
+    ],
   },
   {
     label: 'Use Cases',
     href: '/use-cases',
     icon: 'Briefcase',
     tier: 'expert' as TierKey,
+    children: [
+      { label: 'Overview', href: '/use-cases', tier: 'expert' as TierKey },
+      { label: 'Underwriting', href: '/use-cases#underwriting', tier: 'expert' as TierKey },
+      { label: 'Broker Communication', href: '/use-cases#broker-communication', tier: 'expert' as TierKey },
+      { label: 'Claims', href: '/use-cases#claims', tier: 'expert' as TierKey },
+      { label: 'General Productivity', href: '/use-cases#general', tier: 'expert' as TierKey },
+    ],
   },
   {
     label: 'Resources',
     href: '/resources',
     icon: 'BookOpen',
     tier: null,
+    children: [
+      { label: 'Overview', href: '/resources', tier: null },
+      { label: 'Glossary', href: '/resources#glossary', tier: null },
+      { label: 'Tools & Links', href: '/resources#links', tier: null },
+      { label: 'Quick Reference', href: '/resources#quick-reference', tier: null },
+      { label: 'Learning Path', href: '/resources#learning-path', tier: null },
+    ],
   },
 ] as const;
 

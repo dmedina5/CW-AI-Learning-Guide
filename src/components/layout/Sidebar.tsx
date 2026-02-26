@@ -135,7 +135,7 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
                         }}
                       >
                         <span className="flex-1">{child.label}</span>
-                        <TierBadge tier={child.tier} size="xs" />
+                        {child.tier && <TierBadge tier={child.tier} size="xs" />}
                       </Link>
                     ))}
                   </div>

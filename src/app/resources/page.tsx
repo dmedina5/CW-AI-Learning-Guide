@@ -9,44 +9,8 @@ import { TierBadge } from '@/components/content/TierBadge';
 
 const glossaryTerms = [
   {
-    term: 'Vibe Coding',
-    definition: 'A style of programming where you describe what you want in natural language and an AI tool generates the code. You guide the direction and the AI handles the syntax. Coined by Andrej Karpathy (co-founder of OpenAI).',
-  },
-  {
     term: 'Agentic AI',
     definition: 'AI systems that can autonomously plan, execute multi-step tasks, use tools, and make decisions with minimal human intervention. They go beyond simple question-and-answer to take actions in the real world or in software environments.',
-  },
-  {
-    term: 'Claude Code',
-    definition: 'Anthropic\'s command-line AI coding assistant that runs in your terminal. It can read your codebase, edit files, run commands, and execute multi-step development tasks autonomously.',
-  },
-  {
-    term: 'Desktop App',
-    definition: 'A standalone application installed on your computer (as opposed to a browser-based web app). Claude Desktop and Cursor are examples of AI desktop apps.',
-  },
-  {
-    term: 'IDE (Integrated Development Environment)',
-    definition: 'A software application that provides comprehensive tools for software development, including a code editor, debugger, and build tools. Examples: VS Code, Cursor, WebStorm.',
-  },
-  {
-    term: 'Markdown',
-    definition: 'A lightweight text formatting language using simple symbols like # for headings, ** for bold, and - for bullet points. Used extensively in AI prompts, documentation, and developer tools.',
-  },
-  {
-    term: 'Terminal / CLI',
-    definition: 'A text-based interface for interacting with your computer using typed commands instead of clicking. CLI stands for Command Line Interface. Essential for developer tools like Claude Code, Git, and npm.',
-  },
-  {
-    term: 'npm (Node Package Manager)',
-    definition: 'A package manager for JavaScript/Node.js that lets you install, share, and manage code libraries and tools. Used to install many AI development tools.',
-  },
-  {
-    term: 'PATH',
-    definition: 'An environment variable on your computer that tells the system where to find executable programs. When you install a CLI tool, it needs to be on your PATH to run from any directory.',
-  },
-  {
-    term: 'Git',
-    definition: 'A version control system that tracks changes to files over time. It lets you save snapshots of your work, collaborate with others, and revert to previous versions. GitHub is a cloud platform built around Git.',
   },
   {
     term: 'API Key',
@@ -57,28 +21,64 @@ const glossaryTerms = [
     definition: 'The process of verifying your identity to access a service. For AI tools, this typically involves signing in with an email, OAuth (Google/GitHub login), or an API key.',
   },
   {
-    term: 'Prompt',
-    definition: 'The text input you give to an AI model. A prompt can be a question, instruction, or any text the AI should respond to. Better prompts produce better outputs.',
+    term: 'Claude Code',
+    definition: 'Anthropic\'s command-line AI coding assistant that runs in your terminal. It can read your codebase, edit files, run commands, and execute multi-step development tasks autonomously.',
   },
   {
     term: 'Context',
     definition: 'The background information available to an AI during a conversation. This includes your current message, previous messages in the conversation, any attached files, and system instructions. More relevant context leads to better predictions.',
   },
   {
+    term: 'Desktop App',
+    definition: 'A standalone application installed on your computer (as opposed to a browser-based web app). Claude Desktop and Cursor are examples of AI desktop apps.',
+  },
+  {
+    term: 'Git',
+    definition: 'A version control system that tracks changes to files over time. It lets you save snapshots of your work, collaborate with others, and revert to previous versions. GitHub is a cloud platform built around Git.',
+  },
+  {
+    term: 'Hallucination',
+    definition: 'When an AI generates information that sounds plausible but is factually incorrect or entirely fabricated. This is why human verification of AI outputs is critical, especially for business decisions, policy details, and regulatory information.',
+  },
+  {
+    term: 'IDE (Integrated Development Environment)',
+    definition: 'A software application that provides comprehensive tools for software development, including a code editor, debugger, and build tools. Examples: VS Code, Cursor, WebStorm.',
+  },
+  {
     term: 'LLM (Large Language Model)',
     definition: 'The type of AI model behind tools like Claude, ChatGPT, and Gemini. Trained on vast amounts of text data, LLMs predict the most likely next words given context, enabling them to generate human-like text, answer questions, and complete tasks.',
   },
   {
-    term: 'Token',
-    definition: 'The basic unit of text that AI models process. Roughly 1 token equals 3/4 of a word. Models have token limits (context windows) that determine how much text they can consider at once. Claude Opus has a 200K token context window.',
+    term: 'Markdown',
+    definition: 'A lightweight text formatting language using simple symbols like # for headings, ** for bold, and - for bullet points. Used extensively in AI prompts, documentation, and developer tools.',
   },
   {
     term: 'MCP (Model Context Protocol)',
     definition: 'An open standard (created by Anthropic) that lets AI assistants connect to external data sources and tools. Think of it as a USB-C port for AI \u2014 one standard protocol that connects to many different services like databases, file systems, and APIs.',
   },
   {
-    term: 'Hallucination',
-    definition: 'When an AI generates information that sounds plausible but is factually incorrect or entirely fabricated. This is why human verification of AI outputs is critical, especially for business decisions, policy details, and regulatory information.',
+    term: 'npm (Node Package Manager)',
+    definition: 'A package manager for JavaScript/Node.js that lets you install, share, and manage code libraries and tools. Used to install many AI development tools.',
+  },
+  {
+    term: 'PATH',
+    definition: 'An environment variable on your computer that tells the system where to find executable programs. When you install a CLI tool, it needs to be on your PATH to run from any directory.',
+  },
+  {
+    term: 'Prompt',
+    definition: 'The text input you give to an AI model. A prompt can be a question, instruction, or any text the AI should respond to. Better prompts produce better outputs.',
+  },
+  {
+    term: 'Terminal / CLI',
+    definition: 'A text-based interface for interacting with your computer using typed commands instead of clicking. CLI stands for Command Line Interface. Essential for developer tools like Claude Code, Git, and npm.',
+  },
+  {
+    term: 'Token',
+    definition: 'The basic unit of text that AI models process. Roughly 1 token equals 3/4 of a word. Models have token limits (context windows) that determine how much text they can consider at once. Claude Opus has a 200K token context window.',
+  },
+  {
+    term: 'Vibe Coding',
+    definition: 'A style of programming where you describe what you want in natural language and an AI tool generates the code. You guide the direction and the AI handles the syntax. Coined by Andrej Karpathy (co-founder of OpenAI).',
   },
 ];
 

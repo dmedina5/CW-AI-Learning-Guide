@@ -415,11 +415,11 @@ echo "Pipeline complete. Check REVIEW.md for results."`}
           <ArrowLeft size={16} /> Cheatsheet
         </Link>
         <Link
-          href="/use-cases"
+          href="/agentic-ai/skills"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:gap-3"
           style={{ background: 'var(--cw-primary)', color: '#fff' }}
         >
-          Next: Use Cases <ArrowRight size={16} />
+          Next: AI Skills <ArrowRight size={16} />
         </Link>
       </div>
     </div>
