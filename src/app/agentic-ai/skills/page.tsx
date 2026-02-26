@@ -305,6 +305,124 @@ export default function SkillsPage() {
         </Card>
       </section>
 
+      {/* Section: How Skills Fit In */}
+      <section className="mb-16" id="bigger-picture">
+        <div className="section-label">The Bigger Picture</div>
+        <h2 className="mb-4">
+          How Skills Fit <span className="text-highlight">Together</span>
+        </h2>
+        <p className="mb-6" style={{ color: 'var(--cw-ink-secondary)' }}>
+          Skills do not work in isolation. In our framework, they are part of a chain that connects
+          your request to the right expertise automatically.
+        </p>
+
+        {/* Execution Chain */}
+        <div className="flex flex-col gap-3 max-w-3xl mb-8">
+          {[
+            {
+              stage: 'YOU TYPE',
+              title: 'A Command',
+              desc: 'You invoke a simple slash command like /implement or /review-code. No need to know which skill or agent will handle it.',
+              color: '#D97706',
+              example: '/implement',
+            },
+            {
+              stage: 'ROUTES TO',
+              title: 'An Agent',
+              desc: 'The command activates a specialized agent that plans the approach, breaks the work into steps, and coordinates execution.',
+              color: '#4A6FA5',
+              example: 'implement-orchestrator',
+            },
+            {
+              stage: 'DRAWS ON',
+              title: 'Skills',
+              desc: 'The agent loads the skills it needs — testing standards, code review rules, security checks — each one an expertise module with deep domain knowledge.',
+              color: '#3A9E6E',
+              example: 'test-tdd, code-review, security-review',
+            },
+          ].map((item, i) => (
+            <div key={i}>
+              <div
+                className="flex items-center gap-5 p-5 rounded-2xl transition-colors"
+                style={{
+                  background: 'var(--cw-surface)',
+                  border: '1px solid var(--cw-border)',
+                  borderLeft: `4px solid ${item.color}`,
+                }}
+              >
+                <div className="flex flex-col items-center gap-1 flex-shrink-0 w-20">
+                  <span
+                    className="text-[10px] font-bold tracking-widest px-2 py-0.5 rounded-full"
+                    style={{ background: `${item.color}15`, color: item.color }}
+                  >
+                    {item.stage}
+                  </span>
+                </div>
+                <div className="flex-1">
+                  <h4 className="text-sm font-semibold mb-1" style={{ color: 'var(--cw-ink)' }}>{item.title}</h4>
+                  <p className="text-xs mb-1.5" style={{ color: 'var(--cw-ink-secondary)' }}>{item.desc}</p>
+                  <code className="text-[11px] px-2 py-0.5 rounded" style={{ background: 'var(--cw-primary-light)', color: 'var(--cw-primary)' }}>{item.example}</code>
+                </div>
+              </div>
+              {i < 2 && (
+                <div className="flex justify-center">
+                  <div className="w-px h-3" style={{ background: 'var(--cw-border)' }} />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <Card className="mb-6">
+          <h4 className="mb-3">AI Models and When They&apos;re Used</h4>
+          <p className="text-sm mb-4" style={{ color: 'var(--cw-ink-secondary)' }}>
+            Different skills use different AI models depending on the task. The framework handles
+            this automatically &mdash; you do not need to choose.
+          </p>
+          <CardGrid columns={3}>
+            {[
+              {
+                model: 'Haiku',
+                speed: 'Fastest',
+                use: 'Quick lookups, file searches, simple formatting tasks',
+                color: '#3A9E6E',
+              },
+              {
+                model: 'Sonnet',
+                speed: 'Balanced',
+                use: 'Code generation, analysis, most day-to-day work',
+                color: '#4A6FA5',
+              },
+              {
+                model: 'Opus',
+                speed: 'Deepest',
+                use: 'Complex reasoning, architectural decisions, specification writing',
+                color: '#6B2D8B',
+              },
+            ].map((item, i) => (
+              <div key={i} className="p-4 rounded-lg" style={{ background: 'var(--cw-primary-light)' }}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-6 h-6 rounded flex items-center justify-center text-[10px] font-bold text-white" style={{ background: item.color }}>
+                    {item.model[0]}
+                  </div>
+                  <h4 className="text-sm font-semibold">{item.model}</h4>
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full ml-auto" style={{ background: `${item.color}15`, color: item.color }}>{item.speed.toUpperCase()}</span>
+                </div>
+                <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>{item.use}</p>
+              </div>
+            ))}
+          </CardGrid>
+        </Card>
+
+        <Callout variant="sage">
+          <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <strong>You do not need to memorize this.</strong> The framework routes your request to the
+            right model and skill automatically. Understanding the chain just helps you see why skills
+            are so powerful &mdash; they scale expertise across the entire organization.
+          </p>
+        </Callout>
+      </section>
+
       {/* Section: Anatomy of a Skill */}
       <section className="mb-16" id="anatomy">
         <div className="section-label">How It Works</div>

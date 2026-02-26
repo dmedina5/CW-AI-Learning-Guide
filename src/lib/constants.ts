@@ -95,6 +95,7 @@ export const NAV_ITEMS = [
     children: [
       { label: 'Overview', href: '/agentic-ai', tier: 'advanced' as TierKey },
       { label: 'What Are Agents', href: '/agentic-ai#what-are-agents', tier: 'advanced' as TierKey },
+      { label: 'Building Blocks', href: '/agentic-ai#building-blocks', tier: 'advanced' as TierKey },
       { label: 'Evolution', href: '/agentic-ai#personal-to-orchestration', tier: 'advanced' as TierKey },
       { label: 'Map Your Workflow', href: '/agentic-ai#mapping-workflow', tier: 'advanced' as TierKey },
       { label: 'Pipeline Example', href: '/agentic-ai#pipeline', tier: 'advanced' as TierKey },
@@ -124,6 +125,7 @@ export const NAV_ITEMS = [
     children: [
       { label: 'Overview', href: '/resources', tier: null },
       { label: 'Glossary', href: '/resources#glossary', tier: null },
+      { label: 'Essential Videos', href: '/resources#videos', tier: null },
       { label: 'Tools & Links', href: '/resources#links', tier: null },
       { label: 'Quick Reference', href: '/resources#quick-reference', tier: null },
       { label: 'Learning Path', href: '/resources#learning-path', tier: null },

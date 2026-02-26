@@ -150,6 +150,75 @@ export default function ResourcesPage() {
         </div>
       </section>
 
+      {/* Essential Videos */}
+      <section className="mb-16" id="videos">
+        <div className="section-label">Watch First</div>
+        <h2 className="mb-4">
+          Essential <span className="text-highlight">Videos</span>
+        </h2>
+        <p className="mb-8">
+          Three videos that will give you the mental model for how agentic AI works. Watch them in order &mdash;
+          each one builds on the last.
+        </p>
+
+        <div className="space-y-4">
+          {[
+            {
+              number: 1,
+              title: 'Where Agentic Coding Is Headed in 2026',
+              author: 'IndyDevDan',
+              why: 'Sets the landscape \u2014 the shift from \u201CAI-assisted\u201D to \u201CAI-agentic\u201D development. Understand where the industry is going and why it matters for everyone, not just developers.',
+              color: '#D95550',
+            },
+            {
+              number: 2,
+              title: 'Skills, MCP Servers, Commands & Agents',
+              author: 'Anthropic / Claude Code',
+              why: 'The most important video \u2014 covers the four building blocks we use every day. After watching, you\u2019ll understand how skills, agents, commands, and MCP servers work together.',
+              color: '#4A6FA5',
+            },
+            {
+              number: 3,
+              title: 'Hooks \u2014 Automated Enforcement',
+              author: 'Anthropic / Claude Code',
+              why: 'How hooks turn Claude Code into a disciplined platform. Understand how automatic safety checks prevent mistakes before they happen.',
+              color: '#3A9E6E',
+            },
+          ].map((video) => (
+            <div
+              key={video.number}
+              className="flex items-start gap-5 p-5 rounded-2xl"
+              style={{
+                background: 'var(--cw-surface)',
+                border: '1px solid var(--cw-border)',
+                borderLeft: `4px solid ${video.color}`,
+              }}
+            >
+              <div className="flex flex-col items-center gap-1 flex-shrink-0 w-12">
+                <span
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white"
+                  style={{ background: video.color }}
+                >
+                  {video.number}
+                </span>
+              </div>
+              <div className="flex-1">
+                <h4 className="text-sm font-semibold mb-1" style={{ color: 'var(--cw-ink)' }}>{video.title}</h4>
+                <p className="text-[11px] font-semibold mb-1.5" style={{ color: video.color }}>{video.author}</p>
+                <p className="text-xs" style={{ color: 'var(--cw-ink-secondary)' }}>{video.why}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <Callout variant="purple" className="mt-6">
+          <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <strong>Time investment:</strong> About 45 minutes total for all three videos. This is the
+            fastest way to build an accurate mental model of how our AI tooling works and where it&apos;s headed.
+          </p>
+        </Callout>
+      </section>
+
       {/* Useful Links */}
       <section className="mb-16" id="links">
         <div className="section-label">Tools &amp; Links</div>

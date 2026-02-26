@@ -63,6 +63,92 @@ export default function AgenticAIPage() {
         </Callout>
       </section>
 
+      {/* Section: The Building Blocks */}
+      <section className="mb-16" id="building-blocks">
+        <div className="section-label">Framework</div>
+        <h2 className="mb-4">
+          The Five <span className="text-highlight">Building Blocks</span>
+        </h2>
+        <p className="mb-6" style={{ color: 'var(--cw-ink-secondary)' }}>
+          Our agentic framework is built on five types of components that work together.
+          Understanding these building blocks helps you see how individual tools combine into
+          powerful automated workflows.
+        </p>
+
+        <div className="space-y-3 mb-8">
+          {[
+            {
+              name: 'Skills',
+              count: '60+',
+              desc: 'Expertise modules that give AI specialized knowledge — like putting on an "expert hat." A skill for email formatting knows your tone, structure, and rules. A skill for code review knows your standards.',
+              color: '#3A9E6E',
+              tag: 'EXPERTISE',
+            },
+            {
+              name: 'Agents',
+              count: '45+',
+              desc: 'Autonomous workers that handle complex, multi-step tasks. An agent can plan an approach, execute it across multiple files, verify the results, and report back — all without step-by-step guidance.',
+              color: '#4A6FA5',
+              tag: 'AUTONOMOUS',
+            },
+            {
+              name: 'Commands',
+              count: '55+',
+              desc: 'Simple entry points you invoke with a slash (e.g., /implement, /test-spec). Each command routes your request to the right combination of skills and agents with the right AI model.',
+              color: '#D97706',
+              tag: 'ENTRY POINTS',
+            },
+            {
+              name: 'Hooks',
+              count: '10',
+              desc: 'Automatic safety checks that fire at key moments — before a file is saved, before a session ends, before a destructive command runs. They enforce quality without you having to remember every rule.',
+              color: '#D95550',
+              tag: 'GUARDRAILS',
+            },
+            {
+              name: 'MCP Servers',
+              count: '5+',
+              desc: 'Connections to external tools and data sources — databases, file systems, APIs, documentation libraries. MCP (Model Context Protocol) is like a USB-C port for AI: one standard, many connections.',
+              color: '#6B2D8B',
+              tag: 'INTEGRATIONS',
+            },
+          ].map((item, i) => (
+            <div
+              key={i}
+              className="flex items-start gap-5 p-5 rounded-2xl transition-colors"
+              style={{
+                background: 'var(--cw-surface)',
+                border: '1px solid var(--cw-border)',
+                borderLeft: `4px solid ${item.color}`,
+              }}
+            >
+              <div className="flex flex-col items-center gap-1 flex-shrink-0 w-20">
+                <span
+                  className="text-[10px] font-bold tracking-widest px-2 py-0.5 rounded-full"
+                  style={{ background: `${item.color}15`, color: item.color }}
+                >
+                  {item.tag}
+                </span>
+                <span className="text-lg font-bold" style={{ color: item.color }}>{item.count}</span>
+              </div>
+              <div className="flex-1">
+                <h4 className="text-sm font-semibold mb-1" style={{ color: 'var(--cw-ink)' }}>{item.name}</h4>
+                <p className="text-xs" style={{ color: 'var(--cw-ink-secondary)' }}>{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <Callout variant="purple">
+          <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <span className="text-highlight">How they connect:</span> You type a <strong>command</strong>.
+            The command activates an <strong>agent</strong>. The agent uses <strong>skills</strong> for
+            specialized knowledge, <strong>MCP servers</strong> for external data, and <strong>hooks</strong> enforce
+            quality at every step. One input, a whole team of AI working for you.
+          </p>
+        </Callout>
+      </section>
+
       {/* Section: From Personal to Orchestration */}
       <section className="mb-16" id="personal-to-orchestration">
         <div className="section-label">Evolution</div>
