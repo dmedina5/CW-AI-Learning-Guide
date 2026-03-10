@@ -178,27 +178,9 @@ export default function InstallationPage() {
                 </Callout>
 
                 <Card className="mb-4">
-                  <h4 className="mb-3">Option 1: PowerShell (Easiest)</h4>
+                  <h4 className="mb-3">Option 1: npm</h4>
                   <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
-                    Open PowerShell as Administrator (Win + X, select &ldquo;Windows PowerShell (Admin)&rdquo;)
-                  </p>
-                  <CodeBlock code={`irm https://claude.ai/install.ps1 | iex`} />
-                </Card>
-
-                <Card className="mb-4">
-                  <h4 className="mb-3">Option 2: Command Prompt</h4>
-                  <CodeBlock code={`curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd`} />
-                </Card>
-
-                <Card className="mb-4">
-                  <h4 className="mb-3">Option 3: WinGet</h4>
-                  <CodeBlock code={`winget install Anthropic.ClaudeCode`} />
-                </Card>
-
-                <Card>
-                  <h4 className="mb-3">Option 4: npm (Fallback)</h4>
-                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
-                    Only if the native installers above don&apos;t work. Requires <strong>Node.js 18+</strong> and <strong>npm</strong>.
+                    Requires <strong>Node.js 18+</strong> and <strong>npm</strong>.
                   </p>
                   <Callout variant="warning" className="mb-3">
                     <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
@@ -212,6 +194,38 @@ export default function InstallationPage() {
                     </p>
                   </Callout>
                   <CodeBlock code={`npm install -g @anthropic-ai/claude-code`} />
+                  <p className="text-sm mt-4 mb-2 font-semibold" style={{ color: 'var(--cw-ink-secondary)' }}>
+                    Ensure Claude Code is accessible in your terminal:
+                  </p>
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    After installing, add npm&apos;s global bin directory to your PATH so the <code>claude</code> command is available. Run the following in PowerShell:
+                  </p>
+                  <CodeBlock code={`# Find npm global bin location
+$npmPrefix = npm config get prefix
+
+# Add it to your user PATH permanently
+[System.Environment]::SetEnvironmentVariable('PATH', $env:PATH + ";$npmPrefix", 'User')
+
+# Restart your terminal, then verify:
+claude --version`} />
+                </Card>
+
+                <Card className="mb-4">
+                  <h4 className="mb-3">Option 2: Command Prompt</h4>
+                  <CodeBlock code={`curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd`} />
+                </Card>
+
+                <Card className="mb-4">
+                  <h4 className="mb-3">Option 3: WinGet</h4>
+                  <CodeBlock code={`winget install Anthropic.ClaudeCode`} />
+                </Card>
+
+                <Card>
+                  <h4 className="mb-3">Option 4: PowerShell</h4>
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    Open PowerShell as Administrator (Win + X, select &ldquo;Windows PowerShell (Admin)&rdquo;)
+                  </p>
+                  <CodeBlock code={`irm https://claude.ai/install.ps1 | iex`} />
                 </Card>
 
                 <Callout variant="blue" className="mt-6">
