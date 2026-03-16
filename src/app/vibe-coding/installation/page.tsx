@@ -451,6 +451,160 @@ claude`} />
         </Callout>
       </section>
 
+
+      {/* Section: Google Antigravity IDE */}
+      <section className="mb-16" id="antigravity">
+        <div className="section-label">AI-First IDE</div>
+        <h2 className="mb-4">
+          Google <span className="text-highlight">Antigravity</span> IDE Setup
+        </h2>
+        <p className="mb-6" style={{ color: 'var(--cw-ink-secondary)' }}>
+          Google Antigravity is a free AI-first IDE with autonomous coding agents powered by Gemini.
+          It can also run Claude Code in its integrated terminal. Follow these steps to install and
+          configure it on your platform.
+        </p>
+
+        <Card className="mb-6">
+          <h3 className="mb-3">System Requirements</h3>
+          <div className="space-y-2">
+            {[
+              { label: 'macOS 10.15 (Catalina) or later', note: 'Apple Silicon or Intel' },
+              { label: 'Windows 10 or Windows 11', note: '64-bit required' },
+              { label: '8 GB RAM minimum (16 GB recommended)', note: 'For AI agent performance' },
+              { label: '2 GB available disk space', note: 'For application and models' },
+              { label: 'Google account', note: 'Personal Gmail for authentication' },
+            ].map((item, i) => (
+              <div key={i} className="flex items-baseline gap-2.5 text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                <div className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1.5" style={{ background: 'var(--cw-primary)' }} />
+                <span><strong>{item.label}</strong> &mdash; {item.note}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <PlatformTabs>
+          {{
+            Windows: (
+              <div>
+                <StepList
+                  steps={[
+                    { title: 'Download the installer', description: <>Go to <a href="https://antigravity.google/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>antigravity.google/download</a> and click <strong>&ldquo;Download for Windows&rdquo;</strong></> },
+                    { title: 'Run the installer', description: 'Double-click the downloaded .exe file and follow the installation wizard' },
+                    { title: 'First launch setup', description: 'Choose to import VS Code/Cursor settings or start fresh, then select your theme' },
+                    { title: 'Configure agent behavior', description: <>Select your autonomy level. <strong>&ldquo;Review-driven development&rdquo;</strong> is recommended for beginners</> },
+                    { title: 'Install the CLI tool', description: <>When prompted during editor configuration, check <strong>&ldquo;Install command-line tool&rdquo;</strong> to enable the <code>agy</code> command in your terminal</> },
+                    { title: 'Sign in with Google', description: 'Your browser will open for authentication. Sign in with your personal Gmail account' },
+                    { title: 'Accept Terms of Use', description: 'Review and accept the Terms of Use to complete setup' },
+                  ]}
+                />
+
+                <Card className="mt-6 mb-4">
+                  <h4 className="mb-3">PATH Setup for <code>agy</code> CLI (if not auto-configured)</h4>
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    If the <code>agy</code> command is not recognized after installation, add it to your PATH manually:
+                  </p>
+                  <StepList
+                    steps={[
+                      { title: 'Open System Properties', description: <>Press <kbd>Win + R</kbd>, type <code>C:/Windows/System32/sysdm.cpl</code>, and hit Enter</> },
+                      { title: 'Open Environment Variables', description: <>Go to the <strong>Advanced</strong> tab and click <strong>Environment Variables</strong></> },
+                      { title: 'Edit your PATH', description: <>Under <strong>&ldquo;User variables&rdquo;</strong>, select <strong>Path</strong> and click <strong>Edit</strong></> },
+                      { title: 'Add the Antigravity bin path', description: <>Click <strong>New</strong> and add: <code>%LOCALAPPDATA%\Programs\Antigravity\bin</code></> },
+                      { title: 'Save and restart terminal', description: <>Click <strong>OK</strong> on all dialogs, then close and reopen your terminal</> },
+                    ]}
+                  />
+                  <CodeBlock code={`# Verify the CLI works
+agy --version
+
+# Open a project folder in Antigravity
+agy open .`} />
+                </Card>
+
+                <Callout variant="purple" className="mt-4">
+                  <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                    <strong>Windows SmartScreen:</strong> If you see a warning, click <strong>&ldquo;More info&rdquo;</strong> then
+                    <strong> &ldquo;Run anyway.&rdquo;</strong> This is normal for newly downloaded applications.
+                  </p>
+                </Callout>
+              </div>
+            ),
+            Mac: (
+              <div>
+                <StepList
+                  steps={[
+                    { title: 'Download the installer', description: <>Go to <a href="https://antigravity.google/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>antigravity.google/download</a> and click <strong>&ldquo;Download for Apple Silicon&rdquo;</strong> (or Intel if applicable)</> },
+                    { title: 'Install the app', description: 'Open the downloaded .dmg file and drag Google Antigravity to your Applications folder' },
+                    { title: 'Launch Antigravity', description: <>Open from Applications or use Spotlight (<kbd>Cmd + Space</kbd>, type &ldquo;Antigravity&rdquo;)</> },
+                    { title: 'First launch setup', description: 'Choose to import VS Code/Cursor settings or start fresh, then select your theme' },
+                    { title: 'Configure agent behavior', description: <>Select your autonomy level. <strong>&ldquo;Review-driven development&rdquo;</strong> is recommended for beginners</> },
+                    { title: 'Install the CLI tool', description: <>When prompted during editor configuration, check <strong>&ldquo;Install command-line tool&rdquo;</strong> to enable the <code>agy</code> command in your terminal</> },
+                    { title: 'Sign in with Google', description: 'Your browser will open for authentication. Sign in with your personal Gmail account' },
+                    { title: 'Accept Terms of Use', description: 'Review and accept the Terms of Use to complete setup' },
+                  ]}
+                />
+
+                <Card className="mt-6 mb-4">
+                  <h4 className="mb-3">PATH Setup for <code>agy</code> CLI (if not auto-configured)</h4>
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    If the <code>agy</code> command is not recognized after installation, add it to your PATH:
+                  </p>
+                  <CodeBlock code={`# Add to your shell profile (~/.zshrc for macOS Catalina+)
+echo 'export PATH="/Applications/Google Antigravity.app/Contents/Resources/bin:$PATH"' >> ~/.zshrc
+
+# Reload your shell
+source ~/.zshrc
+
+# Verify
+agy --version`} />
+                  <Callout variant="blue" className="mt-3">
+                    <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                      <strong>Homebrew alternative:</strong> You can also install via Homebrew which handles PATH automatically:
+                    </p>
+                  </Callout>
+                  <CodeBlock code={`brew install --cask google-antigravity`} />
+                </Card>
+
+                <Callout variant="purple" className="mt-4">
+                  <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                    If you see &ldquo;can&apos;t be opened because it&apos;s from an unidentified developer,&rdquo;
+                    go to <strong>System Settings &gt; Privacy &amp; Security</strong> and click <strong>&ldquo;Open Anyway.&rdquo;</strong>
+                  </p>
+                </Callout>
+              </div>
+            ),
+            Linux: (
+              <div>
+                <StepList
+                  steps={[
+                    { title: 'Download the installer', description: <>Go to <a href="https://antigravity.google/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>antigravity.google/download</a> and download the Linux package (.deb or .rpm)</> },
+                    { title: 'Install the package', description: 'Use your package manager to install the downloaded file' },
+                    { title: 'Launch and configure', description: 'Follow the same first-launch setup as Windows/Mac above' },
+                  ]}
+                />
+                <CodeBlock code={`# Debian/Ubuntu
+sudo dpkg -i google-antigravity_*.deb
+
+# Fedora/RHEL
+sudo rpm -i google-antigravity_*.rpm
+
+# Verify CLI
+agy --version`} />
+              </div>
+            ),
+          }}
+        </PlatformTabs>
+
+        <Card className="mt-6">
+          <h4 className="mb-2">Using Claude Code Inside Antigravity</h4>
+          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+            After installing both Antigravity and Claude Code, you can run Claude Code in
+            Antigravity&apos;s integrated terminal:
+          </p>
+          <CodeBlock code={`# Open Antigravity's integrated terminal
+# Press Ctrl+\` (Windows/Linux) or Cmd+\` (Mac), then type:
+claude`} />
+        </Card>
+      </section>
+
       {/* Navigation */}
       <div className="flex justify-between items-center pt-8 mt-8" style={{ borderTop: '1px solid var(--cw-border)' }}>
         <Link
