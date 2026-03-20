@@ -84,7 +84,7 @@ export default function SetupPage() {
               description: (
                 <>
                   We recommend a format like <code>firstname-lastname-cw</code> or{' '}
-                  <code>firstnamelastname-cw</code> (e.g., <code>seanjohnson-cw</code>)
+                  <code>firstnamelastname-cw</code>
                 </>
               ),
             },
