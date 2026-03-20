@@ -74,6 +74,12 @@ export const NAV_ITEMS = [
     tier: 'intermediate' as TierKey,
   },
   {
+    label: 'Choose Your Claude',
+    href: '/choose-your-claude',
+    icon: 'Compass',
+    tier: 'beginner' as TierKey,
+  },
+  {
     label: 'Vibe Coding',
     href: '/vibe-coding',
     icon: 'Code2',
