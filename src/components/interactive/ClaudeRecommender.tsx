@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Send, Sparkles, ArrowRight } from 'lucide-react';
 import { getRecommendation, CLAUDE_PRODUCTS, type RecommendationResult } from '@/lib/claude-products';
 import { Card } from '@/components/content/Card';
-import { Callout } from '@/components/content/Callout';
 
 export function ClaudeRecommender() {
   const [input, setInput] = useState('');
@@ -177,12 +176,6 @@ export function ClaudeRecommender() {
             </div>
           )}
 
-          <Callout variant="blue">
-            <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
-              All three options require a <strong>Claude Pro Plan ($20/mo)</strong>.
-              Extended thinking works everywhere &mdash; always turn it on for better results.
-            </p>
-          </Callout>
         </div>
       )}
 

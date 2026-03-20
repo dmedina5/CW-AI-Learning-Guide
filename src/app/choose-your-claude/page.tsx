@@ -17,6 +17,20 @@ export default function ChooseYourClaudePage() {
         Same AI. Three different ways to use it. Find the one that fits how you work.
       </p>
 
+      {/* Section: Interactive Recommender */}
+      <section className="mb-16" id="recommender">
+        <div className="section-label">Find Your Fit</div>
+        <h2 className="mb-6">
+          Which Claude is <span className="text-highlight">Right for You?</span>
+        </h2>
+        <p className="mb-6" style={{ color: 'var(--cw-ink-secondary)' }}>
+          Not sure which to pick? Describe what you want to do and we&apos;ll point you in the
+          right direction.
+        </p>
+
+        <ClaudeRecommender />
+      </section>
+
       {/* Section: Quick Overview */}
       <section className="mb-16" id="overview">
         <div className="section-label">The Big Picture</div>
@@ -82,14 +96,7 @@ export default function ChooseYourClaudePage() {
           ))}
         </CardGrid>
 
-        <Callout variant="blue" className="mt-6">
-          <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-            All three require a <strong>Claude Pro Plan ($20/mo)</strong>.
-            Extended thinking works everywhere &mdash; always turn it on for better results.
-          </p>
-        </Callout>
-
-        <Callout variant="warning" className="mt-4">
+        <Callout variant="warning" className="mt-6">
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
             <strong>Cowork is desktop app only.</strong> If you only use Claude in the browser
             or on your phone, Cowork is not available to you. Use Claude Chat (Browser) or
@@ -228,20 +235,6 @@ export default function ChooseYourClaudePage() {
             </tbody>
           </table>
         </div>
-      </section>
-
-      {/* Section: Interactive Recommender */}
-      <section className="mb-16" id="recommender">
-        <div className="section-label">Find Your Fit</div>
-        <h2 className="mb-6">
-          Which Claude is <span className="text-highlight">Right for You?</span>
-        </h2>
-        <p className="mb-6" style={{ color: 'var(--cw-ink-secondary)' }}>
-          Not sure which to pick? Describe what you want to do and we&apos;ll point you in the
-          right direction.
-        </p>
-
-        <ClaudeRecommender />
       </section>
 
       {/* Section: Quick Decision Guide */}
