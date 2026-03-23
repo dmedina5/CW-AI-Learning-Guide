@@ -74,6 +74,12 @@ export const NAV_ITEMS = [
     tier: 'intermediate' as TierKey,
   },
   {
+    label: 'Claude Cowork',
+    href: '/claude-cowork',
+    icon: 'MonitorSmartphone',
+    tier: 'beginner' as TierKey,
+  },
+  {
     label: 'Choose Your Claude',
     href: '/choose-your-claude',
     icon: 'Compass',

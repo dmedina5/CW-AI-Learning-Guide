@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   Home, Brain, MessageSquare, Wand2, Compass, Code2, Bot,
-  Briefcase, BookOpen, ChevronDown, LogOut,
+  Briefcase, BookOpen, ChevronDown, LogOut, MonitorSmartphone,
 } from 'lucide-react';
 import { NAV_ITEMS, TIERS, type TierKey } from '@/lib/constants';
 import { useAuth } from '@/hooks/useAuth';
@@ -13,7 +13,7 @@ import { TierBadge } from '@/components/content/TierBadge';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ICON_MAP: Record<string, any> = {
-  Home, Brain, MessageSquare, Wand2, Compass, Code2, Bot, Briefcase, BookOpen,
+  Home, Brain, MessageSquare, Wand2, Compass, Code2, Bot, Briefcase, BookOpen, MonitorSmartphone,
 };
 
 export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {

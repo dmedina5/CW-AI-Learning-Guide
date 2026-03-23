@@ -26,11 +26,11 @@ export default function PromptBuilderPage() {
           <ArrowLeft size={16} /> Prompt Engineering
         </Link>
         <Link
-          href="/choose-your-claude"
+          href="/claude-cowork"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:gap-3"
           style={{ background: 'var(--cw-primary)', color: '#fff' }}
         >
-          Next: Choose Your Claude <ArrowRight size={16} />
+          Next: Claude Cowork <ArrowRight size={16} />
         </Link>
       </div>
     </div>

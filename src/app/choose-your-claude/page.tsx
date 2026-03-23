@@ -284,10 +284,10 @@ export default function ChooseYourClaudePage() {
       {/* Navigation */}
       <div className="flex justify-between items-center pt-8 mt-8" style={{ borderTop: '1px solid var(--cw-border)' }}>
         <Link
-          href="/prompt-builder"
+          href="/claude-cowork"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all pill-btn"
         >
-          <ArrowLeft size={16} /> Prompt Builder
+          <ArrowLeft size={16} /> Claude Cowork
         </Link>
         <Link
           href="/vibe-coding"
