@@ -14,9 +14,21 @@ export default function WorkflowsPage() {
     <div>
       <TierBadge tier="expert" />
       <h1 className="mt-4 mb-4">Workflows</h1>
-      <p className="mb-12">
+      <p className="mb-4">
         Five workflow patterns for AI-augmented development with Claude Code &mdash; from simple
         single-session work to fully autonomous pipelines. Choose the simplest pattern that gets the job done.
+      </p>
+      <p className="mb-12 text-xs" style={{ color: 'var(--cw-ink-muted)' }}>
+        Based on{' '}
+        <a
+          href="https://www.youtube.com/watch?v=38t5UBCa4OI"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: 'var(--cw-primary)', textDecoration: 'underline' }}
+        >
+          &ldquo;Every Claude Code Workflow Explained&rdquo;
+        </a>{' '}
+        by Simon Scrapes
       </p>
 
       {/* ─── Key Concept: Built-in Sub-Agents ─── */}
