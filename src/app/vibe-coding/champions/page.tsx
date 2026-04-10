@@ -6,12 +6,15 @@ import { Card, CardGrid } from '@/components/content/Card';
 import { Callout } from '@/components/content/Callout';
 import { CodeBlock } from '@/components/content/CodeBlock';
 import { TierBadge } from '@/components/content/TierBadge';
+import { ChampionGate } from '@/components/auth/ChampionGate';
 
 export default function ChampionsPage() {
   return (
     <div>
       <TierBadge tier="expert" />
       <h1 className="mt-4 mb-4">AI Enablement Champions</h1>
+
+      <ChampionGate>
       <p className="mb-12">
         Champions go beyond the basics. Connect Claude Code to Cover Whale&apos;s
         AI frameworks, sync all repos automatically, and switch between dev and ops
@@ -393,6 +396,7 @@ bash ~/workspace/sync-repos.sh
           Next: Fundamentals <ArrowRight size={16} />
         </Link>
       </div>
+      </ChampionGate>
     </div>
   );
 }

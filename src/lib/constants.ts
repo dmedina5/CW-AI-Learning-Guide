@@ -149,3 +149,23 @@ export const NAV_ITEMS = [
 
 export const PLATFORM_TABS = ['Windows', 'Mac', 'Linux'] as const;
 export type PlatformTab = typeof PLATFORM_TABS[number];
+
+// AI Enablement Champions — allowlist for /vibe-coding/champions
+export const CHAMPION_EMAILS: readonly string[] = [
+  'abigail.fassbender@coverwhale.com',
+  'bryan.glenn@coverwhale.com',
+  'bryan.salvadore@coverwhale.com',
+  'charisse.skeete@coverwhale.com',
+  'daniel.medina@coverwhale.com',
+  'david.castellanos@coverwhale.com',
+  'ian@coverwhale.com',
+  'jose.selemi@coverwhale.com',
+  'ken@coverwhale.com',
+  'kevin@coverwhale.com',
+  'lennie.cohen@coverwhale.com',
+  'mercedes.mojica@coverwhale.com',
+  'sabina.atkinson@coverwhale.com',
+  'sam.englander@coverwhale.com',
+  'sean.johnson@coverwhale.com',
+  'william.fahrner@coverwhale.com',
+];
