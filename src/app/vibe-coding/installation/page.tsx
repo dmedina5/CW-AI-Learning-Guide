@@ -229,13 +229,36 @@ claude --version`} />
                   <CodeBlock code={`irm https://claude.ai/install.ps1 | iex`} />
                 </Card>
 
-                <Callout variant="blue" className="mt-6">
-                  <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
-                    <strong>If &ldquo;claude&rdquo; command not found:</strong> Add <code>%USERPROFILE%\.local\bin</code> to
-                    your system PATH. Press Win + R, type <code>sysdm.cpl</code>, go to Advanced &gt; Environment
-                    Variables &gt; User variables &gt; Path &gt; Edit &gt; New, then add the path. Restart your terminal.
+                <Card className="mt-6 mb-4">
+                  <h4 className="mb-3">PATH Setup for <code>claude</code> CLI (if not auto-configured)</h4>
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    If the <code>claude</code> command is not recognized after installation (Options 2&ndash;4 above),
+                    the installer placed it at <code>%USERPROFILE%\.local\bin</code> but your terminal cannot find it.
+                    Add that directory to your PATH:
                   </p>
-                </Callout>
+                  <StepList
+                    steps={[
+                      { title: 'Open System Properties', description: <>Press <kbd>Win + R</kbd>, type <code>sysdm.cpl</code>, and hit Enter</> },
+                      { title: 'Open Environment Variables', description: <>Go to the <strong>Advanced</strong> tab and click <strong>Environment Variables</strong></> },
+                      { title: 'Edit your PATH', description: <>Under <strong>&ldquo;User variables&rdquo;</strong>, select <strong>Path</strong> and click <strong>Edit</strong></> },
+                      { title: 'Add the Claude CLI path', description: <>Click <strong>New</strong> and add: <code>%USERPROFILE%\.local\bin</code></> },
+                      { title: 'Save and restart terminal', description: <>Click <strong>OK</strong> on all dialogs, then close and reopen your terminal</> },
+                    ]}
+                  />
+                  <CodeBlock code={`# Verify the CLI works
+claude --version`} />
+                  <Callout variant="blue" className="mt-3">
+                    <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                      <strong>PowerShell alternative:</strong> You can also add to PATH from PowerShell without the GUI:
+                    </p>
+                  </Callout>
+                  <CodeBlock code={`# Add Claude to your user PATH permanently
+$currentPath = [Environment]::GetEnvironmentVariable('PATH', 'User')
+[Environment]::SetEnvironmentVariable('PATH', "$currentPath;$env:USERPROFILE\\.local\\bin", 'User')
+
+# Restart your terminal, then verify:
+claude --version`} />
+                </Card>
               </div>
             ),
             Mac: (
