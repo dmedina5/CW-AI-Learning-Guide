@@ -8,6 +8,7 @@ import { CodeBlock } from '@/components/content/CodeBlock';
 import { StepList } from '@/components/content/StepList';
 import { TierBadge } from '@/components/content/TierBadge';
 import { PlatformTabs } from '@/components/content/PlatformTabs';
+import { Tabs } from '@/components/content/Tabs';
 
 export default function InstallationPage() {
   return (
@@ -452,76 +453,156 @@ claude`} />
       </section>
 
 
-      {/* Section: Google Antigravity IDE */}
-      <section className="mb-16" id="antigravity">
-        <div className="section-label">AI-First IDE</div>
+      {/* Section: IDE CLI Setup */}
+      <section className="mb-16" id="ide-cli-setup">
+        <div className="section-label">IDE CLI Setup</div>
         <h2 className="mb-4">
-          Google <span className="text-highlight">Antigravity</span> IDE Setup
+          IDE <span className="text-highlight">CLI</span> Setup
         </h2>
         <p className="mb-6" style={{ color: 'var(--cw-ink-secondary)' }}>
-          Google Antigravity is a free AI-first IDE with autonomous coding agents powered by Gemini.
-          It can also run Claude Code in its integrated terminal. Follow these steps to install and
-          configure it on your platform.
+          Most IDEs provide a command-line tool so you can open projects from your terminal.
+          Select your IDE below for installation steps and PATH configuration.
         </p>
-
-        <Card className="mb-6">
-          <h3 className="mb-3">System Requirements</h3>
-          <div className="space-y-2">
-            {[
-              { label: 'macOS 10.15 (Catalina) or later', note: 'Apple Silicon or Intel' },
-              { label: 'Windows 10 or Windows 11', note: '64-bit required' },
-              { label: '8 GB RAM minimum (16 GB recommended)', note: 'For AI agent performance' },
-              { label: '2 GB available disk space', note: 'For application and models' },
-              { label: 'Google account', note: 'Personal Gmail for authentication' },
-            ].map((item, i) => (
-              <div key={i} className="flex items-baseline gap-2.5 text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
-                <div className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1.5" style={{ background: 'var(--cw-primary)' }} />
-                <span><strong>{item.label}</strong> &mdash; {item.note}</span>
-              </div>
-            ))}
-          </div>
-        </Card>
 
         <PlatformTabs>
           {{
             Windows: (
               <div>
-                <StepList
-                  steps={[
-                    { title: 'Download the installer', description: <>Go to <a href="https://antigravity.google/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>antigravity.google/download</a> and click <strong>&ldquo;Download for Windows&rdquo;</strong></> },
-                    { title: 'Run the installer', description: 'Double-click the downloaded .exe file and follow the installation wizard' },
-                    { title: 'First launch setup', description: 'Choose to import VS Code/Cursor settings or start fresh, then select your theme' },
-                    { title: 'Configure agent behavior', description: <>Select your autonomy level. <strong>&ldquo;Review-driven development&rdquo;</strong> is recommended for beginners</> },
-                    { title: 'Install the CLI tool', description: <>When prompted during editor configuration, check <strong>&ldquo;Install command-line tool&rdquo;</strong> to enable the <code>agy</code> command in your terminal</> },
-                    { title: 'Sign in with Google', description: 'Your browser will open for authentication. Sign in with your personal Gmail account' },
-                    { title: 'Accept Terms of Use', description: 'Review and accept the Terms of Use to complete setup' },
-                  ]}
-                />
+                <Tabs tabs={['VS Code', 'Antigravity', 'Cursor', 'Windsurf']}>
+                  {{
+                    'VS Code': (
+                      <div>
+                        <StepList
+                          steps={[
+                            { title: 'Download VS Code', description: <>Go to <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>code.visualstudio.com/download</a> and click <strong>&ldquo;Windows&rdquo;</strong></> },
+                            { title: 'Run the installer', description: <>Double-click the downloaded .exe file. During install, check <strong>&ldquo;Add to PATH&rdquo;</strong> (recommended)</> },
+                            { title: 'Install Claude Code extension', description: <>Open VS Code, go to Extensions (<kbd>Ctrl+Shift+X</kbd>), search for <strong>&ldquo;Claude Code&rdquo;</strong> by Anthropic, and click Install</> },
+                          ]}
+                        />
+                        <Card className="mt-6 mb-4">
+                          <h4 className="mb-3">PATH Setup for <code>code</code> CLI (if not auto-configured)</h4>
+                          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                            If the <code>code</code> command is not recognized after installation, add it to your PATH manually:
+                          </p>
+                          <StepList
+                            steps={[
+                              { title: 'Open System Properties', description: <>Press <kbd>Win + R</kbd>, type <code>sysdm.cpl</code>, and hit Enter</> },
+                              { title: 'Open Environment Variables', description: <>Go to the <strong>Advanced</strong> tab and click <strong>Environment Variables</strong></> },
+                              { title: 'Edit your PATH', description: <>Under <strong>&ldquo;User variables&rdquo;</strong>, select <strong>Path</strong> and click <strong>Edit</strong></> },
+                              { title: 'Add the VS Code bin path', description: <>Click <strong>New</strong> and add: <code>%LOCALAPPDATA%\Programs\Microsoft VS Code\bin</code></> },
+                              { title: 'Save and restart terminal', description: <>Click <strong>OK</strong> on all dialogs, then close and reopen your terminal</> },
+                            ]}
+                          />
+                          <CodeBlock code={`# Verify the CLI works
+code --version
 
-                <Card className="mt-6 mb-4">
-                  <h4 className="mb-3">PATH Setup for <code>agy</code> CLI (if not auto-configured)</h4>
-                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
-                    If the <code>agy</code> command is not recognized after installation, add it to your PATH manually:
-                  </p>
-                  <StepList
-                    steps={[
-                      { title: 'Open System Properties', description: <>Press <kbd>Win + R</kbd>, type <code>C:/Windows/System32/sysdm.cpl</code>, and hit Enter</> },
-                      { title: 'Open Environment Variables', description: <>Go to the <strong>Advanced</strong> tab and click <strong>Environment Variables</strong></> },
-                      { title: 'Edit your PATH', description: <>Under <strong>&ldquo;User variables&rdquo;</strong>, select <strong>Path</strong> and click <strong>Edit</strong></> },
-                      { title: 'Add the Antigravity bin path', description: <>Click <strong>New</strong> and add: <code>%LOCALAPPDATA%\Programs\Antigravity\bin</code></> },
-                      { title: 'Save and restart terminal', description: <>Click <strong>OK</strong> on all dialogs, then close and reopen your terminal</> },
-                    ]}
-                  />
-                  <CodeBlock code={`# Verify the CLI works
+# Open a project folder in VS Code
+code .`} />
+                        </Card>
+                      </div>
+                    ),
+                    'Antigravity': (
+                      <div>
+                        <StepList
+                          steps={[
+                            { title: 'Download the installer', description: <>Go to <a href="https://antigravity.google/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>antigravity.google/download</a> and click <strong>&ldquo;Download for Windows&rdquo;</strong></> },
+                            { title: 'Run the installer', description: 'Double-click the downloaded .exe file and follow the installation wizard' },
+                            { title: 'First launch setup', description: 'Choose to import VS Code/Cursor settings or start fresh, then select your theme' },
+                            { title: 'Configure agent behavior', description: <>Select your autonomy level. <strong>&ldquo;Review-driven development&rdquo;</strong> is recommended for beginners</> },
+                            { title: 'Install the CLI tool', description: <>When prompted during editor configuration, check <strong>&ldquo;Install command-line tool&rdquo;</strong> to enable the <code>agy</code> command in your terminal</> },
+                            { title: 'Sign in with Google', description: 'Your browser will open for authentication. Sign in with your personal Gmail account' },
+                          ]}
+                        />
+                        <Card className="mt-6 mb-4">
+                          <h4 className="mb-3">PATH Setup for <code>agy</code> CLI (if not auto-configured)</h4>
+                          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                            If the <code>agy</code> command is not recognized after installation, add it to your PATH manually:
+                          </p>
+                          <StepList
+                            steps={[
+                              { title: 'Open System Properties', description: <>Press <kbd>Win + R</kbd>, type <code>sysdm.cpl</code>, and hit Enter</> },
+                              { title: 'Open Environment Variables', description: <>Go to the <strong>Advanced</strong> tab and click <strong>Environment Variables</strong></> },
+                              { title: 'Edit your PATH', description: <>Under <strong>&ldquo;User variables&rdquo;</strong>, select <strong>Path</strong> and click <strong>Edit</strong></> },
+                              { title: 'Add the Antigravity bin path', description: <>Click <strong>New</strong> and add: <code>%LOCALAPPDATA%\Programs\Antigravity\bin</code></> },
+                              { title: 'Save and restart terminal', description: <>Click <strong>OK</strong> on all dialogs, then close and reopen your terminal</> },
+                            ]}
+                          />
+                          <CodeBlock code={`# Verify the CLI works
 agy --version
 
 # Open a project folder in Antigravity
 agy open .`} />
-                </Card>
+                        </Card>
+                      </div>
+                    ),
+                    'Cursor': (
+                      <div>
+                        <StepList
+                          steps={[
+                            { title: 'Download Cursor', description: <>Go to <a href="https://www.cursor.com/downloads" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>cursor.com/downloads</a> and click <strong>&ldquo;Download for Windows&rdquo;</strong></> },
+                            { title: 'Run the installer', description: 'Double-click the downloaded .exe file and follow the prompts' },
+                            { title: 'First launch setup', description: 'Choose to import VS Code settings or start fresh, then sign in to your Cursor account' },
+                          ]}
+                        />
+                        <Card className="mt-6 mb-4">
+                          <h4 className="mb-3">PATH Setup for <code>cursor</code> CLI (if not auto-configured)</h4>
+                          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                            If the <code>cursor</code> command is not recognized after installation, add it to your PATH manually:
+                          </p>
+                          <StepList
+                            steps={[
+                              { title: 'Open System Properties', description: <>Press <kbd>Win + R</kbd>, type <code>sysdm.cpl</code>, and hit Enter</> },
+                              { title: 'Open Environment Variables', description: <>Go to the <strong>Advanced</strong> tab and click <strong>Environment Variables</strong></> },
+                              { title: 'Edit your PATH', description: <>Under <strong>&ldquo;User variables&rdquo;</strong>, select <strong>Path</strong> and click <strong>Edit</strong></> },
+                              { title: 'Add the Cursor bin path', description: <>Click <strong>New</strong> and add: <code>%LOCALAPPDATA%\Programs\cursor\resources\app\bin</code></> },
+                              { title: 'Save and restart terminal', description: <>Click <strong>OK</strong> on all dialogs, then close and reopen your terminal</> },
+                            ]}
+                          />
+                          <CodeBlock code={`# Verify the CLI works
+cursor --version
+
+# Open a project folder in Cursor
+cursor .`} />
+                        </Card>
+                      </div>
+                    ),
+                    'Windsurf': (
+                      <div>
+                        <StepList
+                          steps={[
+                            { title: 'Download Windsurf', description: <>Go to <a href="https://windsurf.com/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>windsurf.com/download</a> and click <strong>&ldquo;Download for Windows&rdquo;</strong></> },
+                            { title: 'Run the installer', description: 'Double-click the downloaded .exe file and follow the installation wizard' },
+                            { title: 'First launch setup', description: 'Choose to import VS Code settings or start fresh, then sign in to your Windsurf account' },
+                          ]}
+                        />
+                        <Card className="mt-6 mb-4">
+                          <h4 className="mb-3">PATH Setup for <code>windsurf</code> CLI (if not auto-configured)</h4>
+                          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                            If the <code>windsurf</code> command is not recognized after installation, add it to your PATH manually:
+                          </p>
+                          <StepList
+                            steps={[
+                              { title: 'Open System Properties', description: <>Press <kbd>Win + R</kbd>, type <code>sysdm.cpl</code>, and hit Enter</> },
+                              { title: 'Open Environment Variables', description: <>Go to the <strong>Advanced</strong> tab and click <strong>Environment Variables</strong></> },
+                              { title: 'Edit your PATH', description: <>Under <strong>&ldquo;User variables&rdquo;</strong>, select <strong>Path</strong> and click <strong>Edit</strong></> },
+                              { title: 'Add the Windsurf bin path', description: <>Click <strong>New</strong> and add: <code>%LOCALAPPDATA%\Programs\Windsurf\bin</code></> },
+                              { title: 'Save and restart terminal', description: <>Click <strong>OK</strong> on all dialogs, then close and reopen your terminal</> },
+                            ]}
+                          />
+                          <CodeBlock code={`# Verify the CLI works
+windsurf --version
+
+# Open a project folder in Windsurf
+windsurf .`} />
+                        </Card>
+                      </div>
+                    ),
+                  }}
+                </Tabs>
 
                 <Callout variant="purple" className="mt-4">
                   <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
-                    <strong>Windows SmartScreen:</strong> If you see a warning, click <strong>&ldquo;More info&rdquo;</strong> then
+                    <strong>Windows SmartScreen:</strong> If you see a warning when running an installer, click <strong>&ldquo;More info&rdquo;</strong> then
                     <strong> &ldquo;Run anyway.&rdquo;</strong> This is normal for newly downloaded applications.
                   </p>
                 </Callout>
@@ -529,25 +610,58 @@ agy open .`} />
             ),
             Mac: (
               <div>
-                <StepList
-                  steps={[
-                    { title: 'Download the installer', description: <>Go to <a href="https://antigravity.google/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>antigravity.google/download</a> and click <strong>&ldquo;Download for Apple Silicon&rdquo;</strong> (or Intel if applicable)</> },
-                    { title: 'Install the app', description: 'Open the downloaded .dmg file and drag Google Antigravity to your Applications folder' },
-                    { title: 'Launch Antigravity', description: <>Open from Applications or use Spotlight (<kbd>Cmd + Space</kbd>, type &ldquo;Antigravity&rdquo;)</> },
-                    { title: 'First launch setup', description: 'Choose to import VS Code/Cursor settings or start fresh, then select your theme' },
-                    { title: 'Configure agent behavior', description: <>Select your autonomy level. <strong>&ldquo;Review-driven development&rdquo;</strong> is recommended for beginners</> },
-                    { title: 'Install the CLI tool', description: <>When prompted during editor configuration, check <strong>&ldquo;Install command-line tool&rdquo;</strong> to enable the <code>agy</code> command in your terminal</> },
-                    { title: 'Sign in with Google', description: 'Your browser will open for authentication. Sign in with your personal Gmail account' },
-                    { title: 'Accept Terms of Use', description: 'Review and accept the Terms of Use to complete setup' },
-                  ]}
-                />
+                <Tabs tabs={['VS Code', 'Antigravity', 'Cursor', 'Windsurf']}>
+                  {{
+                    'VS Code': (
+                      <div>
+                        <StepList
+                          steps={[
+                            { title: 'Download VS Code', description: <>Go to <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>code.visualstudio.com/download</a> and click <strong>&ldquo;Mac&rdquo;</strong></> },
+                            { title: 'Install the app', description: 'Open the downloaded .zip, then drag Visual Studio Code to your Applications folder' },
+                            { title: 'Install the CLI tool', description: <>Open VS Code, press <kbd>Cmd+Shift+P</kbd>, type <strong>&ldquo;Shell Command: Install &apos;code&apos; command in PATH&rdquo;</strong> and select it</> },
+                          ]}
+                        />
+                        <Card className="mt-6 mb-4">
+                          <h4 className="mb-3">PATH Setup for <code>code</code> CLI (alternative)</h4>
+                          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                            If the Command Palette method above doesn&apos;t work, add it to your PATH manually:
+                          </p>
+                          <CodeBlock code={`# Add to your shell profile (~/.zshrc for macOS Catalina+)
+echo 'export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"' >> ~/.zshrc
 
-                <Card className="mt-6 mb-4">
-                  <h4 className="mb-3">PATH Setup for <code>agy</code> CLI (if not auto-configured)</h4>
-                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
-                    If the <code>agy</code> command is not recognized after installation, add it to your PATH:
-                  </p>
-                  <CodeBlock code={`# Add to your shell profile (~/.zshrc for macOS Catalina+)
+# Reload your shell
+source ~/.zshrc
+
+# Verify
+code --version`} />
+                          <Callout variant="blue" className="mt-3">
+                            <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                              <strong>Homebrew alternative:</strong> You can also install via Homebrew which handles PATH automatically:
+                            </p>
+                          </Callout>
+                          <CodeBlock code={`brew install --cask visual-studio-code`} />
+                        </Card>
+                      </div>
+                    ),
+                    'Antigravity': (
+                      <div>
+                        <StepList
+                          steps={[
+                            { title: 'Download the installer', description: <>Go to <a href="https://antigravity.google/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>antigravity.google/download</a> and click <strong>&ldquo;Download for Apple Silicon&rdquo;</strong> (or Intel if applicable)</> },
+                            { title: 'Install the app', description: 'Open the downloaded .dmg file and drag Google Antigravity to your Applications folder' },
+                            { title: 'Launch Antigravity', description: <>Open from Applications or use Spotlight (<kbd>Cmd + Space</kbd>, type &ldquo;Antigravity&rdquo;)</> },
+                            { title: 'First launch setup', description: 'Choose to import VS Code/Cursor settings or start fresh, then select your theme' },
+                            { title: 'Configure agent behavior', description: <>Select your autonomy level. <strong>&ldquo;Review-driven development&rdquo;</strong> is recommended for beginners</> },
+                            { title: 'Install the CLI tool', description: <>When prompted during editor configuration, check <strong>&ldquo;Install command-line tool&rdquo;</strong> to enable the <code>agy</code> command in your terminal</> },
+                            { title: 'Sign in with Google', description: 'Your browser will open for authentication. Sign in with your personal Gmail account' },
+                          ]}
+                        />
+                        <Card className="mt-6 mb-4">
+                          <h4 className="mb-3">PATH Setup for <code>agy</code> CLI (if not auto-configured)</h4>
+                          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                            If the <code>agy</code> command is not recognized after installation, add it to your PATH:
+                          </p>
+                          <CodeBlock code={`# Add to your shell profile (~/.zshrc for macOS Catalina+)
 echo 'export PATH="/Applications/Google Antigravity.app/Contents/Resources/bin:$PATH"' >> ~/.zshrc
 
 # Reload your shell
@@ -555,13 +669,67 @@ source ~/.zshrc
 
 # Verify
 agy --version`} />
-                  <Callout variant="blue" className="mt-3">
-                    <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
-                      <strong>Homebrew alternative:</strong> You can also install via Homebrew which handles PATH automatically:
-                    </p>
-                  </Callout>
-                  <CodeBlock code={`brew install --cask google-antigravity`} />
-                </Card>
+                          <Callout variant="blue" className="mt-3">
+                            <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                              <strong>Homebrew alternative:</strong> You can also install via Homebrew which handles PATH automatically:
+                            </p>
+                          </Callout>
+                          <CodeBlock code={`brew install --cask google-antigravity`} />
+                        </Card>
+                      </div>
+                    ),
+                    'Cursor': (
+                      <div>
+                        <StepList
+                          steps={[
+                            { title: 'Download Cursor', description: <>Go to <a href="https://www.cursor.com/downloads" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>cursor.com/downloads</a> and click <strong>&ldquo;Download for Mac&rdquo;</strong></> },
+                            { title: 'Install the app', description: 'Open the downloaded .dmg file and drag Cursor to your Applications folder' },
+                            { title: 'Install the CLI tool', description: <>Open Cursor, press <kbd>Cmd+Shift+P</kbd>, type <strong>&ldquo;Shell Command: Install &apos;cursor&apos; command in PATH&rdquo;</strong> and select it</> },
+                          ]}
+                        />
+                        <Card className="mt-6 mb-4">
+                          <h4 className="mb-3">PATH Setup for <code>cursor</code> CLI (alternative)</h4>
+                          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                            If the Command Palette method above doesn&apos;t work, add it to your PATH manually:
+                          </p>
+                          <CodeBlock code={`# Add to your shell profile (~/.zshrc for macOS Catalina+)
+echo 'export PATH="/Applications/Cursor.app/Contents/Resources/app/bin:$PATH"' >> ~/.zshrc
+
+# Reload your shell
+source ~/.zshrc
+
+# Verify
+cursor --version`} />
+                        </Card>
+                      </div>
+                    ),
+                    'Windsurf': (
+                      <div>
+                        <StepList
+                          steps={[
+                            { title: 'Download Windsurf', description: <>Go to <a href="https://windsurf.com/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>windsurf.com/download</a> and click <strong>&ldquo;Download for Mac&rdquo;</strong></> },
+                            { title: 'Install the app', description: 'Open the downloaded .dmg file and drag Windsurf to your Applications folder' },
+                            { title: 'Install the CLI tool', description: <>Open Windsurf, press <kbd>Cmd+Shift+P</kbd>, type <strong>&ldquo;Shell Command: Install &apos;windsurf&apos; command in PATH&rdquo;</strong> and select it</> },
+                          ]}
+                        />
+                        <Card className="mt-6 mb-4">
+                          <h4 className="mb-3">PATH Setup for <code>windsurf</code> CLI (alternative)</h4>
+                          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                            If the Command Palette method above doesn&apos;t work, add it to your PATH manually:
+                          </p>
+                          <CodeBlock code={`# Add to your shell profile (~/.zshrc for macOS Catalina+)
+echo 'export PATH="/Applications/Windsurf.app/Contents/Resources/app/bin:$PATH"' >> ~/.zshrc
+
+# Reload your shell
+source ~/.zshrc
+
+# Verify
+windsurf --version`} />
+                        </Card>
+                      </div>
+                    ),
+                  }}
+                </Tabs>
 
                 <Callout variant="purple" className="mt-4">
                   <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
@@ -573,14 +741,33 @@ agy --version`} />
             ),
             Linux: (
               <div>
-                <StepList
-                  steps={[
-                    { title: 'Download the installer', description: <>Go to <a href="https://antigravity.google/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>antigravity.google/download</a> and download the Linux package (.deb or .rpm)</> },
-                    { title: 'Install the package', description: 'Use your package manager to install the downloaded file' },
-                    { title: 'Launch and configure', description: 'Follow the same first-launch setup as Windows/Mac above' },
-                  ]}
-                />
-                <CodeBlock code={`# Debian/Ubuntu
+                <Tabs tabs={['VS Code', 'Antigravity', 'Cursor', 'Windsurf']}>
+                  {{
+                    'VS Code': (
+                      <div>
+                        <CodeBlock code={`# Debian/Ubuntu — download .deb from code.visualstudio.com/download
+sudo dpkg -i code_*.deb
+
+# Fedora/RHEL — download .rpm
+sudo rpm -i code_*.rpm
+
+# Verify CLI (auto-added to PATH)
+code --version
+
+# Open a project folder
+code .`} />
+                      </div>
+                    ),
+                    'Antigravity': (
+                      <div>
+                        <StepList
+                          steps={[
+                            { title: 'Download the installer', description: <>Go to <a href="https://antigravity.google/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>antigravity.google/download</a> and download the Linux package (.deb or .rpm)</> },
+                            { title: 'Install the package', description: 'Use your package manager to install the downloaded file' },
+                            { title: 'Launch and configure', description: 'Follow the same first-launch setup as Windows/Mac above' },
+                          ]}
+                        />
+                        <CodeBlock code={`# Debian/Ubuntu
 sudo dpkg -i google-antigravity_*.deb
 
 # Fedora/RHEL
@@ -588,18 +775,48 @@ sudo rpm -i google-antigravity_*.rpm
 
 # Verify CLI
 agy --version`} />
+                      </div>
+                    ),
+                    'Cursor': (
+                      <div>
+                        <CodeBlock code={`# Download AppImage from cursor.com/downloads
+chmod +x cursor-*.AppImage
+./cursor-*.AppImage
+
+# Or extract and add to PATH
+./cursor-*.AppImage --appimage-extract
+sudo ln -s $(pwd)/squashfs-root/resources/app/bin/cursor /usr/local/bin/cursor
+
+# Verify
+cursor --version`} />
+                      </div>
+                    ),
+                    'Windsurf': (
+                      <div>
+                        <CodeBlock code={`# Download .deb from windsurf.com/download
+sudo dpkg -i windsurf_*.deb
+
+# Verify CLI
+windsurf --version
+
+# Open a project folder
+windsurf .`} />
+                      </div>
+                    ),
+                  }}
+                </Tabs>
               </div>
             ),
           }}
         </PlatformTabs>
 
         <Card className="mt-6">
-          <h4 className="mb-2">Using Claude Code Inside Antigravity</h4>
+          <h4 className="mb-2">Using Claude Code Inside Any IDE</h4>
           <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
-            After installing both Antigravity and Claude Code, you can run Claude Code in
-            Antigravity&apos;s integrated terminal:
+            After installing your IDE and Claude Code, open your IDE&apos;s integrated terminal
+            and start Claude Code:
           </p>
-          <CodeBlock code={`# Open Antigravity's integrated terminal
+          <CodeBlock code={`# Open the integrated terminal in any IDE
 # Press Ctrl+\` (Windows/Linux) or Cmd+\` (Mac), then type:
 claude`} />
         </Card>
