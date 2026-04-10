@@ -94,6 +94,7 @@ export const NAV_ITEMS = [
       { label: 'Getting Started', href: '/vibe-coding', tier: 'beginner' as TierKey },
       { label: 'Installation', href: '/vibe-coding/installation', tier: 'beginner' as TierKey },
       { label: 'CW Setup', href: '/vibe-coding/setup', tier: 'beginner' as TierKey },
+      { label: 'AI Enablement Champions', href: '/vibe-coding/champions', tier: 'expert' as TierKey },
       { label: 'Fundamentals', href: '/vibe-coding/fundamentals', tier: 'intermediate' as TierKey },
       { label: 'Workflows', href: '/vibe-coding/workflows', tier: 'expert' as TierKey },
       { label: 'Tips & Tricks', href: '/vibe-coding/tips', tier: 'expert' as TierKey },
