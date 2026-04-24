@@ -17,8 +17,9 @@ export default function ChampionsPage() {
       <ChampionGate>
       <p className="mb-12">
         Champions go beyond the basics. Connect Claude Code to Cover Whale&apos;s
-        AI frameworks, sync all repos automatically, and switch between dev and ops
-        toolsets on the fly. This is the full setup used by the AI Enablement team.
+        operational framework &mdash; skills and commands for rate investigation,
+        ratings triage, Jira, Metabase, Slack, HubSpot, and more. This is the
+        full setup used by the AI Enablement team.
       </p>
 
       <Callout variant="purple" className="mb-8">
@@ -39,53 +40,45 @@ export default function ChampionsPage() {
       {/* Section: What You Get */}
       <section className="mb-16" id="overview">
         <div className="section-label">What This Unlocks</div>
-        <h2 className="mb-6">The Full AI Toolkit</h2>
+        <h2 className="mb-6">The Operational Framework</h2>
 
         <CardGrid columns={3}>
           <Card number="01">
-            <h4 className="mb-1">86 Skills</h4>
+            <h4 className="mb-1">8 Skills</h4>
             <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              TDD, debugging, security review, database analysis, rate validation, and more
+              Rate investigation (abacus-al, abacus-4-lob), ratings triage,
+              prompt engineering, overlap checks, and more
             </p>
           </Card>
           <Card number="02">
-            <h4 className="mb-1">56 Agents</h4>
+            <h4 className="mb-1">3 Commands</h4>
             <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              Autonomous task handlers for code review, deployment, testing, and investigation
+              <code>/cw-sync</code>, <code>/check-overlap</code>, <code>/prompt-architect</code>
             </p>
           </Card>
           <Card number="03">
-            <h4 className="mb-1">40+ Commands</h4>
+            <h4 className="mb-1">Cloud Integrations</h4>
             <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              Slash commands for Jira, Slack, specs, plans, implementation, and shipping
+              Jira, Metabase, Slack, HubSpot, Atlassian, n8n, GitHub
             </p>
           </Card>
         </CardGrid>
       </section>
 
-      {/* Section: Clone Framework Repos */}
-      <section className="mb-16" id="clone-frameworks">
+      {/* Section: Clone Framework Repo */}
+      <section className="mb-16" id="clone-framework">
         <div className="section-label">Step 1</div>
         <h2 className="mb-4">
-          Clone the <span className="text-highlight">Framework Repos</span>
+          Clone the <span className="text-highlight">Operational Framework</span>
         </h2>
         <p className="mb-6">
-          The AI frameworks live in separate repos. Clone them alongside the main platform:
+          Clone the operational framework repo alongside the main platform:
         </p>
 
         <CodeBlock
-          title="Clone AI framework repos"
+          title="Clone the operational framework"
           code={`cd ~/workspace
-
-# Claude Code frameworks (GitHub)
-git clone git@github.com:CoverWhale/cw-agentic-framework.git
-git clone git@github.com:CoverWhale/cw-operational-framework.git
-
-# Documentation & knowledge base
-git clone git@github.com:CoverWhale/cw-documentation.git
-
-# Internal sites
-git clone git@github.com:CoverWhale/cw-how-we-work.git`}
+git clone git@github.com:CoverWhale/cw-operational-framework.git`}
         />
 
         <Card className="mt-6">
@@ -94,7 +87,9 @@ git clone git@github.com:CoverWhale/cw-how-we-work.git`}
             Clone these as needed for your work:
           </p>
           <CodeBlock
-            code={`git clone git@github.com:CoverWhale/cw-playwright-ui-automation.git
+            code={`git clone git@github.com:CoverWhale/cw-documentation.git
+git clone git@github.com:CoverWhale/cw-how-we-work.git
+git clone git@github.com:CoverWhale/cw-playwright-ui-automation.git
 git clone git@github.com:CoverWhale/cw-internal-developer-platform.git
 git clone git@github.com:CoverWhale/cw-doi-complaint-automation.git
 git clone git@github.com:CoverWhale/Insurance_Rater.git
@@ -104,73 +99,78 @@ git clone git@github.com:CoverWhale/cw-policy-docs.git`}
         </Card>
       </section>
 
-      {/* Section: Link the Framework */}
-      <section className="mb-16" id="link-framework">
+      {/* Section: Set Up Credentials */}
+      <section className="mb-16" id="credentials">
         <div className="section-label">Step 2</div>
         <h2 className="mb-4">
-          Link the <span className="text-highlight">Claude Code Framework</span>
+          Set Up <span className="text-highlight">Credentials</span>
         </h2>
         <p className="mb-6">
-          The agentic framework&apos;s <code>.claude/</code> directory becomes your global
-          Claude Code config &mdash; providing 86 skills, 56 agents, 40+ commands, and
-          ATOM enforcement hooks.
+          The framework connects to Jira, Metabase, n8n, and other services
+          through a local credentials file that is never committed to git.
         </p>
 
         <CardGrid columns={2}>
           <Card>
-            <h4 className="mb-2">Windows (PowerShell as Admin)</h4>
+            <h4 className="mb-2">Windows (PowerShell)</h4>
             <CodeBlock
-              code={`# Copy the switch script
-cp ~/workspace/cw-agentic-framework/switch-framework.ps1 ~/workspace/
-
-# Create junctions from ~/.claude -> framework
-powershell -ExecutionPolicy Bypass \\
-  -File ~/workspace/switch-framework.ps1 agentic`}
+              code={`cd $env:USERPROFILE\\workspace\\cw-operational-framework
+copy .claude\\templates\\env.tools.local.tmpl .env.tools.local`}
             />
           </Card>
           <Card>
             <h4 className="mb-2">Mac / Linux</h4>
             <CodeBlock
-              code={`# Back up existing config
-mv ~/.claude ~/.claude.backup 2>/dev/null
-
-# Symlink the framework
-ln -s ~/workspace/cw-agentic-framework/.claude ~/.claude`}
+              code={`cd ~/workspace/cw-operational-framework
+cp .claude/templates/env.tools.local.tmpl .env.tools.local`}
             />
           </Card>
         </CardGrid>
 
-        <CodeBlock
-          title="Verify the link"
-          code={`ls ~/.claude/skills/ | head -10
-# Should show: abacus-4-lob, abacus-al, arch-decisions, etc.`}
-        />
+        <p className="mt-6 mb-3">
+          Open <code>.env.tools.local</code> and fill in the integrations you
+          need. You don&apos;t need them all to start &mdash; Jira and Metabase
+          are the most commonly used.
+        </p>
+
+        <Card>
+          <div className="grid grid-cols-1 gap-y-2 text-sm">
+            {[
+              ['Jira', 'API token — id.atlassian.com → Security → API tokens'],
+              ['Metabase', 'Username & password (your normal Metabase login)'],
+              ['n8n', 'API key — n8n → Settings → API → Create API Key'],
+              ['GitHub', 'Personal access token (read-only scope)'],
+              ['Slack Bot', 'Bot token (xoxb-…) — ask your Slack admin'],
+            ].map(([svc, desc]) => (
+              <div key={svc} className="flex items-baseline gap-3">
+                <code className="text-xs flex-shrink-0" style={{ color: 'var(--cw-primary)' }}>{svc}</code>
+                <span style={{ color: 'var(--cw-ink-muted)' }}>{desc}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
       </section>
 
-      {/* Section: Sync Script */}
-      <section className="mb-16" id="sync">
+      {/* Section: Enable MCP Plugins */}
+      <section className="mb-16" id="mcp-plugins">
         <div className="section-label">Step 3</div>
         <h2 className="mb-4">
-          Set Up the <span className="text-highlight">Sync Script</span>
+          Enable <span className="text-highlight">MCP Cloud Plugins</span>
         </h2>
         <p className="mb-6">
-          Pull all repos with one command. Run this at the start of each session:
+          HubSpot, Slack, and Atlassian integrations use Anthropic&apos;s cloud
+          plugins &mdash; no credential files needed.
         </p>
 
         <CodeBlock
-          title="Install and run the sync script"
-          code={`cp ~/workspace/cw-agentic-framework/sync-repos.sh ~/workspace/
-chmod +x ~/workspace/sync-repos.sh
-bash ~/workspace/sync-repos.sh`}
-        />
+          title="Enable cloud plugins"
+          code={`# Inside Claude Code:
+/settings
 
-        <Callout variant="blue" className="mt-4">
-          <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
-            <strong>What it does:</strong> Runs <code>git pull --ff-only</code> on every
-            repo in <code>~/workspace/</code>. Skips repos with uncommitted changes and
-            reports what updated, skipped, or failed.
-          </p>
-        </Callout>
+# Find the integrations / plugins section
+# Enable: HubSpot, Slack, Atlassian
+# Each plugin opens your browser for OAuth — log in with Cover Whale`}
+        />
       </section>
 
       {/* Section: Docker Platform */}
@@ -275,68 +275,14 @@ npx vite build  # Production`}
         </Card>
       </section>
 
-      {/* Section: Framework Switching */}
-      <section className="mb-16" id="switching">
-        <div className="section-label">Step 6</div>
-        <h2 className="mb-4">
-          Switching <span className="text-highlight">Frameworks</span>
-        </h2>
-        <p className="mb-6">
-          Switch between dev and ops contexts depending on your work:
-        </p>
-
-        <CardGrid columns={2}>
-          <Card>
-            <div className="flex items-center gap-2 mb-2">
-              <h4>agentic</h4>
-              <span
-                className="text-[10px] uppercase font-bold tracking-wide px-2 py-0.5 rounded-full"
-                style={{ background: 'var(--cw-primary-light)', color: 'var(--cw-primary)' }}
-              >
-                86 skills
-              </span>
-            </div>
-            <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              Full dev: TDD, SpecKit, debugging, security, Docker, AWS
-            </p>
-          </Card>
-          <Card>
-            <div className="flex items-center gap-2 mb-2">
-              <h4>operational</h4>
-              <span
-                className="text-[10px] uppercase font-bold tracking-wide px-2 py-0.5 rounded-full"
-                style={{ background: 'rgba(74,111,165,0.1)', color: 'var(--cw-info)' }}
-              >
-                ~30 skills
-              </span>
-            </div>
-            <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              Ops: Jira, Metabase, HubSpot, n8n, triage, reports
-            </p>
-          </Card>
-        </CardGrid>
-
-        <CodeBlock
-          title="Switch frameworks"
-          code={`# Show what's available
-powershell -File ~/workspace/switch-framework.ps1
-
-# Switch to ops framework
-powershell -File ~/workspace/switch-framework.ps1 operational
-
-# Switch back to dev framework
-powershell -File ~/workspace/switch-framework.ps1 agentic`}
-        />
-      </section>
-
       {/* Section: Verify & Daily Workflow */}
       <section className="mb-16" id="verify">
-        <div className="section-label">Step 7</div>
+        <div className="section-label">Step 6</div>
         <h2 className="mb-4">
           Verify &amp; <span className="text-highlight">Daily Workflow</span>
         </h2>
 
-        <h3 className="mb-4">Verify Champion Setup</h3>
+        <h3 className="mb-4">Verify Setup</h3>
         <CodeBlock
           title="Run these in Claude Code"
           code={`/health          # Check environment status
@@ -347,10 +293,7 @@ powershell -File ~/workspace/switch-framework.ps1 agentic`}
         <h3 className="mt-8 mb-4">Daily Workflow</h3>
         <CodeBlock
           title="Start of day"
-          code={`# Sync everything (from terminal)
-bash ~/workspace/sync-repos.sh
-
-# Or from inside Claude Code
+          code={`# Pull latest framework changes from inside Claude Code
 /cw-sync`}
         />
       </section>
@@ -365,17 +308,14 @@ bash ~/workspace/sync-repos.sh
             code={`~/workspace/
 ├── coverwhale/                    # Main Laravel platform
 │   └── legislative-monitoring/    # GAS project (clasp)
-├── cw-agentic-framework/         # Dev framework → ~/.claude
-│   └── .claude/
-│       ├── skills/    (86)
-│       ├── agents/    (56)
-│       ├── commands/  (40+)
-│       └── hooks/     (24 scripts)
-├── cw-operational-framework/     # Ops framework (switchable)
-├── cw-documentation/             # Business & architecture docs
-├── cw-how-we-work/               # Internal site (Vite + Amplify)
-├── sync-repos.sh                 # Pull all repos
-└── switch-framework.ps1          # Swap active framework`}
+├── cw-operational-framework/      # Ops framework
+│   ├── claude/
+│   │   ├── skills/    (8)
+│   │   ├── commands/  (3)
+│   │   └── hooks/
+│   └── .env.tools.local           # Your credentials (not committed)
+├── cw-documentation/              # Business & architecture docs
+└── cw-how-we-work/                # Internal site (Vite + Amplify)`}
           />
         </Card>
       </section>
