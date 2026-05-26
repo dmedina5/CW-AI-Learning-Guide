@@ -495,7 +495,7 @@ echo "Pipeline complete. Check REVIEW.md for results."`}
       {/* Navigation */}
       <div className="flex justify-between items-center pt-8 mt-8" style={{ borderTop: '1px solid var(--cw-border)' }}>
         <Link
-          href="/vibe-coding/cheatsheet"
+          href="/road-to-agentic-engineering/cheatsheet"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all pill-btn"
         >
           <ArrowLeft size={16} /> Cheatsheet

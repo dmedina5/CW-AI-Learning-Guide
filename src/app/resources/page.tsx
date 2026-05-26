@@ -426,13 +426,13 @@ CLARIFICATION:
             {
               tier: 'expert' as const,
               title: 'Mastery',
-              pages: ['CW Use Cases \u2014 Department-specific prompts and workflows', 'Vibe Coding (Fundamentals) \u2014 Use AI to build and modify software', 'Vibe Coding (Workflows) \u2014 Real development patterns with AI'],
+              pages: ['CW Use Cases \u2014 Department-specific prompts and workflows', 'Road to Agentic Engineering (Fundamentals) \u2014 Use AI to build and modify software', 'Road to Agentic Engineering (Workflows) \u2014 Real development patterns with AI'],
               outcome: 'You can apply AI to your specific CW role and start using AI-assisted development tools.',
             },
             {
               tier: 'advanced' as const,
               title: 'The Frontier',
-              pages: ['Agentic AI \u2014 Autonomous AI systems and MCP', 'Vibe Coding (Advanced) \u2014 Claude Code, multi-agent workflows', 'Building with AI \u2014 Create custom tools and automations'],
+              pages: ['Agentic AI \u2014 Autonomous AI systems and MCP', 'Road to Agentic Engineering (Advanced) \u2014 Claude Code, multi-agent workflows', 'Building with AI \u2014 Create custom tools and automations'],
               outcome: 'You can build AI-powered tools, configure agents, and drive innovation at Cover Whale.',
             },
           ].map((level) => (

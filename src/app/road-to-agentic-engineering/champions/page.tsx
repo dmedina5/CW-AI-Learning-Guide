@@ -25,11 +25,11 @@ export default function ChampionsPage() {
       <Callout variant="purple" className="mb-8">
         <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
           <strong>Prerequisites:</strong> Complete the{' '}
-          <Link href="/vibe-coding/installation" style={{ color: 'var(--cw-primary)' }}>
+          <Link href="/road-to-agentic-engineering/installation" style={{ color: 'var(--cw-primary)' }}>
             Installation Guide
           </Link>{' '}
           and{' '}
-          <Link href="/vibe-coding/setup" style={{ color: 'var(--cw-primary)' }}>
+          <Link href="/road-to-agentic-engineering/setup" style={{ color: 'var(--cw-primary)' }}>
             CW Setup
           </Link>{' '}
           first. You need Claude Code installed, GitHub org access, and your
@@ -323,13 +323,13 @@ npx vite build  # Production`}
       {/* Navigation */}
       <div className="flex justify-between items-center pt-8 mt-8" style={{ borderTop: '1px solid var(--cw-border)' }}>
         <Link
-          href="/vibe-coding/setup"
+          href="/road-to-agentic-engineering/setup"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all pill-btn"
         >
           <ArrowLeft size={16} /> CW Setup
         </Link>
         <Link
-          href="/vibe-coding/fundamentals"
+          href="/road-to-agentic-engineering/fundamentals"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:gap-3"
           style={{ background: 'var(--cw-primary)', color: '#fff' }}
         >

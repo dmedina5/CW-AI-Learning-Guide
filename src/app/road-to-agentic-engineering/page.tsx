@@ -7,27 +7,28 @@ import { Callout } from '@/components/content/Callout';
 import { CodeBlock } from '@/components/content/CodeBlock';
 import { TierBadge } from '@/components/content/TierBadge';
 
-export default function VibeCodingPage() {
+export default function RoadToAgenticEngineeringPage() {
   return (
     <div>
       <TierBadge tier="beginner" />
-      <h1 className="mt-4 mb-4">Getting Started with Vibe Coding</h1>
+      <h1 className="mt-4 mb-4">Road to Agentic Engineering</h1>
       <p className="mb-12">
-        Describe what you want in plain English, and let an AI assistant help you create it.
+        Start by describing what you want in plain English &mdash; then grow into orchestrating
+        AI agents that build software with you.
       </p>
 
       {/* Section: What is Vibe Coding */}
       <section className="mb-16" id="definition">
-        <div className="section-label">Core Concept</div>
+        <div className="section-label">The Starting Point</div>
         <h2 className="mb-4">
           What is <span className="text-highlight">Vibe Coding</span>?
         </h2>
         <p className="mb-6">
-          Vibe Coding is a new way of working where you describe what you want to accomplish
-          in plain English, and an AI assistant helps you create it. Instead of learning complex
-          technical skills, you simply explain your goal &mdash; like &ldquo;create a summary of
-          this data&rdquo; or &ldquo;build a presentation about Q4 results&rdquo; &mdash; and the
-          AI helps make it happen.
+          Vibe Coding is the entry point on the road to agentic engineering. You describe what
+          you want to accomplish in plain English, and an AI assistant helps you create it.
+          Instead of learning complex technical skills, you simply explain your goal &mdash;
+          like &ldquo;create a summary of this data&rdquo; or &ldquo;build a presentation about
+          Q4 results&rdquo; &mdash; and the AI helps make it happen.
         </p>
 
         <Callout variant="purple">
@@ -139,8 +140,8 @@ claude`}
           Quick <span className="text-highlight">Start</span>
         </h2>
         <p className="mb-6">
-          Ready to start vibe coding? Follow the installation guide for step-by-step setup instructions
-          for Claude Code on your platform.
+          Ready to take the first step? Follow the installation guide for step-by-step setup
+          instructions for Claude Code on your platform.
         </p>
 
         <CardGrid columns={3}>
@@ -166,7 +167,7 @@ claude`}
 
         <div className="mt-8">
           <Link
-            href="/vibe-coding/installation"
+            href="/road-to-agentic-engineering/installation"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold transition-all hover:gap-3"
             style={{ background: 'var(--cw-primary)', color: '#fff' }}
           >
@@ -184,7 +185,7 @@ claude`}
           <ArrowLeft size={16} /> Prompt Builder
         </Link>
         <Link
-          href="/vibe-coding/installation"
+          href="/road-to-agentic-engineering/installation"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:gap-3"
           style={{ background: 'var(--cw-primary)', color: '#fff' }}
         >

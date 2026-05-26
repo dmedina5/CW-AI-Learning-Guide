@@ -40,7 +40,7 @@ export default function SetupPage() {
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
             <strong>Steps 1 &amp; 2 already done?</strong> If you have a Claude account and
             Claude Code installed from the{' '}
-            <Link href="/vibe-coding/installation" style={{ color: 'var(--cw-primary)' }}>
+            <Link href="/road-to-agentic-engineering/installation" style={{ color: 'var(--cw-primary)' }}>
               Installation Guide
             </Link>
             , you&apos;re ready to continue here with Step 3.
@@ -440,13 +440,13 @@ claude`}
       {/* Navigation */}
       <div className="flex justify-between items-center pt-8 mt-8" style={{ borderTop: '1px solid var(--cw-border)' }}>
         <Link
-          href="/vibe-coding/installation"
+          href="/road-to-agentic-engineering/installation"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all pill-btn"
         >
           <ArrowLeft size={16} /> Installation
         </Link>
         <Link
-          href="/vibe-coding/champions"
+          href="/road-to-agentic-engineering/champions"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:gap-3"
           style={{ background: 'var(--cw-primary)', color: '#fff' }}
         >

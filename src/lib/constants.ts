@@ -86,19 +86,19 @@ export const NAV_ITEMS = [
     tier: 'beginner' as TierKey,
   },
   {
-    label: 'Vibe Coding',
-    href: '/vibe-coding',
+    label: 'Road to Agentic Engineering',
+    href: '/road-to-agentic-engineering',
     icon: 'Code2',
     tier: 'beginner' as TierKey,
     children: [
-      { label: 'Getting Started', href: '/vibe-coding', tier: 'beginner' as TierKey },
-      { label: 'Installation', href: '/vibe-coding/installation', tier: 'beginner' as TierKey },
-      { label: 'CW Setup', href: '/vibe-coding/setup', tier: 'beginner' as TierKey },
-      { label: 'AI Enablement Champions', href: '/vibe-coding/champions', tier: 'expert' as TierKey },
-      { label: 'Fundamentals', href: '/vibe-coding/fundamentals', tier: 'intermediate' as TierKey },
-      { label: 'Workflows', href: '/vibe-coding/workflows', tier: 'expert' as TierKey },
-      { label: 'Tips & Tricks', href: '/vibe-coding/tips', tier: 'expert' as TierKey },
-      { label: 'Cheatsheet', href: '/vibe-coding/cheatsheet', tier: 'expert' as TierKey },
+      { label: 'Getting Started', href: '/road-to-agentic-engineering', tier: 'beginner' as TierKey },
+      { label: 'Installation', href: '/road-to-agentic-engineering/installation', tier: 'beginner' as TierKey },
+      { label: 'CW Setup', href: '/road-to-agentic-engineering/setup', tier: 'beginner' as TierKey },
+      { label: 'AI Enablement Champions', href: '/road-to-agentic-engineering/champions', tier: 'expert' as TierKey },
+      { label: 'Fundamentals', href: '/road-to-agentic-engineering/fundamentals', tier: 'intermediate' as TierKey },
+      { label: 'Workflows', href: '/road-to-agentic-engineering/workflows', tier: 'expert' as TierKey },
+      { label: 'Tips & Tricks', href: '/road-to-agentic-engineering/tips', tier: 'expert' as TierKey },
+      { label: 'Cheatsheet', href: '/road-to-agentic-engineering/cheatsheet', tier: 'expert' as TierKey },
     ],
   },
   {
@@ -150,7 +150,7 @@ export const NAV_ITEMS = [
 export const PLATFORM_TABS = ['Windows', 'Mac', 'Linux'] as const;
 export type PlatformTab = typeof PLATFORM_TABS[number];
 
-// AI Enablement Champions — allowlist for /vibe-coding/champions
+// AI Enablement Champions — allowlist for /road-to-agentic-engineering/champions
 export const CHAMPION_EMAILS: readonly string[] = [
   'abigail.fassbender@coverwhale.com',
   'bryan.glenn@coverwhale.com',

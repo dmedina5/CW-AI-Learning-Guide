@@ -18,7 +18,7 @@ const LEARNING_PATH = [
     links: [
       { label: 'AI Basics', href: '/ai-basics', icon: Brain },
       { label: 'Prompt Engineering', href: '/prompt-engineering', icon: MessageSquare },
-      { label: 'Getting Started', href: '/vibe-coding', icon: Code2 },
+      { label: 'Getting Started', href: '/road-to-agentic-engineering', icon: Code2 },
     ],
   },
   {
@@ -28,7 +28,7 @@ const LEARNING_PATH = [
     links: [
       { label: 'CRISP Framework', href: '/prompt-engineering#crisp', icon: MessageSquare },
       { label: 'Prompt Builder', href: '/prompt-builder', icon: Wand2 },
-      { label: 'Fundamentals', href: '/vibe-coding/fundamentals', icon: Code2 },
+      { label: 'Fundamentals', href: '/road-to-agentic-engineering/fundamentals', icon: Code2 },
     ],
   },
   {
@@ -36,9 +36,9 @@ const LEARNING_PATH = [
     title: 'Mastery',
     description: 'Power-user techniques, proven workflows, and CW-specific use cases.',
     links: [
-      { label: 'Workflows', href: '/vibe-coding/workflows', icon: Code2 },
+      { label: 'Workflows', href: '/road-to-agentic-engineering/workflows', icon: Code2 },
       { label: 'Use Cases', href: '/use-cases', icon: Briefcase },
-      { label: 'Tips & Tricks', href: '/vibe-coding/tips', icon: Sparkles },
+      { label: 'Tips & Tricks', href: '/road-to-agentic-engineering/tips', icon: Sparkles },
     ],
   },
   {

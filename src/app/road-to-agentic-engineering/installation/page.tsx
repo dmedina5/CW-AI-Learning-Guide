@@ -403,14 +403,16 @@ claude
 
         <Card className="mb-4">
           <h4 className="mb-3">Install Gemini CLI</h4>
-          <CodeBlock code={`# Requires Node.js 18+
-# See GitHub for latest install instructions:
-# https://github.com/google-gemini/gemini-cli
-
-npx https://github.com/nicolo-ribaudo/gemini-cli
+          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+            Requires <strong>Node.js 20+</strong>. Pick whichever installer fits your setup.
+          </p>
+          <CodeBlock title="Option 1: Run without installing (npx)" code={`npx @google/gemini-cli`} />
+          <CodeBlock title="Option 2: Install globally with npm" code={`npm install -g @google/gemini-cli
+gemini`} />
+          <CodeBlock title="Option 3: Homebrew (macOS / Linux)" code={`brew install gemini-cli
 gemini`} />
           <p className="text-xs mt-2" style={{ color: 'var(--cw-ink-muted)' }}>
-            Authenticate with your Google account when prompted. Free tier includes generous usage.
+            On first run, authenticate with your Google account when prompted. Free tier includes generous usage.
           </p>
         </Card>
 
@@ -526,35 +528,57 @@ code .`} />
                     ),
                     'Antigravity': (
                       <div>
+                        <Callout variant="blue" className="mb-4">
+                          <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                            Google now ships <strong>Antigravity IDE</strong> and the <strong>Antigravity CLI (<code>agy</code>)</strong> as two
+                            separate installs. Install the IDE first, then the CLI.
+                          </p>
+                        </Callout>
+
+                        <h4 className="mb-3">Step 1: Install Antigravity IDE</h4>
                         <StepList
                           steps={[
                             { title: 'Download the installer', description: <>Go to <a href="https://antigravity.google/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>antigravity.google/download</a> and click <strong>&ldquo;Download for Windows&rdquo;</strong></> },
                             { title: 'Run the installer', description: 'Double-click the downloaded .exe file and follow the installation wizard' },
                             { title: 'First launch setup', description: 'Choose to import VS Code/Cursor settings or start fresh, then select your theme' },
                             { title: 'Configure agent behavior', description: <>Select your autonomy level. <strong>&ldquo;Review-driven development&rdquo;</strong> is recommended for beginners</> },
-                            { title: 'Install the CLI tool', description: <>When prompted during editor configuration, check <strong>&ldquo;Install command-line tool&rdquo;</strong> to enable the <code>agy</code> command in your terminal</> },
                             { title: 'Sign in with Google', description: 'Your browser will open for authentication. Sign in with your personal Gmail account' },
                           ]}
                         />
-                        <Card className="mt-6 mb-4">
-                          <h4 className="mb-3">PATH Setup for <code>agy</code> CLI (if not auto-configured)</h4>
-                          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
-                            If the <code>agy</code> command is not recognized after installation, add it to your PATH manually:
-                          </p>
-                          <StepList
-                            steps={[
-                              { title: 'Open System Properties', description: <>Press <kbd>Win + R</kbd>, type <code>sysdm.cpl</code>, and hit Enter</> },
-                              { title: 'Open Environment Variables', description: <>Go to the <strong>Advanced</strong> tab and click <strong>Environment Variables</strong></> },
-                              { title: 'Edit your PATH', description: <>Under <strong>&ldquo;User variables&rdquo;</strong>, select <strong>Path</strong> and click <strong>Edit</strong></> },
-                              { title: 'Add the Antigravity bin path', description: <>Click <strong>New</strong> and add: <code>%LOCALAPPDATA%\Programs\Antigravity\bin</code></> },
-                              { title: 'Save and restart terminal', description: <>Click <strong>OK</strong> on all dialogs, then close and reopen your terminal</> },
-                            ]}
-                          />
-                          <CodeBlock code={`# Verify the CLI works
-agy --version
 
-# Open a project folder in Antigravity
-agy open .`} />
+                        <Card className="mt-6 mb-4">
+                          <h4 className="mb-3">Step 2: Install Antigravity CLI (<code>agy</code>)</h4>
+                          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                            The CLI is a separate Go binary distributed via the install script at{' '}
+                            <a href="https://antigravity.google/docs/cli-getting-started" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>
+                              antigravity.google/docs/cli-getting-started
+                            </a>.
+                          </p>
+                          <CodeBlock title="PowerShell (recommended)" code={`irm https://antigravity.google/cli/install.ps1 | iex`} />
+                          <CodeBlock title="Command Prompt" code={`curl -fsSL https://antigravity.google/cli/install.cmd -o install.cmd && install.cmd && del install.cmd`} />
+                          <p className="text-sm mt-3 mb-2" style={{ color: 'var(--cw-ink-muted)' }}>
+                            The installer drops the <code>agy</code> binary into <code>%LOCALAPPDATA%\Antigravity\</code>.
+                            Close and reopen your terminal, then verify:
+                          </p>
+                          <CodeBlock code={`agy --version`} />
+                          <p className="text-xs mt-2" style={{ color: 'var(--cw-ink-muted)' }}>
+                            On first run, <code>agy</code> opens your browser for Google Sign-In; subsequent runs reuse the
+                            credentials stored in the system keyring. Use <code>/logout</code> to sign out.
+                          </p>
+                        </Card>
+
+                        <Card className="mt-6 mb-4">
+                          <h4 className="mb-3">PATH Setup (if <code>agy</code> is not found)</h4>
+                          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                            If <code>agy --version</code> reports &ldquo;command not found&rdquo; after restarting your terminal,
+                            add the install directory to your PATH:
+                          </p>
+                          <CodeBlock code={`# Add Antigravity CLI to your user PATH permanently (PowerShell)
+$currentPath = [Environment]::GetEnvironmentVariable('PATH', 'User')
+[Environment]::SetEnvironmentVariable('PATH', "$currentPath;$env:LOCALAPPDATA\\Antigravity", 'User')
+
+# Restart your terminal, then verify:
+agy --version`} />
                         </Card>
                       </div>
                     ),
@@ -668,6 +692,14 @@ code --version`} />
                     ),
                     'Antigravity': (
                       <div>
+                        <Callout variant="blue" className="mb-4">
+                          <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                            Google now ships <strong>Antigravity IDE</strong> and the <strong>Antigravity CLI (<code>agy</code>)</strong> as two
+                            separate installs. Install the IDE first, then the CLI.
+                          </p>
+                        </Callout>
+
+                        <h4 className="mb-3">Step 1: Install Antigravity IDE</h4>
                         <StepList
                           steps={[
                             { title: 'Download the installer', description: <>Go to <a href="https://antigravity.google/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>antigravity.google/download</a> and click <strong>&ldquo;Download for Apple Silicon&rdquo;</strong> (or Intel if applicable)</> },
@@ -675,29 +707,48 @@ code --version`} />
                             { title: 'Launch Antigravity', description: <>Open from Applications or use Spotlight (<kbd>Cmd + Space</kbd>, type &ldquo;Antigravity&rdquo;)</> },
                             { title: 'First launch setup', description: 'Choose to import VS Code/Cursor settings or start fresh, then select your theme' },
                             { title: 'Configure agent behavior', description: <>Select your autonomy level. <strong>&ldquo;Review-driven development&rdquo;</strong> is recommended for beginners</> },
-                            { title: 'Install the CLI tool', description: <>When prompted during editor configuration, check <strong>&ldquo;Install command-line tool&rdquo;</strong> to enable the <code>agy</code> command in your terminal</> },
                             { title: 'Sign in with Google', description: 'Your browser will open for authentication. Sign in with your personal Gmail account' },
                           ]}
                         />
+
                         <Card className="mt-6 mb-4">
-                          <h4 className="mb-3">PATH Setup for <code>agy</code> CLI (if not auto-configured)</h4>
+                          <h4 className="mb-3">Step 2: Install Antigravity CLI (<code>agy</code>)</h4>
                           <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
-                            If the <code>agy</code> command is not recognized after installation, add it to your PATH:
+                            The CLI is a separate Go binary. Run the official one-liner from{' '}
+                            <a href="https://antigravity.google/docs/cli-getting-started" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>
+                              antigravity.google/docs/cli-getting-started
+                            </a>:
+                          </p>
+                          <CodeBlock code={`curl -fsSL https://antigravity.google/cli/install.sh | bash`} />
+                          <p className="text-sm mt-3 mb-2" style={{ color: 'var(--cw-ink-muted)' }}>
+                            The installer drops the <code>agy</code> binary into <code>~/.local/bin/</code>.
+                            Reload your shell, then verify:
+                          </p>
+                          <CodeBlock code={`# Reload PATH (zsh)
+source ~/.zshrc
+
+# Verify
+agy --version`} />
+                          <p className="text-xs mt-2" style={{ color: 'var(--cw-ink-muted)' }}>
+                            On first run, <code>agy</code> opens your browser for Google Sign-In; subsequent runs reuse the
+                            credentials stored in the system keyring. Use <code>/logout</code> to sign out.
+                          </p>
+                        </Card>
+
+                        <Card className="mt-6 mb-4">
+                          <h4 className="mb-3">PATH Setup (if <code>agy</code> is not found)</h4>
+                          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                            If <code>agy --version</code> reports &ldquo;command not found&rdquo; after reloading your shell,
+                            confirm <code>~/.local/bin</code> is on your PATH:
                           </p>
                           <CodeBlock code={`# Add to your shell profile (~/.zshrc for macOS Catalina+)
-echo 'export PATH="/Applications/Google Antigravity.app/Contents/Resources/bin:$PATH"' >> ~/.zshrc
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
 
 # Reload your shell
 source ~/.zshrc
 
 # Verify
 agy --version`} />
-                          <Callout variant="blue" className="mt-3">
-                            <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
-                              <strong>Homebrew alternative:</strong> You can also install via Homebrew which handles PATH automatically:
-                            </p>
-                          </Callout>
-                          <CodeBlock code={`brew install --cask google-antigravity`} />
                         </Card>
                       </div>
                     ),
@@ -783,6 +834,14 @@ code .`} />
                     ),
                     'Antigravity': (
                       <div>
+                        <Callout variant="blue" className="mb-4">
+                          <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                            Google now ships <strong>Antigravity IDE</strong> and the <strong>Antigravity CLI (<code>agy</code>)</strong> as two
+                            separate installs. Install the IDE first, then the CLI.
+                          </p>
+                        </Callout>
+
+                        <h4 className="mb-3">Step 1: Install Antigravity IDE</h4>
                         <StepList
                           steps={[
                             { title: 'Download the installer', description: <>Go to <a href="https://antigravity.google/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>antigravity.google/download</a> and download the Linux package (.deb or .rpm)</> },
@@ -794,10 +853,27 @@ code .`} />
 sudo dpkg -i google-antigravity_*.deb
 
 # Fedora/RHEL
-sudo rpm -i google-antigravity_*.rpm
+sudo rpm -i google-antigravity_*.rpm`} />
 
-# Verify CLI
-agy --version`} />
+                        <Card className="mt-6 mb-4">
+                          <h4 className="mb-3">Step 2: Install Antigravity CLI (<code>agy</code>)</h4>
+                          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                            The CLI is a separate Go binary. Run the official one-liner from{' '}
+                            <a href="https://antigravity.google/docs/cli-getting-started" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>
+                              antigravity.google/docs/cli-getting-started
+                            </a>:
+                          </p>
+                          <CodeBlock code={`curl -fsSL https://antigravity.google/cli/install.sh | bash`} />
+                          <p className="text-sm mt-3 mb-2" style={{ color: 'var(--cw-ink-muted)' }}>
+                            The installer drops the <code>agy</code> binary into <code>~/.local/bin/</code>.
+                            Reload your shell (<code>source ~/.bashrc</code> or <code>source ~/.zshrc</code>), then verify:
+                          </p>
+                          <CodeBlock code={`agy --version`} />
+                          <p className="text-xs mt-2" style={{ color: 'var(--cw-ink-muted)' }}>
+                            On first run, <code>agy</code> opens your browser for Google Sign-In (or prints an
+                            authorization URL for headless/SSH sessions). Use <code>/logout</code> to sign out.
+                          </p>
+                        </Card>
                       </div>
                     ),
                     'Cursor': (
@@ -848,13 +924,13 @@ claude`} />
       {/* Navigation */}
       <div className="flex justify-between items-center pt-8 mt-8" style={{ borderTop: '1px solid var(--cw-border)' }}>
         <Link
-          href="/vibe-coding"
+          href="/road-to-agentic-engineering"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all pill-btn"
         >
           <ArrowLeft size={16} /> Getting Started
         </Link>
         <Link
-          href="/vibe-coding/setup"
+          href="/road-to-agentic-engineering/setup"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:gap-3"
           style={{ background: 'var(--cw-primary)', color: '#fff' }}
         >
