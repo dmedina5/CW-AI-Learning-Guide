@@ -40,6 +40,32 @@ export default function RoadToAgenticEngineeringPage() {
         </Callout>
       </section>
 
+      {/* Section: What is Agentic Engineering */}
+      <section className="mb-16" id="agentic-engineering-definition">
+        <div className="section-label">The Destination</div>
+        <h2 className="mb-4">
+          What is <span className="text-highlight">Agentic Engineering</span>?
+        </h2>
+        <p className="mb-6">
+          Agentic Engineering is what happens when you stop driving every turn and start setting
+          goals for AI agents to pursue on their own. Instead of a single prompt and a single
+          response, you give the agent a goal, the tools it needs, and the rules for verifying
+          success &mdash; then it plans, executes, checks its work, and iterates across many steps
+          without you approving each one.
+        </p>
+
+        <Callout variant="purple">
+          <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <strong>The distinction:</strong> Vibe Coding is{' '}
+            <span className="text-highlight">conversational</span> &mdash; you ask, it answers, you
+            ask again. Agentic Engineering is{' '}
+            <span className="text-highlight">orchestrational</span> &mdash; you set the goal and
+            the guardrails, and the agent runs the loop. Skills, specs, TDD, and verification gates
+            are what make that loop trustworthy enough to let run.
+          </p>
+        </Callout>
+      </section>
+
       {/* Section: Claude Code */}
       <section className="mb-16" id="claude-code">
         <div className="section-label">Our AI Tool</div>
