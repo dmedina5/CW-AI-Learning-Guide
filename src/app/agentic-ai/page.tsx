@@ -377,7 +377,7 @@ export default function AgenticAIPage() {
             <CardGrid columns={3}>
               {[
                 { name: 'Claude Code', desc: 'Anthropic\'s terminal-based coding agent. Deep reasoning, plan mode, and strong code quality. Our primary tool.', color: '#D97706' },
-                { name: 'Gemini CLI', desc: 'Google\'s coding agent with 2M token context. Sub-agent delegation, persistent memory, and free tier.', color: '#4285F4' },
+                { name: 'Antigravity CLI', desc: 'Google\'s agentic CLI (agy) — a Go binary that pairs with the Antigravity IDE. Multi-step planning, deep tool integration, and free tier.', color: '#4285F4' },
                 { name: 'Devin / SWE-Agent', desc: 'Autonomous software engineering agents that can plan, code, test, and debug entire features end-to-end.', color: '#7C3AED' },
               ].map(tool => (
                 <div key={tool.name} className="p-4 rounded-lg" style={{ background: 'var(--cw-primary-light)' }}>

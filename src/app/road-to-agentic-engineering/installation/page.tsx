@@ -390,40 +390,47 @@ claude
         </Callout>
       </section>
 
-      {/* Section: Gemini CLI (Optional) */}
-      <section className="mb-16" id="gemini-cli">
+      {/* Section: Antigravity CLI (Optional) */}
+      <section className="mb-16" id="antigravity-cli">
         <div className="section-label">Optional</div>
         <h2 className="mb-4">
-          Gemini <span className="text-highlight">CLI</span> (Optional)
+          Antigravity <span className="text-highlight">CLI</span> (Optional)
         </h2>
         <p className="mb-6" style={{ color: 'var(--cw-ink-secondary)' }}>
-          Google&apos;s Gemini CLI is an optional supplementary tool. Claude Code is our primary tool,
-          but Gemini CLI can be useful for its large context window and free tier.
+          Google&apos;s Antigravity CLI (<code>agy</code>) is an optional supplementary tool. Claude
+          Code is our primary tool, but the Antigravity CLI is useful when you want Google&apos;s
+          agentic stack from the terminal without installing the full Antigravity IDE.
         </p>
 
         <Card className="mb-4">
-          <h4 className="mb-3">Install Gemini CLI</h4>
+          <h4 className="mb-3">Install Antigravity CLI</h4>
           <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
-            Requires <strong>Node.js 20+</strong>. Pick whichever installer fits your setup.
+            The CLI is a self-contained Go binary &mdash; no Node.js required. Download from{' '}
+            <a href="https://antigravity.google/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>
+              antigravity.google/download
+            </a>{' '}
+            or use one of the installer one-liners below.
           </p>
-          <CodeBlock title="Option 1: Run without installing (npx)" code={`npx @google/gemini-cli`} />
-          <CodeBlock title="Option 2: Install globally with npm" code={`npm install -g @google/gemini-cli
-gemini`} />
-          <CodeBlock title="Option 3: Homebrew (macOS / Linux)" code={`brew install gemini-cli
-gemini`} />
+          <CodeBlock title="Windows (PowerShell)" code={`irm https://antigravity.google/cli/install.ps1 | iex`} />
+          <CodeBlock title="Windows (Command Prompt)" code={`curl -fsSL https://antigravity.google/cli/install.cmd -o install.cmd && install.cmd && del install.cmd`} />
+          <CodeBlock title="macOS / Linux" code={`curl -fsSL https://antigravity.google/cli/install.sh | bash`} />
           <p className="text-xs mt-2" style={{ color: 'var(--cw-ink-muted)' }}>
-            On first run, authenticate with your Google account when prompted. Free tier includes generous usage.
+            After install, run <code>agy</code> to launch. On first run, authenticate with your
+            Google account when prompted.
           </p>
         </Card>
 
         <Callout variant="blue">
           <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
-            <strong>Gemini CLI Links:</strong>{' '}
-            <a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>
-              GitHub Repository
+            <strong>Antigravity CLI Links:</strong>{' '}
+            <a href="https://antigravity.google/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>
+              Download
             </a>{' | '}
-            <a href="https://ai.google.dev/gemini-api/docs" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>
-              Documentation
+            <a href="https://antigravity.google/docs/cli-getting-started" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>
+              CLI Getting Started
+            </a>{' | '}
+            <a href="https://antigravity.google" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>
+              antigravity.google
             </a>
           </p>
         </Callout>
