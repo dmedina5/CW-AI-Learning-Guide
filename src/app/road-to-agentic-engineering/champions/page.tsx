@@ -44,25 +44,57 @@ export default function ChampionsPage() {
 
         <CardGrid columns={3}>
           <Card number="01">
-            <h4 className="mb-1">8 Skills</h4>
+            <h4 className="mb-1">35 Skills</h4>
             <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              Rate investigation (abacus-al, abacus-4-lob), ratings triage,
-              prompt engineering, overlap checks, and more
+              Investigation (sherlock, debug-rca), ratings (abacus-al, abacus-4-lob,
+              ratings-triage), RPA (rpa-automation, rpa-automation-lite), SpecKit
+              (preflight, ralph, spec-validate), HR (hr-jd-generator), Finance
+              (capex-justification), prompt engineering, framework sync,
+              AI-text humanization, and more
             </p>
           </Card>
           <Card number="02">
-            <h4 className="mb-1">3 Commands</h4>
+            <h4 className="mb-1">35 Commands</h4>
             <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              <code>/cw-sync</code>, <code>/check-overlap</code>, <code>/prompt-architect</code>
+              <code>/sherlock</code>, <code>/jira</code>, <code>/cw-sync</code>,{' '}
+              <code>/prompt-architect</code>, <code>/ratings-triage</code>,{' '}
+              <code>/metabase</code>, <code>/slack</code>, <code>/specify</code>,{' '}
+              <code>/check-overlap</code>, and the full SpecKit pipeline
             </p>
           </Card>
           <Card number="03">
-            <h4 className="mb-1">Cloud Integrations</h4>
+            <h4 className="mb-1">14 Agents</h4>
             <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              Jira, Metabase, Slack, HubSpot, Atlassian, n8n, GitHub
+              Operations (report-builder, workflow-designer, platform-investigator,
+              data-analyst) plus the 10-agent SpecKit preflight, validation, and
+              lifecycle pipeline
             </p>
           </Card>
         </CardGrid>
+
+        <div className="mt-6">
+          <Card>
+            <h4 className="mb-3">Cloud Integrations</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-6 text-sm">
+              {[
+                ['Jira', 'API token (id.atlassian.com → Security)'],
+                ['Slack', 'Bot token (lib/slack_api.py)'],
+                ['Production DB', 'MySQL read replica via MCP + db-query skill'],
+                ['Metabase', 'Username/password session'],
+                ['n8n', 'API key (n8n → Settings → API)'],
+                ['HubSpot', 'OAuth (MCP cloud plugin)'],
+                ['Google Workspace', 'OAuth (MCP server)'],
+                ['Microsoft 365', 'OAuth (MCP server)'],
+                ['GitHub', 'Personal access token (read-only)'],
+              ].map(([svc, desc]) => (
+                <div key={svc} className="flex items-baseline gap-3">
+                  <code className="text-xs flex-shrink-0 font-semibold" style={{ color: 'var(--cw-primary)' }}>{svc}</code>
+                  <span style={{ color: 'var(--cw-ink-muted)' }}>{desc}</span>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </div>
       </section>
 
       {/* Section: Clone Framework Repo */}
@@ -158,8 +190,8 @@ cp .claude/templates/env.tools.local.tmpl .env.tools.local`}
           Enable <span className="text-highlight">MCP Cloud Plugins</span>
         </h2>
         <p className="mb-6">
-          HubSpot, Slack, and Atlassian integrations use Anthropic&apos;s cloud
-          plugins &mdash; no credential files needed.
+          HubSpot, Slack, Atlassian, Google Workspace, and Microsoft 365 use
+          Anthropic&apos;s cloud plugins &mdash; OAuth-based, no credential files needed.
         </p>
 
         <CodeBlock
@@ -168,7 +200,12 @@ cp .claude/templates/env.tools.local.tmpl .env.tools.local`}
 /settings
 
 # Find the integrations / plugins section
-# Enable: HubSpot, Slack, Atlassian
+# Enable the plugins you need:
+#   - HubSpot
+#   - Slack
+#   - Atlassian (Jira + Confluence)
+#   - Google Workspace (Gmail, Drive, Calendar)
+#   - Microsoft 365 (Outlook, OneDrive, Teams)
 # Each plugin opens your browser for OAuth — log in with Cover Whale`}
         />
       </section>
@@ -309,10 +346,13 @@ npx vite build  # Production`}
 ├── coverwhale/                    # Main Laravel platform
 │   └── legislative-monitoring/    # GAS project (clasp)
 ├── cw-operational-framework/      # Ops framework
-│   ├── claude/
-│   │   ├── skills/    (8)
-│   │   ├── commands/  (3)
-│   │   └── hooks/
+│   ├── .claude/
+│   │   ├── skills/    (35)
+│   │   ├── commands/  (35)
+│   │   ├── agents/    (14)
+│   │   └── hooks/     (3)
+│   ├── specify/                   # SpecKit templates + scripts
+│   ├── lib/                       # Jira + Slack API clients
 │   └── .env.tools.local           # Your credentials (not committed)
 ├── cw-documentation/              # Business & architecture docs
 └── cw-how-we-work/                # Internal site (Vite + Amplify)`}
