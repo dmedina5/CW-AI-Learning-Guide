@@ -143,6 +143,7 @@ export const NAV_ITEMS = [
       { label: 'Broker Communication', href: '/use-cases#broker-communication', tier: 'expert' as TierKey },
       { label: 'Claims', href: '/use-cases#claims', tier: 'expert' as TierKey },
       { label: 'General Productivity', href: '/use-cases#general', tier: 'expert' as TierKey },
+      { label: 'AI Tools Built at CW', href: '/use-cases#cw-tools', tier: 'advanced' as TierKey },
     ],
   },
   {

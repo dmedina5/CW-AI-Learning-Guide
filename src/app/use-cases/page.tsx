@@ -1,11 +1,185 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Bot, Scale, Truck, FileSpreadsheet, MapPin } from 'lucide-react';
 import { Card, CardGrid } from '@/components/content/Card';
 import { Callout } from '@/components/content/Callout';
 import { CodeBlock } from '@/components/content/CodeBlock';
 import { TierBadge } from '@/components/content/TierBadge';
+
+// Real AI tools built by Cover Whale teammates. Context / use case / build prompt
+// are derived from each tool's README or source.
+const CW_TOOLS = [
+  {
+    id: 'cw-data-bot',
+    icon: Bot,
+    name: 'CW Data Bot',
+    tagline: 'Ask your data a question in Slack — get a real answer.',
+    stack: 'Python · Slack Bolt · Claude · Metabase · sqlglot',
+    context:
+      'A Slack bot that turns plain-English questions into safe, read-only queries against the data warehouse. One bot, persona-injected per department (v1 is the Underwriting persona, /ask-underwriting). A saved-card-first, three-tier engine runs a vetted Metabase report when one fits, otherwise generates a guarded SELECT from a YAML business glossary. A sqlglot guard enforces SELECT-only, a table allowlist, and PII-column rejection; every query is audit-logged to CloudWatch.',
+    useCase:
+      'Anyone in the workspace can ask "how many submissions are in review?" or "bound premium by carrier this year" without knowing SQL or having a Metabase login. It democratizes data access while keeping it governed — each answer tells you whether it came from a vetted report or guarded generated SQL.',
+    buildPromptTitle: 'Build Prompt — Slack data bot',
+    buildPrompt: `CONTEXT: We want every employee to query our Metabase-connected
+data warehouse (Postgres) from Slack in plain English, safely.
+
+ROLE: Act as a senior Python engineer building an internal Slack bot.
+
+INSTRUCTION: Build a Slack bot (Bolt + Socket Mode) that answers
+natural-language data questions with a saved-card-first, 3-tier router.
+
+SPECIFICS:
+- Tier 1: run a vetted Metabase saved card as-is (no model SQL).
+- Tier 2: adapt a vetted card's SQL as a template.
+- Tier 3: generate a fresh read-only SELECT from a YAML glossary that
+  maps business terms -> schema-qualified tables.
+- Wrap Tiers 2-3 in a sqlglot guard: SELECT-only, table allowlist,
+  PII-column rejection, enforced LIMIT, dialect/schema validation.
+- "One bot, persona per department" — inject department context so
+  out-of-scope questions are politely refused.
+- Audit-log every query, refusal, and save-back to CloudWatch.
+
+PREFERENCES: TDD with an adversarial-refusal test corpus. Ack the
+Slack message immediately, then reply in-thread. Label each answer's
+source (vetted report vs generated SQL).`,
+  },
+  {
+    id: 'doi-complaint-automation',
+    icon: Scale,
+    name: 'DOI Complaint Automation',
+    tagline: 'A regulator complaint arrives — minutes later, compliance has a drafted response.',
+    stack: 'PHP · Claude · Playwright · Google Workspace · Slack',
+    context:
+      'A standalone service that processes Department of Insurance complaints end-to-end. An inbound complaint email hits a webhook, passes a fail-closed 4-tier classifier (pattern → sender → positive patterns → Claude), then Claude parses the complaint PDF (with OCR fallback for scans). It cross-references the policy database and HubSpot tickets to generate preliminary findings, logs a row to the CWIS Complaints Sheet, builds a Drive folder and collects endorsement docs via Playwright, generates a branded DOCX response letter, and DMs the compliance team in Slack.',
+    useCase:
+      'Compliance used to triage each complaint by hand — reading the PDF, digging through the platform, drafting a letter. Now the work arrives pre-assembled: parsed details, preliminary findings, a documents folder, and a draft response, ready for human review. Hours of manual assembly become a review-and-send step.',
+    buildPromptTitle: 'Build Prompt — complaint intake pipeline',
+    buildPrompt: `CONTEXT: Regulator (DOI) complaints arrive by email with PDF
+attachments. Compliance manually parses them, researches the policy,
+and drafts a response — slow and error-prone.
+
+ROLE: Act as a backend engineer building an automated intake service.
+
+INSTRUCTION: Build a webhook service that ingests a complaint email
+and produces a review-ready package.
+
+SPECIFICS:
+- Classify inbound mail with a fail-closed pipeline; only escalate
+  ambiguous cases to an LLM. Reject auto-replies/newsletters early.
+- Extract structured fields from the PDF with Claude; fall back to
+  pdftotext, then tesseract OCR for scanned documents.
+- Generate findings by cross-referencing the policy DB + CRM tickets.
+- Log to a Google Sheet, create a Drive folder, collect related docs
+  via authenticated Playwright download, render a branded DOCX letter.
+- Notify the compliance team in Slack with links.
+
+PREFERENCES: Fail closed on every error path (never silently drop a
+complaint — notify a human). HMAC-validate the webhook. Make each
+pipeline step independently skippable for testing.`,
+  },
+  {
+    id: 'fleet-submission-analyzer',
+    icon: Truck,
+    name: 'Fleet Submission Analyzer',
+    tagline: 'Every fleet submission, pre-graded and fully documented before an underwriter opens it.',
+    stack: 'Python · Claude · Playwright · Metabase · HubSpot · GitHub Actions',
+    context:
+      'A daily underwriting pipeline for fleet submissions (6+ power units). It discovers new submissions, evaluates them against a CSV-driven UW rules engine (editable by underwriters, no code changes), and grades each GREEN / YELLOW / RED. It generates a 22-section branded .docx report — FMCSA/SAFER detail, driver roster, vehicle fleet, loss history, BASIC scores, and Claude-written narratives — then distributes results to Google Drive, the #fleet-analyzer-report Slack channel, a Google Sheet log, and HubSpot deal properties. Playwright runs the DOT pre-screen and pulls loss-run PDFs; all DB access goes through the Metabase API so it runs on GitHub Actions.',
+    useCase:
+      'Underwriters and BDMs open each morning to a triaged queue: GREEN deals ready to submit, YELLOW deals with a specific action-item list, RED hard declines — each backed by a complete report. It replaces manually pulling data from five systems per submission with a one-glance grade and a document they can act on.',
+    buildPromptTitle: 'Build Prompt — submission grading pipeline',
+    buildPrompt: `CONTEXT: Underwriters manually research each fleet submission across
+the platform, FMCSA/SAFER, loss runs, and BASIC scores before deciding
+whether it's worth pursuing.
+
+ROLE: Act as a Python engineer building a read-only analysis pipeline.
+
+INSTRUCTION: Build a daily pipeline that grades each fleet submission
+and produces a branded report.
+
+SPECIFICS:
+- Discover submissions (6+ power units) via the Metabase SQL API — no
+  direct DB/VPC access, so it can run on GitHub Actions.
+- Evaluate against a CSV-driven rules engine (drivers, violations,
+  BASIC thresholds, commodities) editable by UW without code changes.
+- Grade GREEN/YELLOW/RED with an action-item list per submission.
+- Use Playwright for the DOT pre-screen and to download loss-run PDFs;
+  use Claude to parse those PDFs and write executive/strengths narratives.
+- Emit a 22-section branded .docx; write results back to Drive, Slack,
+  a Google Sheet (dedup + trends), and HubSpot deal properties.
+
+PREFERENCES: Partial-failure tolerant — if any integration is down,
+continue with available data and log a warning, never block the grade.
+Deduplicate within a configurable window.`,
+  },
+  {
+    id: 'loss-run-generator',
+    icon: FileSpreadsheet,
+    name: 'Loss Run Generator',
+    builtBy: 'Sean Johnson',
+    tagline: 'Type a policy number, get a clean loss run — and let the platform call the same logic.',
+    stack: 'Google Apps Script · Metabase (DW) · server-to-server JSON API',
+    context:
+      'A self-contained Apps Script web app that produces a branded loss-run document from a single policy number. It runs one canonical claims query against the data warehouse and reconciles against the actuarial TOTAL_CLAIMS_LIST so the numbers are consistent. Beyond the browser UI, it exposes a secured (X-Api-Key) server-to-server JSON endpoint that returns the structured claims map without rendering a PDF — so the Cover Whale platform can plug its own templates on top while the query, aggregation, and reconciliation logic stays the single source of truth.',
+    useCase:
+      'Producing a loss run used to mean a manual claims pull and hand-reconciliation. Now anyone enters a policy number and gets a consistent loss run in seconds, and the platform can fetch the exact same data programmatically — one definition of "the loss run," used everywhere.',
+    buildPromptTitle: 'Build Prompt — loss run web app + API',
+    buildPrompt: `CONTEXT: Generating a loss run for a policy is a manual claims query
+plus reconciliation. We need it self-serve AND callable by our platform,
+with one canonical definition of the numbers.
+
+ROLE: Act as an engineer building a Google Apps Script web app.
+
+INSTRUCTION: Build a web app that takes a policy number and renders a
+branded loss-run document, plus a JSON API for server-to-server use.
+
+SPECIFICS:
+- doGet: HTML UI — enter a policy number, render a branded PDF.
+- doPost: JSON API returning the structured claims map (no PDF), so
+  consumers can apply their own template.
+- Run ONE canonical claims query against the warehouse and reconcile
+  against the actuarial total-claims list; keep this the single source
+  of truth shared by both surfaces.
+- Validate the policy exists before querying; return clear not-found.
+
+PREFERENCES: Secure the API with a shared-secret key (fail closed if
+unset). Read config from Script Properties (no secrets in code).
+Validate and normalize the policy number.`,
+  },
+  {
+    id: 'coverages-by-state',
+    icon: MapPin,
+    name: 'Coverages by State',
+    builtBy: 'JJ & D³',
+    tagline: 'Can we write this line on whose paper, in which state? Answered instantly.',
+    stack: 'React · Tailwind · CW SSO · data snapshot + change monitor',
+    context:
+      'A single-page tool: type a state and see which carriers are active and which coverage lines (AL, APD, MTC, TGL, NTL) are available there, split admitted vs. non-admitted / surplus, including UIIA eligibility. It is driven by a snapshot of carrier-by-state availability, paired with a change monitor (content hash + row count) that flags when a carrier or state availability shifts so the data stays trustworthy.',
+    useCase:
+      'Agents and underwriters constantly need to know "can we write Auto Liability in this state, on which carrier, admitted or surplus?" This replaces digging through filings and spreadsheets with a searchable, filterable state view they can answer from in seconds.',
+    buildPromptTitle: 'Build Prompt — coverage availability explorer',
+    buildPrompt: `CONTEXT: Agents and UW need to know which carriers/coverage lines are
+available in a given state (admitted vs surplus). Today that lives in
+filings and spreadsheets that are slow to search.
+
+ROLE: Act as a frontend engineer building an internal single-page tool.
+
+INSTRUCTION: Build a searchable app that shows carrier and coverage
+availability by state from a data snapshot.
+
+SPECIFICS:
+- Search/select a state -> show active carriers and the lines (AL, APD,
+  MTC, TGL, NTL) available, grouped admitted vs non-admitted/surplus,
+  with UIIA eligibility.
+- Snapshot the carrier-by-state data; add a monitor that hashes the
+  dataset and flags when availability changes (so it can't go stale).
+- Filterable summary cards (e.g. admitted AL vs non-admitted AL).
+
+PREFERENCES: Gate behind company SSO. Keep it a fast, single-page UI.
+Make the snapshot easy to refresh and the change-detection visible.`,
+  },
+] as const;
 
 export default function UseCasesPage() {
   return (
@@ -440,6 +614,91 @@ PREFERENCES:
             />
           </Card>
         </div>
+      </section>
+
+      {/* CW AI Tools in Production */}
+      <section className="mb-16" id="cw-tools" data-tier="advanced">
+        <TierBadge tier="advanced" />
+        <div className="section-label mt-4">Built at Cover Whale</div>
+        <h2 className="mb-4">
+          Real AI Tools <span className="text-highlight">Shipped by Our Team</span>
+        </h2>
+        <p className="mb-6">
+          These aren&apos;t hypotheticals &mdash; they&apos;re production tools built by Cover Whale
+          teammates using the same techniques taught across this guide. Each one started as a
+          plain-English brief to an AI coding agent. For every tool below you&apos;ll find what it
+          does, the problem it solves, and an <strong>example build prompt</strong> you could adapt to
+          create something similar.
+        </p>
+
+        <Callout variant="purple" className="mb-8">
+          <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <strong>This is agentic engineering in practice.</strong> Want to build one of your own?
+            Start with the{' '}
+            <Link href="/road-to-agentic-engineering" className="text-highlight underline">Road to Agentic Engineering</Link>{' '}
+            and the{' '}
+            <Link href="/context-engineering" className="text-highlight underline">Context Engineering</Link> guide.
+          </p>
+        </Callout>
+
+        <div className="space-y-6">
+          {CW_TOOLS.map((tool, i) => {
+            const Icon = tool.icon;
+            return (
+              <Card key={tool.id} number={`TOOL ${String(i + 1).padStart(2, '0')}`}>
+                <div className="flex items-start gap-4 mb-4">
+                  <span
+                    className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: 'var(--cw-primary-light)' }}
+                  >
+                    <Icon size={22} style={{ color: 'var(--cw-primary)' }} />
+                  </span>
+                  <div className="flex-1">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                      <h3>{tool.name}</h3>
+                      {'builtBy' in tool && tool.builtBy && (
+                        <span
+                          className="text-[11px] font-semibold px-2 py-0.5 rounded-full"
+                          style={{ background: 'rgba(58,158,110,0.12)', color: 'var(--cw-success)' }}
+                        >
+                          Built by {tool.builtBy}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-sm italic mt-1" style={{ color: 'var(--cw-ink-secondary)' }}>
+                      {tool.tagline}
+                    </p>
+                    <p className="text-[11px] font-mono mt-2" style={{ color: 'var(--cw-ink-muted)' }}>
+                      {tool.stack}
+                    </p>
+                  </div>
+                </div>
+
+                <CardGrid columns={2} className="mb-4">
+                  <div className="p-4 rounded-lg" style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)' }}>
+                    <div className="text-[11px] font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--cw-primary)' }}>Context</div>
+                    <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>{tool.context}</p>
+                  </div>
+                  <div className="p-4 rounded-lg" style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)' }}>
+                    <div className="text-[11px] font-semibold uppercase tracking-wider mb-2" style={{ color: 'var(--cw-success)' }}>Use Case</div>
+                    <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>{tool.useCase}</p>
+                  </div>
+                </CardGrid>
+
+                <CodeBlock title={tool.buildPromptTitle} code={tool.buildPrompt} />
+              </Card>
+            );
+          })}
+        </div>
+
+        <Callout variant="warning" className="mt-8">
+          <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <strong>Build prompts are starting points, not the whole story.</strong> Each of these
+            tools took iteration, testing, and review to ship safely &mdash; especially the ones that
+            touch policy data, PII, or regulators. Pair the prompt with the guardrails: tests,
+            human-in-the-loop review, and fail-closed error handling.
+          </p>
+        </Callout>
       </section>
 
       {/* CRISP Quick Reference */}
