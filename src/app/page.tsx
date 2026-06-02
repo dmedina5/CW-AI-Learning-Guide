@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import {
   Brain, MessageSquare, Wand2, Code2, Bot,
-  Briefcase, BookOpen, ArrowRight, Sparkles,
+  Briefcase, BookOpen, ArrowRight, Sparkles, Layers,
 } from 'lucide-react';
 import { Card, CardGrid } from '@/components/content/Card';
 import { Callout } from '@/components/content/Callout';
@@ -28,6 +28,7 @@ const LEARNING_PATH = [
     links: [
       { label: 'CRISP Framework', href: '/prompt-engineering#crisp', icon: MessageSquare },
       { label: 'Prompt Builder', href: '/prompt-builder', icon: Wand2 },
+      { label: 'Context Engineering', href: '/context-engineering', icon: Layers },
       { label: 'Fundamentals', href: '/road-to-agentic-engineering/fundamentals', icon: Code2 },
     ],
   },

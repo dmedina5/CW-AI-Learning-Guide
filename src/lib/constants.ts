@@ -74,6 +74,20 @@ export const NAV_ITEMS = [
     tier: 'intermediate' as TierKey,
   },
   {
+    label: 'Context Engineering',
+    href: '/context-engineering',
+    icon: 'Layers',
+    tier: 'intermediate' as TierKey,
+    children: [
+      { label: 'The Shift', href: '/context-engineering', tier: 'beginner' as TierKey },
+      { label: 'vs. Prompt Engineering', href: '/context-engineering#vs-prompt', tier: 'intermediate' as TierKey },
+      { label: 'Mental Model', href: '/context-engineering#mental-model', tier: 'intermediate' as TierKey },
+      { label: 'Anatomy of Context', href: '/context-engineering#anatomy', tier: 'intermediate' as TierKey },
+      { label: 'Techniques', href: '/context-engineering#techniques', tier: 'expert' as TierKey },
+      { label: 'In the Latest Claude', href: '/context-engineering#claude', tier: 'advanced' as TierKey },
+    ],
+  },
+  {
     label: 'Claude Cowork',
     href: '/claude-cowork',
     icon: 'MonitorSmartphone',
