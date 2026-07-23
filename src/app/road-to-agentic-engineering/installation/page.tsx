@@ -456,8 +456,8 @@ claude
             Install the official Anthropic extension from the VS Code Marketplace for
             integrated Claude Code support. Or use Claude in the integrated terminal.
           </p>
-          <CodeBlock code={`# Open VS Code integrated terminal
-# Press Ctrl+\` then type:
+          <CodeBlock code={`# Open the VS Code integrated terminal:
+# Press Ctrl+\` (Windows/Linux) or Cmd+\` (Mac), then type:
 claude`} />
         </Card>
 
@@ -668,17 +668,56 @@ windsurf .`} />
                   {{
                     'VS Code': (
                       <div>
+                        <Callout variant="blue" className="mb-4">
+                          <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                            <strong>Two things to install &mdash; don&apos;t skip one.</strong> <strong>VS Code</strong> is the
+                            editor (steps below). <strong>Claude Code</strong> is the AI assistant and is a <em>separate</em> install.
+                            If you haven&apos;t installed Claude Code yet, do{' '}
+                            <a href="#claude-terminal" style={{ color: 'var(--cw-primary)' }}>Option B: Terminal Installation</a>{' '}
+                            higher up this page first &mdash; VS Code is only <em>where you run it</em>.
+                          </p>
+                        </Callout>
+
                         <StepList
                           steps={[
                             { title: 'Download VS Code', description: <>Go to <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>code.visualstudio.com/download</a> and click <strong>&ldquo;Mac&rdquo;</strong></> },
                             { title: 'Install the app', description: 'Open the downloaded .zip, then drag Visual Studio Code to your Applications folder' },
-                            { title: 'Install the CLI tool', description: <>Open VS Code, press <kbd>Cmd+Shift+P</kbd>, type <strong>&ldquo;Shell Command: Install &apos;code&apos; command in PATH&rdquo;</strong> and select it</> },
+                            { title: 'Install the code CLI (optional but handy)', description: <>Open VS Code, press <kbd>Cmd+Shift+P</kbd>, type <strong>&ldquo;Shell Command: Install &apos;code&apos; command in PATH&rdquo;</strong> and select it. This lets you open a project with <code>code .</code></> },
+                            { title: 'Open the integrated terminal', description: <>In VS Code, press <kbd>Cmd + `</kbd> (the backtick key, top-left under <kbd>Esc</kbd>). A terminal panel opens at the bottom &mdash; every command below goes here</> },
+                            { title: 'Start Claude Code', description: <>Type <code>claude</code> and press <kbd>Enter</kbd>. The first time, it opens your browser to sign in with your Claude account (the same one IT approved)</> },
                           ]}
                         />
+
+                        <Callout variant="sage" className="mt-4">
+                          <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                            <strong>That&apos;s it &mdash; you&apos;re in.</strong> From now on: open VS Code, press <kbd>Cmd + `</kbd>,
+                            type <code>claude</code>. To work on a specific project, open that folder first
+                            (<strong>File &gt; Open Folder&hellip;</strong>), then start Claude from the terminal so it sees your code.
+                          </p>
+                        </Callout>
+
+                        <Callout variant="warning" className="mt-4">
+                          <p className="text-sm mb-2" style={{ color: 'var(--cw-ink-secondary)' }}>
+                            <strong>Terminal says <code>command not found: claude</code>?</strong> That means Claude Code itself
+                            isn&apos;t installed yet &mdash; installing VS Code does <em>not</em> install it. Run the native
+                            installer (see <a href="#claude-terminal" style={{ color: 'var(--cw-primary)' }}>Option B</a> above),
+                            then <strong>close and reopen the terminal</strong> and try <code>claude</code> again:
+                          </p>
+                          <CodeBlock code={`curl -fsSL https://claude.ai/install.sh | bash`} />
+                        </Callout>
+
+                        <Callout variant="purple" className="mt-4">
+                          <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                            <strong>Optional:</strong> for a richer in-editor experience, open Extensions (<kbd>Cmd+Shift+X</kbd>),
+                            search <strong>&ldquo;Claude Code&rdquo;</strong> by Anthropic, and install it. The terminal steps
+                            above work with or without the extension.
+                          </p>
+                        </Callout>
+
                         <Card className="mt-6 mb-4">
-                          <h4 className="mb-3">PATH Setup for <code>code</code> CLI (alternative)</h4>
+                          <h4 className="mb-3">PATH Setup for <code>code</code> CLI (only if Step 3 didn&apos;t work)</h4>
                           <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
-                            If the Command Palette method above doesn&apos;t work, add it to your PATH manually:
+                            If the <code>code</code> command isn&apos;t recognized after the Command Palette step, add it to your PATH manually:
                           </p>
                           <CodeBlock code={`# Add to your shell profile (~/.zshrc for macOS Catalina+)
 echo 'export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"' >> ~/.zshrc
@@ -690,7 +729,7 @@ source ~/.zshrc
 code --version`} />
                           <Callout variant="blue" className="mt-3">
                             <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
-                              <strong>Homebrew alternative:</strong> You can also install via Homebrew which handles PATH automatically:
+                              <strong>Homebrew alternative:</strong> You can also install VS Code via Homebrew, which handles PATH automatically:
                             </p>
                           </Callout>
                           <CodeBlock code={`brew install --cask visual-studio-code`} />
