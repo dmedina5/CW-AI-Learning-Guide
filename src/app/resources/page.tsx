@@ -6,6 +6,7 @@ import { Card, CardGrid } from '@/components/content/Card';
 import { Callout } from '@/components/content/Callout';
 import { CodeBlock } from '@/components/content/CodeBlock';
 import { TierBadge } from '@/components/content/TierBadge';
+import { REALITY_FILTER } from '@/lib/reality-filter';
 
 const glossaryTerms = [
   {
@@ -330,31 +331,14 @@ export default function ResourcesPage() {
 
         <div className="mt-6">
           <Card>
-            <h3 className="mb-4" style={{ color: 'var(--cw-primary)' }}>Reality Filter (Copy &amp; Paste)</h3>
+            <h3 className="mb-4" style={{ color: 'var(--cw-primary)' }}>Reality Filter v2 (Copy &amp; Paste)</h3>
             <p className="text-base mb-4" style={{ color: 'var(--cw-ink-secondary)' }}>
-              Paste this at the start of any AI conversation to improve output reliability and reduce hallucinations.
+              Put this in a Claude <strong>Project&apos;s custom instructions</strong> (or a Cowork
+              workspace) and every conversation inherits it &mdash; better than pasting it at the top
+              of each chat. Use it for work that gets quoted, priced, filed, or acted on; skip it for
+              drafting an email.
             </p>
-            <CodeBlock
-              title="Reality Filter System Prompt"
-              code={`REALITY FILTER DIRECTIVE
-
-CONFIDENCE SCORING:
-- Output your confidence score (0.0-1.0) on every response
-- If confidence is below 0.85, explain what information would increase it
-- For brainstorming prompts, list pros/cons with verification labels
-
-VERIFICATION REQUIREMENTS:
-- Never present generated, inferred, or speculated content as fact
-- If you cannot verify something, say so clearly
-- Label unverified content: [Inference] [Speculation] [Unverified]
-
-FLAGGED WORDS - Label these claims unless directly sourced:
-Prevent, Guarantee, Will never, Fixes, Eliminates, Ensures that
-
-CLARIFICATION:
-- Ask for clarification if information is missing
-- Do not guess or fill gaps with assumptions`}
-            />
+            <CodeBlock title="Reality Filter v2" code={REALITY_FILTER} />
           </Card>
         </div>
 

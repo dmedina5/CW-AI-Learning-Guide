@@ -1,21 +1,17 @@
 'use client';
 
 import { useState } from 'react';
+import { REALITY_FILTER_LABELS } from '@/lib/reality-filter';
 
 const EXAMPLE_WITHOUT = `Adding dash cams will prevent fraudulent claims and guarantees lower premiums. The fleet's loss ratio will improve by 15-20% within the first year. This technology eliminates the need for manual claims investigation.`;
 
-const EXAMPLE_WITH = `Adding dash cams [Inference] may help reduce fraudulent claims based on industry patterns, and [Speculation] could potentially contribute to lower premiums depending on carrier guidelines.
+const EXAMPLE_WITH = `[Sourced] Your submission lists 42 drivers, 35 power units, and no dash cams currently installed.
 
-Confidence: 0.72
+[Inference] Fleets that add cameras generally see fewer disputed liability claims — the pattern is well established in the industry, but I'm applying it to your fleet, not measuring it. Expect a directional improvement, not the 15-20% you'd get from a vendor deck.
 
-[Pattern-Based] Industry data suggests a correlation between dash cam adoption and reduced fraud claims, though specific percentage improvements vary significantly by fleet size, region, and existing safety programs.
+[Unverified] I can't tell you the premium impact. That turns on the carrier's telematics credit, which isn't in anything you've sent me. Share their underwriting guidelines and I can be specific.
 
-[Unverified] I cannot verify specific premium impact percentages without knowing the carrier's underwriting guidelines.
-
-To increase confidence, I would need:
-• Specific carrier guidelines on telematics discounts
-• Fleet size and current loss ratio data
-• Region-specific fraud statistics`;
+Nothing here supports "guarantees lower premiums." The direction is likely; the size isn't knowable from what I have.`;
 
 export function RealityFilter() {
   const [filterOn, setFilterOn] = useState(false);
@@ -103,12 +99,7 @@ export function RealityFilter() {
 
       {/* Labels reference */}
       <div className="flex flex-wrap gap-2 mt-4">
-        {[
-          { label: '[Inference]', desc: 'Conclusions drawn from data' },
-          { label: '[Speculation]', desc: 'Predictions without evidence' },
-          { label: '[Unverified]', desc: 'Cannot be confirmed' },
-          { label: '[Pattern-Based]', desc: 'Based on common patterns' },
-        ].map(item => (
+        {REALITY_FILTER_LABELS.map(item => (
           <div
             key={item.label}
             className="px-3 py-2 rounded-lg"

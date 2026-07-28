@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { Copy, Check, RotateCcw } from 'lucide-react';
+import { REALITY_FILTER_SHORT } from '@/lib/reality-filter';
 
 type Mode = 'simple' | 'advanced';
 
@@ -96,7 +97,7 @@ export function PromptBuilder() {
     }
 
     if (realityFilter && !prompt.includes('[describe your task here]') && !prompt.includes('Fill out the CRISP')) {
-      prompt = `REALITY FILTER DIRECTIVE:\n• Output your confidence score (0.0-1.0) on every response\n• If confidence is below 0.85, explain what information would increase it\n• Label unverified content: [Inference] [Speculation] [Unverified] [Pattern-Based]\n• Never present generated, inferred, or speculated content as fact\n• If uncertain, say "I cannot verify this" rather than guessing\n• Ask for clarification if information is missing\n\n---\n\n${prompt}`;
+      prompt = `${REALITY_FILTER_SHORT}\n\n---\n\n${prompt}`;
     }
 
     return prompt;
@@ -268,7 +269,7 @@ export function PromptBuilder() {
             <div className="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-cw-success transition-colors after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full" />
           </label>
           <span className="text-sm font-medium">
-            <strong>Add Reality Filter</strong> — For critical decisions, adds confidence scoring and verification labels
+            <strong>Add Reality Filter</strong> — For anything that gets quoted, priced, or acted on. Makes Claude mark what it sourced, what it inferred, and what it doesn&apos;t know.
           </span>
         </div>
 

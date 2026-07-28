@@ -22,7 +22,7 @@ const SEARCH_INDEX: SearchResult[] = [
   { title: 'Prompt Engineering Basics', href: '/prompt-engineering', excerpt: 'Be specific, define role, provide context, output format, set boundaries.', tier: 'beginner', section: 'Prompt Engineering' },
   { title: 'CRISP Framework', href: '/prompt-engineering#crisp', excerpt: 'Context, Role, Instruction, Specifics, Preferences.', tier: 'intermediate', section: 'Prompt Engineering' },
   { title: 'Prompting Techniques', href: '/prompt-engineering#techniques', excerpt: 'Zero-shot, few-shot, chain-of-thought, dual-pass.', tier: 'intermediate', section: 'Prompt Engineering' },
-  { title: 'Reality Filter', href: '/prompt-engineering#reality-filter', excerpt: 'Confidence scoring and verification labels for reliable AI responses.', tier: 'intermediate', section: 'Prompt Engineering' },
+  { title: 'Reality Filter', href: '/prompt-engineering#reality-filter', excerpt: 'Make Claude mark what it sourced, what it inferred, and what it does not know.', tier: 'intermediate', section: 'Prompt Engineering' },
   { title: 'PII Safety', href: '/prompt-engineering#pii', excerpt: 'What to never share with AI. Generalization technique.', tier: 'intermediate', section: 'Prompt Engineering' },
   { title: 'Prompt Builder', href: '/prompt-builder', excerpt: 'Interactive tool to build structured prompts using CRISP framework.', tier: 'intermediate', section: 'Tools' },
   { title: 'Road to Agentic Engineering', href: '/road-to-agentic-engineering', excerpt: 'Describe what you want in plain English and AI helps create it.', tier: 'beginner', section: 'Road to Agentic Engineering' },

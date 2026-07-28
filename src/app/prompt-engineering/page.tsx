@@ -7,6 +7,7 @@ import { Card, CardGrid } from '@/components/content/Card';
 import { Callout } from '@/components/content/Callout';
 import { CodeBlock } from '@/components/content/CodeBlock';
 import { TierBadge } from '@/components/content/TierBadge';
+import { REALITY_FILTER } from '@/lib/reality-filter';
 
 // Marks advice that shifted with the Claude 5 generation.
 function ThenNow({ then: thenText, now: nowText }: { then: string; now: string }) {
@@ -338,60 +339,114 @@ Flag anything you're inferring rather than reading off the file.`}
         <div className="section-label">Reliability</div>
         <h2 className="mb-4">The Reality Filter</h2>
         <p className="mb-6">
-          A custom system prompt that makes AI responses more reliable, honest, and transparent.
+          A standing instruction that makes AI responses more honest about what they actually know.
+          The idea is more valuable than ever &mdash; a confident wrong answer is the expensive
+          failure in underwriting and claims. The <em>implementation</em> needed an update.
         </p>
+
+        <Callout variant="blue" className="mb-8">
+          <p className="text-base mb-3" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <strong>What changed in v2.</strong> The original was written for models that would
+            confidently invent things and rarely volunteer doubt. Newer models are better calibrated
+            on their own, so the filter can do less &mdash; and several of its mechanics were working
+            against it:
+          </p>
+          <ul className="space-y-2 text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
+            <li className="flex items-start gap-2">
+              <span style={{ color: 'var(--cw-primary)' }}>&bull;</span>
+              <span><strong>Dropped the 0.0&ndash;1.0 confidence score.</strong> A self-reported
+              &ldquo;0.72&rdquo; is a generated number, not a measurement &mdash; false precision from
+              a filter built to stop false precision. Replaced with what actually helps: what would
+              raise the confidence.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span style={{ color: 'var(--cw-primary)' }}>&bull;</span>
+              <span><strong>Four labels became three, and one marks the good.</strong>{' '}
+              <code>[Inference]</code> and <code>[Pattern-Based]</code> were the same act. Adding{' '}
+              <code>[Sourced]</code> means you can tell verified from merely unlabeled.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span style={{ color: 'var(--cw-primary)' }}>&bull;</span>
+              <span><strong>The flagged-word list became a standard.</strong> A blocklist of six
+              words misses every overclaim phrased differently, and trips on the legitimate uses.
+              &ldquo;Write probabilistic things probabilistically&rdquo; catches both.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span style={{ color: 'var(--cw-primary)' }}>&bull;</span>
+              <span><strong>Check before you disclaim.</strong> &ldquo;I cannot verify this&rdquo;
+              was the right answer when models had no tools. Now they can often just look it
+              up.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span style={{ color: 'var(--cw-primary)' }}>&bull;</span>
+              <span><strong>Added a guard against over-verification.</strong> Newer models already
+              re-check their work; standing instructions that sound like &ldquo;verify
+              yourself&rdquo; make them do it twice and pad the answer. The filter now says
+              explicitly that it wants disclosure, not a second pass.</span>
+            </li>
+          </ul>
+        </Callout>
 
         <CardGrid columns={2} className="mb-8">
           <div className="p-4 rounded-lg" style={{ background: 'rgba(74,144,164,0.08)' }}>
-            <h4 className="text-sm font-semibold mb-2">Score Confidence</h4>
-            <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>Output confidence levels (0.0-1.0) on every response</p>
+            <h4 className="text-sm font-semibold mb-2">Separate What&apos;s Known</h4>
+            <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>Sourced, inferred, or unknown &mdash; marked as it goes, not buried in a caveat at the end</p>
           </div>
           <div className="p-4 rounded-lg" style={{ background: 'rgba(74,144,164,0.08)' }}>
-            <h4 className="text-sm font-semibold mb-2">Label Uncertainty</h4>
-            <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>Clearly mark inferences, speculation, or unverified claims</p>
+            <h4 className="text-sm font-semibold mb-2">Say What Would Settle It</h4>
+            <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>Not just &ldquo;I&apos;m unsure&rdquo; but the specific document or number that would close the gap</p>
           </div>
           <div className="p-4 rounded-lg" style={{ background: 'rgba(74,144,164,0.08)' }}>
-            <h4 className="text-sm font-semibold mb-2">Prevent Hallucination</h4>
-            <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>Stop AI from presenting generated content as verified fact</p>
+            <h4 className="text-sm font-semibold mb-2">No Invented Specifics</h4>
+            <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>Never a number, date, name, or citation that isn&apos;t actually in front of it</p>
           </div>
           <div className="p-4 rounded-lg" style={{ background: 'rgba(74,144,164,0.08)' }}>
-            <h4 className="text-sm font-semibold mb-2">Forward-Thinking</h4>
-            <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>Get pros/cons analysis and suggestions for improving outputs</p>
+            <h4 className="text-sm font-semibold mb-2">Check First, Disclaim Second</h4>
+            <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>With search available, looking it up beats declining to answer</p>
           </div>
         </CardGrid>
 
         <CodeBlock
-          title="Reality Filter Prompt"
-          code={`REALITY FILTER DIRECTIVE
-
-CONFIDENCE SCORING:
-• Output your confidence score (0.0-1.0) on every response
-• If confidence is below 0.85, explain what information would increase it
-• For brainstorming prompts, list pros/cons with verification labels
-• Take a forward-thinking view and flag speculation clearly
-
-VERIFICATION REQUIREMENTS:
-• Never present generated, inferred, speculated, or deduced content as fact
-• If you cannot verify something directly, say:
-  - "I cannot verify this."
-  - "I do not have access to that information."
-  - "My knowledge base does not contain that."
-
-LABELING REQUIREMENTS:
-• Label unverified content at the START of the sentence:
-  [Inference] [Speculation] [Unverified] [Pattern-Based]
-• If ANY part of a response is unverified, label it clearly
-
-FLAGGED WORDS - Label these claims unless directly sourced:
-Prevent, Guarantee, Will never, Fixes, Eliminates, Ensures that
-
-CLARIFICATION:
-• Ask for clarification if information is missing
-• Do not guess or fill gaps with assumptions`}
+          title="Reality Filter v2"
+          code={REALITY_FILTER}
         />
         <div className="mt-4">
-          <CopyButton text={`REALITY FILTER DIRECTIVE\n\nCONFIDENCE SCORING:\n• Output your confidence score (0.0-1.0) on every response\n• If confidence is below 0.85, explain what information would increase it\n• For brainstorming prompts, list pros/cons with verification labels\n• Take a forward-thinking view and flag speculation clearly\n\nVERIFICATION REQUIREMENTS:\n• Never present generated, inferred, speculated, or deduced content as fact\n• If you cannot verify something directly, say:\n  - "I cannot verify this."\n  - "I do not have access to that information."\n  - "My knowledge base does not contain that."\n\nLABELING REQUIREMENTS:\n• Label unverified content at the START of the sentence:\n  [Inference] [Speculation] [Unverified] [Pattern-Based]\n• If ANY part of a response is unverified, label it clearly\n\nFLAGGED WORDS - Label these claims unless directly sourced:\nPrevent, Guarantee, Will never, Fixes, Eliminates, Ensures that\n\nCLARIFICATION:\n• Ask for clarification if information is missing\n• Do not guess or fill gaps with assumptions`} />
+          <CopyButton text={REALITY_FILTER} />
         </div>
+
+        <CardGrid columns={2} className="mt-8">
+          <Card>
+            <h3 className="mb-2">Where to put it</h3>
+            <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+              Standing context belongs somewhere standing. Paste it once into a Claude{' '}
+              <strong>Project&apos;s custom instructions</strong> or a Cowork workspace and every
+              conversation inherits it. Retyping it at the top of each chat is the exact habit the{' '}
+              <Link href="/context-engineering#claude5" className="text-highlight" style={{ textDecoration: 'underline' }}>progressive disclosure</Link>{' '}
+              principle exists to kill.
+            </p>
+          </Card>
+          <Card>
+            <h3 className="mb-2">When to skip it</h3>
+            <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+              It costs output length and adds friction, so it isn&apos;t free. Use it for anything
+              that gets quoted, priced, filed, or acted on &mdash; risk analysis, loss review,
+              regulatory questions, board material. Skip it for drafting an email or tidying your
+              notes, where the labels are just noise.
+            </p>
+          </Card>
+        </CardGrid>
+
+        <Callout variant="warning" className="mt-6">
+          <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <strong>If you already run v1, the labels changed.</strong>{' '}
+            <code>[Pattern-Based]</code> folds into <code>[Inference]</code>,{' '}
+            <code>[Speculation]</code> is covered by <code>[Inference]</code> with its
+            &ldquo;say what from&rdquo; showing the weak grounding, and <code>[Sourced]</code> is
+            new. If you have Projects or saved prompts using the old four, update them together so
+            your team reads one vocabulary &mdash; and note that no filter, old or new, removes the
+            need to check anything you&apos;re about to act on.
+          </p>
+        </Callout>
       </section>
 
       {/* PII Safety */}
