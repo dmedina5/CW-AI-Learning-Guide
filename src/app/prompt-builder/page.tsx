@@ -12,7 +12,7 @@ export default function PromptBuilderPage() {
       <h1 className="mt-4 mb-4">Prompt Builder</h1>
       <p className="mb-8">
         Build powerful, structured prompts interactively. Choose Simple Mode for quick everyday
-        tasks, or Advanced Mode for the full CRISP framework. Both are tuned for the Claude 5
+        tasks, or Advanced Mode for the full GRIP framework. Both are tuned for the Claude 5
         models: put your effort into Context and Specifics, and leave Role blank unless it adds a
         lens the facts don&apos;t already imply &mdash; see{' '}
         <Link href="/context-engineering#claude5" className="text-highlight" style={{ textDecoration: 'underline' }}>Context Engineering</Link>{' '}

@@ -61,7 +61,7 @@ export const NAV_ITEMS = [
     tier: 'beginner' as TierKey,
     children: [
       { label: 'The Basics', href: '/prompt-engineering', tier: 'beginner' as TierKey },
-      { label: 'CRISP Framework', href: '/prompt-engineering#crisp', tier: 'intermediate' as TierKey },
+      { label: 'GRIP Framework', href: '/prompt-engineering#grip', tier: 'intermediate' as TierKey },
       { label: 'Techniques', href: '/prompt-engineering#techniques', tier: 'intermediate' as TierKey },
       { label: 'Reality Filter', href: '/prompt-engineering#reality-filter', tier: 'intermediate' as TierKey },
       { label: 'PII Safety', href: '/prompt-engineering#pii', tier: 'intermediate' as TierKey },

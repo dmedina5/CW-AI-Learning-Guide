@@ -16,7 +16,7 @@ const SECTIONS: Section[] = [
   { id: 'prompt-basics', title: 'Prompt Engineering Basics', href: '/prompt-engineering', tier: 'beginner' },
   { id: 'vibe-coding-intro', title: 'Road to Agentic Engineering', href: '/road-to-agentic-engineering', tier: 'beginner' },
   { id: 'installation', title: 'Installation Guide', href: '/road-to-agentic-engineering/installation', tier: 'beginner' },
-  { id: 'crisp', title: 'CRISP Framework', href: '/prompt-engineering#crisp', tier: 'intermediate' },
+  { id: 'crisp', title: 'GRIP Framework', href: '/prompt-engineering#grip', tier: 'intermediate' },
   { id: 'prompt-builder', title: 'Prompt Builder', href: '/prompt-builder', tier: 'intermediate' },
   { id: 'reality-filter', title: 'Reality Filter', href: '/prompt-engineering#reality-filter', tier: 'intermediate' },
   { id: 'techniques', title: 'Prompting Techniques', href: '/prompt-engineering#techniques', tier: 'intermediate' },

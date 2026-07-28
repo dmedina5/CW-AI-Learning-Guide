@@ -29,35 +29,30 @@ const FORMATS = [
 ];
 
 interface Example {
-  context: string;
-  role: string;
-  instruction: string;
-  specifics: string;
-  preferences: string;
+  ground: string;
+  request: string;
+  intent: string;
+  proof: string;
 }
 
-// Role is intentionally blank in every example — the situation already implies it.
 const EXAMPLES: Record<string, Example> = {
   submission: {
-    context: "I'm reviewing a new business submission for a commercial trucking insurance account.",
-    role: "",
-    instruction: "Tell me what I should dig into before quoting this, and whether it looks worth pursuing.",
-    specifics: "18 power units. Regional LTL, 400-mile radius. 5 years in business. General freight plus some refrigerated. 3 claims in 36 months, including 1 large cargo claim.",
-    preferences: "Rank by what would actually change the price, not by category. Flag anything you're inferring rather than reading off the data.",
+    ground: "New business submission on a commercial trucking account. 18 power units, regional LTL on a 400-mile radius, 5 years in business, general freight plus some refrigerated. 3 claims in 36 months, including 1 large cargo claim. (Attach the submission itself if you have it.)",
+    request: "Tell me what I should dig into before quoting this, and whether it looks worth pursuing. Rank by what would actually change the price, not by category.",
+    intent: "I'm deciding whether to spend real time on it this week, so I care about what would kill the deal more than what's merely interesting.",
+    proof: "Flag anything you're inferring rather than reading off the data.",
   },
   loss: {
-    context: "I have loss run data for a trucking account seeking renewal.",
-    role: "",
-    instruction: "Tell me what these claims say about how this fleet is actually run, and whether I should be worried at renewal.",
-    specifics: "2 backing accidents in parking lots (minor), 1 rear-end collision on the highway (moderate BI), 1 cargo shortage claim, 1 weather-related accident.",
-    preferences: "I care more about the pattern than the individual claims. If the mix points at a specific gap — training, supervision, equipment — say so and tell me what to ask the broker.",
+    ground: "Loss runs for a trucking account up for renewal: 2 backing accidents in parking lots (minor), 1 rear-end collision on the highway (moderate BI), 1 cargo shortage claim, 1 weather-related accident.",
+    request: "Tell me what these claims say about how this fleet is actually run, and whether I should be worried at renewal.",
+    intent: "I have to defend the renewal number to the carrier, so I need the story behind the pattern — not a restatement of the claims.",
+    proof: "If the mix points at a specific gap — training, supervision, equipment — say so, and be clear about which part is the data talking and which part is you reading into it.",
   },
   email: {
-    context: "I need to request additional information from a broker before providing a quote.",
-    role: "",
-    instruction: "Draft the email asking for what's missing.",
-    specifics: "Updated driver list with MVRs, current vehicle schedule, an explanation of the large cargo claim from last year, safety program documentation.",
-    preferences: "Make it easy to action — the broker should be able to work straight down it and tick items off. Give them a reasonable deadline. Keep it short.",
+    ground: "Incomplete submission on a fleet account. Still missing: updated driver list with MVRs, current vehicle schedule, an explanation of the large cargo claim from last year, and safety program documentation.",
+    request: "Draft the email asking the broker for what's missing.",
+    intent: "This broker sends us good business and I don't want it to read as bureaucratic — I need the file complete without spending relationship capital.",
+    proof: "Make it easy to action: the broker should be able to work straight down it and tick items off. Give them a reasonable deadline, and keep it short.",
   },
 };
 
@@ -71,12 +66,11 @@ export function PromptBuilder() {
   const [task, setTask] = useState('');
   const [format, setFormat] = useState(FORMATS[0].value);
 
-  // Advanced mode (CRISP)
-  const [context, setContext] = useState('');
-  const [roleAdv, setRoleAdv] = useState('');
-  const [instruction, setInstruction] = useState('');
-  const [specifics, setSpecifics] = useState('');
-  const [preferences, setPreferences] = useState('');
+  // Advanced mode (GRIP)
+  const [ground, setGround] = useState('');
+  const [request, setRequest] = useState('');
+  const [intent, setIntent] = useState('');
+  const [proof, setProof] = useState('');
 
   const generatePrompt = useCallback(() => {
     let prompt = '';
@@ -85,23 +79,24 @@ export function PromptBuilder() {
       const taskText = task.trim() || '[describe your task here]';
       // Role is optional now — a stated situation usually implies it.
       const roleLine = role ? `Act as ${role}.\n\n` : '';
-      prompt = `${roleLine}TASK: ${taskText}\n\nFORMAT: Give it to me as ${format}. Lead with what matters most, and flag anything you're inferring rather than reading from what I gave you.`;
+      // Prose, not ALL-CAPS labels — same reason as the GRIP branch below.
+      prompt = `${roleLine}${taskText}\n\nGive it to me as ${format}. Lead with what matters most, and flag anything you're inferring rather than reading from what I gave you.`;
     } else {
-      const parts: string[] = [];
-      if (context.trim()) parts.push(`CONTEXT: ${context.trim()}`);
-      if (roleAdv.trim()) parts.push(`ROLE: ${roleAdv.trim()}`);
-      if (instruction.trim()) parts.push(`TASK: ${instruction.trim()}`);
-      if (specifics.trim()) parts.push(`SPECIFICS: ${specifics.trim()}`);
-      if (preferences.trim()) parts.push(`FORMAT: ${preferences.trim()}`);
-      prompt = parts.length > 0 ? parts.join('\n\n') : 'Fill out the CRISP framework fields above...';
+      // GRIP emits plain paragraphs. The ALL-CAPS section labels the old CRISP
+      // builder produced were scaffolding the model doesn't need — and reading
+      // them back teaches the wrong habit.
+      const parts = [ground, request, intent, proof]
+        .map(v => v.trim())
+        .filter(Boolean);
+      prompt = parts.length > 0 ? parts.join('\n\n') : 'Fill out the GRIP fields above...';
     }
 
-    if (realityFilter && !prompt.includes('[describe your task here]') && !prompt.includes('Fill out the CRISP')) {
+    if (realityFilter && !prompt.includes('[describe your task here]') && !prompt.includes('Fill out the GRIP')) {
       prompt = `${REALITY_FILTER_SHORT}\n\n---\n\n${prompt}`;
     }
 
     return prompt;
-  }, [mode, role, task, format, context, roleAdv, instruction, specifics, preferences, realityFilter]);
+  }, [mode, role, task, format, ground, request, intent, proof, realityFilter]);
 
   const handleCopy = async () => {
     const text = generatePrompt();
@@ -125,22 +120,20 @@ export function PromptBuilder() {
     setTask('');
     setRole(ROLES[0].value);
     setFormat(FORMATS[0].value);
-    setContext('');
-    setRoleAdv('');
-    setInstruction('');
-    setSpecifics('');
-    setPreferences('');
+    setGround('');
+    setRequest('');
+    setIntent('');
+    setProof('');
     setRealityFilter(false);
   };
 
   const loadExample = (key: string) => {
     setMode('advanced');
     const ex = EXAMPLES[key];
-    setContext(ex.context);
-    setRoleAdv(ex.role);
-    setInstruction(ex.instruction);
-    setSpecifics(ex.specifics);
-    setPreferences(ex.preferences);
+    setGround(ex.ground);
+    setRequest(ex.request);
+    setIntent(ex.intent);
+    setProof(ex.proof);
   };
 
   const inputClasses = "w-full px-4 py-3 rounded-xl text-sm outline-none transition-colors border-2 focus:border-cw-purple";
@@ -154,7 +147,7 @@ export function PromptBuilder() {
         style={{ background: 'linear-gradient(135deg, var(--cw-primary-dark), var(--cw-primary))' }}
       >
         <h2 className="text-xl font-bold text-white mb-2">The Prompt Perfector</h2>
-        <p className="text-sm text-white/90 mb-4">Build powerful, structured prompts using the CRISP Framework</p>
+        <p className="text-sm text-white/90 mb-4">Build powerful, structured prompts using the GRIP Framework</p>
         <div className="flex gap-2 justify-center">
           <button
             onClick={() => setMode('simple')}
@@ -180,7 +173,7 @@ export function PromptBuilder() {
           <strong>{mode === 'simple' ? 'Simple Mode:' : 'Advanced Mode:'}</strong>{' '}
           {mode === 'simple'
             ? 'Quick prompt building for everyday tasks. Role is optional — the facts usually imply it.'
-            : 'Full CRISP framework for complex tasks. Spend your effort on Context and Specifics; skip Role unless it adds a lens the facts don\'t.'}
+            : 'Full GRIP framework for complex tasks. Four plain paragraphs - no section labels needed in the prompt itself.'}
         </div>
 
         {/* Simple Mode */}
@@ -218,11 +211,10 @@ export function PromptBuilder() {
         {mode === 'advanced' && (
           <div className="space-y-5">
             {[
-              { letter: 'C', label: 'Context - What\'s the background?', value: context, setter: setContext, type: 'textarea' as const, placeholder: 'Example: I\'m reviewing a commercial trucking submission for a 25-unit fleet...' },
-              { letter: 'R', label: 'Role - optional, usually skip it', value: roleAdv, setter: setRoleAdv, type: 'input' as const, placeholder: 'Leave blank unless you need a lens the facts don\'t imply — e.g. "read this the way the broker will"' },
-              { letter: 'I', label: 'Instruction - what decision do you need?', value: instruction, setter: setInstruction, type: 'input' as const, placeholder: 'Example: Tell me whether to pursue this account, and what would change your answer...' },
-              { letter: 'S', label: 'Specifics - your real data (highest-value field)', value: specifics, setter: setSpecifics, type: 'textarea' as const, placeholder: 'Example: 18 power units, 5 years in business, 3 claims in 36 months including 1 large cargo claim...' },
-              { letter: 'P', label: 'Preferences - the standard to hit, not a template', value: preferences, setter: setPreferences, type: 'input' as const, placeholder: 'Example: Lead with the recommendation, then the reasoning. Flag anything you\'re inferring...' },
+              { letter: 'G', label: 'Ground - the real material (highest-value field)', value: ground, setter: setGround, type: 'textarea' as const, placeholder: 'Attach the file in your chat, then note what it is - e.g. "Loss runs attached. 18 power units, 5 years in business, 3 claims in 36 months including 1 large cargo claim."' },
+              { letter: 'R', label: 'Request - what decision do you need made?', value: request, setter: setRequest, type: 'input' as const, placeholder: 'Example: Tell me whether to pursue this account, and what would change your answer...' },
+              { letter: 'I', label: 'Intent - why you need it, who it is for', value: intent, setter: setIntent, type: 'input' as const, placeholder: 'Example: This goes to the carrier Thursday, so I need to defend the number, not just state it...' },
+              { letter: 'P', label: 'Proof - what to mark as sourced vs inferred', value: proof, setter: setProof, type: 'input' as const, placeholder: 'Example: Flag anything you are inferring rather than reading off the file...' },
             ].map(field => (
               <div key={field.letter}>
                 <label className="block text-sm font-semibold mb-2">

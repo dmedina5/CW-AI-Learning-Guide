@@ -279,11 +279,14 @@ export default function UseCasesPage() {
 
         <Callout variant="sage">
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-            <strong>CRISP still applies &mdash; the weight moved.</strong> Context and Specifics are
-            doing the real work in every prompt below, and they got <em>longer</em>, not shorter:
-            grounding an answer in your actual numbers is still the single biggest defense against a
-            confident wrong answer. What got trimmed is Role and the prescriptive half of
-            Preferences. Keep telling Claude the facts. Stop telling it how to think.
+            <strong>This is GRIP, which replaces CRISP.</strong> Ground, Request, Intent, Proof
+            &mdash; four things worth saying, every one of them information rather than instruction.
+            Note what got <em>longer</em> in the prompts below, not shorter: the facts, and the
+            reason you need the answer. Grounding a response in your actual numbers is still the
+            single biggest defense against a confident wrong one. Keep telling Claude the facts.
+            Stop telling it how to think. Full mapping from the old five letters on the{' '}
+            <Link href="/prompt-engineering#grip" className="text-highlight" style={{ textDecoration: 'underline' }}>Prompt Engineering</Link>{' '}
+            page.
           </p>
         </Callout>
       </section>
@@ -758,31 +761,31 @@ what you'd bring that they didn't ask for.`}
         </Callout>
       </section>
 
-      {/* CRISP Quick Reference */}
-      <section className="mb-16" id="crisp-reference" data-tier="expert">
+      {/* GRIP Quick Reference */}
+      <section className="mb-16" id="grip-reference" data-tier="expert">
+        {/* Older links point at #crisp-reference — keep them landing here. */}
+        <span id="crisp-reference" aria-hidden="true" />
         <div className="section-label">Quick Reference</div>
         <h2 className="mb-4">
-          CRISP Framework <span className="text-highlight">Refresher</span>
+          GRIP Framework <span className="text-highlight">Refresher</span>
         </h2>
         <p className="mb-6">
-          CRISP is still the backbone &mdash; but on the Claude 5 models the weight sits differently.
-          <strong> Context and Specifics carry the prompt.</strong> Role is usually redundant once
-          the facts are there, and Preferences works better as one line about the standard than as an
-          output template. See the{' '}
-          <Link href="#overview" className="text-highlight" style={{ textDecoration: 'underline' }}>Overview</Link>{' '}
-          for the before and after.
+          Every prompt above is built on GRIP &mdash; four things worth saying, all of them
+          information you supply rather than behavior you dictate. It replaces CRISP; the full
+          mapping from the old five letters is on the{' '}
+          <Link href="/prompt-engineering#grip" className="text-highlight" style={{ textDecoration: 'underline' }}>Prompt Engineering</Link>{' '}
+          page.
         </p>
 
         <CardGrid columns={2}>
           <div className="p-6 rounded-xl" style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)' }}>
-            <h4 className="text-lg font-bold mb-4" style={{ color: 'var(--cw-primary)' }}>CRISP Breakdown</h4>
+            <h4 className="text-lg font-bold mb-4" style={{ color: 'var(--cw-primary)' }}>GRIP Breakdown</h4>
             <div className="space-y-3">
               {[
-                { letter: 'C', word: 'Context', desc: 'Background, situation, domain — carries the prompt' },
-                { letter: 'R', word: 'Role', desc: 'Usually skippable now; the facts imply it' },
-                { letter: 'I', word: 'Instruction', desc: 'The decision you need (use action verbs)' },
-                { letter: 'S', word: 'Specifics', desc: 'Your real data — the highest-value part' },
-                { letter: 'P', word: 'Preferences', desc: 'The standard to hit, not an output template' },
+                { letter: 'G', word: 'Ground', desc: 'The real material — attach the file, paste the numbers' },
+                { letter: 'R', word: 'Request', desc: 'The decision you need made, and the shape you need it in' },
+                { letter: 'I', word: 'Intent', desc: 'Why you need it, who it\'s for, what happens next' },
+                { letter: 'P', word: 'Proof', desc: 'What to mark as sourced, inferred, or unknown' },
               ].map(item => (
                 <div key={item.letter} className="flex items-center gap-3">
                   <span
@@ -831,7 +834,7 @@ what you'd bring that they didn't ask for.`}
             more <em>instruction</em> usually doesn&apos;t, so add facts freely and rules sparingly
             (while protecting PII). Visit the{' '}
             <Link href="/prompt-engineering" className="text-highlight underline">Prompt Engineering</Link>{' '}
-            page for the full CRISP framework and PII safety guidelines.
+            page for the full GRIP framework and PII safety guidelines.
           </p>
         </Callout>
       </section>

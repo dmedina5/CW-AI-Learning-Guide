@@ -102,9 +102,13 @@ export default function PromptEngineeringPage() {
               now={'"I\'m underwriting a 35-unit refrigerated fleet and need to decide whether to pursue it." — the domain, the seniority, and the task are all implied by the facts.'}
             />
             <p className="text-sm mt-4" style={{ color: 'var(--cw-ink-muted)' }}>
-              Still worth naming a role when you want a genuinely different lens than the situation
-              implies &mdash; &ldquo;review this as the broker would&rdquo; or &ldquo;argue the
-              plaintiff&apos;s side.&rdquo; That&apos;s adding information, not decoration.
+              <strong>Two places a role still earns its keep.</strong> First, when you want a
+              genuinely different lens than the situation implies &mdash; &ldquo;review this as the
+              broker would,&rdquo; &ldquo;argue the plaintiff&apos;s side.&rdquo; That&apos;s adding
+              information, not decoration. Second, as <em>standing</em> context: Anthropic still
+              recommends setting a role in a system prompt, which for you means a Project&apos;s
+              custom instructions &mdash; written once, not retyped per message. What&apos;s dead
+              weight is the per-message preamble that restates what your facts already say.
             </p>
           </Card>
 
@@ -159,31 +163,32 @@ export default function PromptEngineeringPage() {
       </section>
 
       {/* CRISP Framework */}
-      <section className="mb-16" id="crisp" data-tier="intermediate">
+      <section className="mb-16" id="grip" data-tier="intermediate">
+        {/* Older links point at #crisp — keep them landing here. */}
+        <span id="crisp" aria-hidden="true" />
         <TierBadge tier="intermediate" />
         <div className="section-label mt-4">Framework</div>
-        <h2 className="mb-4">The CRISP Framework</h2>
+        <h2 className="mb-4">The GRIP Framework</h2>
         <p className="mb-6">
-          Use this framework to structure any prompt. It still holds &mdash; but the weight has moved.
-          <strong> Context and Specifics carry the prompt</strong> and should be generous; Role is
-          usually redundant once the facts are in; Preferences works better as one line about the
-          standard than as an output template.
+          GRIP replaces CRISP. Every slot is <strong>information you supply</strong> rather than
+          behavior you dictate &mdash; which is the whole difference between a prompt that helps
+          these models and one that fights them. It&apos;s four elements instead of five, on purpose:
+          the shape of the framework should match its own advice.
         </p>
 
         <div className="p-6 rounded-xl text-center text-lg font-mono mb-3" style={{ background: 'var(--cw-primary-light)' }}>
-          <strong>C</strong>ontext → <span style={{ opacity: 0.5 }}><strong>R</strong>ole</span> → <strong>I</strong>nstruction → <strong>S</strong>pecifics → <strong>P</strong>references
+          <strong>G</strong>round → <strong>R</strong>equest → <strong>I</strong>ntent → <strong>P</strong>roof
         </div>
         <p className="text-sm mb-8 text-center" style={{ color: 'var(--cw-ink-muted)' }}>
-          Role is faded on purpose &mdash; keep it in the acronym, skip it in most prompts.
+          Get a grip on the real material first. Everything else is downstream of that.
         </p>
 
         <div className="space-y-4">
           {[
-            { letter: 'C', title: 'Context', desc: 'The situation. Be generous here — this is what the answer stands on.', example: 'We\'re a trucking insurance MGA that specializes in long-haul operations. Our target market is fleets with 5-50 power units operating primarily in the continental US.' },
-            { letter: 'R', title: 'Role', desc: 'Usually skippable. Add one only when you want a lens the facts don\'t already imply.', example: 'Skip it: "I\'m underwriting this account" already sets the role. Add one only for a deliberate shift — "review this the way the broker will read it."' },
-            { letter: 'I', title: 'Instruction', desc: 'The decision you owe someone, not the artifact you want back.', example: 'Tell me whether to pursue this account, and what would change your answer.' },
-            { letter: 'S', title: 'Specifics', desc: 'Your real data. The highest-value part of the prompt — attach files where you have them.', example: 'Loss runs attached. 3 years in operation, mix of owner-operators and company drivers, 4 claims in 24 months (2 cargo, 1 PD, 1 AL).' },
-            { letter: 'P', title: 'Preferences', desc: 'The standard to hit. One line beats a template.', example: 'Lead with the recommendation, then the reasoning. Flag anything you\'re inferring rather than reading off the file. Keep it tight.' },
+            { letter: 'G', title: 'Ground', desc: 'The real material. Attach the loss run, the ACORD, the report; paste the actual numbers. This is the highest-value part of any prompt and the one people skip.', example: 'Three years of loss runs attached. 50-unit long-haul dry van fleet, 30+ states, mix of owner-operators and company drivers.' },
+            { letter: 'R', title: 'Request', desc: 'The decision you need made — and the container you need it in, if it matters. An email, a table, a one-pager. Not a numbered output template.', example: 'Tell me whether this risk is improving or deteriorating, and what loss pick you\'d support at renewal.' },
+            { letter: 'I', title: 'Intent', desc: 'Why you need it, who it\'s for, what happens next. Anthropic\'s own guidance is that explaining the motivation measurably improves the answer — this is the most underused letter.', example: 'This is going to the carrier on Thursday, so I need to defend the number rather than just state it.' },
+            { letter: 'P', title: 'Proof', desc: 'What you need marked: sourced, inferred, or unknown. The Reality Filter is this letter written out in full — for routine work, one sentence does it.', example: 'Flag anything you\'re inferring rather than reading off the file, and tell me what would settle the open questions.' },
           ].map(item => (
             <Card key={item.letter}>
               <div className="flex items-start gap-4">
@@ -206,8 +211,40 @@ export default function PromptEngineeringPage() {
           ))}
         </div>
 
+        <h3 className="mt-10 mb-4">Coming from CRISP</h3>
+        <p className="mb-4">
+          Nothing you learned is wasted &mdash; three of CRISP&apos;s five letters survive under new
+          names, one gets promoted, and one goes away.
+        </p>
+        <div className="overflow-x-auto rounded-xl mb-8" style={{ border: '1px solid var(--cw-border)' }}>
+          <table className="w-full text-sm" style={{ borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ background: 'var(--cw-surface)' }}>
+                <th className="text-left p-4 font-semibold" style={{ color: 'var(--cw-ink-muted)', width: '24%' }}>CRISP had</th>
+                <th className="text-left p-4 font-semibold" style={{ color: 'var(--cw-primary)', width: '20%' }}>In GRIP</th>
+                <th className="text-left p-4 font-semibold" style={{ color: 'var(--cw-ink-muted)' }}>What changed</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['Context', 'Ground + Intent', 'Split. The facts go in Ground; the why-and-who-for becomes its own letter, because it was the part everyone dropped.'],
+                ['Role', '— removed', 'A role that restates what your facts already say is dead weight. Still worth setting in a Project’s standing instructions, or when you want a lens the situation doesn’t imply.'],
+                ['Instruction', 'Request', 'Same job, sharper name: the decision you need made, not the artifact you want back.'],
+                ['Specifics', 'Ground', 'Promoted to first position, and the advice changed — attach the file rather than retyping a summary of it.'],
+                ['Preferences', 'Request + Proof', 'Split. The container (email, table) rides with the Request; the standard becomes Proof. The output template is gone.'],
+              ].map(([had, now, note], i) => (
+                <tr key={had} style={{ borderTop: '1px solid var(--cw-border)', background: i % 2 ? 'rgba(255,255,255,0.25)' : 'transparent' }}>
+                  <td className="p-4 align-top" style={{ color: 'var(--cw-ink-muted)' }}>{had}</td>
+                  <td className="p-4 font-semibold align-top" style={{ color: 'var(--cw-ink-secondary)' }}>{now}</td>
+                  <td className="p-4 align-top" style={{ color: 'var(--cw-ink-muted)' }}>{note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
         <CodeBlock
-          title="The same prompt, written the old way"
+          title="The same prompt in CRISP"
           code={`CONTEXT: I'm an underwriter reviewing a new business submission
 for a 25-truck fleet that operates refrigerated goods across
 the Southeast region.
@@ -227,25 +264,30 @@ a brief explanation of why each matters. Use bullet points.`}
         />
 
         <CodeBlock
-          title="The same prompt, written for Claude 5"
+          title="The same prompt in GRIP"
           code={`New business submission, 25-truck refrigerated fleet running
-the Southeast. Submission and loss runs attached.
-
-3 years in operation, mix of owner-operators and company
-drivers, 4 claims in the past 24 months (2 cargo, 1 PD, 1 AL).
+the Southeast. Submission and loss runs attached — 3 years in
+operation, mix of owner-operators and company drivers, 4 claims
+in the past 24 months (2 cargo, 1 PD, 1 AL).          [GROUND]
 
 What should I be digging into before I quote this? Rank by what
-would actually change the price, not by category.
+would actually change the price, not by category.     [REQUEST]
 
-Flag anything you're inferring rather than reading off the file.`}
+I'm deciding whether to spend the week on it, so I care about
+what would kill the deal more than what's merely
+interesting.                                           [INTENT]
+
+Flag anything you're inferring rather than reading off
+the file.                                               [PROOF]`}
         />
 
         <Callout variant="sage" className="mt-6">
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-            <strong>Both work.</strong> The first one isn&apos;t broken &mdash; if you have prompts
-            in that style, keep using them. The second is shorter, says more about the actual
-            situation and less about the format, and leaves room for a finding you didn&apos;t think
-            to ask for. Note what got <em>longer</em>: the facts. What got shorter: the instructions.
+            <strong>The labels are for learning, not for typing.</strong> Don&apos;t put{' '}
+            <code>[GROUND]</code> in your actual prompt &mdash; they&apos;re annotations to show you
+            the four moves. A real GRIP prompt is just four short paragraphs of plain English. Note
+            what got <em>longer</em> versus the CRISP version: the facts, and the reason. What got
+            shorter: the instructions about format.
           </p>
         </Callout>
       </section>

@@ -273,14 +273,13 @@ export default function ResourcesPage() {
 
         <CardGrid columns={2}>
           <Card>
-            <h3 className="mb-4" style={{ color: 'var(--cw-primary)' }}>The CRISP Framework</h3>
+            <h3 className="mb-4" style={{ color: 'var(--cw-primary)' }}>The GRIP Framework</h3>
             <div className="space-y-2">
               {[
-                { letter: 'C', label: 'Context', tip: 'Set the scene: domain, situation, background' },
-                { letter: 'R', label: 'Role', tip: 'Usually skip it — the facts imply the role' },
-                { letter: 'I', label: 'Instruction', tip: 'The decision you need: Analyze, Compare, Draft' },
-                { letter: 'S', label: 'Specifics', tip: 'Your real data — attach the file where you have one' },
-                { letter: 'P', label: 'Preferences', tip: 'The standard to hit, not an output template' },
+                { letter: 'G', label: 'Ground', tip: 'The real material - attach the file, paste the numbers' },
+                { letter: 'R', label: 'Request', tip: 'The decision you need made, and the shape you need it in' },
+                { letter: 'I', label: 'Intent', tip: 'Why you need it, who it is for, what happens next' },
+                { letter: 'P', label: 'Proof', tip: 'What to mark as sourced, inferred, or unknown' },
               ].map((item) => (
                 <div key={item.letter} className="flex items-start gap-3 p-2.5 rounded-lg" style={{ background: 'var(--cw-primary-005)' }}>
                   <span
@@ -404,7 +403,7 @@ export default function ResourcesPage() {
             {
               tier: 'intermediate' as const,
               title: 'Core Skills',
-              pages: ['CRISP Framework \u2014 Structure prompts for maximum effectiveness', 'Prompt Builder \u2014 Practice building prompts interactively', 'Advanced Techniques \u2014 Chain-of-thought, few-shot, dual-pass'],
+              pages: ['GRIP Framework \u2014 Ground, Request, Intent, Proof', 'Prompt Builder \u2014 Practice building prompts interactively', 'Advanced Techniques \u2014 Chain-of-thought, few-shot, dual-pass'],
               outcome: 'You can craft sophisticated prompts, use the Reality Filter, and handle PII safely.',
             },
             {
@@ -453,7 +452,7 @@ export default function ResourcesPage() {
         <Callout variant="purple">
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
             <strong>AI is a skill, not a switch.</strong> The more you practice, the better your results.
-            Start with the basics, use CRISP for every prompt, and gradually explore advanced techniques.
+            Start with the basics, use GRIP for every prompt, and gradually explore advanced techniques.
             Every interaction is a chance to get better.
           </p>
         </Callout>

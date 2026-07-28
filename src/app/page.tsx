@@ -26,7 +26,7 @@ const LEARNING_PATH = [
     title: 'Core Skills',
     description: 'Deeper prompting strategies, tools, and applying AI to your specific workflow.',
     links: [
-      { label: 'CRISP Framework', href: '/prompt-engineering#crisp', icon: MessageSquare },
+      { label: 'GRIP Framework', href: '/prompt-engineering#grip', icon: MessageSquare },
       { label: 'Prompt Builder', href: '/prompt-builder', icon: Wand2 },
       { label: 'Context Engineering', href: '/context-engineering', icon: Layers },
       { label: 'Fundamentals', href: '/road-to-agentic-engineering/fundamentals', icon: Code2 },
