@@ -4,6 +4,7 @@ import Link from 'next/link';
 import {
   ArrowLeft, ArrowRight, BookText, Database, Wrench, History,
   Scissors, FileStack, Cpu, Search, Sparkles,
+  Scale, Layers, FileCode, Stethoscope,
 } from 'lucide-react';
 import { Card, CardGrid } from '@/components/content/Card';
 import { Callout } from '@/components/content/Callout';
@@ -119,6 +120,63 @@ const TECHNIQUES = [
       <>Break a monolithic request into focused steps, each with its own clean, minimal context. A
       pipeline of small well-fed prompts beats one giant prompt carrying everything at once.</>
     ),
+  },
+];
+
+// Anthropic's six reversals for the Claude 5 generation.
+const CLAUDE5_SHIFT = [
+  {
+    then: 'Give Claude rules',
+    now: 'Let Claude use judgment',
+    detail: 'Detailed prohibitions were written to compensate for weaker instruction-following. Newer models read intent and surrounding context well enough that rigid rules now fight their judgment instead of guiding it.',
+  },
+  {
+    then: 'Give Claude examples',
+    now: 'Design the interface',
+    detail: 'Few-shot examples constrain the model to the exploration space they demonstrate. Expressive tool parameters and clear enum values now steer behavior better than a sample of it.',
+  },
+  {
+    then: 'Put it all upfront',
+    now: 'Use progressive disclosure',
+    detail: 'Load context at the moment it is needed — via skills and deferred tool loading — instead of making one standing document carry every practice the model might need.',
+  },
+  {
+    then: 'Repeat yourself',
+    now: 'Simple tool descriptions',
+    detail: 'Saying the same thing in the system prompt and again in a tool description is redundancy the model no longer needs. Usage guidance belongs in the tool definition, stated once.',
+  },
+  {
+    then: 'Memory in CLAUDE.md',
+    now: 'Auto-memory',
+    detail: 'Claude now saves relevant memories on its own, rather than depending on a human to hand-edit a standing instructions file after every lesson learned.',
+  },
+  {
+    then: 'Simple specs',
+    now: 'Rich references',
+    detail: 'A spec no longer has to be plain markdown. Point at HTML artifacts, real code, test suites, and rubrics — concrete references beat prose descriptions of the same thing.',
+  },
+];
+
+const STACK = [
+  {
+    icon: Cpu,
+    title: 'System prompt',
+    desc: 'Product context and core operating parameters. Rarely touched by the end user — this is where builders should spend their time.',
+  },
+  {
+    icon: BookText,
+    title: 'CLAUDE.md / Project instructions',
+    desc: 'Lightweight. What the repo or project is for, plus the gotchas a newcomer would trip on. Not a manual of everything Claude already knows.',
+  },
+  {
+    icon: Layers,
+    title: 'Skills',
+    desc: 'Team-specific opinions and best practices, loaded only when the task calls for them. Use progressive disclosure for anything long.',
+  },
+  {
+    icon: FileCode,
+    title: 'References',
+    desc: 'Files you point at on demand for in-depth specs. Prefer a code reference, mockup, or test over a paragraph describing it.',
   },
 ];
 
@@ -285,6 +343,15 @@ export default function ContextEngineeringPage() {
             );
           })}
         </CardGrid>
+
+        <Callout variant="blue" className="mt-8">
+          <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <strong>One of these has changed.</strong> Few-shot examples and heavy guardrails were
+            load-bearing on older models. On the newest ones they can <em>narrow</em> the answer
+            rather than sharpen it &mdash; see{' '}
+            <Link href="#claude5" className="text-highlight" style={{ textDecoration: 'underline' }}>The Claude 5 Shift</Link> below.
+          </p>
+        </Callout>
       </section>
 
       {/* Techniques */}
@@ -299,13 +366,132 @@ export default function ContextEngineeringPage() {
         <StepList steps={TECHNIQUES} />
       </section>
 
+      {/* The Claude 5 shift */}
+      <section className="mb-16" id="claude5" data-tier="advanced">
+        <TierBadge tier="advanced" />
+        <div className="section-label mt-4">What Changed in 2026</div>
+        <h2 className="mb-4">The Claude 5 shift: less scaffolding, better results</h2>
+        <p className="mb-6">
+          Everything above still holds &mdash; but the newest models changed <em>how much</em>{' '}
+          instruction good context needs. When Anthropic tuned Claude Code for the Claude 5
+          generation, they removed <strong>over 80% of its system prompt</strong> and measured{' '}
+          <strong>no loss</strong> on their coding evaluations. Most of what came out wasn&apos;t
+          information the model needed. It was scaffolding built to compensate for older models.
+        </p>
+        <p className="mb-8">
+          Anthropic calls this <strong>&ldquo;unhobbling&rdquo;</strong>. Earlier guardrails were
+          written to force a specific behavior; a model that reads intent well enough to make its
+          own call now has to reconcile those rules with its own better judgment &mdash; and
+          conflicting instructions make output worse, not safer.
+        </p>
+
+        <Callout variant="coral" className="mb-10">
+          <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <strong>The rule that flipped.</strong> &ldquo;More instruction is safer&rdquo; was true
+            when models needed the handholding. It isn&apos;t anymore. Over-specifying is now its
+            own failure mode &mdash; the same category of mistake as stuffing the window with
+            irrelevant documents.
+          </p>
+        </Callout>
+
+        {/* Then / Now table */}
+        <h3 className="mb-4">Six practices that reversed</h3>
+        <div className="overflow-x-auto rounded-xl mb-10" style={{ border: '1px solid var(--cw-border)' }}>
+          <table className="w-full text-sm" style={{ borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ background: 'var(--cw-surface)' }}>
+                <th className="text-left p-4 font-semibold" style={{ color: 'var(--cw-ink-muted)', width: '20%' }}>Then</th>
+                <th className="text-left p-4 font-semibold" style={{ color: 'var(--cw-primary)', width: '22%' }}>Now</th>
+                <th className="text-left p-4 font-semibold" style={{ color: 'var(--cw-ink-muted)' }}>Why it changed</th>
+              </tr>
+            </thead>
+            <tbody>
+              {CLAUDE5_SHIFT.map((row, i) => (
+                <tr key={row.then} style={{ borderTop: '1px solid var(--cw-border)', background: i % 2 ? 'rgba(255,255,255,0.25)' : 'transparent' }}>
+                  <td className="p-4 align-top" style={{ color: 'var(--cw-ink-muted)' }}>{row.then}</td>
+                  <td className="p-4 font-semibold align-top" style={{ color: 'var(--cw-ink-secondary)' }}>{row.now}</td>
+                  <td className="p-4 align-top" style={{ color: 'var(--cw-ink-muted)' }}>{row.detail}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Concrete before/after */}
+        <div className="flex items-start gap-3 mb-2">
+          <Scale size={22} style={{ color: 'var(--cw-primary)', marginTop: 2 }} className="flex-shrink-0" />
+          <h3>What &ldquo;rules &rarr; judgment&rdquo; looks like in practice</h3>
+        </div>
+        <p className="mb-2 text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
+          Anthropic&apos;s own instruction about code comments, before and after. The replacement is
+          shorter, states the goal instead of the prohibition, and produces better output.
+        </p>
+        <CodeBlock
+          title="Before — a rule to obey"
+          code={`Default to writing no comments. Never write multi-paragraph
+docstrings or multi-line comment blocks — one short line max.`}
+        />
+        <CodeBlock
+          title="After — a standard to apply"
+          code={`Write code that reads like the surrounding code:
+match its comment density, naming, and idiom.`}
+        />
+
+        {/* The stack */}
+        <h3 className="mt-10 mb-4">Where each piece of context belongs</h3>
+        <p className="mb-6">
+          Progressive disclosure only works if the layers have clear jobs. Anthropic&apos;s
+          recommended split:
+        </p>
+        <CardGrid columns={2}>
+          {STACK.map(layer => {
+            const Icon = layer.icon;
+            return (
+              <Card key={layer.title}>
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: 'var(--cw-primary-light)' }}>
+                    <Icon size={18} style={{ color: 'var(--cw-primary)' }} />
+                  </span>
+                  <h3>{layer.title}</h3>
+                </div>
+                <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>{layer.desc}</p>
+              </Card>
+            );
+          })}
+        </CardGrid>
+
+        <Card className="mt-6">
+          <div className="flex items-center gap-3 mb-2">
+            <Stethoscope size={20} style={{ color: 'var(--cw-primary)' }} />
+            <h3>Rightsizing what you already wrote</h3>
+          </div>
+          <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+            If you have a CLAUDE.md or a set of skills written for an older model, they are probably
+            carrying instructions that no longer earn their tokens. Claude Code ships a{' '}
+            <strong>/doctor</strong> command that reviews your skills and CLAUDE.md and helps trim
+            them down for the newer models. Run it before you add anything else.
+          </p>
+        </Card>
+
+        <Callout variant="sage" className="mt-8">
+          <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <strong>If you don&apos;t write code, this still applies to you.</strong> The lesson
+            translates directly to Projects and long chats: give Claude the facts, the goal, and the
+            standard you&apos;re holding it to &mdash; then stop. A saved instruction block full of
+            &ldquo;never do X&rdquo; and &ldquo;always phrase it like Y&rdquo; rules written for last
+            year&apos;s model is now working against you. Prune it the same way you&apos;d prune a
+            bloated context window.
+          </p>
+        </Callout>
+      </section>
+
       {/* Latest Claude */}
       <section className="mb-16" id="claude" data-tier="advanced">
         <TierBadge tier="advanced" />
         <div className="section-label mt-4">In the Latest Claude</div>
         <h2 className="mb-4">Context engineering with today&apos;s Claude</h2>
         <p className="mb-8">
-          The newest Claude models (Opus 4.8, Sonnet 4.6) and the Claude Developer Platform ship
+          The Claude 5 models (Opus 5, Sonnet 5, and Fable 5) and the Claude Developer Platform ship
           features built specifically to make context management easier. These turn the principles
           above into product capabilities.
         </p>
@@ -318,10 +504,11 @@ export default function ContextEngineeringPage() {
               <TierBadge tier="advanced" size="sm" />
             </div>
             <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-              Opus 4.8 and Sonnet 4.6 support up to a <strong>1 million token</strong> window (beta,
-              via the API) &mdash; large enough for entire codebases or document sets. A bigger window
-              raises the ceiling, but it doesn&apos;t repeal the rules: relevance and structure still
-              decide quality. Use the room to include the <em>right</em> material, not all of it.
+              Opus 5, Sonnet 5, and Fable 5 all carry a <strong>1 million token</strong> window
+              &mdash; and on these models it&apos;s the default, not a beta opt-in. That&apos;s large
+              enough for entire codebases or document sets. But a bigger window raises the ceiling;
+              it doesn&apos;t repeal the rules. Relevance and structure still decide quality. Use the
+              room to include the <em>right</em> material, not all of it.
             </p>
           </Card>
 
@@ -337,6 +524,13 @@ export default function ContextEngineeringPage() {
               fresh input, cutting cost up to ~90% and latency up to ~85% on long prompts. This makes
               it practical to give Claude rich background on <em>every</em> turn instead of trimming to
               save money.
+            </p>
+            <p className="text-base mt-3" style={{ color: 'var(--cw-ink-secondary)' }}>
+              The catch is that caching is a <strong>prefix match</strong>: one changed byte anywhere
+              early invalidates everything after it. Keep the stable content first and the volatile
+              content (timestamps, the user&apos;s actual question) last. Writing to the cache costs a
+              premium over normal input, so it pays off from about the second reuse onward &mdash;
+              not on a one-off.
             </p>
           </Card>
 
@@ -355,6 +549,12 @@ export default function ContextEngineeringPage() {
                 <span style={{ color: 'var(--cw-primary)' }}>&bull;</span>
                 <span><strong>Context editing</strong> automatically clears stale tool results as the
                 window fills &mdash; warning Claude first so it can save anything important.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span style={{ color: 'var(--cw-primary)' }}>&bull;</span>
+                <span><strong>Compaction</strong> automates &ldquo;compress as you go&rdquo; &mdash; when a
+                conversation approaches the window limit, earlier turns are summarized server-side and
+                the summary carries forward in their place.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span style={{ color: 'var(--cw-primary)' }}>&bull;</span>
@@ -378,12 +578,19 @@ export default function ContextEngineeringPage() {
               session automatically. Both are context engineering: curating what Claude sees by default
               so you stop re-explaining yourself.
             </p>
+            <p className="text-base mt-3" style={{ color: 'var(--cw-ink-secondary)' }}>
+              Keep both <em>lean</em>. Claude now records relevant memories on its own, so these files
+              no longer need to be the hand-maintained log of everything it should remember &mdash;
+              they work best holding the things it genuinely couldn&apos;t infer: what the project is
+              for, and the gotchas that would trip up someone new.
+            </p>
           </Card>
         </div>
 
         <div className="mt-8 p-5 rounded-xl text-sm" style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)' }}>
           <div className="font-semibold mb-2" style={{ color: 'var(--cw-ink-secondary)' }}>Sources &amp; further reading</div>
           <ul className="space-y-1" style={{ color: 'var(--cw-ink-muted)' }}>
+            <li>&bull; Anthropic, <a href="https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)', textDecoration: 'underline' }}>&ldquo;The New Rules of Context Engineering for Claude 5 Generation Models&rdquo;</a> &mdash; the source for The Claude 5 Shift section</li>
             <li>&bull; Addy Osmani, <a href="https://addyo.substack.com/p/context-engineering-bringing-engineering" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)', textDecoration: 'underline' }}>&ldquo;Context Engineering: Bringing Engineering Discipline to Prompts&rdquo;</a></li>
             <li>&bull; Anthropic, <a href="https://www.anthropic.com/news/context-management" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)', textDecoration: 'underline' }}>Managing context on the Claude Developer Platform</a></li>
             <li>&bull; Anthropic, <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)', textDecoration: 'underline' }}>Prompt caching</a> &amp; <a href="https://docs.claude.com/en/docs/agents-and-tools/tool-use/memory-tool" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)', textDecoration: 'underline' }}>Memory tool</a> docs</li>

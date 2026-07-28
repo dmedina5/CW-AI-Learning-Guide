@@ -84,6 +84,7 @@ export const NAV_ITEMS = [
       { label: 'Mental Model', href: '/context-engineering#mental-model', tier: 'intermediate' as TierKey },
       { label: 'Anatomy of Context', href: '/context-engineering#anatomy', tier: 'intermediate' as TierKey },
       { label: 'Techniques', href: '/context-engineering#techniques', tier: 'expert' as TierKey },
+      { label: 'The Claude 5 Shift', href: '/context-engineering#claude5', tier: 'advanced' as TierKey },
       { label: 'In the Latest Claude', href: '/context-engineering#claude', tier: 'advanced' as TierKey },
     ],
   },
