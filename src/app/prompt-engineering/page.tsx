@@ -7,6 +7,7 @@ import { Card, CardGrid } from '@/components/content/Card';
 import { Callout } from '@/components/content/Callout';
 import { CodeBlock } from '@/components/content/CodeBlock';
 import { TierBadge } from '@/components/content/TierBadge';
+import { RealityFilter } from '@/components/interactive/RealityFilter';
 import { REALITY_FILTER } from '@/lib/reality-filter';
 
 // Marks advice that shifted with the Claude 5 generation.
@@ -413,6 +414,14 @@ Flag anything you're inferring rather than reading off the file.`}
         <div className="mt-4">
           <CopyButton text={REALITY_FILTER} />
         </div>
+
+        <h3 className="mt-10 mb-2">What it changes in the answer</h3>
+        <p className="text-base mb-2" style={{ color: 'var(--cw-ink-secondary)' }}>
+          The same question about adding dash cams to a fleet, with the filter off and on. Note that
+          the second version is not more hedged &mdash; it&apos;s more <em>useful</em>, because you
+          can see exactly which part you&apos;d have to go check.
+        </p>
+        <RealityFilter />
 
         <CardGrid columns={2} className="mt-8">
           <Card>
