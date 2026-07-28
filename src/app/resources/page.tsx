@@ -276,10 +276,10 @@ export default function ResourcesPage() {
             <div className="space-y-2">
               {[
                 { letter: 'C', label: 'Context', tip: 'Set the scene: domain, situation, background' },
-                { letter: 'R', label: 'Role', tip: 'Assign expertise: "Act as a senior underwriter..."' },
-                { letter: 'I', label: 'Instruction', tip: 'Action verb + task: Analyze, Compare, Draft' },
-                { letter: 'S', label: 'Specifics', tip: 'Data, constraints, numbers, requirements' },
-                { letter: 'P', label: 'Preferences', tip: 'Format, length, tone, structure' },
+                { letter: 'R', label: 'Role', tip: 'Usually skip it — the facts imply the role' },
+                { letter: 'I', label: 'Instruction', tip: 'The decision you need: Analyze, Compare, Draft' },
+                { letter: 'S', label: 'Specifics', tip: 'Your real data — attach the file where you have one' },
+                { letter: 'P', label: 'Preferences', tip: 'The standard to hit, not an output template' },
               ].map((item) => (
                 <div key={item.letter} className="flex items-start gap-3 p-2.5 rounded-lg" style={{ background: 'var(--cw-primary-005)' }}>
                   <span
@@ -304,10 +304,10 @@ export default function ResourcesPage() {
             <div className="space-y-3">
               {[
                 { rule: 'Be Specific, Not Vague', detail: 'The clearer your request, the more accurate the output. Include numbers, names, and constraints.' },
-                { rule: 'Define the Role', detail: 'Tell the AI who it should be. A "senior UW" gives different output than "insurance professional."' },
-                { rule: 'Provide Context First', detail: 'Structure: Background then Rules/Constraints then Task. Lead with what matters.' },
-                { rule: 'State Output Format', detail: 'Bullets, table, email, numbered list? Tell the AI exactly what you want.' },
-                { rule: 'Set Boundaries', detail: '"Do NOT include X. Focus only on Y." Constraints keep responses focused.' },
+                { rule: 'Attach, Don\'t Describe', detail: 'Drop in the real loss run, ACORD, or report. A file beats your summary of it every time.' },
+                { rule: 'Provide Context First', detail: 'Structure: background, then the situation, then what you need decided. Lead with what matters.' },
+                { rule: 'Name the Deliverable', detail: 'An email, a table, a one-pager — a real container helps. A numbered output template just caps the answer.' },
+                { rule: 'Describe the Standard', detail: 'One line on what good looks like beats a stack of "do NOT" rules the model has to reconcile.' },
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <span

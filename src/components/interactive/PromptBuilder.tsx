@@ -6,6 +6,7 @@ import { Copy, Check, RotateCcw } from 'lucide-react';
 type Mode = 'simple' | 'advanced';
 
 const ROLES = [
+  { value: '', label: 'No role — let the facts speak (recommended)' },
   { value: 'an experienced commercial auto insurance underwriter', label: 'Underwriter (Trucking Insurance)' },
   { value: 'a professional insurance communicator', label: 'Insurance Communicator' },
   { value: 'a senior data analyst with insurance expertise', label: 'Data Analyst (Insurance)' },
@@ -34,27 +35,28 @@ interface Example {
   preferences: string;
 }
 
+// Role is intentionally blank in every example — the situation already implies it.
 const EXAMPLES: Record<string, Example> = {
   submission: {
     context: "I'm reviewing a new business submission for a commercial trucking insurance account.",
-    role: "Act as an experienced trucking underwriter with 15 years in commercial auto.",
-    instruction: "Identify the key risk factors I should investigate further before quoting this account.",
-    specifics: "Fleet size: 18 power units, Operation: Regional LTL 400-mile radius, Years in business: 5, Commodities: General freight and some refrigerated, Loss history: 3 claims in 36 months including 1 large cargo claim",
-    preferences: "Provide a prioritized list of 5-7 items with brief explanations. Use bullet points.",
+    role: "",
+    instruction: "Tell me what I should dig into before quoting this, and whether it looks worth pursuing.",
+    specifics: "18 power units. Regional LTL, 400-mile radius. 5 years in business. General freight plus some refrigerated. 3 claims in 36 months, including 1 large cargo claim.",
+    preferences: "Rank by what would actually change the price, not by category. Flag anything you're inferring rather than reading off the data.",
   },
   loss: {
     context: "I have loss run data for a trucking account seeking renewal.",
-    role: "Act as a senior underwriter focused on risk improvement.",
-    instruction: "Analyze these claim patterns and identify trends.",
-    specifics: "Claims: 2 backing accidents in parking lots (minor), 1 rear-end collision on highway (moderate BI), 1 cargo shortage claim, 1 weather-related accident",
-    preferences: "Answer these questions: What patterns exist? What driver training might help? What safety program questions should I ask? Any renewal red flags?",
+    role: "",
+    instruction: "Tell me what these claims say about how this fleet is actually run, and whether I should be worried at renewal.",
+    specifics: "2 backing accidents in parking lots (minor), 1 rear-end collision on the highway (moderate BI), 1 cargo shortage claim, 1 weather-related accident.",
+    preferences: "I care more about the pattern than the individual claims. If the mix points at a specific gap — training, supervision, equipment — say so and tell me what to ask the broker.",
   },
   email: {
     context: "I need to request additional information from a broker before providing a quote.",
-    role: "Act as a professional underwriter communicator.",
-    instruction: "Draft an email to a broker explaining that we need additional information.",
-    specifics: "Needed items: Updated driver list with MVRs, Current vehicle schedule, Explanation of large cargo claim from last year, Safety program documentation",
-    preferences: "Keep under 200 words. Professional but helpful tone. Include reasonable deadline.",
+    role: "",
+    instruction: "Draft the email asking for what's missing.",
+    specifics: "Updated driver list with MVRs, current vehicle schedule, an explanation of the large cargo claim from last year, safety program documentation.",
+    preferences: "Make it easy to action — the broker should be able to work straight down it and tick items off. Give them a reasonable deadline. Keep it short.",
   },
 };
 
@@ -80,7 +82,9 @@ export function PromptBuilder() {
 
     if (mode === 'simple') {
       const taskText = task.trim() || '[describe your task here]';
-      prompt = `Act as ${role}.\n\nTASK: ${taskText}\n\nFORMAT: Provide the output as ${format}. Keep the response clear, accurate, and ready to use.`;
+      // Role is optional now — a stated situation usually implies it.
+      const roleLine = role ? `Act as ${role}.\n\n` : '';
+      prompt = `${roleLine}TASK: ${taskText}\n\nFORMAT: Give it to me as ${format}. Lead with what matters most, and flag anything you're inferring rather than reading from what I gave you.`;
     } else {
       const parts: string[] = [];
       if (context.trim()) parts.push(`CONTEXT: ${context.trim()}`);
@@ -173,14 +177,18 @@ export function PromptBuilder() {
           style={{ background: 'var(--cw-primary-light)', borderLeft: '4px solid var(--cw-primary)', color: 'var(--cw-primary-dark)' }}
         >
           <strong>{mode === 'simple' ? 'Simple Mode:' : 'Advanced Mode:'}</strong>{' '}
-          {mode === 'simple' ? 'Quick prompt building for everyday tasks' : 'Full CRISP framework for complex tasks'}
+          {mode === 'simple'
+            ? 'Quick prompt building for everyday tasks. Role is optional — the facts usually imply it.'
+            : 'Full CRISP framework for complex tasks. Spend your effort on Context and Specifics; skip Role unless it adds a lens the facts don\'t.'}
         </div>
 
         {/* Simple Mode */}
         {mode === 'simple' && (
           <div className="space-y-5">
             <div>
-              <label className="block text-sm font-semibold mb-2">1. Who should the AI act as?</label>
+              <label className="block text-sm font-semibold mb-2">
+                1. Who should the AI act as? <span className="font-normal" style={{ color: 'var(--cw-ink-muted)' }}>&mdash; optional on newer models</span>
+              </label>
               <select value={role} onChange={e => setRole(e.target.value)} className={inputClasses} style={inputStyle}>
                 {ROLES.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
               </select>
@@ -210,10 +218,10 @@ export function PromptBuilder() {
           <div className="space-y-5">
             {[
               { letter: 'C', label: 'Context - What\'s the background?', value: context, setter: setContext, type: 'textarea' as const, placeholder: 'Example: I\'m reviewing a commercial trucking submission for a 25-unit fleet...' },
-              { letter: 'R', label: 'Role - Who should the AI be?', value: roleAdv, setter: setRoleAdv, type: 'input' as const, placeholder: 'Example: Act as a senior commercial auto underwriter...' },
-              { letter: 'I', label: 'Instruction - What specific task?', value: instruction, setter: setInstruction, type: 'input' as const, placeholder: 'Example: Identify key risk factors and questions...' },
-              { letter: 'S', label: 'Specifics - Details, data, constraints', value: specifics, setter: setSpecifics, type: 'textarea' as const, placeholder: 'Example: Focus on driver experience, radius of operation...' },
-              { letter: 'P', label: 'Preferences - Output format, tone, length', value: preferences, setter: setPreferences, type: 'input' as const, placeholder: 'Example: Present as bulleted list, professional tone, 300-400 words...' },
+              { letter: 'R', label: 'Role - optional, usually skip it', value: roleAdv, setter: setRoleAdv, type: 'input' as const, placeholder: 'Leave blank unless you need a lens the facts don\'t imply — e.g. "read this the way the broker will"' },
+              { letter: 'I', label: 'Instruction - what decision do you need?', value: instruction, setter: setInstruction, type: 'input' as const, placeholder: 'Example: Tell me whether to pursue this account, and what would change your answer...' },
+              { letter: 'S', label: 'Specifics - your real data (highest-value field)', value: specifics, setter: setSpecifics, type: 'textarea' as const, placeholder: 'Example: 18 power units, 5 years in business, 3 claims in 36 months including 1 large cargo claim...' },
+              { letter: 'P', label: 'Preferences - the standard to hit, not a template', value: preferences, setter: setPreferences, type: 'input' as const, placeholder: 'Example: Lead with the recommendation, then the reasoning. Flag anything you\'re inferring...' },
             ].map(field => (
               <div key={field.letter}>
                 <label className="block text-sm font-semibold mb-2">

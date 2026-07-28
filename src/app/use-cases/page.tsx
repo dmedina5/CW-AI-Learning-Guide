@@ -1,11 +1,54 @@
 'use client';
 
+import { type ReactNode } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Bot, Scale, Truck, FileSpreadsheet, MapPin } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Bot, Scale, Truck, FileSpreadsheet, MapPin, Sparkles } from 'lucide-react';
 import { Card, CardGrid } from '@/components/content/Card';
 import { Callout } from '@/components/content/Callout';
 import { CodeBlock } from '@/components/content/CodeBlock';
 import { TierBadge } from '@/components/content/TierBadge';
+
+// The lever that matters most for each department, called out above its prompts.
+function StyleNote({ children }: { children: ReactNode }) {
+  return (
+    <div
+      className="flex items-start gap-3 p-4 rounded-xl mb-8"
+      style={{ background: 'var(--cw-primary-light)', border: '1px solid rgba(107,45,139,0.18)' }}
+    >
+      <Sparkles size={16} style={{ color: 'var(--cw-primary)', marginTop: 3 }} className="flex-shrink-0" />
+      <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>{children}</p>
+    </div>
+  );
+}
+
+// What the prompts on this page used to do, and what replaced it.
+const PROMPT_SHIFT = [
+  {
+    retire: '"Act as a senior underwriter with 15 years of experience"',
+    instead: 'State the facts and the decision you need',
+    why: 'The facts already tell Claude it is doing trucking underwriting. Role-play existed to pull domain register out of weaker models; it now mostly adds words.',
+  },
+  {
+    retire: 'A numbered output template — "1. Top 5 risks 2. Red flags 3. Gaps…"',
+    instead: 'Name the decision and the standard to hit',
+    why: 'A fixed template caps the answer at the shape you already imagined. Describe the job and Claude picks a better structure than you specified.',
+  },
+  {
+    retire: '"Do NOT include X. Never mention Y. Avoid Z."',
+    instead: 'One sentence describing the standard',
+    why: 'Stacked prohibitions compete with the model’s own judgment. "Keep the reasoning at the pattern level" does more work than three don’ts.',
+  },
+  {
+    retire: 'Pasting a hand-typed summary of a document',
+    instead: 'Attach the actual file',
+    why: 'A real loss run, ACORD, or report beats your summary of it — and Claude reads the parts you would have skipped.',
+  },
+  {
+    retire: 'Retyping who you are at the top of every chat',
+    instead: 'Put standing context in a Project',
+    why: 'Your role, your book, and your standards should load automatically, not cost you a paragraph in every conversation.',
+  },
+];
 
 // Real AI tools built by Cover Whale teammates. Context / use case / build prompt
 // are derived from each tool's README or source.
@@ -186,10 +229,64 @@ export default function UseCasesPage() {
     <div>
       <TierBadge tier="expert" />
       <h1 className="mt-4 mb-4">CW-Specific Use Cases</h1>
-      <p className="mb-12">
-        Real-world AI applications organized by department. Each use case includes example prompts
-        you can adapt for your daily work at Cover Whale.
+      <p className="mb-12 text-xl" style={{ color: 'var(--cw-ink-secondary)' }}>
+        Real-world AI applications organized by department &mdash; written in the prompt style the
+        newest Claude models actually reward. Adapt them for your daily work at Cover Whale.
       </p>
+
+      {/* Overview */}
+      <section className="mb-16" id="overview" data-tier="expert">
+        <div className="section-label">Overview</div>
+        <h2 className="mb-4">
+          These prompts were rewritten for <span className="text-highlight">Claude 5</span>
+        </h2>
+        <p className="mb-6">
+          Every prompt on this page used to open with a role-play preamble and close with a numbered
+          output template. Both were scaffolding &mdash; useful when models needed to be told how to
+          behave, and now mostly in the way. When Anthropic tuned Claude Code for the Claude 5
+          generation they cut <strong>over 80% of its system prompt</strong> with no measurable loss
+          on their evaluations. The same over-specification that used to help is now its own failure
+          mode.
+        </p>
+        <p className="mb-8">
+          Nothing here asks you to give Claude <em>less information</em>. It asks you to give it
+          fewer <em>instructions</em> &mdash; the facts, the decision you need, and the standard you
+          hold the answer to. The full principle is on the{' '}
+          <Link href="/context-engineering#claude5" className="text-highlight" style={{ textDecoration: 'underline' }}>Context Engineering</Link>{' '}
+          page; this is what it looks like in a Claude chat or a Cowork session.
+        </p>
+
+        <div className="overflow-x-auto rounded-xl mb-8" style={{ border: '1px solid var(--cw-border)' }}>
+          <table className="w-full text-sm" style={{ borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ background: 'var(--cw-surface)' }}>
+                <th className="text-left p-4 font-semibold" style={{ color: 'var(--cw-ink-muted)', width: '28%' }}>Retire this</th>
+                <th className="text-left p-4 font-semibold" style={{ color: 'var(--cw-primary)', width: '26%' }}>Do this instead</th>
+                <th className="text-left p-4 font-semibold" style={{ color: 'var(--cw-ink-muted)' }}>Why</th>
+              </tr>
+            </thead>
+            <tbody>
+              {PROMPT_SHIFT.map((row, i) => (
+                <tr key={row.instead} style={{ borderTop: '1px solid var(--cw-border)', background: i % 2 ? 'rgba(255,255,255,0.25)' : 'transparent' }}>
+                  <td className="p-4 align-top" style={{ color: 'var(--cw-ink-muted)' }}>{row.retire}</td>
+                  <td className="p-4 font-semibold align-top" style={{ color: 'var(--cw-ink-secondary)' }}>{row.instead}</td>
+                  <td className="p-4 align-top" style={{ color: 'var(--cw-ink-muted)' }}>{row.why}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <Callout variant="sage">
+          <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <strong>CRISP still applies &mdash; the weight moved.</strong> Context and Specifics are
+            doing the real work in every prompt below, and they got <em>longer</em>, not shorter:
+            grounding an answer in your actual numbers is still the single biggest defense against a
+            confident wrong answer. What got trimmed is Role and the prescriptive half of
+            Preferences. Keep telling Claude the facts. Stop telling it how to think.
+          </p>
+        </Callout>
+      </section>
 
       {/* Underwriting Section */}
       <section className="mb-16" id="underwriting" data-tier="expert">
@@ -202,6 +299,14 @@ export default function UseCasesPage() {
           risk analysis. These prompts help you move faster while maintaining underwriting rigor.
         </p>
 
+        <StyleNote>
+          <strong>The lever here: attach the artifact, and ask for a call.</strong> Underwriting
+          prompts get the biggest lift from dropping the real ACORD, loss run, or SAFER printout into
+          the chat instead of retyping a summary of it &mdash; Claude reads the rows you would have
+          skimmed past. Then ask for the decision you actually have to make, not a survey of
+          considerations.
+        </StyleNote>
+
         <div className="space-y-6">
           <Card number="UW-01">
             <h3 className="mb-2">Submission Analysis</h3>
@@ -210,31 +315,25 @@ export default function UseCasesPage() {
             </p>
             <CodeBlock
               title="Submission Triage Prompt"
-              code={`CONTEXT: I'm a trucking insurance underwriter reviewing a new
-business submission for a fleet operating in the Southeast US.
+              code={`New-business fleet submission, Southeast US. I need to decide
+whether to pursue it. Submission attached — the summary below is
+the fallback if you can't read the file.
 
-ROLE: Act as a senior commercial auto underwriter with 15 years
-of experience in trucking risks.
+- 35 power units, mix of owned and leased
+- Regional refrigerated freight, 500-mile radius
+- 42 drivers, including owner-operators
+- 7 years in business
+- 6 claims in 36 months (3 cargo, 2 AL, 1 PD)
+- Incumbent carrier non-renewing on loss ratio
+- ELD compliant, no dash cams
 
-INSTRUCTION: Analyze the following submission details and provide
-a risk assessment summary with recommended next steps.
+Give me your read: pursue, decline, or conditional — and what
+would change your answer. Lead with the call, then the reasoning
+behind it. Tell me what I'd need from the broker before I could
+put a price on this.
 
-SPECIFICS:
-- Fleet size: 35 power units (mix of owned and leased)
-- Operations: Regional refrigerated freight, 500-mile radius
-- Driver count: 42 (including owner-operators)
-- Years in business: 7
-- Loss history: 6 claims in 36 months
-  (3 cargo, 2 auto liability, 1 physical damage)
-- Current carrier: non-renewing due to loss ratio
-- Safety tech: ELDs compliant, no dash cams
-
-PREFERENCES: Provide a structured analysis with:
-1. Top 5 risk factors ranked by severity
-2. Red flags requiring further investigation
-3. Information gaps I should request from the broker
-4. Preliminary appetite assessment (pursue/decline/conditional)
-Use bullet points. Keep professional but direct.`}
+Flag anything you're inferring rather than reading straight off
+the submission.`}
             />
           </Card>
 
@@ -245,24 +344,18 @@ Use bullet points. Keep professional but direct.`}
             </p>
             <CodeBlock
               title="Coverage Gap Analysis"
-              code={`CONTEXT: A medium-sized fleet (25 units) currently has auto
-liability, physical damage, and motor truck cargo coverage.
-They're expanding into hazmat transport (fuel tankers).
+              code={`A 25-unit fleet on auto liability, physical damage, and motor
+truck cargo is expanding into hazmat — fuel tankers.
 
-ROLE: Act as a coverage specialist in commercial trucking insurance.
+What breaks? I want the gaps and endorsements this expansion
+creates, including pollution exposure, MCS-90, whether their
+cargo limit still holds up for hazmat loads, state-specific fuel
+transport requirements, and where excess should sit.
 
-INSTRUCTION: Identify the coverage gaps and additional endorsements
-needed for this expansion into hazmat operations.
-
-SPECIFICS: Focus on:
-- Pollution liability exposure
-- MCS-90 endorsement requirements
-- Cargo coverage adequacy for hazmat loads
-- Any state-specific requirements for fuel transport
-- Umbrella/excess liability considerations
-
-PREFERENCES: Present as a comparison table where possible.
-Flag mandatory vs. recommended coverages. Keep under 400 words.`}
+Separate what's legally mandatory from what you'd recommend —
+that distinction is the whole point of the exercise for me. If a
+requirement depends on which states they actually run, say so
+instead of picking one.`}
             />
           </Card>
 
@@ -273,31 +366,23 @@ Flag mandatory vs. recommended coverages. Keep under 400 words.`}
             </p>
             <CodeBlock
               title="Loss Run Review"
-              code={`CONTEXT: I'm reviewing 3 years of loss runs for a trucking
-account renewal. The fleet operates 50 power units doing
-long-haul dry van freight across 30+ states.
+              code={`Renewal review, 50-unit long-haul dry van fleet running 30+
+states. Three years of loss runs attached.
 
-ROLE: Act as an experienced underwriting analyst specializing
-in trucking loss development.
+(No file handy? Paste the summary instead:
+ Yr1  8 claims / $420K incurred (3 open)
+ Yr2  5 claims / $180K incurred (1 open)
+ Yr3  3 claims / $95K incurred (0 open)
+ Largest single loss: $210K AL rear-end, Yr1
+ Most frequent: cargo, 6 of 16
+ Driver turnover: 85% -> 45% across the period)
 
-INSTRUCTION: Analyze the following loss summary and identify
-trends, concerns, and positive indicators.
+Tell me whether this risk is improving or deteriorating, and what
+loss pick you'd support at renewal. I care more about why the
+trend is moving than a restatement of the numbers back to me.
 
-SPECIFICS:
-Year 1: 8 claims / $420K incurred (3 open)
-Year 2: 5 claims / $180K incurred (1 open)
-Year 3: 3 claims / $95K incurred (0 open)
-- Largest single loss: $210K auto liability (Year 1, rear-end)
-- Most frequent type: cargo (6 of 16 total)
-- Driver turnover: decreased from 85% to 45% over period
-
-PREFERENCES: Provide:
-1. Overall trend assessment (improving/stable/deteriorating)
-2. Frequency and severity analysis
-3. Areas of concern that need monitoring
-4. Positive factors to consider in pricing
-5. Recommended loss picks for the renewal quote
-Bullet format. Be specific with numbers.`}
+If the open claims could still develop far enough to change your
+answer, say what they'd have to do.`}
             />
           </Card>
 
@@ -307,12 +392,21 @@ Bullet format. Be specific with numbers.`}
               Investigate specific risk characteristics for better-informed decisions.
             </p>
             <div className="p-4 rounded-lg mb-3" style={{ background: 'rgba(217,85,80,0.06)', border: '1px solid rgba(217,85,80,0.15)' }}>
-              <div className="text-[11px] font-semibold uppercase mb-2" style={{ color: 'var(--cw-warning)' }}>Vague</div>
+              <div className="text-[11px] font-semibold uppercase mb-2" style={{ color: 'var(--cw-warning)' }}>Too vague &mdash; no facts to stand on</div>
               &ldquo;Tell me about the risks of this trucking account&rdquo;
             </div>
+            <div className="p-4 rounded-lg mb-3" style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)' }}>
+              <div className="text-[11px] font-semibold uppercase mb-2" style={{ color: 'var(--cw-ink-muted)' }}>Over-specified &mdash; what we used to teach</div>
+              <span style={{ color: 'var(--cw-ink-muted)' }}>&ldquo;A fleet with 40% owner-operators is applying for auto liability coverage. Analyze the specific risks associated with a high owner-operator ratio, including: control over driver selection, maintenance standards variability, higher turnover impact on loss frequency, and any underwriting considerations for independent contractor vs. employee driver models. Provide your analysis as a risk matrix with likelihood and impact ratings.&rdquo;</span>
+              <p className="text-xs mt-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                The facts are good. But the enumerated sub-topics cap the answer at the four things
+                you already thought of, and the mandated risk matrix forces a shape that may not fit
+                the finding.
+              </p>
+            </div>
             <div className="p-4 rounded-lg" style={{ background: 'rgba(58,158,110,0.06)', border: '1px solid rgba(58,158,110,0.15)' }}>
-              <div className="text-[11px] font-semibold uppercase mb-2" style={{ color: 'var(--cw-success)' }}>Specific</div>
-              &ldquo;A fleet with 40% owner-operators is applying for auto liability coverage. Analyze the specific risks associated with a high owner-operator ratio, including: control over driver selection, maintenance standards variability, higher turnover impact on loss frequency, and any underwriting considerations for independent contractor vs. employee driver models. Provide your analysis as a risk matrix with likelihood and impact ratings.&rdquo;
+              <div className="text-[11px] font-semibold uppercase mb-2" style={{ color: 'var(--cw-success)' }}>Claude 5 style &mdash; same facts, room to think</div>
+              &ldquo;A fleet applying for auto liability runs 40% owner-operators. Walk me through how that ratio actually changes the risk versus an all-company-driver fleet, and tell me where you'd land on it. If your answer depends on how they contract and supervise the O/Os, tell me what to go ask.&rdquo;
             </div>
           </Card>
         </div>
@@ -329,6 +423,14 @@ Bullet format. Be specific with numbers.`}
           correspondence for accuracy before sending.
         </p>
 
+        <StyleNote>
+          <strong>The lever here: describe the standard, not the rules.</strong> Correspondence
+          prompts used to carry a stack of tone rules and &ldquo;do NOT&rdquo; lines. One sentence
+          about what good looks like &mdash; <em>&ldquo;the way an underwriter writes to a broker
+          they want to keep&rdquo;</em> &mdash; outperforms five constraints, because the
+          constraints only ever fence off the bad without describing the good.
+        </StyleNote>
+
         <div className="space-y-6">
           <Card number="BC-01">
             <h3 className="mb-2">Quote Follow-Up Email</h3>
@@ -337,24 +439,16 @@ Bullet format. Be specific with numbers.`}
             </p>
             <CodeBlock
               title="Quote Follow-Up Prompt"
-              code={`CONTEXT: I sent a quote to a broker 5 business days ago for a
-regional fleet account. The quote was competitive but included
-subjectivities around driver MVRs and a fleet inspection.
+              code={`I quoted a regional fleet account 5 business days ago.
+Competitive number, but it carried subjectivities on driver MVRs
+and a fleet inspection. Nothing back yet.
 
-ROLE: Act as a professional underwriter at a trucking MGA.
+Draft the follow-up email. Surface the open subjectivities
+without it reading as chasing, offer a call, and note the quote
+holds for 30 days.
 
-INSTRUCTION: Draft a follow-up email to the broker checking on
-the status of the quote and offering to discuss any questions.
-
-SPECIFICS:
-- Tone: Professional, helpful, not pushy
-- Mention the outstanding subjectivities gently
-- Offer to schedule a call to walk through the quote
-- Reference that the quote is valid for 30 days
-- Keep it under 150 words
-
-PREFERENCES: Email format with subject line.
-Professional but warm tone.`}
+Write it the way a good underwriter actually writes to a broker
+they want to keep — warm, short, no filler. Subject line included.`}
             />
           </Card>
 
@@ -365,24 +459,16 @@ Professional but warm tone.`}
             </p>
             <CodeBlock
               title="Declination Letter Prompt"
-              code={`CONTEXT: I need to decline a submission for a long-haul fleet
-with a poor loss history and several concerning risk factors.
-I want to maintain the broker relationship for future submissions.
+              code={`I'm declining a long-haul fleet: loss ratio above 90% three
+years running, and driver turnover north of 95%. I want this
+broker's next submission, so the relationship matters more to me
+than the letter does.
 
-ROLE: Act as a senior underwriter communicating a declination.
+Draft the declination. Be unambiguous that it's a no, keep the
+reasoning at the level of the pattern rather than specific
+figures, and tell them what would make this workable next time.
 
-INSTRUCTION: Draft a declination letter that is clear about
-the decision but leaves the door open for future business.
-
-SPECIFICS:
-- Reason: Adverse loss history (loss ratio above 90% for 3 years)
-- Secondary concern: High driver turnover (95%+)
-- Do NOT include specific financial details in the letter
-- Suggest what improvements would make the account reconsiderable
-- Keep it professional and brief (under 200 words)
-
-PREFERENCES: Business letter format. Empathetic but firm tone.
-Include a constructive suggestion for the insured.`}
+Firm, respectful, brief. Business letter format.`}
             />
           </Card>
 
@@ -393,25 +479,18 @@ Include a constructive suggestion for the insured.`}
             </p>
             <CodeBlock
               title="Info Request Prompt"
-              code={`CONTEXT: I've received an incomplete submission for a 20-truck
-fleet. Several key underwriting data points are missing.
+              code={`Incomplete submission on a 20-truck fleet. Still missing:
 
-ROLE: Act as an underwriter requesting additional information.
-
-INSTRUCTION: Draft a professional email to the broker listing
-the missing items I need to complete my review.
-
-SPECIFICS: I need the following:
-- 3-year loss runs (only 1 year provided)
-- Current driver roster with MVR dates
+- 3-year loss runs (only 1 year came through)
+- Driver roster with MVR dates
 - Vehicle schedule with VIN and year/make/model
-- Copy of DOT safety rating or ISS score
+- DOT safety rating or ISS score
 - Radius of operations confirmation
-- Current MCS-90/BMC-91 filings
+- Current MCS-90 / BMC-91 filings
 
-PREFERENCES: Numbered list format for easy reference.
-Professional tone. Mention a timeline (need within 5 business
-days to maintain quote validity). Under 200 words.`}
+Draft the email asking for these. Make it easy to action — the
+broker should be able to work straight down it and tick items
+off. I need it inside 5 business days to hold the quote.`}
             />
           </Card>
         </div>
@@ -436,6 +515,15 @@ days to maintain quote validity). Under 200 words.`}
           and communication drafting.
         </p>
 
+        <StyleNote>
+          <strong>The lever here: hand over the mess, and say why it matters.</strong> Don&apos;t
+          tidy your intake notes before pasting them &mdash; the disorder is signal, and
+          pre-structuring the input pre-decides the output. Then tell Claude what you&apos;re
+          worried about and why. &ldquo;Rear-end plus construction zone plus soft-tissue is a
+          combination I want you thinking hard about&rdquo; gets you a sharper read than any
+          checklist of sections would.
+        </StyleNote>
+
         <div className="space-y-6">
           <Card number="CL-01">
             <h3 className="mb-2">FNOL Processing Assistance</h3>
@@ -444,34 +532,25 @@ days to maintain quote validity). Under 200 words.`}
             </p>
             <CodeBlock
               title="FNOL Structuring Prompt"
-              code={`CONTEXT: I've received a first notice of loss call for a
-trucking accident. I need to organize the information and
-identify next steps.
+              code={`FNOL call just came in on a trucking accident. My raw notes,
+unedited:
 
-ROLE: Act as a claims intake specialist for commercial trucking.
+- Interstate, Southern state, construction zone
+- Our tractor-trailer rear-ended a passenger vehicle
+- Other driver reporting neck and back pain
+- Company driver, passed the post-accident drug screen
+- Moderate front-end damage to our tractor, significant rear
+  damage to the other vehicle
+- Police report filed, number still pending
+- Date generalized for privacy
 
-INSTRUCTION: Help me structure the following FNOL details into
-a complete report and identify any gaps in the information.
+Turn this into a clean FNOL record, then tell me what I should be
+doing in the next 24 hours and what I still don't know.
 
-SPECIFICS: Information received:
-- Date of loss: [generalized date]
-- Location: Interstate highway in a Southern state
-- Description: Tractor-trailer rear-ended a passenger vehicle
-  at a construction zone
-- Injuries: Passenger vehicle driver reports neck/back pain
-- Driver status: Company driver, passed post-accident drug test
-- Vehicle damage: Moderate front-end damage to tractor,
-  significant rear damage to passenger vehicle
-- Police report: Filed, report number pending
-
-PREFERENCES: Organize into standard FNOL sections:
-1. Loss details
-2. Vehicle/property damage assessment
-3. Injury summary
-4. Immediate action items
-5. Missing information to obtain
-6. Recommended reserves range (general guidance only)
-Flag any red flags or litigation indicators.`}
+Rear-end plus a construction zone plus soft-tissue complaints is
+a combination I want you thinking hard about — say plainly if you
+see litigation or reserve-development risk building here, and how
+confident you are.`}
             />
           </Card>
 
@@ -482,28 +561,19 @@ Flag any red flags or litigation indicators.`}
             </p>
             <CodeBlock
               title="Investigation Plan Prompt"
-              code={`CONTEXT: A single-vehicle rollover involving a loaded tanker
-truck on a rural highway. The driver claims a tire blowout
-caused the accident. There is a potential environmental cleanup
-exposure due to product spill.
+              code={`Single-vehicle rollover, loaded tanker, rural highway. Driver
+says a tire blowout caused it. Product spilled, so there's
+environmental cleanup exposure on top of the physical damage.
 
-ROLE: Act as a senior claims adjuster specializing in
-commercial trucking.
+Build me the investigation plan. Order it by what genuinely has
+to happen first — evidence that disappears, notifications with
+clocks on them — rather than by category.
 
-INSTRUCTION: Create a detailed investigation checklist for
-this claim, prioritized by urgency.
-
-SPECIFICS:
-- Consider: driver factors, vehicle maintenance, road conditions,
-  cargo securement, environmental exposure
-- Include documentation to obtain
-- Include parties to contact
-- Flag any subrogation potential
-- Note any coverage concerns (pollution, cargo)
-
-PREFERENCES: Organized by priority (immediate / within 48 hours /
-within 1 week). Checkbox-style list format. Include the "why"
-for each investigation step.`}
+Cover the driver, maintenance and tire history, road conditions,
+cargo securement, and the pollution exposure. Where you see
+subrogation potential or a coverage question, flag it rather than
+assuming it resolves my way. I want to know why each step is on
+the list, not just that it is.`}
             />
           </Card>
         </div>
@@ -520,6 +590,14 @@ for each investigation step.`}
           preparation and data analysis.
         </p>
 
+        <StyleNote>
+          <strong>The lever here: a Project, and asking for the decision.</strong> If you run the
+          same kind of task weekly, your role, your book, and your standards belong in a Claude
+          Project or a Cowork workspace &mdash; loaded once, not retyped every session. Then ask for
+          the judgment rather than the artifact: <em>&ldquo;what should change what we do&rdquo;</em>{' '}
+          beats <em>&ldquo;summarize this.&rdquo;</em>
+        </StyleNote>
+
         <div className="space-y-6">
           <Card number="GP-01">
             <h3 className="mb-2">Document Summarization</h3>
@@ -528,27 +606,19 @@ for each investigation step.`}
             </p>
             <CodeBlock
               title="Document Summary Prompt"
-              code={`CONTEXT: I need to review a lengthy industry report on
-commercial auto insurance market trends for an upcoming
-leadership meeting.
+              code={`Attached is an industry report on commercial auto market
+trends. I'm presenting to leadership Thursday.
 
-ROLE: Act as a business analyst in the trucking insurance space.
+Read it and tell me what actually matters for a trucking MGA —
+rate trends, loss cost drivers, regulatory movement, tech
+adoption. I don't need a faithful summary of the document; I need
+the parts that should change what we do.
 
-INSTRUCTION: Summarize the key takeaways from the following
-document, focusing on what's actionable for a trucking MGA.
+Open with the one thing I should lead the meeting with. Keep it
+tight enough to read on the way in.
 
-SPECIFICS:
-- Focus on: rate trends, loss cost drivers, regulatory changes,
-  and technology adoption
-- Highlight anything that directly impacts trucking MGAs
-- Note any data points useful for underwriting strategy
-- Flag competitive intelligence insights
-
-PREFERENCES:
-- Executive summary (3-4 sentences) at the top
-- Then 5-7 key takeaways as bullet points
-- End with "Implications for Cover Whale" section
-- Keep total under 500 words`}
+Be explicit about which claims are the report's and which are
+your read of them — I'll get challenged on the difference.`}
             />
           </Card>
 
@@ -559,26 +629,21 @@ PREFERENCES:
             </p>
             <CodeBlock
               title="Data Analysis Prompt"
-              code={`CONTEXT: I have quarterly production data for our trucking
-book of business and need to identify trends for a board report.
+              code={`Quarterly production for our trucking book, headed into a board
+report:
 
-ROLE: Act as an insurance data analyst.
+Q1   450 quotes   180 binds (40.0%)   $2.1M
+Q2   520 quotes   195 binds (37.5%)   $2.4M
+Q3   480 quotes   168 binds (35.0%)   $2.0M
+Q4   600 quotes   240 binds (40.0%)   $3.1M
 
-INSTRUCTION: Help me analyze the following data and identify
-the most significant trends and anomalies.
+What's the story here, and what would you want to check before I
+put it in front of a board?
 
-SPECIFICS:
-- Q1: 450 quotes, 180 binds (40% hit ratio), $2.1M premium
-- Q2: 520 quotes, 195 binds (37.5% hit ratio), $2.4M premium
-- Q3: 480 quotes, 168 binds (35% hit ratio), $2.0M premium
-- Q4: 600 quotes, 240 binds (40% hit ratio), $3.1M premium
-
-PREFERENCES:
-- Identify the top 3 trends
-- Suggest possible explanations for each trend
-- Recommend 2-3 metrics to track going forward
-- Present in a format suitable for a board presentation
-- Include quarter-over-quarter percentage changes`}
+Give me your best read on why the hit ratio sagged mid-year and
+recovered — and label it as a hypothesis, because you can't see
+the underlying mix and I don't want a guess presented as a
+finding.`}
             />
           </Card>
 
@@ -589,28 +654,20 @@ PREFERENCES:
             </p>
             <CodeBlock
               title="Meeting Prep Prompt"
-              code={`CONTEXT: I have a quarterly business review with a top broker
-partner who produces $5M+ in annual premium for our trucking
-program.
+              code={`Quarterly business review with a broker partner doing $5M+ a
+year with us. One hour. Where things stand:
 
-ROLE: Act as a relationship manager preparing for a key
-partner meeting.
-
-INSTRUCTION: Help me prepare a meeting agenda and talking points.
-
-SPECIFICS:
-- Meeting duration: 1 hour
 - Their production is up 15% YoY
-- We've had some service complaints about quote turnaround time
-- We're launching a new telematics discount program
-- Their loss ratio on our book is 52% (favorable)
+- We've taken service complaints on quote turnaround time
+- We're launching a telematics discount program
+- Their loss ratio on our book is 52%
 
-PREFERENCES:
-- Structured agenda with time allocations
-- 3-5 talking points per agenda item
-- Include a "prepare for" section (potential tough questions)
-- Suggest 2-3 value-adds to bring to the meeting
-- Professional, partnership-oriented tone`}
+Help me run this well. I need an agenda that genuinely fits the
+hour, and I need to walk in ready for the turnaround-time
+conversation rather than surprised by it.
+
+Tell me what you'd lead with, what you'd hold until late, and
+what you'd bring that they didn't ask for.`}
             />
           </Card>
         </div>
@@ -708,7 +765,12 @@ PREFERENCES:
           CRISP Framework <span className="text-highlight">Refresher</span>
         </h2>
         <p className="mb-6">
-          Remember to structure your prompts using the CRISP framework for the best results.
+          CRISP is still the backbone &mdash; but on the Claude 5 models the weight sits differently.
+          <strong> Context and Specifics carry the prompt.</strong> Role is usually redundant once
+          the facts are there, and Preferences works better as one line about the standard than as an
+          output template. See the{' '}
+          <Link href="#overview" className="text-highlight" style={{ textDecoration: 'underline' }}>Overview</Link>{' '}
+          for the before and after.
         </p>
 
         <CardGrid columns={2}>
@@ -716,11 +778,11 @@ PREFERENCES:
             <h4 className="text-lg font-bold mb-4" style={{ color: 'var(--cw-primary)' }}>CRISP Breakdown</h4>
             <div className="space-y-3">
               {[
-                { letter: 'C', word: 'Context', desc: 'Background, situation, domain' },
-                { letter: 'R', word: 'Role', desc: 'Who the AI should act as' },
-                { letter: 'I', word: 'Instruction', desc: 'The specific task (use action verbs)' },
-                { letter: 'S', word: 'Specifics', desc: 'Data, constraints, requirements' },
-                { letter: 'P', word: 'Preferences', desc: 'Output format, tone, length' },
+                { letter: 'C', word: 'Context', desc: 'Background, situation, domain — carries the prompt' },
+                { letter: 'R', word: 'Role', desc: 'Usually skippable now; the facts imply it' },
+                { letter: 'I', word: 'Instruction', desc: 'The decision you need (use action verbs)' },
+                { letter: 'S', word: 'Specifics', desc: 'Your real data — the highest-value part' },
+                { letter: 'P', word: 'Preferences', desc: 'The standard to hit, not an output template' },
               ].map(item => (
                 <div key={item.letter} className="flex items-center gap-3">
                   <span
@@ -743,10 +805,11 @@ PREFERENCES:
             <div className="space-y-3">
               {[
                 'Start with Context to anchor the AI in your domain',
-                'Use specific roles: "senior UW" beats "insurance person"',
+                'Attach the real document instead of describing what it says',
                 'Action verbs in Instructions: Analyze, Compare, Draft, Identify',
                 'Include real numbers in Specifics (generalized for PII safety)',
-                'Always specify format in Preferences: bullets, table, email',
+                'Ask for the decision you owe someone, not a survey of options',
+                'Say what good looks like once — beats a stack of "do NOT" rules',
                 'Iterate: refine your prompt if the first result isn\'t right',
               ].map((tip, i) => (
                 <div key={i} className="flex items-start gap-2">
@@ -764,8 +827,9 @@ PREFERENCES:
         <Callout variant="sage">
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
             <strong>Remember:</strong> These prompts are starting points. Customize them with your
-            specific situation details. The more relevant context you provide (while protecting PII),
-            the better the AI output will be. Visit the{' '}
+            specific situation details. More relevant <em>context</em> makes the output better &mdash;
+            more <em>instruction</em> usually doesn&apos;t, so add facts freely and rules sparingly
+            (while protecting PII). Visit the{' '}
             <Link href="/prompt-engineering" className="text-highlight underline">Prompt Engineering</Link>{' '}
             page for the full CRISP framework and PII safety guidelines.
           </p>
