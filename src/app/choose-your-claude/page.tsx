@@ -290,11 +290,11 @@ export default function ChooseYourClaudePage() {
           <ArrowLeft size={16} /> Claude Cowork
         </Link>
         <Link
-          href="/road-to-agentic-engineering"
+          href="/right-size-your-model"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:gap-3"
           style={{ background: 'var(--cw-primary)', color: '#fff' }}
         >
-          Next: Road to Agentic Engineering <ArrowRight size={16} />
+          Next: Right-Size Your Model <ArrowRight size={16} />
         </Link>
       </div>
     </div>

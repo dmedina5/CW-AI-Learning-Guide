@@ -101,6 +101,22 @@ export const NAV_ITEMS = [
     tier: 'beginner' as TierKey,
   },
   {
+    label: 'Right-Size Your Model',
+    href: '/right-size-your-model',
+    icon: 'Gauge',
+    tier: 'intermediate' as TierKey,
+    children: [
+      { label: 'Right-Size This Task', href: '/right-size-your-model#right-sizer', tier: 'intermediate' as TierKey },
+      { label: 'The Model Family', href: '/right-size-your-model#ladder', tier: 'beginner' as TierKey },
+      { label: 'Dial the Effort', href: '/right-size-your-model#effort', tier: 'intermediate' as TierKey },
+      { label: 'What It Actually Costs', href: '/right-size-your-model#cost', tier: 'intermediate' as TierKey },
+      { label: 'Where You Pick It', href: '/right-size-your-model#where', tier: 'beginner' as TierKey },
+      { label: 'Signs You Are Over-Buying', href: '/right-size-your-model#overbuying', tier: 'intermediate' as TierKey },
+      { label: 'Escalate on Evidence', href: '/right-size-your-model#escalation', tier: 'expert' as TierKey },
+      { label: 'The Reflex Test', href: '/right-size-your-model#check', tier: 'intermediate' as TierKey },
+    ],
+  },
+  {
     label: 'Road to Agentic Engineering',
     href: '/road-to-agentic-engineering',
     icon: 'Code2',
