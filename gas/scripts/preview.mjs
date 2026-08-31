@@ -35,6 +35,7 @@ const boot = {
   email: 'daniel.medina@coverwhale.com',
   isChampion: true,
   embed,
+  showNav: !process.argv.includes('--no-nav'),
   deploymentId: 'local-preview',
 };
 

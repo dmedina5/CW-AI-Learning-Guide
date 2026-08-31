@@ -16,6 +16,8 @@ function doGet(e) {
 
   var route = sanitizeRoute_(params.page);
   var embed = params.embed !== '0';
+  // The guide's own navigation, on unless explicitly switched off with ?nav=0.
+  var showNav = params.nav !== '0';
   var email = activeEmail_();
 
   var page = renderPage_({
@@ -23,6 +25,7 @@ function doGet(e) {
     email: email,
     isChampion: isChampionEmail_(email),
     embed: embed,
+    showNav: showNav,
     deploymentId: ScriptApp.getScriptId()
   });
 

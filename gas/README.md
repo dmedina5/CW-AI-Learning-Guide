@@ -38,6 +38,7 @@ export clasp_config_auth=/mnt/c/Users/daniel.medina/.clasprc.json
 | `shims/next-navigation.ts` | `next/navigation` → hash-router hooks |
 | `shims/auth-provider.tsx` | Identity injected by the server, no sign-in step |
 | `shims/champion-gate.tsx` | Allowlist decided on the server |
+| `?nav=0` | Hides the guide's own sidebar for a given embed (on by default) |
 | `src/router.ts` | Hash routing — path routing is unavailable inside the sandbox frame |
 | `src/routes.ts` | Route table from `import.meta.glob` over `src/app/**/page.tsx` |
 | `scripts/package-apps-script.mjs` | Bundle → `.html` chunks + generated `Config.gs` |

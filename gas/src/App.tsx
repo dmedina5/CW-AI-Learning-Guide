@@ -1,10 +1,13 @@
 /**
  * Application shell for the Apps Script build.
  *
- * Mirrors src/app/layout.tsx, with one difference: when the guide is rendered
- * inside a Harbor page (embed mode) its own sidebar is hidden, because Harbor's
- * navigation already lists every section and two copies of the same tree side
- * by side is worse than one.
+ * Mirrors src/app/layout.tsx.
+ *
+ * The guide keeps its own navigation inside a Harbor page. That reverses an
+ * earlier call to hide it: Harbor's rail lists the 25 pages, but it cannot jump
+ * between sections within a page, and it does not show where you are in the
+ * guide's own structure. Below the sidebar's breakpoint it collapses to the
+ * menu button in the top bar, so a narrow embed loses no width to it.
  */
 import { useState, useEffect, useCallback } from 'react';
 import '@/styles/globals.css';
@@ -39,7 +42,7 @@ export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const { path } = useRoute();
-  const { embed } = boot();
+  const { embed, showNav } = boot();
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
@@ -76,9 +79,9 @@ export default function App() {
   return (
     <AuthProvider>
       <div className="flex min-h-screen">
-        {!embed && <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
+        {showNav && <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
 
-        <div className={`flex-1 min-h-screen flex flex-col ${embed ? '' : 'lg:ml-72'}`}>
+        <div className={`flex-1 min-h-screen flex flex-col ${showNav ? 'lg:ml-72' : ''}`}>
           <TopBar
             onMenuClick={() => setSidebarOpen(true)}
             onSearchClick={() => setSearchOpen(true)}
