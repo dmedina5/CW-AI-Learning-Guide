@@ -6,9 +6,11 @@ import { useAuth } from '@/hooks/useAuth';
 interface TopBarProps {
   onMenuClick: () => void;
   onSearchClick: () => void;
+  /** Which edge the menu button opens the nav from. Defaults to the left. */
+  menuSide?: 'left' | 'right';
 }
 
-export function TopBar({ onMenuClick, onSearchClick }: TopBarProps) {
+export function TopBar({ onMenuClick, onSearchClick, menuSide = 'left' }: TopBarProps) {
   const { user } = useAuth();
 
   return (
@@ -21,15 +23,16 @@ export function TopBar({ onMenuClick, onSearchClick }: TopBarProps) {
         borderBottom: '1px solid var(--cw-border)',
       }}
     >
-      {/* Mobile menu button */}
-      <button
-        onClick={onMenuClick}
-        className="p-2 rounded-lg transition-colors hover:bg-white/30 lg:hidden"
-        style={{ color: 'var(--cw-ink-secondary)' }}
-        aria-label="Toggle menu"
-      >
-        <Menu size={20} />
-      </button>
+      {menuSide === 'left' && (
+        <button
+          onClick={onMenuClick}
+          className="p-2 rounded-lg transition-colors hover:bg-white/30 lg:hidden"
+          style={{ color: 'var(--cw-ink-secondary)' }}
+          aria-label="Toggle menu"
+        >
+          <Menu size={20} />
+        </button>
+      )}
 
       {/* Search trigger */}
       <button
@@ -59,6 +62,16 @@ export function TopBar({ onMenuClick, onSearchClick }: TopBarProps) {
         <span className="hidden md:block text-xs" style={{ color: 'var(--cw-ink-muted)' }}>
           {user?.email}
         </span>
+        {menuSide === 'right' && (
+          <button
+            onClick={onMenuClick}
+            className="p-2 rounded-lg transition-colors hover:bg-white/30 lg:hidden"
+            style={{ color: 'var(--cw-ink-secondary)' }}
+            aria-label="Toggle menu"
+          >
+            <Menu size={20} />
+          </button>
+        )}
       </div>
     </header>
   );

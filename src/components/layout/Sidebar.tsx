@@ -16,7 +16,21 @@ const ICON_MAP: Record<string, any> = {
   Home, Brain, MessageSquare, Wand2, Compass, Code2, Bot, Briefcase, BookOpen, MonitorSmartphone, Layers, Gauge,
 };
 
-export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+/**
+ * `side` defaults to 'left', which is what the public site uses. The Harbor
+ * build passes 'right' so the guide's navigation sits on the opposite edge from
+ * Harbor's own rail, rather than two panels crowding the same side.
+ */
+export function Sidebar({
+  isOpen,
+  onClose,
+  side = 'left',
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  side?: 'left' | 'right';
+}) {
+  const onRight = side === 'right';
   const pathname = usePathname();
   const { user, logout } = useAuth();
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
@@ -44,14 +58,15 @@ export function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
 
       <nav
         className={`
-          fixed top-0 left-0 h-full z-50 w-72 flex flex-col
+          fixed top-0 h-full z-50 w-72 flex flex-col
+          ${onRight ? 'right-0' : 'left-0'}
           transition-transform duration-300
           lg:translate-x-0
-          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+          ${isOpen ? 'translate-x-0' : onRight ? 'translate-x-full' : '-translate-x-full'}
         `}
         style={{
           background: 'var(--cw-bg-warm)',
-          borderRight: '1px solid var(--cw-border)',
+          [onRight ? 'borderLeft' : 'borderRight']: '1px solid var(--cw-border)',
         }}
       >
         {/* Header */}

@@ -3,6 +3,10 @@ import type { Config } from 'tailwindcss';
 const config: Config = {
   content: [
     './src/**/*.{js,ts,jsx,tsx,mdx}',
+    // The Harbor build's shell lives here and uses classes that appear nowhere
+    // in src/ (lg:mr-72 for the right-hand nav). Without this the class is never
+    // generated and the panel silently overlaps the text.
+    './gas/{src,shims}/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {

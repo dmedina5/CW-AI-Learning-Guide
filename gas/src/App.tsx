@@ -8,6 +8,9 @@
  * between sections within a page, and it does not show where you are in the
  * guide's own structure. Below the sidebar's breakpoint it collapses to the
  * menu button in the top bar, so a narrow embed loses no width to it.
+ *
+ * It sits on the RIGHT here, opposite Harbor's own rail, so the two navigations
+ * bracket the content instead of stacking against the same edge.
  */
 import { useState, useEffect, useCallback } from 'react';
 import '@/styles/globals.css';
@@ -79,10 +82,13 @@ export default function App() {
   return (
     <AuthProvider>
       <div className="flex min-h-screen">
-        {showNav && <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />}
+        {showNav && (
+          <Sidebar side="right" isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        )}
 
-        <div className={`flex-1 min-h-screen flex flex-col ${showNav ? 'lg:ml-72' : ''}`}>
+        <div className={`flex-1 min-h-screen flex flex-col ${showNav ? 'lg:mr-72' : ''}`}>
           <TopBar
+            menuSide="right"
             onMenuClick={() => setSidebarOpen(true)}
             onSearchClick={() => setSearchOpen(true)}
           />
