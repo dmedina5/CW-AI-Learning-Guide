@@ -60,6 +60,24 @@ registered and every page empty. `scripts/verify-bundle.mjs` exists to catch
 exactly that, and checks page *body* text, because the route list alone cannot
 tell the two apart — those strings also live in the nav config and search index.
 
+**Raw JavaScript does not survive an Apps Script project file.** The bundle is
+carried as base64 for that reason, not for neatness. Apps Script stores a file as
+HTML and re-serializes it on the way out, and it damaged the bundle twice, both
+times silently:
+
+| stored as | what came back |
+|---|---|
+| bare JS | every `<` escaped to `&lt;` — `i<n` became `i&lt;n`, so it stopped being JavaScript |
+| JS inside `<script>` | 648,436 characters in, 522,627 out, still ending in a well-formed closing tag |
+
+Base64 gives the parser nothing to recognise. `package-apps-script.mjs` refuses to
+emit a chunk containing any character outside the base64 alphabet, because both
+failures above produce no error of their own.
+
+To re-check the round-trip after any change to how assets are stored, compare each
+file's local sha256 against what the server hands back — a local preview cannot see
+this class of damage, since it reads the files straight off disk.
+
 **A new deployment id changes every Harbor URL.** `clasp create-deployment` mints
 a new id. To ship a content change without re-editing 25 Harbor pages, update the
 *existing* deployment instead of creating one:
