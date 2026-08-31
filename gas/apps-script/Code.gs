@@ -80,9 +80,17 @@ function sanitizeRoute_(raw) {
   return '/';
 }
 
+/**
+ * Reads a project file verbatim.
+ *
+ * Every asset file carries its own <script> or <style> tag, and the bundle is
+ * carried as base64 inside those tags. Both are load-bearing: Apps Script
+ * re-serializes a project file as HTML on the way out, which escaped every `<`
+ * in raw JS, and then dropped content from the middle even once the JS was
+ * wrapped. Base64 gives the parser nothing to act on. See the header of
+ * gas/scripts/package-apps-script.mjs for the measurements.
+ */
 function assetContent_(name) {
-  // getContent() returns the file verbatim. createTemplateFromFile would try to
-  // evaluate any `<?` sequence inside the minified bundle as a scriptlet.
   return HtmlService.createHtmlOutputFromFile(name).getContent();
 }
 
@@ -102,12 +110,13 @@ function renderPage_(boot) {
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
     '<title>Cover Whale AI Learning Guide</title>',
     fonts,
-    '<style>', assetContent_('Styles'), '</style>',
+    assetContent_('Styles'),
     '<style>html,body{margin:0;padding:0;background:var(--cw-bg,#c3c3d5);}</style>',
     '</head><body>',
     '<div id="root"></div>',
     '<script>window.__CW__=', JSON.stringify(boot), ';</script>',
-    '<script>', script, '</script>',
+    script,
+    assetContent_('Loader'),
     '</body></html>'
   ].join('');
 }

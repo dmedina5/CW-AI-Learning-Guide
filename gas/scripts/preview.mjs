@@ -43,12 +43,13 @@ const html = [
   '<meta name="viewport" content="width=device-width, initial-scale=1">',
   '<title>Cover Whale AI Learning Guide</title>',
   fonts.map((u) => `<link rel="stylesheet" href="${u}">`).join(''),
-  '<style>', readFileSync(join(src, 'Styles.html'), 'utf8'), '</style>',
+  readFileSync(join(src, 'Styles.html'), 'utf8'),
   '<style>html,body{margin:0;padding:0;background:var(--cw-bg,#c3c3d5);}</style>',
   '</head><body>',
   '<div id="root"></div>',
   `<script>window.__CW__=${JSON.stringify(boot)};</script>`,
-  '<script>', chunks.map((c) => readFileSync(join(src, `${c}.html`), 'utf8')).join(''), '</script>',
+  chunks.map((c) => readFileSync(join(src, `${c}.html`), 'utf8')).join(''),
+  readFileSync(join(src, 'Loader.html'), 'utf8'),
   '</body></html>',
 ].join('');
 
