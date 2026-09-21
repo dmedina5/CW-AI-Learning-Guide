@@ -7,13 +7,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "harbor:build": "vite build --config gas/vite.config.ts && node gas/scripts/verify-bundle.mjs && node gas/scripts/package-apps-script.mjs",
+    "harbor:preview": "node gas/scripts/preview.mjs",
+    "harbor:smoke": "bash gas/scripts/smoke-routes.sh",
+    "harbor:push": "npm run harbor:build && cd gas/apps-script && clasp push --force",
+    "harbor:deploy": "npm run harbor:push && cd gas/apps-script && clasp create-deployment --description \"Harbor embed\""
   },
   "dependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
     "lucide-react": "^0.469.0",
     "next": "^14.2.21",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "vite": "^6.4.3"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",

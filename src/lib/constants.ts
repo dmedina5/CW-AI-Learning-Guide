@@ -1,5 +1,10 @@
 export const AUTH_BACKEND = 'https://coverwhale-auth.vercel.app';
 
+// Served as a static file by the GitHub Pages build (public/downloads/). The
+// Harbor build cannot host files, so both builds link to this one address.
+export const WSL_SETUP_BUNDLE_URL =
+  'https://dmedina5.github.io/CW-AI-Learning-Guide/downloads/wsl-claude-code-setup.zip';
+
 export const TIERS = {
   beginner: {
     label: 'Beginner',

