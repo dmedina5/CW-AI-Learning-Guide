@@ -17,6 +17,7 @@ before a byte is sent, and the app reads that verified address on the server.
 ```bash
 npm run harbor:build     # bundle + verify + package into gas/apps-script/
 npm run harbor:smoke     # render every route in a real browser, report painted size
+bash gas/scripts/check-route-text.sh [--tab Linux] /route "phrase"   # assert a phrase is painted on one route
 npm run harbor:preview /prompt-builder   # write gas/dist/preview.html for one route
 npm run harbor:push      # build, then clasp push
 npm run harbor:deploy    # build, push, and cut a new deployment version

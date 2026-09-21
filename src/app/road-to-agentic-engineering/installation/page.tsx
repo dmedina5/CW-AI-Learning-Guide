@@ -9,6 +9,7 @@ import { StepList } from '@/components/content/StepList';
 import { TierBadge } from '@/components/content/TierBadge';
 import { PlatformTabs } from '@/components/content/PlatformTabs';
 import { Tabs } from '@/components/content/Tabs';
+import { WSL_SETUP_BUNDLE_URL } from '@/lib/constants';
 
 export default function InstallationPage() {
   return (
@@ -167,6 +168,16 @@ export default function InstallationPage() {
           {{
             Windows: (
               <div>
+                <Callout variant="sage" className="mb-6">
+                  <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+                    <strong>Recommended for Windows: run Claude Code in Ubuntu on Windows (WSL).</strong>{' '}
+                    Click the <strong>&#x1F427; Linux</strong> tab above and follow <strong>Part 1</strong>. It is a
+                    guided, copy-paste setup that takes about an hour, and it avoids the path, permission,
+                    line-ending and antivirus problems that make Claude Code flaky in PowerShell. The options
+                    below install Claude Code directly on Windows and still work if you prefer that.
+                  </p>
+                </Callout>
+
                 <Callout variant="warning" className="mb-6">
                   <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
                     <strong>REQUIRED: Install Git for Windows FIRST.</strong> Claude Code requires Git Bash
@@ -290,6 +301,341 @@ npm install -g @anthropic-ai/claude-code`} />
             ),
             Linux: (
               <div>
+                <Callout variant="sage" className="mb-6">
+                  <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+                    <strong>On a Windows laptop? This is the recommended way to run Claude Code.</strong>{' '}
+                    Ubuntu is a version of Linux that Windows can run for you, built in and free
+                    (Microsoft calls it &ldquo;WSL&rdquo;). Claude Code runs best there. Follow{' '}
+                    <strong>Part 1</strong> below. Already on a real Linux machine? Skip to{' '}
+                    <strong>Part 2</strong>.
+                  </p>
+                </Callout>
+
+                {/* ---------------- Part 1: Windows users, via Ubuntu on Windows ---------------- */}
+                <div className="section-label" id="wsl-setup">Part 1 &mdash; Windows Users</div>
+                <h3 className="mb-3">Run Claude Code in Ubuntu on Windows</h3>
+                <p className="mb-4" style={{ color: 'var(--cw-ink-secondary)' }}>
+                  Most problems people hit running Claude Code on Windows are not Claude problems
+                  &mdash; they are Windows-terminal problems (file paths, permissions, line endings,
+                  antivirus scanning). Ubuntu on Windows sidesteps all of them. It is not a separate
+                  computer: you open a terminal tab and you are in Ubuntu. It starts in about a
+                  second, sees your Windows files and your network (including VPN), and your
+                  editor stays a normal Windows app. <strong>Nothing on Windows is deleted or changed.</strong>
+                </p>
+
+                <Card className="mb-4">
+                  <h4 className="mb-3">Before you start</h4>
+                  <div className="space-y-2">
+                    {[
+                      { label: 'Windows 11, or Windows 10 version 21H2 or newer', note: <>Press <kbd>Win</kbd>, type <code>winver</code>, press Enter to check</> },
+                      { label: 'Administrator rights for Step 1 only', note: 'If your laptop is locked down, ask IT to run that one command with you' },
+                      { label: 'About an hour, one reboot, roughly 5 GB of disk', note: 'Most of the hour is downloads' },
+                      { label: 'Your Claude sign-in', note: 'The same account IT approved. You sign in once, at the end' },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-baseline gap-2.5 text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                        <div className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1.5" style={{ background: 'var(--cw-primary)' }} />
+                        <span><strong>{item.label}</strong> &mdash; {item.note}</span>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+
+                <Callout variant="warning" className="mb-6">
+                  <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                    <strong>Two different windows, and it matters which one you type into.</strong> Every
+                    command box below is labelled either <strong>Windows PowerShell</strong> or{' '}
+                    <strong>Ubuntu</strong>. Type it into the one it names. Mixing them up is the single
+                    most common way to get stuck, and the error messages will not tell you that is why.
+                  </p>
+                </Callout>
+
+                <Card className="mb-4">
+                  <h4 className="mb-3">Step 1: Install Ubuntu</h4>
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    The only step that needs Administrator rights, and the only one that needs a reboot.
+                  </p>
+                  <StepList
+                    steps={[
+                      { title: 'Open PowerShell as Administrator', description: <>Press <kbd>Win</kbd>, type <code>powershell</code>, right-click <strong>Windows PowerShell</strong> and choose <strong>Run as administrator</strong>. Accept the prompt &mdash; the window title will say &ldquo;Administrator&rdquo;</> },
+                      { title: 'Run the one install command', description: 'Copy the box below and paste it in. Expect a few minutes and a progress bar' },
+                      { title: 'Reboot', description: 'Reboot when it asks. Reboot even if it looks like it finished without needing to' },
+                    ]}
+                  />
+                  <CodeBlock title="Windows PowerShell (as Administrator)" code={`wsl --install -d Ubuntu`} />
+                </Card>
+
+                <Card className="mb-4">
+                  <h4 className="mb-3">Step 2: Create your Ubuntu username and password</h4>
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    After the reboot, Ubuntu usually opens on its own and finishes setting up. If it
+                    does not, press <kbd>Win</kbd>, type <code>Ubuntu</code>, and open it. It asks for two things:
+                  </p>
+                  <StepList
+                    steps={[
+                      { title: 'Username', description: 'Lowercase, no spaces, short. It does not have to match your Windows name. Something like your first name is fine' },
+                      { title: 'Password', description: <><strong>Nothing appears as you type it &mdash; not even dots. That is normal.</strong> Type it, press Enter, type it again. Save it in your password manager; you need it whenever you install something</> },
+                    ]}
+                  />
+                  <p className="text-sm mt-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    When it finishes you get a line ending in <code>~$</code>, something like{' '}
+                    <code>rachel@LAPTOP-1234:~$</code>. That is Ubuntu. You are in.
+                  </p>
+                </Card>
+
+                <Card className="mb-4">
+                  <h4 className="mb-3">Step 3: Update Ubuntu</h4>
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    <code>sudo</code> means &ldquo;do this as administrator&rdquo; and asks for the Ubuntu
+                    password you just created (again, nothing shows as you type). Takes a few minutes the first time.
+                  </p>
+                  <CodeBlock title="Ubuntu" code={`sudo apt update && sudo apt upgrade -y && sudo apt install -y git curl unzip`} />
+                </Card>
+
+                <Card className="mb-4">
+                  <h4 className="mb-3">Step 4: Install Claude Code</h4>
+                  <CodeBlock title="Ubuntu" code={`curl -fsSL https://claude.ai/install.sh | bash`} />
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    Then <strong>close this Ubuntu tab and open a new one</strong> (press <kbd>Win</kbd>, type{' '}
+                    <code>Ubuntu</code>). The terminal only learns where new programs live when it starts,
+                    so the tab you installed in cannot see it yet. In the new tab, check:
+                  </p>
+                  <CodeBlock title="Ubuntu (new tab)" code={`claude --version`} />
+                  <Callout variant="sage" className="mt-3">
+                    <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                      You should see a version number. This is the native build: it updates itself in the
+                      background, and it does not need Node.js or anything else installed first.
+                    </p>
+                  </Callout>
+                </Card>
+
+                <Card className="mb-4">
+                  <h4 className="mb-3">Step 5: Make the terminal open Ubuntu by default</h4>
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    So that opening a terminal gives you Ubuntu rather than PowerShell.
+                  </p>
+                  <StepList
+                    steps={[
+                      { title: 'Open Windows Terminal', description: <>Press <kbd>Win</kbd>, type <code>Terminal</code>, open it</> },
+                      { title: 'Open its settings', description: <>Press <kbd>Ctrl + ,</kbd> (Control and the comma key)</> },
+                      { title: 'Set the default profile', description: <><strong>Startup</strong> &rarr; <strong>Default profile</strong> &rarr; choose <strong>Ubuntu</strong></> },
+                      { title: 'Make Windows Terminal the default terminal', description: <>Still under <strong>Startup</strong>: <strong>Default terminal application</strong> &rarr; <strong>Windows Terminal</strong></> },
+                      { title: 'Save', description: 'Click Save at the bottom right. PowerShell is still one click away in the dropdown whenever you want it' },
+                    ]}
+                  />
+                </Card>
+
+                <Card className="mb-4">
+                  <h4 className="mb-3">Step 6: Point VS Code at Ubuntu</h4>
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    VS Code itself stays a normal Windows app (install it from{' '}
+                    <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>code.visualstudio.com/download</a>{' '}
+                    if you have not already). These steps make its built-in terminal open Ubuntu, so{' '}
+                    <code>claude</code> runs on the Linux side.
+                  </p>
+                  <StepList
+                    steps={[
+                      { title: 'Install the WSL extension', description: <>Press <kbd>Ctrl + Shift + X</kbd>, search <strong>WSL</strong>, install the one published by <strong>Microsoft</strong></> },
+                      { title: 'Open your settings file', description: <>Press <kbd>Ctrl + Shift + P</kbd>, type <strong>Preferences: Open User Settings (JSON)</strong>, press Enter</> },
+                      { title: 'Add one line', description: <>Paste the box below inside the outermost <code>{'{ }'}</code>. If there are already settings in there, add a comma after the last one first</> },
+                      { title: 'Save and test', description: <>Save, then press <kbd>Ctrl + `</kbd> (the backtick key, top-left under <kbd>Esc</kbd>). The terminal that opens should show a Ubuntu prompt</> },
+                    ]}
+                  />
+                  <CodeBlock title="VS Code settings.json" code={`"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)"`} />
+                  <Callout variant="blue" className="mt-3">
+                    <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                      <strong>The better way, once you are comfortable:</strong> open the project from Ubuntu
+                      instead of from Windows. In a Ubuntu tab, go to your project folder and type{' '}
+                      <code>code .</code> &mdash; VS Code opens with <strong>WSL: Ubuntu</strong> in the bottom-left
+                      corner, and the editor, terminal and Claude Code are all on the fast Linux side.
+                    </p>
+                  </Callout>
+                </Card>
+
+                <Card className="mb-4">
+                  <h4 className="mb-3">Step 7: Point Antigravity at Ubuntu</h4>
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    Antigravity is built on the same foundation as VS Code, so it is the same setting.
+                    Skip this if you do not use Antigravity.
+                  </p>
+                  <StepList
+                    steps={[
+                      { title: 'Open your settings file', description: <>Press <kbd>Ctrl + Shift + P</kbd>, type <strong>Preferences: Open User Settings (JSON)</strong>, press Enter. Use this rather than hunting for the file &mdash; its location moves between versions</> },
+                      { title: 'Add one line', description: <>Paste the box below inside the outermost <code>{'{ }'}</code>, adding a comma after the previous setting if there is one</> },
+                      { title: 'Save and test', description: 'Save, open a new terminal panel. You should get a Ubuntu prompt' },
+                    ]}
+                  />
+                  <CodeBlock title="Antigravity settings.json" code={`"terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)"`} />
+                  <p className="text-sm mt-3 mb-2" style={{ color: 'var(--cw-ink-muted)' }}>
+                    If <strong>Ubuntu (WSL)</strong> is not offered in the terminal dropdown (Antigravity may not be
+                    able to install Microsoft&apos;s WSL extension), delete that line and paste this block
+                    instead. It calls the Ubuntu launcher that ships with Windows, so it needs nothing extra:
+                  </p>
+                  <CodeBlock title="Antigravity settings.json (fallback)" code={`"terminal.integrated.defaultProfile.windows": "Ubuntu",
+"terminal.integrated.profiles.windows": {
+  "Ubuntu": {
+    "path": "C:\\\\Windows\\\\System32\\\\wsl.exe",
+    "args": ["-d", "Ubuntu", "--cd", "~"],
+    "icon": "terminal-ubuntu"
+  }
+}`} />
+                  <Callout variant="blue" className="mt-3">
+                    <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                      <strong>Opening the project itself on the Linux side</strong> (the <code>code .</code> trick
+                      in Step 6) depends on Microsoft&apos;s WSL extension, which Antigravity may not be able
+                      to install. If yours cannot, the reliable arrangement is: open the project in
+                      Antigravity through <strong>File &gt; Open Folder</strong> using the address{' '}
+                      <code>\\wsl.localhost\Ubuntu\home\your-ubuntu-username</code>, and run <code>claude</code>{' '}
+                      in the Ubuntu terminal you just set up. Claude Code is then fully on Linux, which is
+                      the outcome that matters.
+                    </p>
+                  </Callout>
+                </Card>
+
+                <Card className="mb-4">
+                  <h4 className="mb-3">Step 8: Sign in and check</h4>
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    In any Ubuntu terminal (Windows Terminal, VS Code or Antigravity), start Claude Code:
+                  </p>
+                  <CodeBlock title="Ubuntu" code={`claude`} />
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    It opens a browser window on the Windows side. Sign in with the Claude account IT
+                    approved. You do this once; from then on it remembers. Then run Claude Code&apos;s own
+                    health check and make sure every line passes:
+                  </p>
+                  <CodeBlock title="Ubuntu" code={`claude doctor`} />
+                </Card>
+
+                <Card className="mb-4">
+                  <h4 className="mb-3">Step 9: Keep your code on the Ubuntu side</h4>
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    Ubuntu can see your Windows files (your <code>C:</code> drive appears as <code>/mnt/c</code>),
+                    but anything that touches many files at once is several times slower there. Keep
+                    projects in your Ubuntu home folder, written <code>~</code>. This is the single biggest
+                    performance decision in the whole setup.
+                  </p>
+                  <CodeBlock title="Ubuntu" code={`mkdir -p ~/repos && cd ~/repos
+# then clone or create your project here, e.g.
+# git clone https://github.com/CoverWhale/your-repo.git`} />
+                  <p className="text-sm mt-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    Two handy bridges: in a Ubuntu tab, <code>explorer.exe .</code> opens the current folder in
+                    Windows File Explorer. And in File Explorer&apos;s address bar,{' '}
+                    <code>\\wsl.localhost\Ubuntu\home\your-ubuntu-username</code> shows your Ubuntu files
+                    as a normal folder.
+                  </p>
+                </Card>
+
+                <Callout variant="sage" className="mb-4">
+                  <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                    <strong>That&apos;s it. Your daily routine from now on:</strong> open Windows Terminal (it lands
+                    in Ubuntu), <code>cd ~/repos/my-project</code>, type <code>claude</code>. With VS Code:{' '}
+                    <code>code .</code> from that folder, <kbd>Ctrl + `</kbd> for the terminal, <code>claude</code>.
+                    Claude Code updates itself; there is no reinstall step. Ubuntu keeps running quietly in
+                    the background after you close the tab, which is intentional and cheap.
+                  </p>
+                </Callout>
+
+                <Card className="mb-4">
+                  <h4 className="mb-3">Already using Claude Code on Windows? Bring your history with you</h4>
+                  <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+                    If you have been running Claude Code in PowerShell, you can carry your settings, prompt
+                    history, past conversations, project trust decisions, git identity and SSH keys across
+                    so <code>claude --resume</code> still finds your work. Download the setup bundle, which
+                    holds four scripts and a full walkthrough:
+                  </p>
+                  <p className="text-sm mb-3">
+                    <a href={WSL_SETUP_BUNDLE_URL} style={{ color: 'var(--cw-primary)', fontWeight: 600 }}>
+                      Download wsl-claude-code-setup.zip
+                    </a>
+                  </p>
+                  <Callout variant="warning" className="mb-3">
+                    <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                      <strong>Close Claude Code completely on the Windows side first</strong> &mdash; every
+                      window and every terminal tab. It rewrites its own settings while running, so copying
+                      from under a live session gives you a half-written file.
+                    </p>
+                  </Callout>
+                  <p className="text-sm mb-2" style={{ color: 'var(--cw-ink-muted)' }}>
+                    Unzip it into your Windows Downloads folder, then in Ubuntu (replace{' '}
+                    <code>your-windows-username</code> with the folder name you see under <code>C:\Users</code>):
+                  </p>
+                  <CodeBlock title="Ubuntu" code={`cp -r /mnt/c/Users/your-windows-username/Downloads/wsl-claude-code-setup ~/
+cd ~/wsl-claude-code-setup
+bash scripts/2-ubuntu-bootstrap.sh
+bash scripts/3-migrate-from-windows.sh
+bash scripts/4-verify.sh`} />
+                  <p className="text-xs mt-2" style={{ color: 'var(--cw-ink-muted)' }}>
+                    The migration script shows you its plan and waits for you to type <code>yes</code> before
+                    copying anything, backs up anything it would overwrite, and never touches the Windows
+                    side. Your saved login is the one thing it cannot bring &mdash; you sign in again once (Step 8).
+                  </p>
+                </Card>
+
+                <Card className="mb-8">
+                  <h4 className="mb-3">If something goes wrong</h4>
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-sm font-semibold mb-1" style={{ color: 'var(--cw-ink-secondary)' }}>
+                        <code>claude: command not found</code>
+                      </p>
+                      <p className="text-sm mb-2" style={{ color: 'var(--cw-ink-muted)' }}>
+                        The tab that ran the installer never reloaded. Close it and open a new Ubuntu tab. If it
+                        still happens, tell the terminal where Claude Code lives and try again:
+                      </p>
+                      <CodeBlock title="Ubuntu" code={`echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc && claude --version`} />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold mb-1" style={{ color: 'var(--cw-ink-secondary)' }}>
+                        <code>wsl --install</code> fails or prints an error code
+                      </p>
+                      <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
+                        On a work laptop this is almost always one of three things: virtualisation is switched
+                        off in the laptop&apos;s firmware, the Microsoft Store is blocked by policy, or Windows
+                        is too old. All three are IT jobs &mdash; send IT the exact error code, not a description.
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold mb-1" style={{ color: 'var(--cw-ink-secondary)' }}>
+                        Everything is slow
+                      </p>
+                      <p className="text-sm mb-2" style={{ color: 'var(--cw-ink-muted)' }}>
+                        Type <code>pwd</code>. If the answer starts with <code>/mnt/c</code>, you are working on
+                        the Windows drive &mdash; move the project to <code>~/repos</code> (Step 9). If that is not
+                        it, check Ubuntu is on version 2 &mdash; version 1 is the old, slow implementation:
+                      </p>
+                      <CodeBlock title="Windows PowerShell" code={`wsl --list --verbose
+# VERSION should read 2. If it reads 1:
+wsl --set-version Ubuntu 2`} />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold mb-1" style={{ color: 'var(--cw-ink-secondary)' }}>
+                        I forgot the Ubuntu password I just set
+                      </p>
+                      <p className="text-sm mb-2" style={{ color: 'var(--cw-ink-muted)' }}>
+                        Reset it from Windows without the old one (replace <code>your-ubuntu-username</code>):
+                      </p>
+                      <CodeBlock title="Windows PowerShell" code={`wsl -d Ubuntu -u root passwd your-ubuntu-username`} />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold mb-1" style={{ color: 'var(--cw-ink-secondary)' }}>
+                        I want to undo all of this
+                      </p>
+                      <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
+                        Open PowerShell and carry on as before &mdash; your Windows setup was never modified.
+                        To remove Ubuntu entirely, run <code>wsl --unregister Ubuntu</code> in PowerShell as
+                        Administrator (this deletes the Ubuntu files, so move anything you want to keep out first).
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-xs mt-4" style={{ color: 'var(--cw-ink-muted)' }}>
+                    The setup bundle above includes a longer troubleshooting guide covering the wrong copy of a
+                    tool running, line endings, SSH keys, VPN, and memory.
+                  </p>
+                </Card>
+
+                {/* ---------------- Part 2: a real Linux machine ---------------- */}
+                <div className="section-label">Part 2 &mdash; Already on a Linux Machine</div>
+                <h3 className="mb-4">Install directly</h3>
+
                 <Card className="mb-4">
                   <h4 className="mb-3">Option 1: Native Installer (Recommended)</h4>
                   <p className="text-sm mb-2" style={{ color: 'var(--cw-ink-muted)' }}>
@@ -865,6 +1211,16 @@ windsurf --version`} />
                   {{
                     'VS Code': (
                       <div>
+                        <Callout variant="blue" className="mb-4">
+                          <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                            <strong>Using Ubuntu on Windows (WSL)?</strong> Install VS Code on <em>Windows</em> as normal
+                            (the Windows tab&apos;s download steps), then make its terminal open Ubuntu: Step 6 under{' '}
+                            <Link href="/road-to-agentic-engineering/installation#wsl-setup" style={{ color: 'var(--cw-primary)' }}>
+                              Option B &rarr; Linux &rarr; Part 1
+                            </Link>{' '}
+                            covers the WSL extension and the one settings line. The commands below are for a real Linux machine.
+                          </p>
+                        </Callout>
                         <CodeBlock code={`# Debian/Ubuntu — download .deb from code.visualstudio.com/download
 sudo dpkg -i code_*.deb
 
@@ -884,6 +1240,17 @@ code .`} />
                           <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
                             Google now ships <strong>Antigravity IDE</strong> and the <strong>Antigravity CLI (<code>agy</code>)</strong> as two
                             separate installs. Install the IDE first, then the CLI.
+                          </p>
+                        </Callout>
+
+                        <Callout variant="blue" className="mb-4">
+                          <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                            <strong>Using Ubuntu on Windows (WSL)?</strong> Install Antigravity on <em>Windows</em> as normal
+                            (the Windows tab&apos;s steps), then make its terminal open Ubuntu: Step 7 under{' '}
+                            <Link href="/road-to-agentic-engineering/installation#wsl-setup" style={{ color: 'var(--cw-primary)' }}>
+                              Option B &rarr; Linux &rarr; Part 1
+                            </Link>{' '}
+                            has the settings line and a fallback for builds without the WSL extension. The steps below are for a real Linux machine.
                           </p>
                         </Callout>
 
