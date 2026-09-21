@@ -78,7 +78,7 @@ export function WorkflowSpectrum() {
   ];
 
   return (
-    <div className="my-8">
+    <div data-export-widget="Workflow spectrum" className="my-8">
       {/* SVG Spectrum */}
       <div
         className="glass-card p-6 overflow-x-auto"

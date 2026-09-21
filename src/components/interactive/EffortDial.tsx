@@ -10,7 +10,7 @@ export function EffortDial() {
   const peak = EFFORT_LEVELS[EFFORT_LEVELS.length - 1].costMultiplier;
 
   return (
-    <div>
+    <div data-export-widget="Effort dial">
       <div
         className="rounded-2xl p-6 md:p-8"
         style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)' }}

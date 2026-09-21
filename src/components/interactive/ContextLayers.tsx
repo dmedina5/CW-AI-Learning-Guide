@@ -38,7 +38,7 @@ export function ContextLayers() {
   const layer = LAYERS[activeLayer];
 
   return (
-    <div className="flex flex-col lg:flex-row gap-8 items-start mt-5">
+    <div data-export-widget="Context layers" className="flex flex-col lg:flex-row gap-8 items-start mt-5">
       {/* Stack visualization */}
       <div className="flex flex-col w-full lg:w-[340px] flex-shrink-0">
         <div className="flex flex-col gap-0">

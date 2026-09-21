@@ -140,7 +140,7 @@ export function PromptBuilder() {
   const inputStyle = { borderColor: 'var(--cw-primary-light)', background: '#fff' };
 
   return (
-    <div className="glass-card overflow-hidden">
+    <div data-export-widget="Prompt builder" className="glass-card overflow-hidden">
       {/* Header */}
       <div
         className="p-6 text-center text-white"

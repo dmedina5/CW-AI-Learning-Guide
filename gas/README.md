@@ -22,7 +22,18 @@ npm run harbor:preview /prompt-builder   # write gas/dist/preview.html for one r
 npm run harbor:push      # build, then clasp push
 npm run harbor:deploy    # build, push, and cut a new deployment version
 node gas/scripts/harbor-pages.mjs        # the 25 Harbor pages and their embed URLs
+npm run harbor:docx                      # the whole guide as one Word document, gas/dist/ai-learning-guide.docx
 ```
+
+`harbor:docx` is for people who need the text outside the site — HR building a
+tracked training in HiBob from it, for instance. It renders each of the 25
+pages in a real browser with `--export-all` (every platform tab, nested tab and
+quiz answer in the DOM at once — the `isExportMode()` switch in
+`src/lib/export-mode.ts`, which only the local preview ever turns on), then
+`build-docx.mjs` maps the painted HTML to headings, paragraphs, lists, code and
+tables. Interactive widgets appear as their text under an italic
+"Interactive on the site" line. It reads the browser's DOM rather than the JSX
+because what the reader sees is the only honest definition of the content.
 
 `clasp` needs the Windows credential file on this machine:
 

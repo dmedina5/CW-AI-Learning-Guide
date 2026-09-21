@@ -142,7 +142,7 @@ export function ModelRightSizer() {
   }, [result]);
 
   return (
-    <div>
+    <div data-export-widget="Model right-sizer">
       {/* Progress */}
       <div className="flex items-center gap-2 mb-4">
         {SIZER_QUESTIONS.map((q, i) => {

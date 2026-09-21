@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, type ReactNode } from 'react';
+import { isExportMode } from '@/lib/export-mode';
 
 interface TabsProps {
   tabs: string[];
@@ -11,6 +12,20 @@ interface TabsProps {
 
 export function Tabs({ tabs, children, defaultTab, storageKey }: TabsProps) {
   const [activeTab, setActiveTab] = useState(defaultTab ?? tabs[0]);
+
+  // The document export cannot click, so it gets every panel, each under its tab name.
+  if (isExportMode()) {
+    return (
+      <div>
+        {tabs.map(tab => (
+          <div key={tab} data-export-panel={tab}>
+            <h4 className="mt-4 mb-2 font-semibold">{tab}</h4>
+            {children[tab]}
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div>

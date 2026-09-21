@@ -17,7 +17,7 @@ export function RealityFilter() {
   const [filterOn, setFilterOn] = useState(false);
 
   return (
-    <div className="mt-5">
+    <div data-export-widget="Reality filter" className="mt-5">
       {/* Toggle */}
       <div className="flex items-center gap-4 mb-6">
         <button

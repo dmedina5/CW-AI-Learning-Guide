@@ -6,7 +6,7 @@ export function PromptComparison() {
   const [showResults, setShowResults] = useState(false);
 
   return (
-    <div>
+    <div data-export-widget="Prompt comparison">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-5">
         {/* Vague prompt */}
         <div

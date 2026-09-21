@@ -79,7 +79,7 @@ export function DecisionFlowchart() {
   };
 
   return (
-    <div className="my-6">
+    <div data-export-widget="Decision flowchart" className="my-6">
       <div
         className="glass-card p-8"
         style={{

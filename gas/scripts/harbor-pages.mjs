@@ -11,6 +11,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { TITLES, ORDER } from './harbor-titles.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const src = join(here, '..', 'apps-script');
@@ -34,38 +35,6 @@ const BASE = `https://script.google.com/a/macros/coverwhale.com/s/${deployment}/
 const config = readFileSync(join(src, 'Config.gs'), 'utf8');
 const contentRoutes = JSON.parse(config.match(/CONTENT_ROUTES = (\[[\s\S]*?\]);/)[1]);
 
-// Titles as they should read in Harbor's navigation. Taken from the guide's own
-// nav labels so the two agree.
-const TITLES = {
-  '/': 'AI Learning Guide',
-  '/ai-basics': 'AI Basics',
-  '/ai-basics/core-concepts': 'Core Concepts',
-  '/ai-basics/how-it-works': 'How It Works',
-  '/ai-basics/innovation': 'Innovation Flywheel',
-  '/ai-basics/models': 'Models',
-  '/ai-basics/strengths': 'Strengths & Limits',
-  '/prompt-engineering': 'Prompt Engineering',
-  '/prompt-builder': 'Prompt Builder',
-  '/context-engineering': 'Context Engineering',
-  '/claude-cowork': 'Claude Cowork',
-  '/choose-your-claude': 'Choose Your Claude',
-  '/right-size-your-model': 'Right-Size Your Model',
-  '/road-to-agentic-engineering': 'Road to Agentic Engineering',
-  '/road-to-agentic-engineering/installation': 'Installation',
-  '/road-to-agentic-engineering/setup': 'CW Setup',
-  '/road-to-agentic-engineering/champions': 'AI Enablement Champions',
-  '/road-to-agentic-engineering/fundamentals': 'Fundamentals',
-  '/road-to-agentic-engineering/workflows': 'Workflows',
-  '/road-to-agentic-engineering/tips': 'Tips & Tricks',
-  '/road-to-agentic-engineering/cheatsheet': 'Cheatsheet',
-  '/agentic-ai': 'Agentic AI',
-  '/agentic-ai/skills': 'Skills',
-  '/use-cases': 'Use Cases',
-  '/resources': 'Resources',
-};
-
-// Harbor nav order, parents before their children.
-const ORDER = Object.keys(TITLES);
 const ordered = ORDER.filter((r) => contentRoutes.includes(r));
 const missing = contentRoutes.filter((r) => !ORDER.includes(r));
 if (missing.length) {

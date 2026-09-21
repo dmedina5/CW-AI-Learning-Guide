@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { CheckCircle2, XCircle, RotateCcw } from 'lucide-react';
+import { isExportMode } from '@/lib/export-mode';
 
 interface QuizQuestion {
   question: string;
@@ -23,6 +24,30 @@ export function QuizBlock({ title, questions }: QuizBlockProps) {
   const [completed, setCompleted] = useState(false);
 
   const question = questions[currentQ];
+
+  // The document export cannot answer, so it gets every question with its
+  // correct option marked and the explanation shown — an answer key.
+  if (isExportMode()) {
+    return (
+      <div className="rounded-2xl p-8 my-6" data-export-quiz={title}>
+        <h3 className="text-lg font-bold mb-4">{title}</h3>
+        {questions.map((q, qi) => (
+          <div key={qi} className="mb-6">
+            <p className="text-base font-medium mb-2">{qi + 1}. {q.question}</p>
+            <ul className="space-y-1">
+              {q.options.map((option, i) => (
+                <li key={i} className="text-sm">
+                  {i === q.correctIndex ? '✓ ' : '○ '}{option}
+                  {i === q.correctIndex ? ' (correct)' : ''}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-2 text-sm"><em>Why: {q.explanation}</em></p>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   const handleSelect = (index: number) => {
     if (answered) return;
