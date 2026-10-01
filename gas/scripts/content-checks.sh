@@ -54,6 +54,11 @@ check /ai-basics/how-we-got-here \
   "How We Got Here" "AI Center of Excellence" "AI Acceptable Use Policy" \
   "CW Data Bot" "Claude Tag" "Fleet Submission Analyzer" \
   "DOI Complaint Automation" "HR Job Description Generator"
+# Product and Technology progress, drawn from how-we-work without naming it.
+check /ai-basics/how-we-got-here \
+  "Product and Technology" "rolls back on its own" "one command" \
+  "same definition of good" "Proof before it ships" \
+  '!The Standard' '!how-we-work'
 check --export-all /ai-basics/responsible-ai \
   "Using AI Responsibly" "AI-assisted" "subject matter expert" \
   "Think with AI, then listen to people, then announce." \
