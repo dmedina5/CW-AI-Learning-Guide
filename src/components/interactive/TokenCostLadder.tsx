@@ -22,7 +22,7 @@ function money(n: number): string {
 
 export function TokenCostLadder() {
   const [shapeKey, setShapeKey] = useState<string>('pages');
-  const [effortId, setEffortId] = useState<EffortId>('high');
+  const [effortId, setEffortId] = useState<EffortId>('medium');
   const [runs, setRuns] = useState(100);
 
   const shape = TASK_SHAPES[shapeKey];

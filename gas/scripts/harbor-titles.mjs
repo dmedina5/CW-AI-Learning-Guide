@@ -1,5 +1,5 @@
 /**
- * The 25 Harbor pages, in Harbor's navigation order (parents before children),
+ * The 28 Harbor pages, in Harbor's navigation order (parents before children),
  * with the title each one carries there. Titles come from the guide's own nav
  * labels so the two agree.
  *
@@ -15,9 +15,12 @@ export const TITLES = {
   '/ai-basics/innovation': 'Innovation Flywheel',
   '/ai-basics/models': 'Models',
   '/ai-basics/strengths': 'Strengths & Limits',
+  '/ai-basics/how-we-got-here': 'How We Got Here',
+  '/ai-basics/responsible-ai': 'Using AI Responsibly',
   '/prompt-engineering': 'Prompt Engineering',
   '/prompt-builder': 'Prompt Builder',
   '/context-engineering': 'Context Engineering',
+  '/moving-from-chatgpt': 'Moving from ChatGPT',
   '/claude-cowork': 'Claude Cowork',
   '/choose-your-claude': 'Choose Your Claude',
   '/right-size-your-model': 'Right-Size Your Model',

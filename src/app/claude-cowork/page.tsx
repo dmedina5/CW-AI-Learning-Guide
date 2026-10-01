@@ -7,6 +7,7 @@ import { Callout } from '@/components/content/Callout';
 import { TierBadge } from '@/components/content/TierBadge';
 import { StepList } from '@/components/content/StepList';
 import { PlatformTabs } from '@/components/content/PlatformTabs';
+import { ClaudePlanNotice } from '@/components/content/ClaudePlanNotice';
 
 export default function ClaudeCoworkPage() {
   return (
@@ -38,8 +39,8 @@ export default function ClaudeCoworkPage() {
 
         <Callout variant="sage">
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-            <strong>Anyone at Cover Whale with Claude Chat access can use Cowork.</strong> It&apos;s
-            built into the Claude Desktop App &mdash; just download it and click the Cowork tab.
+            <strong>Every seat on the Cover Whale Teams plan includes Cowork.</strong> It&apos;s
+            built into the Claude Desktop App &mdash; just download it and switch to Cowork.
             No additional license or approval needed.
           </p>
         </Callout>
@@ -231,8 +232,10 @@ export default function ClaudeCoworkPage() {
         </h2>
         <p className="mb-6" style={{ color: 'var(--cw-ink-secondary)' }}>
           Cowork is built into the Claude Desktop App. Install the app, sign in with your
-          Cover Whale Claude account, and click the Cowork tab.
+          Cover Whale Teams plan account, and switch to Cowork.
         </p>
+
+        <ClaudePlanNotice compact className="mb-6" />
 
         <PlatformTabs>
           {{
@@ -275,7 +278,7 @@ export default function ClaudeCoworkPage() {
                     description: (
                       <>
                         Open Claude from the Start menu or desktop shortcut. Sign in with
-                        your <strong>Cover Whale Claude account</strong> (the same credentials you
+                        your <strong>Cover Whale Teams plan account</strong> (the same credentials you
                         use for claude.ai in the browser).
                       </>
                     ),
@@ -332,7 +335,7 @@ export default function ClaudeCoworkPage() {
                       <>
                         Open Claude from Applications or Spotlight (Cmd+Space, type
                         &quot;Claude&quot;). Sign in with your{' '}
-                        <strong>Cover Whale Claude account</strong> (same credentials as
+                        <strong>Cover Whale Teams plan account</strong> (same credentials as
                         claude.ai in the browser).
                       </>
                     ),

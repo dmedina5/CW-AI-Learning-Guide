@@ -15,12 +15,15 @@ var PUBLISHED_ROUTES = [
   "/ai-basics",
   "/ai-basics/core-concepts",
   "/ai-basics/how-it-works",
+  "/ai-basics/how-we-got-here",
   "/ai-basics/innovation",
   "/ai-basics/models",
+  "/ai-basics/responsible-ai",
   "/ai-basics/strengths",
   "/choose-your-claude",
   "/claude-cowork",
   "/context-engineering",
+  "/moving-from-chatgpt",
   "/prompt-builder",
   "/prompt-engineering",
   "/resources",
@@ -44,7 +47,7 @@ var PUBLISHED_ROUTES = [
   "/vibe-coding/workflows"
 ];
 
-// The 25 routes that are real content and get a Harbor page.
+// The 28 routes that are real content and get a Harbor page.
 // The remainder are redirect stubs for the section's former name.
 var CONTENT_ROUTES = [
   "/",
@@ -53,12 +56,15 @@ var CONTENT_ROUTES = [
   "/ai-basics",
   "/ai-basics/core-concepts",
   "/ai-basics/how-it-works",
+  "/ai-basics/how-we-got-here",
   "/ai-basics/innovation",
   "/ai-basics/models",
+  "/ai-basics/responsible-ai",
   "/ai-basics/strengths",
   "/choose-your-claude",
   "/claude-cowork",
   "/context-engineering",
+  "/moving-from-chatgpt",
   "/prompt-builder",
   "/prompt-engineering",
   "/resources",

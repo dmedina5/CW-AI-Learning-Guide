@@ -11,6 +11,7 @@
     "harbor:build": "vite build --config gas/vite.config.ts && node gas/scripts/verify-bundle.mjs && node gas/scripts/package-apps-script.mjs",
     "harbor:preview": "node gas/scripts/preview.mjs",
     "harbor:smoke": "bash gas/scripts/smoke-routes.sh",
+    "harbor:checks": "bash gas/scripts/content-checks.sh",
     "harbor:push": "npm run harbor:build && cd gas/apps-script && clasp push --force",
     "harbor:deploy": "npm run harbor:push && cd gas/apps-script && clasp create-deployment --description \"Harbor embed\"",
     "harbor:docx": "npm run harbor:build && bash gas/scripts/export-docx.sh"

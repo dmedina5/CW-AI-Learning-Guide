@@ -5,10 +5,7 @@
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
-CHROME=$(ls "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe" 2>/dev/null | head -1)
-[[ -z "$CHROME" ]] && { echo "Chrome not found"; exit 1; }
-
-WINTMP="/mnt/c/Users/${WINUSER:-daniel.medina}/AppData/Local/Temp"
+source scripts/chrome.sh
 ROUTES=$(node -e "
   const {readFileSync}=require('node:fs');
   const c=readFileSync('apps-script/Config.gs','utf8');
@@ -18,10 +15,7 @@ ROUTES=$(node -e "
 pass=0; fail=0; failed_routes=()
 for route in $ROUTES; do
   CW_PREVIEW_OUT="dist/smoke.html" node scripts/preview.mjs "$route" >/dev/null || { echo "  BUILD-FAIL $route"; ((fail++)); continue; }
-  cp dist/smoke.html "$WINTMP/cw-smoke.html"
-  dom=$("$CHROME" --headless --disable-gpu --window-size=1400,2000 \
-        --virtual-time-budget=8000 --dump-dom \
-        "file:///C:/Users/${WINUSER:-daniel.medina}/AppData/Local/Temp/cw-smoke.html" 2>/dev/null)
+  dom=$(render_dom dist/smoke.html)
   painted=$(printf '%s' "$dom" | python3 -c "
 import re,sys
 h=sys.stdin.read()

@@ -93,19 +93,19 @@ const usefulLinks = [
   {
     name: 'Claude AI',
     url: 'https://claude.ai',
-    description: 'Anthropic\'s AI assistant. Our recommended tool for most tasks. Excellent reasoning, long context window, and strong safety practices.',
+    description: 'Anthropic\'s AI assistant and Cover Whale\'s AI tool of record. Use it on the Cover Whale Teams plan. Excellent reasoning, long context window, and strong safety practices.',
     color: '#D97706',
   },
   {
     name: 'Gemini',
     url: 'https://gemini.google.com',
-    description: 'Google\'s AI assistant with deep integration into Google Workspace (Docs, Sheets, Gmail). 1M token context window for massive documents.',
+    description: 'Google\'s AI assistant with deep integration into Google Workspace (Docs, Sheets, Gmail). 1M token context window for massive documents. Check the AI Acceptable Use Policy\'s approved list before using it for work.',
     color: '#4285F4',
   },
   {
     name: 'ChatGPT',
     url: 'https://chat.openai.com',
-    description: 'OpenAI\'s widely-used AI assistant. Strong general capabilities, image generation (DALL-E), and a large plugin ecosystem.',
+    description: 'OpenAI\'s widely-used AI assistant. Not for Cover Whale work after October 8, 2026, when our ChatGPT for Business subscription ends; personal accounts are prohibited under the AI Acceptable Use Policy.',
     color: '#10A37F',
   },
 ];

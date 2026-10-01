@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Lightbulb, Layers, RotateCcw, Cpu, Scale } from 'lucide-react';
+import { ArrowRight, Lightbulb, Layers, RotateCcw, Cpu, Scale, History, ShieldCheck } from 'lucide-react';
 import { Card, CardGrid } from '@/components/content/Card';
 import { Callout } from '@/components/content/Callout';
 import { TierBadge } from '@/components/content/TierBadge';
@@ -36,6 +36,18 @@ const SUBTOPICS = [
     description: 'Where AI shines, where it doesn\'t, and where you step in. An honest assessment plus your role in the loop.',
     href: '/ai-basics/strengths',
     icon: Scale,
+  },
+  {
+    title: 'How We Got Here',
+    description: 'Cover Whale\'s year with AI: one assistant, shared rules, and the tools our departments now use.',
+    href: '/ai-basics/how-we-got-here',
+    icon: History,
+  },
+  {
+    title: 'Using AI Responsibly',
+    description: 'Review every answer, know the role of the subject matter expert, and what AI-assisted really means.',
+    href: '/ai-basics/responsible-ai',
+    icon: ShieldCheck,
   },
 ];
 

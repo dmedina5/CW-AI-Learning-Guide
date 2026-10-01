@@ -4,22 +4,20 @@
 #
 #   bash gas/scripts/export-docx.sh [out.docx]
 #
-# Renders each of the 25 Harbor pages in a real browser with --export-all, so
+# Renders each Harbor page (harbor-titles.mjs) in a real browser with --export-all, so
 # every platform tab, nested tab and quiz answer is in the DOM at once, then
 # build-docx.mjs turns the painted HTML into headings, paragraphs, lists, code
 # and tables. Rendering rather than reading the source is deliberate: the
 # source is JSX spread across 33 files and 14 components, and what the reader
 # sees is the only honest definition of "the content".
 #
-# Needs Windows Chrome, like smoke-routes.sh. Fails if any page paints nothing,
+# Needs Chrome (Windows from WSL, or macOS), found by chrome.sh. Fails if any page paints nothing,
 # because a silent empty section is worse than no document.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
 out="${1:-dist/ai-learning-guide.docx}"
-CHROME=$(ls "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe" 2>/dev/null | head -1)
-[[ -z "$CHROME" ]] && { echo "Chrome not found"; exit 1; }
-WINTMP="/mnt/c/Users/${WINUSER:-daniel.medina}/AppData/Local/Temp"
+source scripts/chrome.sh
 
 [[ -f apps-script/Config.gs ]] || { echo "No packaged bundle — run: npm run harbor:build"; exit 1; }
 mkdir -p dist/export
@@ -34,11 +32,7 @@ for i in "${!routes[@]}"; do
   route="${routes[$i]}"; slug="${slugs[$i]}"
   CW_PREVIEW_OUT="dist/export.html" node scripts/preview.mjs "$route" --no-nav --export-all >/dev/null \
     || { echo "  BUILD-FAIL $route"; fail=1; continue; }
-  cp dist/export.html "$WINTMP/cw-export.html"
-  "$CHROME" --headless --disable-gpu --window-size=1400,2000 \
-      --virtual-time-budget=8000 --dump-dom \
-      "file:///C:/Users/${WINUSER:-daniel.medina}/AppData/Local/Temp/cw-export.html" 2>/dev/null \
-      > "dist/export/$slug.html"
+  render_dom dist/export.html > "dist/export/$slug.html"
   # The bundle is inlined as a <script>; strip it or every page's SOURCE would
   # count as painted text (the same trap check-route-text.sh names).
   python3 - "dist/export/$slug.html" <<'PY'

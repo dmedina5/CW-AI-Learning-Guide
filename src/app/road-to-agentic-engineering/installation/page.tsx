@@ -30,7 +30,7 @@ export default function InstallationPage() {
           <h3 className="mb-3">Claude Code Requirements</h3>
           <div className="space-y-2">
             {[
-              { label: 'Claude Pro/Max account or Console access', note: 'For authentication' },
+              { label: 'A seat on the Cover Whale Teams plan', note: 'For authentication. Ask Daniel Medina if you do not have one yet' },
               { label: 'macOS 13.0+, Ubuntu 20.04+/Debian 10+, or Windows 10 1809+', note: 'Supported platforms' },
               { label: '4 GB+ RAM and internet connection', note: 'Minimum system requirements' },
             ].map((item, i) => (
@@ -692,7 +692,7 @@ npm install -g @anthropic-ai/claude-code`} />
             },
             {
               title: 'Authenticate when prompted',
-              description: 'You will need a Claude Pro/Max account or Console access',
+              description: 'Sign in with your Cover Whale Teams plan account. If you belong to more than one Claude organization, pick Coverwhale Teams',
             },
           ]}
         />
