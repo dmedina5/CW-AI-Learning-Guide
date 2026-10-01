@@ -3,11 +3,13 @@
  * /right-size-your-model.
  *
  * Source of truth for the ladder and the "start small, step up" rule is the
- * AI CoE Week 11 sync (Models, Effort & Org Skills, 2026-07-13). Model names
- * and prices are refreshed against the current lineup — the deck's Opus 4.8
- * has been superseded by Opus 5 as the Claude Code default.
+ * AI CoE Week 11 sync (Models, Effort & Org Skills, 2026-07-13). Model names,
+ * prices and effort defaults are refreshed against the October 2026 lineup:
+ * Opus 5.5, Sonnet 5.5 and Fable 5.1 replace Opus 5, Sonnet 5 and Fable 5, and
+ * Opus 5.5 is the Claude Code default model on every Claude plan.
  *
- * Prices are Anthropic first-party API list rates per 1M tokens.
+ * Prices are Anthropic first-party API list rates per 1M tokens. Effort
+ * defaults are Claude Code's (code.claude.com/docs/en/model-config).
  */
 
 export type ModelId = 'haiku' | 'sonnet' | 'opus' | 'fable';
@@ -54,42 +56,42 @@ export const CLAUDE_MODELS: ClaudeModel[] = [
   },
   {
     id: 'sonnet',
-    name: 'Claude Sonnet 5',
-    apiId: 'claude-sonnet-5',
+    name: 'Claude Sonnet 5.5',
+    apiId: 'claude-sonnet-5-5',
     priceTier: '$$',
     label: 'Balanced workhorse',
     color: '#4A6FA5',
     context: '1M',
     contextTokens: 1_000_000,
-    inputPrice: 3,
-    outputPrice: 15,
-    relativeCost: 3,
-    summary: 'The best balance of speed and intelligence. Near-Opus quality on coding.',
+    inputPrice: 2,
+    outputPrice: 10,
+    relativeCost: 2,
+    summary: 'The current Sonnet: speed and capability for everyday writing, research, analysis and coding.',
     bestFor: 'Most day-to-day work: writing, research, analysis, routine coding.',
     hasEffortDial: true,
-    notes: 'Where most everyday work belongs. If you are unsure, this is the honest default.',
+    notes: 'Where most everyday work belongs, and only 2x Haiku per token. If you are unsure, this is the honest default.',
   },
   {
     id: 'opus',
-    name: 'Claude Opus 5',
-    apiId: 'claude-opus-5',
+    name: 'Claude Opus 5.5',
+    apiId: 'claude-opus-5-5',
     priceTier: '$$$',
     label: 'Most capable · Claude Code default',
     color: '#6B2D8B',
     context: '1M',
     contextTokens: 1_000_000,
-    inputPrice: 5,
-    outputPrice: 25,
-    relativeCost: 5,
-    summary: 'Highly autonomous. State of the art on long, multi-step and knowledge work.',
+    inputPrice: 4,
+    outputPrice: 20,
+    relativeCost: 4,
+    summary: 'The current Opus. Built for long-running agentic coding and knowledge work, and cheaper than Opus 5 was.',
     bestFor: 'Hard reasoning, complex builds, long-horizon autonomous tasks.',
     hasEffortDial: true,
-    notes: 'Costs 5x Haiku per token before you touch the effort dial. Worth it on hard problems, wasted on easy ones.',
+    notes: 'Thinking is always on, so effort is the only control. Costs 4x Haiku per token before you touch the dial: worth it on hard problems, wasted on easy ones.',
   },
   {
     id: 'fable',
-    name: 'Claude Fable 5',
-    apiId: 'claude-fable-5',
+    name: 'Claude Fable 5.1',
+    apiId: 'claude-fable-5-1',
     priceTier: '$$$$',
     label: 'The frontier',
     color: '#B45309',
@@ -98,11 +100,38 @@ export const CLAUDE_MODELS: ClaudeModel[] = [
     inputPrice: 10,
     outputPrice: 50,
     relativeCost: 10,
-    summary: 'The most capable model available, for the most demanding reasoning.',
+    summary: 'Anthropic\'s most capable model, for the most demanding reasoning and work bigger than one sitting.',
     bestFor: 'The hardest, longest problems, when Opus genuinely is not enough.',
     hasEffortDial: true,
-    notes: 'Thinking is always on and cannot be switched off. Reach for it after Opus has fallen short, not before.',
+    notes: 'Thinking is always on and cannot be switched off. It is never the default; you pick it on purpose, after Opus has fallen short.',
   },
+];
+
+/**
+ * The models the ladder replaced in October 2026, with their list prices, so
+ * the page can say what changed. They are still served and may still appear
+ * in a model picker; the newer model costs the same or less.
+ *
+ * Sonnet 5 is $2 / $10 on Anthropic's price list. Before October this page
+ * showed $3 / $15 for it, which is the older Sonnet 4.6 rate; `correction`
+ * says so on the page rather than leaving readers to spot the change.
+ */
+export const PREVIOUS_MODELS: Array<{
+  name: string;
+  inputPrice: number;
+  outputPrice: number;
+  replacedBy: ModelId;
+  correction?: string;
+}> = [
+  { name: 'Claude Opus 5', inputPrice: 5, outputPrice: 25, replacedBy: 'opus' },
+  {
+    name: 'Claude Sonnet 5',
+    inputPrice: 2,
+    outputPrice: 10,
+    replacedBy: 'sonnet',
+    correction: 'This page used to show $3 / $15 for Sonnet, which was the older Sonnet 4.6 price.',
+  },
+  { name: 'Claude Fable 5', inputPrice: 10, outputPrice: 50, replacedBy: 'fable' },
 ];
 
 export function getModel(id: ModelId): ClaudeModel {
@@ -133,28 +162,28 @@ export const EFFORT_LEVELS: EffortLevel[] = [
   {
     id: 'medium',
     name: 'medium',
-    label: 'Light reasoning',
+    label: 'Where Opus 5.5 and Sonnet 5.5 start',
     color: '#5FA37A',
-    what: 'A short think before answering. Enough to catch the obvious mistakes.',
-    bestFor: 'Routine drafting, straightforward extraction, tidying a document.',
+    what: 'A short think before answering. Claude Code starts Opus 5.5 and Sonnet 5.5 here until you choose another level.',
+    bestFor: 'Routine drafting, extraction, everyday questions and a lot of day-to-day coding.',
     costMultiplier: 1.7,
   },
   {
     id: 'high',
     name: 'high',
-    label: 'The default',
+    label: 'Work that matters',
     color: '#4A6FA5',
-    what: 'Balanced thinking, the sweet spot for quality against speed and tokens.',
-    bestFor: 'Most real work. The minimum for anything that actually matters.',
+    what: 'Balanced thinking, the sweet spot for quality against speed and tokens. Still the default on older models.',
+    bestFor: 'Anything that actually matters. The first step up when medium falls short.',
     costMultiplier: 3,
   },
   {
     id: 'xhigh',
     name: 'xhigh',
-    label: 'Claude Code default',
+    label: 'Building and agentic work',
     color: '#6B2D8B',
     what: 'More thinking before acting: deeper planning and more deliberate tool use.',
-    bestFor: 'Coding and agentic work. Building, debugging, multi-step tasks.',
+    bestFor: 'Hard coding and agentic work. Building, debugging, long multi-step tasks.',
     costMultiplier: 5,
   },
   {
@@ -427,7 +456,7 @@ export interface SizerResult {
   fableNote: string | null;
   /** Set when the reflex pick would have cost meaningfully more. */
   overbuyWarning: string | null;
-  /** What the reflex pick (Opus 5 at xhigh) costs, as a multiple of the recommendation. */
+  /** What the reflex pick (Opus 5.5 at xhigh) costs, as a multiple of the recommendation. */
   reflexMultiple: number;
   /** Set when a cheaper model was ruled out because the input would not fit. */
   contextNote: string | null;
@@ -515,7 +544,7 @@ export function sizeIt(answers: Answers): SizerResult | null {
   const work = answers.work;
   const fableNote =
     modelScore >= 3.5 && (work === 'judge' || work === 'build')
-      ? 'Your answers sit at the very top of the ladder: a hard, high-stakes problem where a wrong answer stays hidden. This is the narrow case where Claude Fable 5 earns its price, but only after Opus 5 has actually tried and fallen short. Going frontier-first is still over-buying.'
+      ? 'Your answers sit at the very top of the ladder: a hard, high-stakes problem where a wrong answer stays hidden. This is the narrow case where Claude Fable 5.1 earns its price, but only after Opus 5.5 has actually tried and fallen short. Going frontier-first is still over-buying.'
       : null;
 
   const reflexCost = estimateCost(getModel('opus'), getEffort('xhigh'), shape);
@@ -524,7 +553,7 @@ export function sizeIt(answers: Answers): SizerResult | null {
 
   const overbuyWarning =
     reflexMultiple >= 2
-      ? `Reaching for Opus 5 at xhigh out of habit would cost roughly ${reflexMultiple.toFixed(1)}x this run, buying thinking this task never asked for.`
+      ? `Reaching for Opus 5.5 at xhigh out of habit would cost roughly ${reflexMultiple.toFixed(1)}x this run, buying thinking this task never asked for.`
       : null;
 
   const headline = model.hasEffortDial

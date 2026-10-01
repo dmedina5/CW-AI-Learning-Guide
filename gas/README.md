@@ -17,12 +17,24 @@ before a byte is sent, and the app reads that verified address on the server.
 ```bash
 npm run harbor:build     # bundle + verify + package into gas/apps-script/
 npm run harbor:smoke     # render every route in a real browser, report painted size
-bash gas/scripts/check-route-text.sh [--tab Linux] /route "phrase"   # assert a phrase is painted on one route
+bash gas/scripts/check-route-text.sh [--tab Linux] /route "phrase" '!gone'   # assert a phrase is (or is not) painted on one route
+bash gas/scripts/content-checks.sh       # every content promise, route by route
 npm run harbor:preview /prompt-builder   # write gas/dist/preview.html for one route
 npm run harbor:push      # build, then clasp push
 npm run harbor:deploy    # build, push, and cut a new deployment version
-node gas/scripts/harbor-pages.mjs        # the 25 Harbor pages and their embed URLs
+node gas/scripts/harbor-pages.mjs        # the 28 Harbor pages and their embed URLs
+npm run harbor:docx                      # the whole guide as one Word document, gas/dist/ai-learning-guide.docx
 ```
+
+`harbor:docx` is for people who need the text outside the site — HR building a
+tracked training in HiBob from it, for instance. It renders each of the 25
+pages in a real browser with `--export-all` (every platform tab, nested tab and
+quiz answer in the DOM at once — the `isExportMode()` switch in
+`src/lib/export-mode.ts`, which only the local preview ever turns on), then
+`build-docx.mjs` maps the painted HTML to headings, paragraphs, lists, code and
+tables. Interactive widgets appear as their text under an italic
+"Interactive on the site" line. It reads the browser's DOM rather than the JSX
+because what the reader sees is the only honest definition of the content.
 
 `clasp` needs the Windows credential file on this machine:
 
@@ -81,7 +93,7 @@ file's local sha256 against what the server hands back — a local preview canno
 this class of damage, since it reads the files straight off disk.
 
 **A new deployment id changes every Harbor URL.** `clasp create-deployment` mints
-a new id. To ship a content change without re-editing 25 Harbor pages, update the
+a new id. To ship a content change without re-editing 28 Harbor pages, update the
 *existing* deployment instead of creating one:
 
 ```bash
@@ -91,6 +103,8 @@ cd gas/apps-script && clasp update-deployment "$(cat ../.deployment)"
 
 ## Not covered
 
-- The 25 Harbor pages are created by hand. New Google Sites has no API.
+- The 28 Harbor pages are created by hand. New Google Sites has no API. A new
+  route is reachable through the guide's own navigation inside any Harbor page
+  before its own page exists.
 - The Champions section's text still ships inside the bundle, as it does on the
   public build. The server decides *access*; it does not withhold the bytes.

@@ -7,6 +7,7 @@ import { Callout } from '@/components/content/Callout';
 import { CodeBlock } from '@/components/content/CodeBlock';
 import { StepList } from '@/components/content/StepList';
 import { TierBadge } from '@/components/content/TierBadge';
+import { ClaudePlanNotice } from '@/components/content/ClaudePlanNotice';
 
 export default function SetupPage() {
   return (
@@ -38,14 +39,16 @@ export default function SetupPage() {
 
         <Callout variant="blue" className="mt-6">
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-            <strong>Steps 1 &amp; 2 already done?</strong> If you have a Claude account and
-            Claude Code installed from the{' '}
+            <strong>Steps 1 &amp; 2 already done?</strong> If you are signed in to the Cover Whale
+            Teams plan and have Claude Code installed from the{' '}
             <Link href="/road-to-agentic-engineering/installation" style={{ color: 'var(--cw-primary)' }}>
               Installation Guide
             </Link>
             , you&apos;re ready to continue here with Step 3.
           </p>
         </Callout>
+
+        <ClaudePlanNotice className="mt-4" />
       </section>
 
       {/* Section: Step 3 — GitHub Account & Organization */}

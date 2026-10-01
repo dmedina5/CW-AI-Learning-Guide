@@ -23,7 +23,7 @@ const STATS = [
 
 export function InnovationFlywheel() {
   return (
-    <div className="flex flex-col lg:flex-row gap-8 items-start mt-6">
+    <div data-export-widget="Innovation flywheel" className="flex flex-col lg:flex-row gap-8 items-start mt-6">
       {/* Spinning flywheel */}
       <div className="relative w-[280px] h-[280px] flex-shrink-0 mx-auto lg:mx-0">
         <svg

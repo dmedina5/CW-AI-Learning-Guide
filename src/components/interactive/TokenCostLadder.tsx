@@ -22,7 +22,7 @@ function money(n: number): string {
 
 export function TokenCostLadder() {
   const [shapeKey, setShapeKey] = useState<string>('pages');
-  const [effortId, setEffortId] = useState<EffortId>('high');
+  const [effortId, setEffortId] = useState<EffortId>('medium');
   const [runs, setRuns] = useState(100);
 
   const shape = TASK_SHAPES[shapeKey];
@@ -47,7 +47,7 @@ export function TokenCostLadder() {
   }, [shape, effort]);
 
   return (
-    <div
+    <div data-export-widget="Token cost ladder"
       className="rounded-2xl p-6 md:p-8"
       style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)' }}
     >

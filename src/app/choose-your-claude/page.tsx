@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Card, CardGrid } from '@/components/content/Card';
 import { Callout } from '@/components/content/Callout';
 import { TierBadge } from '@/components/content/TierBadge';
+import { ClaudePlanNotice } from '@/components/content/ClaudePlanNotice';
 import { ClaudeRecommender } from '@/components/interactive/ClaudeRecommender';
 import { CLAUDE_PRODUCTS } from '@/lib/claude-products';
 
@@ -13,9 +14,12 @@ export default function ChooseYourClaudePage() {
     <div>
       <TierBadge tier="beginner" />
       <h1 className="mt-4 mb-4">Choose Your Claude</h1>
-      <p className="mb-12">
-        Same AI. Three different ways to use it. Find the one that fits how you work.
+      <p className="mb-6">
+        Same AI. Three different ways to use it. Find the one that fits how you work. All three
+        come with every seat on the Cover Whale Teams plan.
       </p>
+
+      <ClaudePlanNotice compact className="mb-12" />
 
       {/* Section: Interactive Recommender */}
       <section className="mb-16" id="recommender">

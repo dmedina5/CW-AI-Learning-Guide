@@ -7,7 +7,10 @@
  * it deliberately cannot cover is the two things only the live deployment can
  * show: the identity Google injects, and behaviour inside a Harbor frame.
  *
- *   node gas/scripts/preview.mjs [route] [--no-embed]
+ *   node gas/scripts/preview.mjs [route] [--no-embed] [--no-nav] [--export-all]
+ *
+ * --export-all renders every tab panel and quiz answer at once; it exists for
+ * the document export, which reads the page without clicking.
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -37,6 +40,7 @@ const boot = {
   embed,
   showNav: !process.argv.includes('--no-nav'),
   deploymentId: 'local-preview',
+  exportAll: process.argv.includes('--export-all'),
 };
 
 const html = [

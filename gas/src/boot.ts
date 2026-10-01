@@ -16,6 +16,11 @@ export type BootData = {
    */
   showNav: boolean;
   deploymentId: string;
+  /**
+   * Render every tab panel and quiz answer at once, for the document export
+   * (gas/scripts/export-docx.sh). Only the local preview ever sets it.
+   */
+  exportAll?: boolean;
 };
 
 const FALLBACK: BootData = {

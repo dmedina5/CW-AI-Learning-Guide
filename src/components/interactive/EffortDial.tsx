@@ -5,12 +5,12 @@ import { Layers, Zap } from 'lucide-react';
 import { EFFORT_LEVELS } from '@/lib/claude-models';
 
 export function EffortDial() {
-  const [index, setIndex] = useState(2); // high — the default
+  const [index, setIndex] = useState(1); // medium — where Opus 5.5 and Sonnet 5.5 start
   const level = EFFORT_LEVELS[index];
   const peak = EFFORT_LEVELS[EFFORT_LEVELS.length - 1].costMultiplier;
 
   return (
-    <div>
+    <div data-export-widget="Effort dial">
       <div
         className="rounded-2xl p-6 md:p-8"
         style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)' }}
@@ -116,13 +116,15 @@ export function EffortDial() {
         <div className="flex items-center gap-2.5 mb-2">
           <Layers size={18} style={{ color: 'var(--cw-warning)' }} />
           <h3 className="text-lg font-bold" style={{ color: 'var(--cw-ink)' }}>
-            <code className="font-mono">ultracode</code> is a mode, not a level
+            <code className="font-mono">ultracode</code> is a setting, not a level
           </h3>
         </div>
         <p className="text-base mb-3" style={{ color: 'var(--cw-ink-secondary)' }}>
-          It does not sit on the dial above. <code>ultracode</code> fans out a team of sub-agents
-          and adversarially verifies the result, so a single request can become dozens of model
-          runs. That makes it the largest single cost decision on this page.
+          It does not sit on the dial above. Turn it on in Claude Code with{' '}
+          <code>/effort ultracode</code> and Claude runs substantive tasks as workflows: teams of
+          sub-agents working and checking each other, at whatever effort level you are on. A single
+          request can become dozens of model runs, which makes it the largest single cost decision
+          on this page.
         </p>
         <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
           <strong style={{ color: 'var(--cw-ink)' }}>Best for:</strong> audits, exhaustive reviews,
@@ -144,10 +146,11 @@ export function EffortDial() {
           <Zap size={18} className="flex-shrink-0 mt-1" style={{ color: 'var(--cw-primary)' }} />
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
             <strong style={{ color: 'var(--cw-ink)' }}>Match the effort to the stakes.</strong>{' '}
-            <code>high</code> by default, <code>xhigh</code> when you are building, and{' '}
-            <code>max</code> or <code>ultracode</code> only when correctness must beat speed and
-            cost. <code>low</code> and <code>medium</code> are not lesser settings — they are the
-            right answer for quick, simple, high-volume work.
+            <code>medium</code> is where the 5.5 models start, <code>high</code> for work that
+            matters, <code>xhigh</code> when you are building, and <code>max</code> or{' '}
+            <code>ultracode</code> only when correctness must beat speed and cost. <code>low</code>{' '}
+            and <code>medium</code> are not lesser settings — they are the right answer for quick,
+            simple, high-volume work.
           </p>
         </div>
       </div>

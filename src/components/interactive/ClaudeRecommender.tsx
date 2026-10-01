@@ -42,7 +42,7 @@ export function ClaudeRecommender() {
   const confidenceColor = result?.confidence === 'strong' ? 'var(--cw-success)' : 'var(--cw-info)';
 
   return (
-    <div>
+    <div data-export-widget="Claude recommender">
       {/* Input Section */}
       <Card className="mb-6">
         <div className="flex items-center gap-2 mb-4">

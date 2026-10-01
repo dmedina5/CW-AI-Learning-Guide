@@ -11,8 +11,10 @@
     "harbor:build": "vite build --config gas/vite.config.ts && node gas/scripts/verify-bundle.mjs && node gas/scripts/package-apps-script.mjs",
     "harbor:preview": "node gas/scripts/preview.mjs",
     "harbor:smoke": "bash gas/scripts/smoke-routes.sh",
+    "harbor:checks": "bash gas/scripts/content-checks.sh",
     "harbor:push": "npm run harbor:build && cd gas/apps-script && clasp push --force",
-    "harbor:deploy": "npm run harbor:push && cd gas/apps-script && clasp create-deployment --description \"Harbor embed\""
+    "harbor:deploy": "npm run harbor:push && cd gas/apps-script && clasp create-deployment --description \"Harbor embed\"",
+    "harbor:docx": "npm run harbor:build && bash gas/scripts/export-docx.sh"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.7.0",
@@ -27,6 +29,8 @@
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "autoprefixer": "^10.4.20",
+    "docx": "^9.7.1",
+    "node-html-parser": "^7.1.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.3"

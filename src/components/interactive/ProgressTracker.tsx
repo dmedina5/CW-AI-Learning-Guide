@@ -51,7 +51,7 @@ export function ProgressTracker() {
   }, {} as Record<TierKey, Section[]>);
 
   return (
-    <div
+    <div data-export-widget="Progress tracker"
       className="rounded-2xl p-6"
       style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)' }}
     >

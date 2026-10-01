@@ -180,7 +180,8 @@ claude`}
           <Card number="02">
             <h3 className="mb-2">Authenticate</h3>
             <p className="text-base" style={{ color: 'var(--cw-ink-muted)' }}>
-              Log in with your Claude Pro/Max account or API key provided by IT.
+              Sign in with your Cover Whale Teams plan account: run <code>/login</code> and pick
+              the Teams plan.
             </p>
           </Card>
           <Card number="03">

@@ -21,7 +21,7 @@ export function ContextDemo() {
   };
 
   return (
-    <div
+    <div data-export-widget="Context demo"
       className="rounded-2xl p-8 mt-5 max-w-3xl"
       style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)' }}
     >

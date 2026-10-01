@@ -164,7 +164,7 @@ export default function AgenticAIPage() {
           steps={[
             {
               title: 'Stage 1: AI as a Chat Partner',
-              description: 'Ask questions, get answers. Use ChatGPT, Claude.ai, or Gemini web for one-off tasks. Manual copy-paste workflow.',
+              description: 'Ask questions, get answers. Use Claude on the Cover Whale Teams plan for one-off tasks. Manual copy-paste workflow.',
             },
             {
               title: 'Stage 2: AI as a Coding Assistant',

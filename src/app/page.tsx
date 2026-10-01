@@ -3,12 +3,13 @@
 import Link from 'next/link';
 import {
   Brain, MessageSquare, Wand2, Code2, Bot,
-  Briefcase, BookOpen, ArrowRight, Sparkles, Layers,
+  Briefcase, BookOpen, ArrowRight, Sparkles, Layers, ShieldCheck,
 } from 'lucide-react';
 import { Card, CardGrid } from '@/components/content/Card';
 import { Callout } from '@/components/content/Callout';
 import { TierBadge } from '@/components/content/TierBadge';
-import { TIERS } from '@/lib/constants';
+import { ClaudePlanNotice } from '@/components/content/ClaudePlanNotice';
+import { CHATGPT_END_DATE, TIERS } from '@/lib/constants';
 
 const LEARNING_PATH = [
   {
@@ -17,6 +18,7 @@ const LEARNING_PATH = [
     description: 'Understanding what AI is, how it works, and where it fits into your role.',
     links: [
       { label: 'AI Basics', href: '/ai-basics', icon: Brain },
+      { label: 'Using AI Responsibly', href: '/ai-basics/responsible-ai', icon: ShieldCheck },
       { label: 'Prompt Engineering', href: '/prompt-engineering', icon: MessageSquare },
       { label: 'Getting Started', href: '/road-to-agentic-engineering', icon: Code2 },
     ],
@@ -101,6 +103,22 @@ export default function HomePage() {
             <Wand2 size={16} /> Prompt Builder
           </Link>
         </div>
+      </div>
+
+      {/* Right now */}
+      <div className="mb-16 space-y-4">
+        <Callout variant="warning">
+          <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <strong>Moving from ChatGPT?</strong> Cover Whale&apos;s ChatGPT for Business
+            subscription ends {CHATGPT_END_DATE}. Move the memory, instructions, projects and chats
+            you still need into Claude before then.{' '}
+            <Link href="/moving-from-chatgpt" className="font-semibold underline" style={{ color: 'var(--cw-primary)' }}>
+              Here is how
+            </Link>
+            .
+          </p>
+        </Callout>
+        <ClaudePlanNotice compact />
       </div>
 
       {/* Why AI matters */}

@@ -5,6 +5,31 @@ export const AUTH_BACKEND = 'https://coverwhale-auth.vercel.app';
 export const WSL_SETUP_BUNDLE_URL =
   'https://dmedina5.github.io/CW-AI-Learning-Guide/downloads/wsl-claude-code-setup.zip';
 
+// The Claude plan Cover Whale works on. Claude's account switcher shows the
+// workspace as "Coverwhale Teams"; prose uses the plan name.
+export const CLAUDE_PLAN = 'Cover Whale Teams plan';
+export const CLAUDE_PLAN_WORKSPACE = 'Coverwhale Teams';
+// The plan Cover Whale is moving off. Named only to tell people to leave it.
+export const LEGACY_CLAUDE_PLAN = 'Cover Whale Enterprise';
+
+export const AI_HELP_CONTACT = {
+  name: 'Daniel Medina',
+  email: 'daniel.medina@coverwhale.com',
+};
+export const AUP_REPORT_EMAIL = 'cyber@coverwhale.com';
+
+// ChatGPT for Business ends on this date, and ChatGPT is blocked on company
+// devices after it.
+export const CHATGPT_END_DATE = 'October 8, 2026';
+export const CHATGPT_SOP = {
+  id: 'TC-SOP-002 v1.0',
+  title: 'Moving from ChatGPT to Claude',
+  url: 'https://drive.google.com/file/d/1tXN4vejY8aRmTFBfQ9wx4Q8lRRxFXLgq/view',
+};
+
+export const HARBOR_AI_TOOLS_URL =
+  'https://sites.google.com/coverwhale.com/whaliecentral/ai-adoption-at-cw/ai-tools';
+
 export const TIERS = {
   beginner: {
     label: 'Beginner',
@@ -57,6 +82,8 @@ export const NAV_ITEMS = [
       { label: 'Innovation Flywheel', href: '/ai-basics/innovation', tier: 'beginner' as TierKey },
       { label: 'Models', href: '/ai-basics/models', tier: 'beginner' as TierKey },
       { label: 'Strengths & Limits', href: '/ai-basics/strengths', tier: 'beginner' as TierKey },
+      { label: 'How We Got Here', href: '/ai-basics/how-we-got-here', tier: 'beginner' as TierKey },
+      { label: 'Using AI Responsibly', href: '/ai-basics/responsible-ai', tier: 'beginner' as TierKey },
     ],
   },
   {
@@ -92,6 +119,12 @@ export const NAV_ITEMS = [
       { label: 'The Claude 5 Shift', href: '/context-engineering#claude5', tier: 'advanced' as TierKey },
       { label: 'In the Latest Claude', href: '/context-engineering#claude', tier: 'advanced' as TierKey },
     ],
+  },
+  {
+    label: 'Moving from ChatGPT',
+    href: '/moving-from-chatgpt',
+    icon: 'ArrowRightLeft',
+    tier: 'beginner' as TierKey,
   },
   {
     label: 'Claude Cowork',
