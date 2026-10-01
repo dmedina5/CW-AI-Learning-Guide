@@ -10,6 +10,9 @@ import { CHATGPT_END_DATE, CLAUDE_PLAN, HARBOR_AI_TOOLS_URL } from '@/lib/consta
  * Sources, so the next edit can re-check rather than re-derive: the CoE/Automations
  * Jira board (COE project, status Deployed), #ai-center-of-excellence and #general
  * announcements, the AI Acceptable Use Policy training deck, and TC-SOP-002.
+ * The Product and Technology section draws on the progress notes in the
+ * how-we-work site's engineering standards (src/body.html, 2026-09-28); the
+ * page reflects the progress and does not name or link that source.
  * Counts are as of October 1, 2026.
  */
 const TIMELINE = [
@@ -62,6 +65,34 @@ const TIMELINE = [
     when: 'October',
     title: 'Claude is our AI assistant',
     body: `ChatGPT for Business ends ${CHATGPT_END_DATE}. From here, Claude on the ${CLAUDE_PLAN} is the AI assistant Cover Whale uses.`,
+  },
+];
+
+// Do not name or link the source of these notes; gas/scripts/content-checks.sh asserts it.
+const PRODUCT_TECH = [
+  {
+    title: 'Releases that check themselves',
+    body: 'Every production release goes out through one documented, automated pipeline that runs smoke tests and rolls back on its own if something breaks. Shipping no longer depends on one person knowing the steps.',
+  },
+  {
+    title: 'A faster start for engineers',
+    body: 'A new engineer gets a working copy of the platform with one command.',
+  },
+  {
+    title: 'A clear definition of done',
+    body: 'New work starts from a written spec with testable acceptance criteria, so people and AI build against the same definition of good.',
+  },
+  {
+    title: 'AI built into engineering',
+    body: 'Claude Code is now the default tool for engineering work, backed by a shared framework of skills, agents and quality gates so AI raises the quality of the work instead of lowering it.',
+  },
+  {
+    title: 'Problems surface sooner',
+    body: 'Structured logging and dashboards make production issues easier to spot and diagnose.',
+  },
+  {
+    title: 'Proof before it ships',
+    body: 'Work counts as finished only when there is evidence it works, and automated checks review changes before they reach production.',
   },
 ];
 
@@ -175,6 +206,35 @@ export default function HowWeGotHerePage() {
             </li>
           ))}
         </ol>
+      </section>
+
+      {/* Section: Product and Technology */}
+      <section className="mb-16" id="product-technology">
+        <div className="section-label">Product and Technology</div>
+        <h2 className="mb-4">
+          Building faster, and <span className="text-highlight">building safer</span>
+        </h2>
+        <p className="mb-6">
+          While the rest of the company learned to use AI day to day, Product and Technology changed
+          how Cover Whale builds software. At a high level:
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-4xl">
+          {PRODUCT_TECH.map(item => (
+            <div
+              key={item.title}
+              className="p-5 rounded-xl"
+              style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)' }}
+            >
+              <p className="text-sm font-semibold mb-1" style={{ color: 'var(--cw-ink)' }}>
+                {item.title}
+              </p>
+              <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+                {item.body}
+              </p>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* Section: Numbers */}
