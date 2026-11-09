@@ -5,8 +5,9 @@ export const AUTH_BACKEND = 'https://coverwhale-auth.vercel.app';
 export const WSL_SETUP_BUNDLE_URL =
   'https://dmedina5.github.io/CW-AI-Learning-Guide/downloads/wsl-claude-code-setup.zip';
 
-// Screenshots of the Claude app, served by the GitHub Pages build
-// (public/images/claude-app/) and linked from both builds, like the WSL bundle.
+// Screenshots of the Claude app. GitHub Pages serves this repo from the root
+// of main (legacy build, not the Actions deploy of out/), so they live in
+// images/claude-app/ at the repo root and both builds link to them by URL.
 // The repo is public: every image is cropped and redacted before it lands.
 export const CLAUDE_APP_SHOTS_URL =
   'https://dmedina5.github.io/CW-AI-Learning-Guide/images/claude-app';

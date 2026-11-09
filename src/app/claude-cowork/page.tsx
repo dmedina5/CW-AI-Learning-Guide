@@ -26,7 +26,7 @@ import { AI_HELP_CONTACT, CLAUDE_APP_SHOTS_URL } from '@/lib/constants';
  * Route stays /claude-cowork so the hand-built Harbor page keeps working.
  * The sidebar, model and effort menus, Projects, Artifacts, chat groups and
  * Customize were checked on the Cover Whale Teams account in claude.ai on
- * 2026-11-08 (screenshots in public/images/claude-app/, cropped and redacted
+ * 2026-11-08 (screenshots in images/claude-app/ at the repo root, cropped and redacted
  * for the public repo). Side chat, split view, the context card and nested
  * sessions are desktop-app features taken from the November release
  * walkthrough and not yet captured on our account.
