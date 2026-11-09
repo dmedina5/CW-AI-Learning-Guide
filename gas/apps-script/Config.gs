@@ -36,6 +36,7 @@ var PUBLISHED_ROUTES = [
   "/road-to-agentic-engineering/setup",
   "/road-to-agentic-engineering/tips",
   "/road-to-agentic-engineering/workflows",
+  "/token-efficiency",
   "/use-cases",
   "/vibe-coding",
   "/vibe-coding/champions",
@@ -47,7 +48,7 @@ var PUBLISHED_ROUTES = [
   "/vibe-coding/workflows"
 ];
 
-// The 28 routes that are real content and get a Harbor page.
+// The 29 routes that are real content and get a Harbor page.
 // The remainder are redirect stubs for the section's former name.
 var CONTENT_ROUTES = [
   "/",
@@ -77,6 +78,7 @@ var CONTENT_ROUTES = [
   "/road-to-agentic-engineering/setup",
   "/road-to-agentic-engineering/tips",
   "/road-to-agentic-engineering/workflows",
+  "/token-efficiency",
   "/use-cases"
 ];
 

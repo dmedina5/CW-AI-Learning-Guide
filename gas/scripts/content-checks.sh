@@ -61,6 +61,22 @@ check /right-size-your-model \
   '!inside Cowork in the Claude desktop app'
 check /choose-your-claude '!click the Cowork tab'
 
+# ── November 2026: Token Efficiency guidelines ──────────────────────────────
+# Grounded in code.claude.com/docs/en/costs and /prompt-caching and the
+# help-center "Usage limit best practices" article, read 2026-11-09. The
+# video's three overstated claims are corrected on the page and must stay so.
+check --export-all /token-efficiency \
+  "Token Efficiency" "Cover Whale Teams plan" "rolling five-hour window" \
+  "shared across chat, Cowork and Claude Code" \
+  "every message sends the whole conversation" "one hour" "five minutes" \
+  "handoff" "/clear" "/compact" "/context" "/usage" "under 200 lines" \
+  "/rewind" "CLAUDE_CODE_SUBAGENT_PROMPT_CACHE_TTL" \
+  "report only the failing tests" "Usage limit best practices" \
+  "changing effort keeps the cache" "Switching model" \
+  "costs a fraction of what its size suggests" \
+  "Anthropic does not publish a multiplier"
+check /right-size-your-model "Token Efficiency"
+
 # ── October 2026: the Cover Whale Teams plan is the plan to use ─────────────
 check / "Cover Whale Teams plan" "Moving from ChatGPT"
 check /road-to-agentic-engineering "Cover Whale Teams plan" '!Pro/Max account'

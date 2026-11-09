@@ -163,6 +163,19 @@ export const NAV_ITEMS = [
     ],
   },
   {
+    label: 'Token Efficiency',
+    href: '/token-efficiency',
+    icon: 'Leaf',
+    tier: 'intermediate' as TierKey,
+    children: [
+      { label: 'How the Meter Runs', href: '/token-efficiency#how-it-works', tier: 'beginner' as TierKey },
+      { label: 'For Everyone', href: '/token-efficiency#everyone', tier: 'beginner' as TierKey },
+      { label: 'For Claude Code', href: '/token-efficiency#claude-code', tier: 'intermediate' as TierKey },
+      { label: 'What the Advice Gets Wrong', href: '/token-efficiency#corrections', tier: 'intermediate' as TierKey },
+      { label: 'The Efficiency Test', href: '/token-efficiency#check', tier: 'intermediate' as TierKey },
+    ],
+  },
+  {
     label: 'Road to Agentic Engineering',
     href: '/road-to-agentic-engineering',
     icon: 'Code2',

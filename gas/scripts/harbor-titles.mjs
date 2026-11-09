@@ -24,6 +24,7 @@ export const TITLES = {
   '/claude-cowork': 'The Claude App',
   '/choose-your-claude': 'Choose Your Claude',
   '/right-size-your-model': 'Right-Size Your Model',
+  '/token-efficiency': 'Token Efficiency',
   '/road-to-agentic-engineering': 'Road to Agentic Engineering',
   '/road-to-agentic-engineering/installation': 'Installation',
   '/road-to-agentic-engineering/setup': 'CW Setup',
