@@ -109,6 +109,15 @@ check --export-all /prompt-builder '!Next: Claude Cowork'
 # Harbor frame blocks outside images anyway: the logo ships inline there.
 check / 'src="data:image/png;base64' '!CoverWhale_Purple.png'
 
+# ── November 2026: Innovation Flywheel statistics, each from its primary source
+# (github.blog Octoverse 2026; datos-insights.com, Aug 12 2026; the Anthropic
+# Economic Index, May 2026 period), read 2026-11-09. The old vendor-blog
+# figures must stay gone.
+check /ai-basics/innovation \
+  "1.3B" "Octoverse 2026" "22% → 74%" "Datos Insights" \
+  "5 h → 40 min" "Anthropic Economic Index" \
+  '!43M/mo' '!Multimodal.dev' '!Automation Anywhere'
+
 # ── November 2026: owner decisions after the review (2026-11-09) ────────────
 # Data rule: customer data stays in approved tools (not "never input PII").
 check --export-all /prompt-engineering \

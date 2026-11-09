@@ -1,23 +1,35 @@
 'use client';
 
+/**
+ * Each statistic is quoted from its primary source, read 2026-11-09. Refresh
+ * them from the same sources when a new edition comes out (Octoverse each
+ * October; the Datos Insights insurer survey each summer; the Anthropic
+ * Economic Index each release), and keep content-checks.sh in step.
+ */
 const STATS = [
   {
-    value: '43M/mo',
+    value: '1.3B',
     color: 'var(--cw-primary)',
-    description: 'Developers are merging 43 million code changes per month on GitHub — 1 billion annually — a pace never seen before, driven by AI coding tools.',
-    source: 'Microsoft, 2026',
+    description:
+      'Pull requests merged on GitHub in the year to September 2026, more than triple the year before. By September, over 40% of new pull requests started with an AI agent’s first draft, up from 17% in March.',
+    source: 'GitHub Octoverse 2026',
+    url: 'https://github.blog/news-insights/octoverse/octoverse-commits-pushes-reach-new-highs-in-2026-as-developers-build-with-agents/',
   },
   {
-    value: '8% → 34%',
+    value: '22% → 74%',
     color: 'var(--cw-warning)',
-    description: 'Insurance industry AI adoption surged 325% in a single year (2024–2025). Our industry is moving fast.',
-    source: 'Multimodal.dev Agentic AI Statistics',
+    description:
+      'Large P&C insurers running agentic AI pilots, 2025 to 2026. Midsize carriers went from 4% to 24%. Our industry is moving fast.',
+    source: 'Datos Insights, survey of 44 P&C insurer CIOs, August 2026',
+    url: 'https://datos-insights.com/reports/insurance-technology-trends-2026-pc-insurers-ins-2025-102223/',
   },
   {
-    value: '93%',
+    value: '5 h → 40 min',
     color: 'var(--cw-success)',
-    description: 'of US IT executives are extremely interested in agentic workflows — AI systems that act autonomously.',
-    source: 'Automation Anywhere',
+    description:
+      'Tasks estimated to take a person about five hours working alone took about 40 minutes of conversation with Claude. These are model estimates of task time from Claude usage, not measured hours.',
+    source: 'Anthropic Economic Index, May 2026 data',
+    url: 'https://www.anthropic.com/economic-index',
   },
 ];
 
@@ -27,9 +39,9 @@ export function InnovationFlywheel() {
       {/* Spinning flywheel */}
       <div className="relative w-[280px] h-[280px] flex-shrink-0 mx-auto lg:mx-0">
         <svg
-          className="w-full h-full"
+          className="w-full h-full animate-spin"
           viewBox="0 0 280 280"
-          style={{ animation: 'spin 20s linear infinite' }}
+          style={{ animationDuration: '20s' }}
         >
           <defs>
             <linearGradient id="fwg1" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -62,19 +74,13 @@ export function InnovationFlywheel() {
             Magic Cycle
           </div>
         </div>
-
-        <style jsx>{`
-          @keyframes spin {
-            to { transform: rotate(360deg); }
-          }
-        `}</style>
       </div>
 
       {/* Stats */}
       <div className="flex-1 flex flex-col gap-4">
-        {STATS.map((stat, i) => (
+        {STATS.map(stat => (
           <div
-            key={i}
+            key={stat.source}
             className="p-5 rounded-2xl transition-colors"
             style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)' }}
           >
@@ -88,7 +94,9 @@ export function InnovationFlywheel() {
               {stat.description}
             </p>
             <p className="text-[10px] mt-1 italic" style={{ color: 'var(--cw-ink-muted)' }}>
-              {stat.source}
+              <a href={stat.url} target="_blank" rel="noopener noreferrer" className="underline">
+                {stat.source}
+              </a>
             </p>
           </div>
         ))}
