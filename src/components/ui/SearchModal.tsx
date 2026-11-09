@@ -16,14 +16,14 @@ interface SearchResult {
 // Static search index (expanded at build time in a real implementation)
 const SEARCH_INDEX: SearchResult[] = [
   { title: 'What is AI?', href: '/ai-basics', excerpt: 'AI is a prediction engine. It predicts what comes next.', tier: 'beginner', section: 'AI Basics' },
-  { title: 'Context shapes prediction', href: '/ai-basics#context', excerpt: 'Your context is a lens that focuses AI predictions.', tier: 'beginner', section: 'AI Basics' },
-  { title: 'Models & Inference', href: '/ai-basics#models', excerpt: 'A model is a giant accumulation of knowledge. Inference is how well it reasons.', tier: 'beginner', section: 'AI Basics' },
-  { title: 'Strengths & Limitations', href: '/ai-basics#strengths', excerpt: 'Where AI shines and where it doesn\'t.', tier: 'beginner', section: 'AI Basics' },
+  { title: 'Context shapes prediction', href: '/ai-basics/how-it-works#context', excerpt: 'Your context is a lens that focuses AI predictions.', tier: 'beginner', section: 'AI Basics' },
+  { title: 'Models & Inference', href: '/ai-basics/models#models', excerpt: 'A model is a giant accumulation of knowledge. Inference is how well it reasons.', tier: 'beginner', section: 'AI Basics' },
+  { title: 'Strengths & Limitations', href: '/ai-basics/strengths#strengths', excerpt: 'Where AI shines and where it doesn\'t.', tier: 'beginner', section: 'AI Basics' },
   { title: 'How We Got Here', href: '/ai-basics/how-we-got-here', excerpt: 'Cover Whale\'s year with AI: the timeline, adoption by the numbers, and the tools each department uses.', tier: 'beginner', section: 'AI Basics' },
   { title: 'Using AI Responsibly', href: '/ai-basics/responsible-ai', excerpt: 'Review every answer, the role of the subject matter expert, and what AI-assisted means.', tier: 'beginner', section: 'AI Basics' },
-  { title: 'Moving from ChatGPT to Claude', href: '/moving-from-chatgpt', excerpt: 'ChatGPT for Business ends October 8, 2026. Move your memory, instructions, projects, GPTs and chats.', tier: 'beginner', section: 'Moving from ChatGPT' },
+  { title: 'Moving from ChatGPT to Claude', href: '/moving-from-chatgpt', excerpt: 'ChatGPT for Business ended October 8, 2026, and ChatGPT is prohibited under the AI Acceptable Use Policy. Move your memory, instructions, projects, GPTs and chats.', tier: 'beginner', section: 'Moving from ChatGPT' },
   { title: 'Cover Whale Teams plan', href: '/moving-from-chatgpt#which-claude', excerpt: 'The Claude plan to use at Cover Whale, and how to check you are on it.', tier: 'beginner', section: 'Moving from ChatGPT' },
-  { title: 'Prompt Engineering Basics', href: '/prompt-engineering', excerpt: 'Be specific, define role, provide context, output format, set boundaries.', tier: 'beginner', section: 'Prompt Engineering' },
+  { title: 'Prompt Engineering Basics', href: '/prompt-engineering', excerpt: 'Be specific, let the facts set the role, lead with context, name the deliverable, describe the standard.', tier: 'beginner', section: 'Prompt Engineering' },
   { title: 'GRIP Framework', href: '/prompt-engineering#grip', excerpt: 'Ground, Request, Intent, Proof. Replaces CRISP.', tier: 'intermediate', section: 'Prompt Engineering' },
   { title: 'Prompting Techniques', href: '/prompt-engineering#techniques', excerpt: 'Zero-shot, few-shot, chain-of-thought, dual-pass.', tier: 'intermediate', section: 'Prompt Engineering' },
   { title: 'Reality Filter', href: '/prompt-engineering#reality-filter', excerpt: 'Make Claude mark what it sourced, what it inferred, and what it does not know.', tier: 'intermediate', section: 'Prompt Engineering' },
@@ -46,7 +46,7 @@ const SEARCH_INDEX: SearchResult[] = [
   { title: 'Cheatsheet', href: '/road-to-agentic-engineering/cheatsheet', excerpt: 'Quick reference for Claude Code commands and shortcuts.', tier: 'expert', section: 'Road to Agentic Engineering' },
   { title: 'Agentic AI', href: '/agentic-ai', excerpt: 'What are agents, multi-agent orchestration, workflow tools.', tier: 'advanced', section: 'Agentic AI' },
   { title: 'Use Cases', href: '/use-cases', excerpt: 'CW-specific examples: submission analysis, broker comms, loss runs.', tier: 'expert', section: 'Use Cases' },
-  { title: 'Resources & Glossary', href: '/resources', excerpt: 'Glossary of AI terms, links, NotebookLM.', tier: null, section: 'Resources' },
+  { title: 'Resources & Glossary', href: '/resources', excerpt: 'Glossary of AI terms, links, Gemini Notebook.', tier: null, section: 'Resources' },
 ];
 
 interface SearchModalProps {

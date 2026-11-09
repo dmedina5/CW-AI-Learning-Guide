@@ -430,13 +430,21 @@ export default function SkillsPage() {
           Anatomy of a <span className="text-highlight">Skill</span>
         </h2>
         <p className="mb-6" style={{ color: 'var(--cw-ink-secondary)' }}>
-          A skill is just a markdown file with clear instructions. You do not need to be technical
-          to write one &mdash; if you can describe what you want, you can create a skill.
+          A skill is a folder with one required file, <code>SKILL.md</code>: a short header that
+          names the skill and describes when to use it, followed by clear instructions. You do not
+          need to be technical to write one &mdash; if you can describe what you want, you can
+          create a skill.
         </p>
 
         <CodeBlock
-          title="Example: Professional Email Skill"
-          code={`# Professional Email Formatter
+          title="Example: professional-email/SKILL.md"
+          code={`---
+name: professional-email
+description: Turn rough notes or bullet points into a polished
+  professional email. Use when drafting or cleaning up work email.
+---
+
+# Professional Email Formatter
 
 ## When to Use
 When you have a rough draft or bullet points that need to
@@ -464,9 +472,31 @@ become a polished professional email.
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
             <strong>Notice the pattern:</strong> A good skill has three parts &mdash; <em>when</em> to
             use it, <em>how</em> it works (step by step), and <em>rules</em> that prevent common
-            mistakes. The clearer your instructions, the more consistent your results.
+            mistakes. The clearer your instructions, the more consistent your results. The{' '}
+            <code>name</code> must match the folder name, and Claude reads the{' '}
+            <code>description</code> to decide when to use the skill.
           </p>
         </Callout>
+
+        <Card className="mt-6">
+          <h4 className="mb-3">Adding a skill in Claude</h4>
+          <StepList
+            steps={[
+              {
+                title: 'Let Claude draft it, or write it yourself',
+                description: 'Ask Claude to use the skill-creator skill and it will build the folder with you. Or write the SKILL.md yourself and zip the folder, so the ZIP holds the folder, not just the file.',
+              },
+              {
+                title: 'Upload it',
+                description: 'In Claude, go to Customize > Skills, click +, then Create skill, then Upload a skill, and choose the ZIP.',
+              },
+              {
+                title: 'Turn it on and share it',
+                description: 'Switch the skill on in Customize > Skills. To give it to teammates, open the skill and use Share, or Publish to org to add it to the organization library.',
+              },
+            ]}
+          />
+        </Card>
       </section>
 
       {/* Section: Building Your First Skill */}
@@ -528,7 +558,7 @@ become a polished professional email.
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
             <strong>Ready to build?</strong> For the technical steps of creating a skill file in
             Claude Code, see the{' '}
-            <Link href="/vibe-coding/tips#skills" className="font-semibold underline" style={{ color: 'var(--cw-primary)' }}>
+            <Link href="/road-to-agentic-engineering/tips#skills" className="font-semibold underline" style={{ color: 'var(--cw-primary)' }}>
               Creating Custom Skills
             </Link>{' '}
             section in Tips &amp; Tricks.

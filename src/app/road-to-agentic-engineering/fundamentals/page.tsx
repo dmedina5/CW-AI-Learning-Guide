@@ -56,10 +56,10 @@ export default function FundamentalsPage() {
             Claude&apos;s reasoning quality can degrade after approximately 20 back-and-forth turns.
             The context gets polluted with false starts and corrections. When you notice confusion:
           </p>
-          <CodeBlock code={`# Reset the session while keeping CLAUDE.md context
-/reset
+          <CodeBlock code={`# Start a new conversation (CLAUDE.md loads again automatically)
+/clear
 
-# Or start fresh with compacted context
+# Or keep going with the history summarized
 /compact`} />
         </Card>
 
@@ -322,9 +322,9 @@ After each step, show me what you did and wait for approval."`} />
               </thead>
               <tbody>
                 {[
-                  { pattern: 'Add file to context', claude: '/add path/to/file.ts' },
+                  { pattern: 'Add file to context', claude: '@path/to/file.ts' },
                   { pattern: 'Read file', claude: '"Read src/app.ts"' },
-                  { pattern: 'Multiple files', claude: '/add src/*.ts' },
+                  { pattern: 'Multiple files', claude: '@src/app.ts @src/utils.ts' },
                 ].map((row, i) => (
                   <tr key={i}>
                     <td className="p-3 font-medium" style={{ borderBottom: '1px solid var(--cw-border)', color: 'var(--cw-ink)' }}>{row.pattern}</td>

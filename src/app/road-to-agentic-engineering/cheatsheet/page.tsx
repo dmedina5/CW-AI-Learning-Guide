@@ -33,7 +33,7 @@ export default function CheatsheetPage() {
 irm https://claude.ai/install.ps1 | iex  # Windows
 curl -fsSL https://claude.ai/install.sh | bash  # Mac/Linux
 
-# npm (deprecated)
+# npm (needs Node.js 22+)
 npm i -g @anthropic-ai/claude-code
 claude`} />
         </div>
@@ -46,15 +46,14 @@ claude`} />
         <div className="rounded-xl p-5" style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)', borderTop: '3px solid #D97706' }}>
           <div className="space-y-1.5 text-sm">
             {[
-              { key: 'Escape', action: 'Stop action' },
-              { key: 'Escape x2', action: 'History / Rewind' },
-              { key: 'Shift+Tab', action: 'Plan mode' },
-              { key: 'Alt+M', action: 'Toggle permissions' },
-              { key: 'Alt+P', action: 'Switch model' },
-              { key: 'Alt+T', action: 'Extended thinking' },
-              { key: 'Ctrl+L', action: 'Clear screen' },
+              { key: 'Escape', action: 'Stop action (keeps work)' },
+              { key: 'Escape x2', action: 'Clear draft / Rewind' },
+              { key: 'Shift+Tab', action: 'Cycle modes (plan, accept edits)' },
+              { key: 'Alt+P / Option+P', action: 'Switch model' },
+              { key: 'Ctrl+L', action: 'Redraw screen' },
               { key: 'Ctrl+R', action: 'Reverse search' },
-              { key: '#', action: 'Update CLAUDE.md' },
+              { key: '@', action: 'Mention a file' },
+              { key: '!', action: 'Run a shell command' },
               { key: 'Up/Down', action: 'Command history' },
             ].map((row, i) => (
               <div key={i} className="flex justify-between items-center py-1" style={{ borderBottom: '1px solid var(--cw-border)' }}>
@@ -71,12 +70,14 @@ claude`} />
         <div className="section-label">Commands</div>
         <h2 className="mb-4">Essential Commands</h2>
         <div className="rounded-xl p-5" style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)', borderTop: '3px solid #D97706' }}>
-          <CodeBlock code={`/add file.ts      # Add context
+          <CodeBlock code={`@file.ts          # Add a file to context
 /clear            # Clear context
 /compact          # Reduce context
-/reset            # Reset session
+/context          # See context usage
+/rewind           # Go back to an earlier point
+/memory           # Edit CLAUDE.md
 /permissions      # View perms
-/sandbox on|off   # Toggle sandbox
+/sandbox          # Toggle sandbox
 /help             # Show help`} />
         </div>
       </section>
@@ -89,15 +90,15 @@ claude`} />
           <div className="space-y-3 text-sm">
             <div>
               <div className="font-semibold mb-1" style={{ color: 'var(--cw-ink)' }}>Add Files</div>
-              <div className="font-mono text-xs p-2 rounded" style={{ background: 'var(--cw-primary-light)', color: 'var(--cw-ink-secondary)' }}>/add src/app.ts</div>
+              <div className="font-mono text-xs p-2 rounded" style={{ background: 'var(--cw-primary-light)', color: 'var(--cw-ink-secondary)' }}>@src/app.ts</div>
             </div>
             <div>
               <div className="font-semibold mb-1" style={{ color: 'var(--cw-ink)' }}>Review Code</div>
-              <div className="font-mono text-xs p-2 rounded" style={{ background: 'var(--cw-primary-light)', color: 'var(--cw-ink-secondary)' }}>/add file.ts<br />&quot;Review this for bugs&quot;</div>
+              <div className="font-mono text-xs p-2 rounded" style={{ background: 'var(--cw-primary-light)', color: 'var(--cw-ink-secondary)' }}>@file.ts<br />&quot;Review this for bugs&quot;</div>
             </div>
             <div>
               <div className="font-semibold mb-1" style={{ color: 'var(--cw-ink)' }}>Generate Tests</div>
-              <div className="font-mono text-xs p-2 rounded" style={{ background: 'var(--cw-primary-light)', color: 'var(--cw-ink-secondary)' }}>/add src/utils.ts<br />&quot;Generate Vitest tests&quot;</div>
+              <div className="font-mono text-xs p-2 rounded" style={{ background: 'var(--cw-primary-light)', color: 'var(--cw-ink-secondary)' }}>@src/utils.ts<br />&quot;Generate Vitest tests&quot;</div>
             </div>
             <div>
               <div className="font-semibold mb-1" style={{ color: 'var(--cw-ink)' }}>Debug</div>
@@ -113,7 +114,7 @@ claude`} />
         <h2 className="mb-4">Standard Workflow</h2>
         <div className="rounded-xl p-5" style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)', borderTop: '3px solid #D97706' }}>
           <div className="space-y-1 text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
-            <div><strong>1.</strong> Explore: <code>/add files</code></div>
+            <div><strong>1.</strong> Explore: <code>@files</code></div>
             <div><strong>2.</strong> Plan: <code>Shift+Tab</code></div>
             <div><strong>3.</strong> Execute: <code>Shift+Tab</code></div>
             <div><strong>4.</strong> Commit: Review + commit</div>
@@ -130,8 +131,8 @@ claude`} />
         <h2 className="mb-4">Remember These</h2>
         <CardGrid columns={3}>
           <Card>
-            <h4 className="mb-1">Escape, Not Ctrl+C</h4>
-            <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>Always use Escape to stop Claude. Ctrl+C kills the process.</p>
+            <h4 className="mb-1">Escape to Stop</h4>
+            <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>Escape stops Claude and keeps its work. Ctrl+C twice on an empty prompt exits.</p>
           </Card>
           <Card>
             <h4 className="mb-1">Git Before Risky Ops</h4>
@@ -143,15 +144,15 @@ claude`} />
           </Card>
           <Card>
             <h4 className="mb-1">Reset at 20 Turns</h4>
-            <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>Quality degrades after ~20 turns. Use <code>/reset</code>.</p>
+            <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>Quality degrades after ~20 turns. Use <code>/clear</code>.</p>
           </Card>
           <Card>
             <h4 className="mb-1">Plan Mode First</h4>
             <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>For complex tasks, start in plan mode (Shift+Tab).</p>
           </Card>
           <Card>
-            <h4 className="mb-1"># for Quick Notes</h4>
-            <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>Press <code>#</code> to add notes to CLAUDE.md instantly.</p>
+            <h4 className="mb-1">/memory for Notes</h4>
+            <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>Run <code>/memory</code>, or ask Claude to add a note to CLAUDE.md.</p>
           </Card>
         </CardGrid>
       </section>
@@ -161,8 +162,7 @@ claude`} />
         <div className="section-label">Config</div>
         <h2 className="mb-4">Environment Variables</h2>
         <div className="rounded-xl p-5" style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)', borderTop: '3px solid #D97706' }}>
-          <CodeBlock code={`ANTHROPIC_API_KEY=sk-ant-...
-CLAUDE_LOG_FILE=~/.claude/log
+          <CodeBlock code={`ANTHROPIC_API_KEY=sk-ant-...   # overrides your Teams seat; billed to the API
 CLAUDE_CONFIG_DIR=~/.claude`} />
           <p className="text-xs mt-2" style={{ color: 'var(--cw-ink-muted)' }}>Config: <code>./CLAUDE.md</code> or <code>~/.claude/CLAUDE.md</code></p>
         </div>

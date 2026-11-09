@@ -15,8 +15,8 @@ export default function ChooseYourClaudePage() {
       <TierBadge tier="beginner" />
       <h1 className="mt-4 mb-4">Choose Your Claude</h1>
       <p className="mb-6">
-        Same AI. Three different ways to use it. Find the one that fits how you work. All three
-        come with every seat on the Cover Whale Teams plan.
+        Same AI. Two ways to use it: the Claude app for everyday work, and Claude Code for
+        building software. Both come with every seat on the Cover Whale Teams plan.
       </p>
 
       <ClaudePlanNotice compact className="mb-12" />
@@ -39,10 +39,10 @@ export default function ChooseYourClaudePage() {
       <section className="mb-16" id="overview">
         <div className="section-label">The Big Picture</div>
         <h2 className="mb-6">
-          Three Ways to <span className="text-highlight">Use Claude</span>
+          Two Ways to <span className="text-highlight">Use Claude</span>
         </h2>
 
-        <CardGrid columns={3}>
+        <CardGrid columns={2}>
           {CLAUDE_PRODUCTS.map((product) => (
             <Card key={product.id}>
               <div className="mb-3">
@@ -102,9 +102,10 @@ export default function ChooseYourClaudePage() {
 
         <Callout variant="warning" className="mt-6">
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-            <strong>Cowork is now part of the Claude app.</strong> Projects, artifacts, effort and
-            model choice work in the browser and on your phone too. Working directly with the files
-            on your computer still needs the desktop app. See{' '}
+            <strong>Cowork is now part of the Claude app.</strong> There is no separate tab: chat,
+            projects, artifacts, effort and model choice all live in one app, in the browser and on
+            your phone too. Working directly with the files on your computer still needs the desktop
+            app. See{' '}
             <Link href="/claude-cowork" className="underline">The Claude App</Link>.
           </p>
         </Callout>
@@ -147,6 +148,7 @@ export default function ChooseYourClaudePage() {
                 { label: 'Connect to your tools', key: 'connectTools' as const },
                 { label: 'Search the internet', key: 'searchInternet' as const },
                 { label: 'Extended thinking', key: 'extendedThinking' as const },
+                { label: 'Work with files on your computer', key: 'localFiles' as const },
               ]).map((row, i) => (
                 <tr key={row.key}>
                   <td
@@ -249,7 +251,7 @@ export default function ChooseYourClaudePage() {
           Quick <span className="text-highlight">Decision Guide</span>
         </h2>
 
-        <CardGrid columns={3}>
+        <CardGrid columns={2}>
           <Card>
             <div
               className="w-3 h-3 rounded-full mb-3"
@@ -266,21 +268,10 @@ export default function ChooseYourClaudePage() {
               className="w-3 h-3 rounded-full mb-3"
               style={{ background: 'var(--cw-info)' }}
             />
-            <h4 className="mb-2" style={{ color: 'var(--cw-ink)' }}>Deep work sessions?</h4>
+            <h4 className="mb-2" style={{ color: 'var(--cw-ink)' }}>Documents, analysis, recurring tasks?</h4>
             <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              Use <strong>Claude Cowork</strong>. It reads your files, creates real documents,
-              and sounds like you.
-            </p>
-          </Card>
-          <Card>
-            <div
-              className="w-3 h-3 rounded-full mb-3"
-              style={{ background: 'var(--cw-success)' }}
-            />
-            <h4 className="mb-2" style={{ color: 'var(--cw-ink)' }}>Recurring tasks?</h4>
-            <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              Use <strong>Claude Chat (Browser)</strong>. Save your context once, reuse it
-              every time.
+              Use <strong>the Claude app</strong>. It reads your files, creates real documents,
+              sounds like you, and keeps your context in a project so you set it up once.
             </p>
           </Card>
         </CardGrid>

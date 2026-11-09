@@ -34,15 +34,14 @@ export default function TipsPage() {
             </thead>
             <tbody>
               {[
-                { key: 'Escape', action: 'Stop current action', note: 'Use this, NOT Ctrl+C' },
-                { key: 'Escape x2', action: 'Message history / Rewind', note: 'Browse previous messages' },
-                { key: 'Shift+Tab', action: 'Toggle plan mode', note: 'Think before executing' },
-                { key: 'Alt+M (Win) / Option+M (Mac)', action: 'Toggle permissions', note: 'Change permission mode' },
-                { key: 'Alt+P (Win) / Option+P (Mac)', action: 'Switch model', note: 'Change AI model' },
-                { key: 'Alt+T (Win) / Option+T (Mac)', action: 'Extended thinking', note: 'Toggle deep reasoning' },
-                { key: 'Ctrl+L', action: 'Clear screen', note: 'Clear terminal display' },
+                { key: 'Escape', action: 'Stop current action', note: 'Claude keeps the work done so far' },
+                { key: 'Escape x2', action: 'Clear draft / Rewind', note: 'With an empty prompt, opens the rewind menu' },
+                { key: 'Shift+Tab', action: 'Cycle permission modes', note: 'Manual, accept edits, plan' },
+                { key: 'Alt+P (Win/Linux) / Option+P (Mac)', action: 'Switch model', note: 'On Mac, set Option as Meta in your terminal first' },
+                { key: 'Ctrl+L', action: 'Redraw screen', note: 'Fixes a garbled display; keeps your conversation' },
                 { key: 'Ctrl+R', action: 'Reverse search', note: 'Search command history' },
-                { key: '#', action: 'Update CLAUDE.md', note: 'Quick context update' },
+                { key: '@', action: 'Mention a file', note: 'Autocompletes file paths' },
+                { key: '!', action: 'Shell mode', note: 'Run a command and share its output with Claude' },
                 { key: 'Up/Down', action: 'Command history', note: 'Navigate previous prompts' },
               ].map((row, i) => (
                 <tr key={i}>
@@ -61,8 +60,9 @@ export default function TipsPage() {
 
         <Callout variant="warning">
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-            <strong>Always use Escape to stop Claude, not Ctrl+C.</strong> Ctrl+C terminates
-            the entire process, while Escape gracefully interrupts the current operation.
+            <strong>Use Escape to stop Claude.</strong> Escape interrupts the current response and
+            keeps the work done so far, so you can redirect. Ctrl+C also interrupts a running
+            operation; on an empty prompt, pressing it twice exits Claude Code.
           </p>
         </Callout>
       </section>
@@ -76,11 +76,11 @@ export default function TipsPage() {
 
         <Card className="mb-4">
           <h4 className="mb-3">Context Management</h4>
-          <CodeBlock code={`# Add file to context
-/add src/components/Button.tsx
+          <CodeBlock code={`# Point Claude at a file: type @ and the path
+@src/components/Button.tsx
 
-# Add multiple files
-/add src/**/*.ts
+# Several files: mention each one
+@src/components/Button.tsx @src/components/Input.tsx
 
 # Clear context and start fresh
 /clear
@@ -88,8 +88,11 @@ export default function TipsPage() {
 # Compact context (summarize and reduce)
 /compact
 
-# Reset session
-/reset`} />
+# See what is filling the context window
+/context
+
+# Go back to an earlier point in the conversation
+/rewind`} />
         </Card>
 
         <Card className="mb-4">
@@ -97,9 +100,8 @@ export default function TipsPage() {
           <CodeBlock code={`# View/change permissions
 /permissions
 
-# Toggle sandbox mode
-/sandbox on
-/sandbox off
+# Toggle sandbox mode (supported platforms only)
+/sandbox
 
 # Enter plan mode (also Shift+Tab)
 /plan
@@ -109,15 +111,16 @@ export default function TipsPage() {
         </Card>
 
         <Card>
-          <h4 className="mb-3">The Hash Key Trick</h4>
+          <h4 className="mb-3">Adding Notes to CLAUDE.md</h4>
           <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
-            Press <kbd className="px-1.5 py-0.5 rounded text-xs" style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)' }}>#</kbd> to
-            quickly add notes to your CLAUDE.md without leaving the conversation:
+            Ask Claude to add a note to your CLAUDE.md without leaving the conversation, or open the
+            file yourself with <code>/memory</code>:
           </p>
-          <CodeBlock code={`# Type # then your note
-# "Remember: use camelCase for variables in this project"
+          <CodeBlock code={`# Ask in plain words
+"Add this to CLAUDE.md: use camelCase for variables in this project"
 
-# Claude adds it to CLAUDE.md automatically`} />
+# Or open and edit your CLAUDE.md files
+/memory`} />
         </Card>
       </section>
 
@@ -236,11 +239,12 @@ EOF
               </thead>
               <tbody>
                 {[
-                  { field: 'name', required: 'Yes', desc: 'Skill identifier (used with /skill-name)' },
-                  { field: 'description', required: 'Yes', desc: 'When to use this skill (helps auto-invocation)' },
-                  { field: 'allowed-tools', required: 'No', desc: 'Restrict tools (e.g., Grep, Read, Glob)' },
-                  { field: 'user-invocable', required: 'No', desc: 'If true, user can invoke with /skill-name' },
-                  { field: 'model', required: 'No', desc: 'Override model: haiku (fast), sonnet, or opus' },
+                  { field: 'name', required: 'No', desc: 'Skill identifier (used with /skill-name). Defaults to the folder name' },
+                  { field: 'description', required: 'Recommended', desc: 'When to use this skill (helps auto-invocation). If omitted, the first line of the file is used' },
+                  { field: 'allowed-tools', required: 'No', desc: 'Tools Claude can use without asking permission while the skill runs (e.g., Grep, Read, Glob)' },
+                  { field: 'disallowed-tools', required: 'No', desc: 'Tools removed while the skill is active (use this to restrict tools)' },
+                  { field: 'user-invocable', required: 'No', desc: 'Default true. Set false to hide the skill from the / menu so only Claude can use it' },
+                  { field: 'model', required: 'No', desc: 'Override model: haiku (fast), sonnet, opus, fable, or inherit' },
                 ].map((row, i) => (
                   <tr key={i}>
                     <td className="p-2 font-mono" style={{ borderBottom: '1px solid var(--cw-border)', color: 'var(--cw-primary)' }}>{row.field}</td>
@@ -256,7 +260,8 @@ EOF
         <Callout variant="sage" className="mt-6">
           <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
             <strong>Skill Tips:</strong> Use <code>model: haiku</code> for search/lookup skills (fast and cheap).
-            Use <code>model: sonnet</code> for code generation. Restrict tools to minimize risk and tokens.
+            Use <code>model: sonnet</code> for code generation. To restrict tools, list them in{' '}
+            <code>disallowed-tools</code>; <code>allowed-tools</code> only skips permission prompts.
             Put team skills in <code>.claude/skills/</code> (git-tracked) for sharing.
           </p>
         </Callout>

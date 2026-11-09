@@ -41,7 +41,7 @@ const nodes: Record<string, FlowNode> = {
   },
   p2: {
     id: 'p2',
-    answer: 'Pattern 2: Operator \u2014 Open multiple terminals with claude --w. You orchestrate.',
+    answer: 'Pattern 2: Operator \u2014 Open multiple terminals with claude -w <name>, one worktree each. You orchestrate.',
   },
   p3: {
     id: 'p3',

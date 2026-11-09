@@ -79,28 +79,28 @@ export default function AgenticAIPage() {
           {[
             {
               name: 'Skills',
-              count: '60+',
+              count: '130+',
               desc: 'Expertise modules that give AI specialized knowledge — like putting on an "expert hat." A skill for email formatting knows your tone, structure, and rules. A skill for code review knows your standards.',
               color: '#3A9E6E',
               tag: 'EXPERTISE',
             },
             {
               name: 'Agents',
-              count: '45+',
+              count: '60+',
               desc: 'Autonomous workers that handle complex, multi-step tasks. An agent can plan an approach, execute it across multiple files, verify the results, and report back — all without step-by-step guidance.',
               color: '#4A6FA5',
               tag: 'AUTONOMOUS',
             },
             {
               name: 'Commands',
-              count: '55+',
+              count: '65+',
               desc: 'Simple entry points you invoke with a slash (e.g., /implement, /test-spec). Each command routes your request to the right combination of skills and agents with the right AI model.',
               color: '#D97706',
               tag: 'ENTRY POINTS',
             },
             {
               name: 'Hooks',
-              count: '10',
+              count: '70+',
               desc: 'Automatic safety checks that fire at key moments — before a file is saved, before a session ends, before a destructive command runs. They enforce quality without you having to remember every rule.',
               color: '#D95550',
               tag: 'GUARDRAILS',
@@ -352,8 +352,8 @@ export default function AgenticAIPage() {
             <CardGrid columns={3}>
               {[
                 { name: 'CrewAI', desc: 'Define agents with roles, goals, and backstories. Agents collaborate like a team to complete complex tasks.', color: '#FF6B35' },
-                { name: 'AutoGen', desc: 'Microsoft framework for multi-agent conversations. Agents can debate, review each other, and reach consensus.', color: '#0078D4' },
-                { name: 'Swarm', desc: 'OpenAI\'s lightweight multi-agent framework. Agents hand off tasks to each other based on expertise.', color: '#10A37F' },
+                { name: 'Microsoft Agent Framework', desc: 'Microsoft\'s multi-agent framework and the successor to AutoGen, which is now archived. Agents can review each other and work through tasks together.', color: '#0078D4' },
+                { name: 'OpenAI Agents SDK', desc: 'OpenAI\'s multi-agent toolkit and the successor to its Swarm experiment. Agents hand off tasks to each other based on expertise.', color: '#10A37F' },
               ].map(tool => (
                 <div key={tool.name} className="p-4 rounded-lg" style={{ background: 'var(--cw-primary-light)' }}>
                   <div className="flex items-center gap-2 mb-2">
@@ -376,7 +376,7 @@ export default function AgenticAIPage() {
             </div>
             <CardGrid columns={3}>
               {[
-                { name: 'Claude Code', desc: 'Anthropic\'s terminal-based coding agent. Deep reasoning, plan mode, and strong code quality. Our primary tool.', color: '#D97706' },
+                { name: 'Claude Code', desc: 'Anthropic\'s coding agent, in the terminal, the desktop app, VS Code or JetBrains, and the web. Deep reasoning, plan mode, and strong code quality. Our primary tool.', color: '#D97706' },
                 { name: 'Antigravity CLI', desc: 'Google\'s agentic CLI (agy) — a Go binary that pairs with the Antigravity IDE. Multi-step planning, deep tool integration, and free tier.', color: '#4285F4' },
                 { name: 'Devin / SWE-Agent', desc: 'Autonomous software engineering agents that can plan, code, test, and debug entire features end-to-end.', color: '#7C3AED' },
               ].map(tool => (
@@ -401,7 +401,7 @@ export default function AgenticAIPage() {
             </div>
             <CardGrid columns={3}>
               {[
-                { name: 'MCP', desc: 'Model Context Protocol by Anthropic. A standard for connecting AI models to external tools, databases, and APIs.', color: '#6B2D8B' },
+                { name: 'MCP', desc: 'Model Context Protocol. An open standard, created by Anthropic and now run by the Linux Foundation\'s Agentic AI Foundation, for connecting AI models to external tools, databases, and APIs.', color: '#6B2D8B' },
                 { name: 'Vercel AI SDK', desc: 'TypeScript toolkit for building AI-powered applications. Supports streaming, tool calling, and multi-step agents.', color: '#000000' },
                 { name: 'Ollama', desc: 'Run open-source LLMs locally. Use local models for sensitive data or offline development. Supports tool calling.', color: '#2D2D2D' },
               ].map(tool => (
@@ -456,28 +456,33 @@ export default function AgenticAIPage() {
 
 BUG_DESC="$1"
 
+# Run from the project folder: Claude reads the codebase from there.
+# -p runs cannot stop to ask permission, so each step names what it may do.
+
 # Step 1: Claude investigates
 claude -p "Investigate this bug: $BUG_DESC. \\
   Search the codebase for the root cause. \\
   Write findings to INVESTIGATION.md" \\
-  --add src/
+  --permission-mode acceptEdits
 
 # Step 2: Claude creates fix plan
 claude -p "Based on INVESTIGATION.md, create a fix plan. \\
   Write to PLAN.md with specific file changes needed." \\
-  --add INVESTIGATION.md
+  --permission-mode acceptEdits
 
 # Step 3: Second Claude instance executes the plan
 claude -p "Based on PLAN.md, implement the fix. \\
   Make the code changes described. \\
   Run tests after each change." \\
-  --add PLAN.md
+  --permission-mode acceptEdits \\
+  --allowedTools "Bash(npm test *)"
 
 # Step 4: Claude reviews
-claude -p "Review all changes since the last commit. \\
+claude -p "Run git diff HEAD and review the changes. \\
   Check for correctness, edge cases, and test coverage. \\
   Write review to REVIEW.md" \\
-  --diff HEAD
+  --permission-mode acceptEdits \\
+  --allowedTools "Bash(git diff *)"
 
 echo "Pipeline complete. Check REVIEW.md for results."`}
           />

@@ -1,5 +1,7 @@
+export type ClaudeProductId = 'app' | 'code';
+
 export interface ClaudeProduct {
-  id: 'code' | 'cowork' | 'chat';
+  id: ClaudeProductId;
   name: string;
   tagline: string;
   vibe: string;
@@ -13,6 +15,7 @@ export interface ClaudeProduct {
     connectTools: string;
     searchInternet: string;
     extendedThinking: string;
+    localFiles: string;
   };
   contextIdentity: string;
   contextInput: string;
@@ -27,13 +30,44 @@ export interface RecommendationResult {
   alternatives: ClaudeProduct[];
 }
 
+// Thinking is always on for the current models; Effort sets how much of it.
+const THINKING = 'Always on. Set how hard it thinks with Effort (Low to Max).';
+
 export const CLAUDE_PRODUCTS: ClaudeProduct[] = [
+  {
+    id: 'app',
+    name: 'The Claude app',
+    tagline: 'Chat, projects, Cowork and artifacts in one place',
+    vibe: 'A team member who knows your playbook and does the work',
+    access: 'Browser, phone, or desktop app',
+    setupTime: '~5 minutes',
+    capabilities: {
+      answerQuestions: 'Yes',
+      createFiles: 'Yes. Documents, spreadsheets and slides you can open or download.',
+      buildInteractive: 'Yes, via Artifacts',
+      usePlugins: 'Yes. Install them from Customize > Plugins.',
+      connectTools: 'Yes. Customize > Connectors.',
+      searchInternet: 'Yes',
+      extendedThinking: THINKING,
+      localFiles: 'Desktop app only',
+    },
+    contextIdentity: 'Yes, from your instructions in Settings > Your Claude, plus memory.',
+    contextInput: 'You add instructions and files to a project once. They stick.',
+    contextPersistence: 'Yes. Every new chat or task in the project has it, on any device.',
+    bestFor: [
+      'You\'re doing real work (analysis, spreadsheets, reports)',
+      'You want Claude to create actual files',
+      'You do the same task every week (newsletter, reports)',
+      'You want it to sound like you',
+      'You want your context saved, not retyped every session',
+    ],
+  },
   {
     id: 'code',
     name: 'Claude Code',
     tagline: 'Like a technical assistant on your team',
     vibe: 'Having a developer who builds what you describe',
-    access: 'Browser, desktop app, or code editor (VS Code, etc.)',
+    access: 'Terminal, desktop app, VS Code or JetBrains, or the web (claude.ai/code)',
     setupTime: '~5 minutes',
     capabilities: {
       answerQuestions: 'Yes',
@@ -42,7 +76,8 @@ export const CLAUDE_PRODUCTS: ClaudeProduct[] = [
       usePlugins: 'Yes. Connect any tool with add-ons.',
       connectTools: 'Yes. Connects to Jira, GitHub, Slack, and more.',
       searchInternet: 'Yes',
-      extendedThinking: 'On by default',
+      extendedThinking: THINKING,
+      localFiles: 'Yes. It works inside your project folder.',
     },
     contextIdentity: 'You write a short instructions file in your project. Claude reads it every time.',
     contextInput: 'Your instructions file + your entire project. Claude reads it all automatically.',
@@ -55,61 +90,10 @@ export const CLAUDE_PRODUCTS: ClaudeProduct[] = [
       'You need long, hands-free building sessions',
     ],
   },
-  {
-    id: 'cowork',
-    name: 'Claude Cowork',
-    tagline: 'It reads your files, creates new ones',
-    vibe: 'Working with an assistant who read every brief',
-    access: 'Part of the Claude app; working with your local files needs the desktop app',
-    setupTime: '~10 minutes',
-    capabilities: {
-      answerQuestions: 'Yes',
-      createFiles: 'Yes. Files appear in your folders, ready to open.',
-      buildInteractive: 'Yes, via Artifacts',
-      usePlugins: 'Yes, install from a library. Use slash commands.',
-      connectTools: 'Yes',
-      searchInternet: 'Yes',
-      extendedThinking: 'On by default',
-    },
-    contextIdentity: 'Yes, if you put info about yourself in text files inside your folder.',
-    contextInput: 'You write .md or .txt files once. Drop them in a folder. Point Claude to it.',
-    contextPersistence: 'Yes, as long as you\'re in the same folder.',
-    bestFor: [
-      'You\'re doing real work (analysis, spreadsheets)',
-      'You want Claude to create actual files',
-      'You want it to sound like you',
-      'You need long, deep sessions that don\'t break',
-    ],
-  },
-  {
-    id: 'chat',
-    name: 'Claude Chat (Browser)',
-    tagline: 'A saved workspace',
-    vibe: 'A team member who knows your playbook',
-    access: 'Browser, phone, or desktop app',
-    setupTime: '~5 minutes',
-    capabilities: {
-      answerQuestions: 'Yes',
-      createFiles: 'Yes. Files can be saved or downloaded.',
-      buildInteractive: 'Yes, via Artifacts',
-      usePlugins: 'No',
-      connectTools: 'Yes',
-      searchInternet: 'Yes',
-      extendedThinking: 'Yes, you turn it on manually',
-    },
-    contextIdentity: 'Yes, from the files and instructions you added to the project.',
-    contextInput: 'You upload files and write instructions once. They stick.',
-    contextPersistence: 'Yes. Every new chat inside the project has it.',
-    bestFor: [
-      'You do the same task every week (newsletter, reports)',
-      'You\'re tired of repeating yourself',
-      'You want your context saved forever, not just for one session',
-    ],
-  },
 ];
 
 interface KeywordCategory {
-  productId: 'code' | 'cowork' | 'chat';
+  productId: ClaudeProductId;
   keywords: string[];
   weight: number;
 }
@@ -129,7 +113,7 @@ const KEYWORD_CATEGORIES: KeywordCategory[] = [
     ],
   },
   {
-    productId: 'cowork',
+    productId: 'app',
     weight: 1,
     keywords: [
       'analysis', 'analyze', 'spreadsheet', 'excel', 'document',
@@ -139,12 +123,6 @@ const KEYWORD_CATEGORIES: KeywordCategory[] = [
       'slides', 'presentation', 'pdf', 'word doc',
       'research', 'summarize', 'brief', 'proposal',
       'edit document', 'review document', 'proofread',
-    ],
-  },
-  {
-    productId: 'chat',
-    weight: 1,
-    keywords: [
       'recurring', 'weekly', 'monthly', 'daily', 'every week', 'every month',
       'newsletter', 'template', 'saved', 'remember', 'context',
       'ongoing', 'every time', 'always', 'repeat', 'persistent',
@@ -163,7 +141,7 @@ export function getRecommendation(input: string): RecommendationResult | null {
 
   const lower = trimmed.toLowerCase();
 
-  const scores: Record<string, number> = { code: 0, cowork: 0, chat: 0 };
+  const scores: Record<ClaudeProductId, number> = { app: 0, code: 0 };
 
   for (const category of KEYWORD_CATEGORIES) {
     for (const keyword of category.keywords) {
@@ -173,36 +151,28 @@ export function getRecommendation(input: string): RecommendationResult | null {
     }
   }
 
-  const maxScore = Math.max(scores.code, scores.cowork, scores.chat);
+  const maxScore = Math.max(scores.app, scores.code);
 
-  // No matches — default to Chat as most general
+  // No matches — default to the Claude app as the most general
   if (maxScore === 0) {
-    const chat = CLAUDE_PRODUCTS.find(p => p.id === 'chat')!;
+    const app = CLAUDE_PRODUCTS.find(p => p.id === 'app')!;
     return {
-      product: chat,
-      reasoning: `Based on your description, Claude Chat (Browser) is a great starting point. It's the most versatile option — accessible from any device with persistent context across sessions.`,
+      product: app,
+      reasoning: `Based on your description, the Claude app is a great starting point. It's the most versatile option — it works on any device and keeps your context in projects.`,
       confidence: 'general',
-      alternatives: CLAUDE_PRODUCTS.filter(p => p.id !== 'chat'),
+      alternatives: CLAUDE_PRODUCTS.filter(p => p.id !== 'app'),
     };
   }
 
-  // Tie-breaking: Chat > Cowork > Code (most general wins)
-  const tieOrder: Array<'chat' | 'cowork' | 'code'> = ['chat', 'cowork', 'code'];
-  let winnerId: 'code' | 'cowork' | 'chat' = 'chat';
-  for (const id of tieOrder) {
-    if (scores[id] === maxScore) {
-      winnerId = id;
-      break;
-    }
-  }
+  // Tie-breaking: the app wins (most general)
+  const winnerId: ClaudeProductId = scores.app >= scores.code ? 'app' : 'code';
 
   const winner = CLAUDE_PRODUCTS.find(p => p.id === winnerId)!;
-  const isStrong = maxScore >= 2 && scores[winnerId] > Math.min(...Object.values(scores));
+  const isStrong = maxScore >= 2 && scores[winnerId] > Math.min(scores.app, scores.code);
 
-  const reasoningMap: Record<string, string> = {
+  const reasoningMap: Record<ClaudeProductId, string> = {
     code: `Claude Code is built for development workflows — it reads your entire project, writes and saves code across multiple files, and integrates with Git, GitHub, and your IDE.`,
-    cowork: `Claude Cowork excels at creating real files and deep work sessions. It reads your existing documents, matches your style, and saves output directly to your folders.`,
-    chat: `Claude Chat (Browser) is perfect for this. It saves your context permanently across sessions, works on any device, and handles recurring tasks without repeating setup.`,
+    app: `The Claude app is perfect for this. It reads your documents, creates real files, keeps your context in projects, and works on any device.`,
   };
 
   return {

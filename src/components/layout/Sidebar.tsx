@@ -10,6 +10,7 @@ import {
 import { NAV_ITEMS, TIERS, type TierKey } from '@/lib/constants';
 import { useAuth } from '@/hooks/useAuth';
 import { TierBadge } from '@/components/content/TierBadge';
+import { siteImage } from '@/lib/site-images';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ICON_MAP: Record<string, any> = {
@@ -73,7 +74,7 @@ export function Sidebar({
         {/* Header */}
         <div className="p-5 flex items-center gap-3">
           <img
-            src="https://coverwhale.com/hubfs/CoverWhale_Purple.png"
+            src={siteImage('cover-whale-logo.png')}
             alt="Cover Whale"
             className="h-7 opacity-70"
             onError={(e) => {

@@ -23,7 +23,7 @@ const glossaryTerms = [
   },
   {
     term: 'Claude Code',
-    definition: 'Anthropic\'s command-line AI coding assistant that runs in your terminal. It can read your codebase, edit files, run commands, and execute multi-step development tasks autonomously.',
+    definition: 'Anthropic\'s AI coding assistant. It runs in your terminal, your IDE, the Claude desktop app (the Code tab) or the browser. It can read your codebase, edit files, run commands, and execute multi-step development tasks autonomously.',
   },
   {
     term: 'Context',
@@ -31,7 +31,7 @@ const glossaryTerms = [
   },
   {
     term: 'Desktop App',
-    definition: 'A standalone application installed on your computer (as opposed to a browser-based web app). Claude Desktop and Cursor are examples of AI desktop apps.',
+    definition: 'A standalone application installed on your computer (as opposed to a browser-based web app). The Claude desktop app and Cursor are examples of AI desktop apps.',
   },
   {
     term: 'Git',
@@ -55,7 +55,7 @@ const glossaryTerms = [
   },
   {
     term: 'MCP (Model Context Protocol)',
-    definition: 'An open standard (created by Anthropic) that lets AI assistants connect to external data sources and tools. Think of it as a USB-C port for AI \u2014 one standard protocol that connects to many different services like databases, file systems, and APIs.',
+    definition: 'An open standard (introduced by Anthropic, now stewarded by the Linux Foundation\'s Agentic AI Foundation) that lets AI assistants connect to external data sources and tools. Think of it as a USB-C port for AI \u2014 one standard protocol that connects to many different services like databases, file systems, and APIs.',
   },
   {
     term: 'npm (Node Package Manager)',
@@ -75,7 +75,7 @@ const glossaryTerms = [
   },
   {
     term: 'Token',
-    definition: 'The basic unit of text that AI models process. Roughly 1 token equals 3/4 of a word. Models have token limits (context windows) that determine how much text they can consider at once. Claude Opus has a 200K token context window.',
+    definition: 'The basic unit of text that AI models process. On current Claude models, a token is roughly half a word. Models have token limits (context windows) that determine how much text they can consider at once. Current Claude models (Fable 5.1, Opus 5.5, Sonnet 5.5, Haiku 5.5) have a 1M-token context window.',
   },
   {
     term: 'Vibe Coding',
@@ -85,8 +85,8 @@ const glossaryTerms = [
 
 const usefulLinks = [
   {
-    name: 'NotebookLM AI Onboarding Guide',
-    url: 'https://notebooklm.google.com/',
+    name: 'Gemini Notebook (formerly NotebookLM)',
+    url: 'https://notebook.google.com/',
     description: 'Google\'s AI-powered research and note-taking tool. Great for uploading documents and having AI conversations about your content.',
     color: '#4285F4',
   },
@@ -104,8 +104,8 @@ const usefulLinks = [
   },
   {
     name: 'ChatGPT',
-    url: 'https://chat.openai.com',
-    description: 'OpenAI\'s widely-used AI assistant. Not for Cover Whale work after October 8, 2026, when our ChatGPT for Business subscription ends; personal accounts are prohibited under the AI Acceptable Use Policy.',
+    url: 'https://chatgpt.com/',
+    description: 'OpenAI\'s widely-used AI assistant. Not for Cover Whale work: our ChatGPT for Business subscription ended October 8, 2026, and ChatGPT is prohibited under the AI Acceptable Use Policy.',
     color: '#10A37F',
   },
 ];
@@ -332,8 +332,8 @@ export default function ResourcesPage() {
           <Card>
             <h3 className="mb-4" style={{ color: 'var(--cw-primary)' }}>Reality Filter v2 (Copy &amp; Paste)</h3>
             <p className="text-base mb-4" style={{ color: 'var(--cw-ink-secondary)' }}>
-              Put this in a Claude <strong>Project&apos;s custom instructions</strong> (or a Cowork
-              workspace) and every conversation inherits it &mdash; better than pasting it at the top
+              Put this in a Claude <strong>Project&apos;s custom instructions</strong> and every
+              conversation inherits it &mdash; better than pasting it at the top
               of each chat. Use it for work that gets quoted, priced, filed, or acted on; skip it for
               drafting an email.
             </p>

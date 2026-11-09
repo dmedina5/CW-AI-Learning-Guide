@@ -248,8 +248,8 @@ export default function ResponsibleAIPage() {
           If a concern reaches you through AI, such as an AI-written critique of a decision, judge the
           points on their merits and get curious about why nobody raised them directly. Responding
           defensively teaches people not to speak up. And if you use AI to find the words for a
-          concern of your own, still own it: our Claude plan keeps an audit trail, so a prompt is never
-          as anonymous as it feels.
+          concern of your own, still own it: your name is on every prompt you send from a company
+          account, so a prompt is never as anonymous as it feels.
         </p>
       </section>
 

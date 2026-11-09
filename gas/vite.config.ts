@@ -30,8 +30,8 @@ export default defineConfig({
         replacement: resolve(__dirname, 'shims/champion-gate.tsx'),
       },
       {
-        find: /^@\/lib\/claude-app-shots$/,
-        replacement: resolve(__dirname, 'shims/claude-app-shots.ts'),
+        find: /^@\/lib\/site-images$/,
+        replacement: resolve(__dirname, 'shims/site-images.ts'),
       },
       { find: /^next\/link$/, replacement: resolve(__dirname, 'shims/next-link.tsx') },
       {

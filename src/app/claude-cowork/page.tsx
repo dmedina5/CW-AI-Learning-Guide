@@ -19,7 +19,7 @@ import { StepList } from '@/components/content/StepList';
 import { PlatformTabs } from '@/components/content/PlatformTabs';
 import { ClaudePlanNotice } from '@/components/content/ClaudePlanNotice';
 import { AI_HELP_CONTACT } from '@/lib/constants';
-import { shotSrc } from '@/lib/claude-app-shots';
+import { siteImage } from '@/lib/site-images';
 
 /**
  * The Claude app on the Cover Whale Teams plan, November 2026.
@@ -27,7 +27,7 @@ import { shotSrc } from '@/lib/claude-app-shots';
  * Route stays /claude-cowork so the hand-built Harbor page keeps working.
  * The sidebar, model and effort menus, Projects, Artifacts, chat groups and
  * Customize were checked on the Cover Whale Teams account in claude.ai on
- * 2026-11-08 (screenshots in images/claude-app/ at the repo root, cropped and redacted
+ * 2026-11-08 (screenshots in public/images/claude-app/, cropped and redacted
  * for the public repo). Side chat, split view, the context card and nested
  * sessions are desktop-app features taken from the November release
  * walkthrough and not yet captured on our account.
@@ -37,7 +37,7 @@ function Shot({ file, alt, caption }: { file: string; alt: string; caption: stri
   return (
     <figure className="my-6">
       <img
-        src={shotSrc(file)}
+        src={siteImage(`claude-app/${file}`)}
         alt={alt}
         loading="lazy"
         className="rounded-xl w-full h-auto"

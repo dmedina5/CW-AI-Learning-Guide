@@ -67,8 +67,6 @@ const CW_TOOLS = [
     buildPrompt: `CONTEXT: We want every employee to query our Metabase-connected
 data warehouse (Postgres) from Slack in plain English, safely.
 
-ROLE: Act as a senior Python engineer building an internal Slack bot.
-
 INSTRUCTION: Build a Slack bot (Bolt + Socket Mode) that answers
 natural-language data questions with a saved-card-first, 3-tier router.
 
@@ -102,8 +100,6 @@ source (vetted report vs generated SQL).`,
 attachments. Compliance manually parses them, researches the policy,
 and drafts a response — slow and error-prone.
 
-ROLE: Act as a backend engineer building an automated intake service.
-
 INSTRUCTION: Build a webhook service that ingests a complaint email
 and produces a review-ready package.
 
@@ -135,8 +131,6 @@ pipeline step independently skippable for testing.`,
     buildPrompt: `CONTEXT: Underwriters manually research each fleet submission across
 the platform, FMCSA/SAFER, loss runs, and BASIC scores before deciding
 whether it's worth pursuing.
-
-ROLE: Act as a Python engineer building a read-only analysis pipeline.
 
 INSTRUCTION: Build a daily pipeline that grades each fleet submission
 and produces a branded report.
@@ -172,8 +166,6 @@ Deduplicate within a configurable window.`,
 plus reconciliation. We need it self-serve AND callable by our platform,
 with one canonical definition of the numbers.
 
-ROLE: Act as an engineer building a Google Apps Script web app.
-
 INSTRUCTION: Build a web app that takes a policy number and renders a
 branded loss-run document, plus a JSON API for server-to-server use.
 
@@ -205,8 +197,6 @@ Validate and normalize the policy number.`,
     buildPrompt: `CONTEXT: Agents and UW need to know which carriers/coverage lines are
 available in a given state (admitted vs surplus). Today that lives in
 filings and spreadsheets that are slow to search.
-
-ROLE: Act as a frontend engineer building an internal single-page tool.
 
 INSTRUCTION: Build a searchable app that shows carrier and coverage
 availability by state from a data snapshot.
@@ -596,7 +586,7 @@ the list, not just that it is.`}
         <StyleNote>
           <strong>The lever here: a Project, and asking for the decision.</strong> If you run the
           same kind of task weekly, your role, your book, and your standards belong in a Claude
-          Project or a Cowork workspace &mdash; loaded once, not retyped every session. Then ask for
+          project &mdash; loaded once, not retyped every session. Then ask for
           the judgment rather than the artifact: <em>&ldquo;what should change what we do&rdquo;</em>{' '}
           beats <em>&ldquo;summarize this.&rdquo;</em>
         </StyleNote>
@@ -807,10 +797,12 @@ what you'd bring that they didn't ask for.`}
             <h4 className="text-lg font-bold mb-4" style={{ color: 'var(--cw-primary)' }}>Pro Tips</h4>
             <div className="space-y-3">
               {[
-                'Start with Context to anchor the AI in your domain',
+                'Ground it: lead with the facts of your situation',
                 'Attach the real document instead of describing what it says',
-                'Action verbs in Instructions: Analyze, Compare, Draft, Identify',
-                'Include real numbers in Specifics (generalized for PII safety)',
+                'Make the Request the decision or draft you need: Compare, Draft, Decide',
+                'Include real numbers (generalized for PII safety)',
+                'Say your Intent: why you need it and who it is for',
+                'Ask for Proof: what is sourced, inferred, or unknown',
                 'Ask for the decision you owe someone, not a survey of options',
                 'Say what good looks like once — beats a stack of "do NOT" rules',
                 'Iterate: refine your prompt if the first result isn\'t right',

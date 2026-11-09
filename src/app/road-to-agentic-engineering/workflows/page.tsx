@@ -118,7 +118,7 @@ export default function WorkflowsPage() {
               Understand the codebase and current state
             </p>
             <div className="p-3 rounded-lg font-mono text-xs" style={{ background: 'var(--cw-primary-light)' }}>
-              /add relevant/files.ts<br />
+              @relevant/files.ts<br />
               &ldquo;Explain how X works&rdquo;
             </div>
           </Card>
@@ -162,8 +162,9 @@ export default function WorkflowsPage() {
           </h3>
           <p className="text-sm mb-4" style={{ color: 'var(--cw-ink-secondary)' }}>
             The longer you work in one session, the more context accumulates. When the context window fills up,
-            Claude starts forgetting earlier details &mdash; this is <strong>context rot</strong>. Watch the
-            green progress bar at the bottom of your terminal.
+            Claude starts forgetting earlier details &mdash; this is <strong>context rot</strong>. Run{' '}
+            <code>/context</code> to see how full the window is. Claude Code compacts automatically as it
+            nears the limit, but the summary keeps less detail than the original conversation.
           </p>
 
           {/* Context bar visualization */}
@@ -226,14 +227,15 @@ export default function WorkflowsPage() {
         <CodeBlock
           title="Launch isolated sessions with worktrees"
           language="bash"
-          code={`# Each --w flag creates a git worktree — an isolated workspace
-claude --w "fix the login validation bug"
-claude --w "add pagination to the submissions list"
-claude --w "write tests for the carrier lottery"
+          code={`# -w (short for --worktree) creates a git worktree, an isolated workspace.
+# The value is the worktree's name, not a prompt. Type the task once Claude starts.
+claude -w login-validation-fix
+claude -w submissions-pagination
+claude -w carrier-lottery-tests
 
-# When you close a session:
-# - No changes? Worktree auto-cleaned
-# - Changes made? Claude asks what to do`}
+# When you exit a session:
+# - No changes? The worktree is removed automatically
+# - Changes made? Claude asks whether to keep or remove it`}
         />
 
         <CardGrid columns={3} className="mt-6">
@@ -352,7 +354,7 @@ claude --w "write tests for the carrier lottery"
 
             {/* Max concurrency note */}
             <text x={300} y={16} textAnchor="middle" fill="var(--cw-ink-muted)" fontSize="8" fontWeight="400">
-              Max 10 sub-agents running at once
+              Up to 20 sub-agents running at once by default
             </text>
           </svg>
         </div>
@@ -368,7 +370,7 @@ claude --w "write tests for the carrier lottery"
           code={`# Define in .claude/agents/ folder:
 # - A name (Claude reads this to decide when to use it)
 # - A description of what it does
-# - A set of tools it can access
+# - Optionally, the tools it can access (all tools if omitted)
 #
 # Claude auto-selects the right agent when
 # the task matches the description.`}
@@ -434,7 +436,7 @@ claude --w "write tests for the carrier lottery"
 
             {/* Navigation hint */}
             <text x={270} y={256} textAnchor="middle" fill="var(--cw-ink-muted)" fontSize="8">
-              Navigate: Shift+Up / Shift+Down &middot; Message teammate: bypasses team lead
+              Select a teammate: arrow keys, then Enter &middot; Message teammate: bypasses team lead
             </text>
           </svg>
         </div>
@@ -442,20 +444,23 @@ claude --w "write tests for the carrier lottery"
         <CodeBlock
           title="Launching an agent team"
           language="bash"
-          code={`# 1. Enable experimental features in Claude Code settings
+          code={`# 1. Turn on agent teams (experimental, off by default): set
+#    CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 in the "env" block of
+#    settings.json or in your shell
 # 2. Tell Claude you want a team:
 "I want to use an agent team for this task.
  Create a front-end developer and a back-end developer.
  The task is to build a new submission dashboard page."
 
 # 3. Claude creates the team and coordinates work
-# 4. Navigate between teammates: Shift+Up / Shift+Down`}
+# 4. Pick a teammate in the agent panel with the arrow keys,
+#    then press Enter to open it and message it directly`}
         />
 
         <Callout variant="warning" className="mt-4">
           <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
-            <strong>Token cost warning:</strong> Agent Teams can use 4&ndash;7x the tokens of a single session.
-            The back-and-forth between the shared task list, team lead, and each teammate multiplies cost.
+            <strong>Token cost warning:</strong> Agent Teams use significantly more tokens than a single session.
+            Each teammate is a separate Claude instance with its own context window, so cost grows with every teammate.
             Only use this when the task genuinely requires cross-collaboration between specialists.
           </p>
         </Callout>
@@ -484,14 +489,17 @@ claude --w "write tests for the carrier lottery"
         <CodeBlock
           title="The -p flag"
           language="bash"
-          code={`# Run Claude headlessly — no interaction, full permissions
-claude -p "Analyze all rate plan entries for NJ and produce a report"
+          code={`# Run Claude headlessly. -p starts in Manual permission mode: any action that
+# needs approval is denied, so pre-approve the tools the job needs
+claude -p "Analyze all rate plan entries for NJ and produce a report" \\
+  --allowedTools "Read,Grep,Glob"
 
-# Chain with shell scripts for automation
-claude -p "Read the latest Slack thread and summarize action items" > report.json
+# Chain with shell scripts; ask for JSON when a script will parse the output
+claude -p "Read the latest Slack thread and summarize action items" \\
+  --output-format json > report.json
 
-# Schedule with cron for recurring tasks
-# 0 6 * * * cd /path/to/project && claude -p "Run daily health check"`}
+# Schedule with cron for recurring tasks (pre-approve tools here too)
+# 0 6 * * * cd /path/to/project && claude -p "Run daily health check" --allowedTools "Read,Bash(npm test *)"`}
         />
 
         <h3 className="mb-3 mt-6">The Trust Spectrum</h3>
@@ -668,8 +676,8 @@ before moving to the next item."`} />
               {[
                 { pattern: '1. Sequential', manages: 'You (1 session)', parallel: 'None', cost: 'Low', best: 'Simple, linear tasks' },
                 { pattern: '2. Operator', manages: 'You (multi-terminal)', parallel: 'Manual', cost: 'Low-Medium', best: 'Independent tasks, max control' },
-                { pattern: '3. Split & Merge', manages: 'Claude (auto)', parallel: 'Auto (up to 10)', cost: 'Medium', best: 'Parallel research, builder-validator' },
-                { pattern: '4. Agent Teams', manages: 'Team Lead Claude', parallel: 'Specialists', cost: 'High (4-7x)', best: 'Complex cross-collaboration' },
+                { pattern: '3. Split & Merge', manages: 'Claude (auto)', parallel: 'Auto (up to 20)', cost: 'Medium', best: 'Parallel research, builder-validator' },
+                { pattern: '4. Agent Teams', manages: 'Team Lead Claude', parallel: 'Specialists', cost: 'High', best: 'Complex cross-collaboration' },
                 { pattern: '5. Headless', manages: 'None (fully auto)', parallel: 'Any', cost: 'Varies', best: 'Recurring, automated tasks' },
               ].map((row, i) => (
                 <tr key={i}>
@@ -717,7 +725,7 @@ before moving to the next item."`} />
               def: 'A separate Claude instance that the main Claude spins up for a specific job. It has its own isolated memory.',
             },
             {
-              term: 'Worktree (--w flag)',
+              term: 'Worktree (-w flag)',
               def: 'An isolated copy of your project files that Claude works in without disturbing your main codebase.',
             },
             {

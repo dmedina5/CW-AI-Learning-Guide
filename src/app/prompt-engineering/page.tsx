@@ -137,7 +137,7 @@ export default function PromptEngineeringPage() {
               </div>
               <div className="p-4 rounded-lg" style={{ background: 'var(--cw-primary-light)' }}>
                 <h4 className="text-sm font-semibold mb-2" style={{ color: 'var(--cw-primary-dark)' }}>Length controls</h4>
-                <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>Keep these &mdash; Claude 5 writes longer by default, so &ldquo;keep it tight&rdquo; or a word cap earns its place.</p>
+                <p className="text-xs" style={{ color: 'var(--cw-ink-muted)' }}>Keep these &mdash; a length cap is a real constraint, and some models (Opus 5) run long, so &ldquo;keep it tight&rdquo; or a word cap earns its place.</p>
               </div>
             </CardGrid>
           </Card>
@@ -310,12 +310,12 @@ the file.                                               [PROOF]`}
               <strong>Few-shot:</strong> Provide examples to guide the response.
             </p>
             <ThenNow
-              then={'Add examples to almost any prompt — they raise quality across the board.'}
-              now={'Reach for examples when you need to match something specific: a house voice, a fixed report layout, a schema. Skip them on open analysis — on newer models an example narrows the answer to the pattern it demonstrates, so you get back a variation on your example rather than the model\'s best thinking.'}
+              then={'Give Claude examples of how to use each tool in an agent setup.'}
+              now={'Examples are still one of the most reliable ways to set format, tone and structure — a house voice, a fixed report layout, a schema. Three to five varied ones work best. What changed is tool-use examples in agent setups: there, Anthropic found they boxed the model in, so design the tool clearly instead.'}
             />
             <p className="text-sm mt-4" style={{ color: 'var(--cw-ink-muted)' }}>
-              Rule of thumb: examples are for <em>matching</em>, not for <em>teaching</em>. If you
-              can describe the standard in a sentence, do that instead.
+              Rule of thumb: make your examples varied, so Claude picks up the pattern rather than
+              copying one sample, and say what the examples are for.
             </p>
           </Card>
 
@@ -325,16 +325,16 @@ the file.                                               [PROOF]`}
               <TierBadge tier="intermediate" size="sm" />
             </div>
             <p className="text-base mb-3" style={{ color: 'var(--cw-ink-secondary)' }}>
-              Ask the AI to think through problems step-by-step for better reasoning.
+              Older models gave better answers when you asked them to reason before answering.
             </p>
-            <div className="p-4 rounded-lg font-mono text-sm" style={{ background: 'var(--cw-primary-light)' }}>
-              &ldquo;Think through this step-by-step...&rdquo; or &ldquo;Walk me through your reasoning...&rdquo;
-            </div>
+            <ThenNow
+              then={'"Think it through step by step..." or "Walk me through your reasoning..."'}
+              now={'Built in now. Claude thinks before it answers, so don\'t ask it to — on Fable 5.1, Opus 5.5 and Sonnet 5.5 a request to write out its reasoning may even be declined. For a hard problem, raise the Effort setting instead.'}
+            />
             <p className="text-sm mt-4" style={{ color: 'var(--cw-ink-muted)' }}>
-              <strong>Mostly built in now.</strong> The Claude 5 models reason before answering
-              without being told to, so this phrase buys less than it used to. It still earns its
-              place when you want the reasoning <em>shown</em> &mdash; because you need to check the
-              logic, not just the conclusion.
+              <strong>To check the logic,</strong> ask what the conclusion rests on and which
+              assumptions would change it. That gives you something to verify without asking for
+              the model&apos;s working.
             </p>
           </Card>
 
@@ -347,8 +347,8 @@ the file.                                               [PROOF]`}
               Have the AI draft first, then refine against criteria. Great for important documents.
             </p>
             <ThenNow
-              then={'Bolt "double-check your work before responding" into the prompt itself.'}
-              now={'Drop that line. Newer models already verify their own work, and telling them to do it again produces over-checking and padding. Anthropic\'s own guidance for these models is to delete self-check instructions — one of the few places where standard prompting advice inverts.'}
+              then={'A vague "double-check your work" tacked onto every prompt.'}
+              now={'Name what to check against: "Before you finish, check your answer against [the criteria]." Anthropic says this still catches errors reliably on most models. The exception is Opus 5, which already checks its own work well; there, drop the line, because it causes over-checking and padding.'}
             />
             <p className="text-sm mt-4" style={{ color: 'var(--cw-ink-muted)' }}>
               Dual-pass as a <em>workflow</em> is still excellent: get the draft, read it, then come
@@ -422,10 +422,11 @@ the file.                                               [PROOF]`}
             </li>
             <li className="flex items-start gap-2">
               <span style={{ color: 'var(--cw-primary)' }}>&bull;</span>
-              <span><strong>Added a guard against over-verification.</strong> Newer models already
-              re-check their work; standing instructions that sound like &ldquo;verify
-              yourself&rdquo; make them do it twice and pad the answer. The filter now says
-              explicitly that it wants disclosure, not a second pass.</span>
+              <span><strong>Added a guard against over-verification.</strong> The filter is a
+              standing instruction on every answer, and some models (Opus 5) already re-check their
+              work; a standing &ldquo;verify yourself&rdquo; makes them do it twice and pad the
+              answer. The filter now says explicitly that it wants disclosure, not a second pass.
+              For a specific task, a targeted self-check still helps.</span>
             </li>
           </ul>
         </Callout>
@@ -470,7 +471,7 @@ the file.                                               [PROOF]`}
             <h3 className="mb-2">Where to put it</h3>
             <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
               Standing context belongs somewhere standing. Paste it once into a Claude{' '}
-              <strong>Project&apos;s custom instructions</strong> or a Cowork workspace and every
+              <strong>Project&apos;s custom instructions</strong> and every
               conversation inherits it. Retyping it at the top of each chat is the exact habit the{' '}
               <Link href="/context-engineering#claude5" className="text-highlight" style={{ textDecoration: 'underline' }}>progressive disclosure</Link>{' '}
               principle exists to kill.

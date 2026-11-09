@@ -129,7 +129,7 @@ export default function InstallationPage() {
                   <Callout variant="purple" className="mt-4">
                     <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
                       If you see &ldquo;can&apos;t be opened because it&apos;s from an unidentified
-                      developer,&rdquo; go to <strong>System Preferences &gt; Security &amp; Privacy</strong> and
+                      developer,&rdquo; go to <strong>System Settings &gt; Privacy &amp; Security</strong> and
                       click &ldquo;Open Anyway.&rdquo;
                     </p>
                   </Callout>
@@ -138,13 +138,15 @@ export default function InstallationPage() {
               Linux: (
                 <div>
                   <p className="mb-4" style={{ color: 'var(--cw-ink-secondary)' }}>
-                    The Claude Desktop App is available for Mac and Windows. On Linux,
-                    use the terminal installation (Option B) below.
+                    The Claude Desktop App for Linux is in beta and runs on Ubuntu 22.04 or later and
+                    Debian 12 or later. It installs from Anthropic&apos;s apt repository; follow the steps in{' '}
+                    <a href="https://code.claude.com/docs/en/desktop-linux" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>
+                      Claude Desktop on Linux
+                    </a>.
                   </p>
                   <Callout variant="blue">
                     <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
-                      Linux users should proceed to <strong>Option B: Terminal Installation</strong> below
-                      for the native installer or npm-based setup.
+                      On other distributions, such as Fedora or Arch, use <strong>Option B: Terminal Installation</strong> below.
                     </p>
                   </Callout>
                 </div>
@@ -178,10 +180,11 @@ export default function InstallationPage() {
                   </p>
                 </Callout>
 
-                <Callout variant="warning" className="mb-6">
+                <Callout variant="blue" className="mb-6">
                   <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-                    <strong>REQUIRED: Install Git for Windows FIRST.</strong> Claude Code requires Git Bash
-                    to work properly on Windows. Download from{' '}
+                    <strong>Recommended: install Git for Windows.</strong> Claude Code runs without it and
+                    uses PowerShell for commands, but with Git for Windows installed Claude can also use
+                    Bash. You do not need it if you run Claude Code in Ubuntu (WSL). Download from{' '}
                     <a href="https://git-scm.com/download/win" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>
                       git-scm.com/download/win
                     </a>.
@@ -192,7 +195,7 @@ export default function InstallationPage() {
                 <Card className="mb-4">
                   <h4 className="mb-3">Option 1: npm</h4>
                   <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
-                    Requires <strong>Node.js 18+</strong> and <strong>npm</strong>.
+                    Requires <strong>Node.js 22</strong> or later and <strong>npm</strong>.
                   </p>
                   <Callout variant="warning" className="mb-3">
                     <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
@@ -235,7 +238,8 @@ claude --version`} />
                 <Card>
                   <h4 className="mb-3">Option 4: PowerShell</h4>
                   <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
-                    Open PowerShell as Administrator (Win + X, select &ldquo;Windows PowerShell (Admin)&rdquo;)
+                    Open PowerShell (press <kbd>Win</kbd>, type <code>powershell</code>, press Enter).
+                    You do not need Administrator rights.
                   </p>
                   <CodeBlock code={`irm https://claude.ai/install.ps1 | iex`} />
                 </Card>
@@ -293,8 +297,8 @@ claude --version`} />
                 </Card>
 
                 <Card>
-                  <h4 className="mb-3">Option 3: npm (Deprecated)</h4>
-                  <CodeBlock code={`# Only if native installer doesn't work
+                  <h4 className="mb-3">Option 3: npm</h4>
+                  <CodeBlock code={`# Needs Node.js 22 or later; installs the same native binary
 npm install -g @anthropic-ai/claude-code`} />
                 </Card>
               </div>
@@ -356,7 +360,7 @@ npm install -g @anthropic-ai/claude-code`} />
                   </p>
                   <StepList
                     steps={[
-                      { title: 'Open PowerShell as Administrator', description: <>Press <kbd>Win</kbd>, type <code>powershell</code>, right-click <strong>Windows PowerShell</strong> and choose <strong>Run as administrator</strong>. Accept the prompt &mdash; the window title will say &ldquo;Administrator&rdquo;</> },
+                      { title: 'Open an Administrator PowerShell window', description: <>Press <kbd>Win</kbd>, type <code>powershell</code>, right-click <strong>Windows PowerShell</strong> and choose <strong>Run as administrator</strong>. Accept the prompt &mdash; the window title will say &ldquo;Administrator&rdquo;</> },
                       { title: 'Run the one install command', description: 'Copy the box below and paste it in. Expect a few minutes and a progress bar' },
                       { title: 'Reboot', description: 'Reboot when it asks. Reboot even if it looks like it finished without needing to' },
                     ]}
@@ -651,8 +655,8 @@ wsl --set-version Ubuntu 2`} />
 
                 <Card className="mb-4">
                   <h4 className="mb-3">Alpine Linux / musl-based Distros</h4>
-                  <CodeBlock code={`# Install dependencies first
-apk add libgcc libstdc++ ripgrep
+                  <CodeBlock code={`# Install dependencies first (Alpine ships without bash and curl)
+apk add bash curl libgcc libstdc++ ripgrep
 
 # Set environment variable
 export USE_BUILTIN_RIPGREP=0
@@ -662,8 +666,8 @@ curl -fsSL https://claude.ai/install.sh | bash`} />
                 </Card>
 
                 <Card>
-                  <h4 className="mb-3">Option 3: npm (Deprecated)</h4>
-                  <CodeBlock code={`# Only if native installer doesn't work
+                  <h4 className="mb-3">Option 3: npm</h4>
+                  <CodeBlock code={`# Needs Node.js 22 or later; installs the same native binary
 npm install -g @anthropic-ai/claude-code`} />
                 </Card>
               </div>
@@ -699,6 +703,11 @@ npm install -g @anthropic-ai/claude-code`} />
 
         <Card className="mt-6">
           <h4 className="mb-2">API Key Authentication (Alternative)</h4>
+          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
+            Most people should skip this. When <code>ANTHROPIC_API_KEY</code> is set, Claude Code uses
+            the key instead of your Teams seat, even when you are signed in, and the usage is billed
+            to that API account.
+          </p>
           <CodeBlock code={`# Set environment variable in PowerShell
 $env:ANTHROPIC_API_KEY = "sk-ant-your-key-here"
 
@@ -812,7 +821,7 @@ claude`} />
           {[
             { name: 'Google Antigravity', desc: 'Free AI-first IDE with native AI integration', price: 'Free' },
             { name: 'Cursor', desc: 'AI-native VS Code fork with deep integration', price: '$20/mo' },
-            { name: 'Windsurf', desc: 'Agentic IDE with Cascade AI agent', price: '$15/mo' },
+            { name: 'Devin Desktop', desc: 'Agentic IDE built on VS Code, from the makers of Devin', price: '$15/mo' },
           ].map(ide => (
             <Card key={ide.name}>
               <h4 className="mb-1">{ide.name}</h4>
@@ -846,7 +855,7 @@ claude`} />
           {{
             Windows: (
               <div>
-                <Tabs tabs={['VS Code', 'Antigravity', 'Cursor', 'Windsurf']}>
+                <Tabs tabs={['VS Code', 'Antigravity', 'Cursor', 'Devin Desktop']}>
                   {{
                     'VS Code': (
                       <div>
@@ -966,35 +975,16 @@ cursor .`} />
                         </Card>
                       </div>
                     ),
-                    'Windsurf': (
+                    'Devin Desktop': (
                       <div>
                         <StepList
                           steps={[
-                            { title: 'Download Windsurf', description: <>Go to <a href="https://windsurf.com/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>windsurf.com/download</a> and click <strong>&ldquo;Download for Windows&rdquo;</strong></> },
+                            { title: 'Download Devin Desktop', description: <>Go to <a href="https://devin.ai/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>devin.ai/download</a> and choose the Windows download for your processor (x64 or arm64)</> },
                             { title: 'Run the installer', description: 'Double-click the downloaded .exe file and follow the installation wizard' },
-                            { title: 'First launch setup', description: 'Choose to import VS Code settings or start fresh, then sign in to your Windsurf account' },
+                            { title: 'First launch setup', description: 'Choose to import VS Code settings or start fresh, then sign in to your Devin account' },
+                            { title: 'Run Claude Code', description: <>Open the integrated terminal with <kbd>Ctrl+`</kbd> and type <code>claude</code></> },
                           ]}
                         />
-                        <Card className="mt-6 mb-4">
-                          <h4 className="mb-3">PATH Setup for <code>windsurf</code> CLI (if not auto-configured)</h4>
-                          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
-                            If the <code>windsurf</code> command is not recognized after installation, add it to your PATH manually:
-                          </p>
-                          <StepList
-                            steps={[
-                              { title: 'Open System Properties', description: <>Press <kbd>Win + R</kbd>, type <code>sysdm.cpl</code>, and hit Enter</> },
-                              { title: 'Open Environment Variables', description: <>Go to the <strong>Advanced</strong> tab and click <strong>Environment Variables</strong></> },
-                              { title: 'Edit your PATH', description: <>Under <strong>&ldquo;User variables&rdquo;</strong>, select <strong>Path</strong> and click <strong>Edit</strong></> },
-                              { title: 'Add the Windsurf bin path', description: <>Click <strong>New</strong> and add: <code>%LOCALAPPDATA%\Programs\Windsurf\bin</code></> },
-                              { title: 'Save and restart terminal', description: <>Click <strong>OK</strong> on all dialogs, then close and reopen your terminal</> },
-                            ]}
-                          />
-                          <CodeBlock code={`# Verify the CLI works
-windsurf --version
-
-# Open a project folder in Windsurf
-windsurf .`} />
-                        </Card>
                       </div>
                     ),
                   }}
@@ -1010,7 +1000,7 @@ windsurf .`} />
             ),
             Mac: (
               <div>
-                <Tabs tabs={['VS Code', 'Antigravity', 'Cursor', 'Windsurf']}>
+                <Tabs tabs={['VS Code', 'Antigravity', 'Cursor', 'Devin Desktop']}>
                   {{
                     'VS Code': (
                       <div>
@@ -1169,29 +1159,15 @@ cursor --version`} />
                         </Card>
                       </div>
                     ),
-                    'Windsurf': (
+                    'Devin Desktop': (
                       <div>
                         <StepList
                           steps={[
-                            { title: 'Download Windsurf', description: <>Go to <a href="https://windsurf.com/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>windsurf.com/download</a> and click <strong>&ldquo;Download for Mac&rdquo;</strong></> },
-                            { title: 'Install the app', description: 'Open the downloaded .dmg file and drag Windsurf to your Applications folder' },
-                            { title: 'Install the CLI tool', description: <>Open Windsurf, press <kbd>Cmd+Shift+P</kbd>, type <strong>&ldquo;Shell Command: Install &apos;windsurf&apos; command in PATH&rdquo;</strong> and select it</> },
+                            { title: 'Download Devin Desktop', description: <>Go to <a href="https://devin.ai/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>devin.ai/download</a> and click <strong>&ldquo;Download for Apple Silicon&rdquo;</strong> (or Intel if applicable)</> },
+                            { title: 'Install the app', description: 'Open the downloaded .dmg file and drag the app to your Applications folder' },
+                            { title: 'Run Claude Code', description: <>Open the integrated terminal with <kbd>Cmd + `</kbd> and type <code>claude</code></> },
                           ]}
                         />
-                        <Card className="mt-6 mb-4">
-                          <h4 className="mb-3">PATH Setup for <code>windsurf</code> CLI (alternative)</h4>
-                          <p className="text-sm mb-3" style={{ color: 'var(--cw-ink-muted)' }}>
-                            If the Command Palette method above doesn&apos;t work, add it to your PATH manually:
-                          </p>
-                          <CodeBlock code={`# Add to your shell profile (~/.zshrc for macOS Catalina+)
-echo 'export PATH="/Applications/Windsurf.app/Contents/Resources/app/bin:$PATH"' >> ~/.zshrc
-
-# Reload your shell
-source ~/.zshrc
-
-# Verify
-windsurf --version`} />
-                        </Card>
                       </div>
                     ),
                   }}
@@ -1207,7 +1183,7 @@ windsurf --version`} />
             ),
             Linux: (
               <div>
-                <Tabs tabs={['VS Code', 'Antigravity', 'Cursor', 'Windsurf']}>
+                <Tabs tabs={['VS Code', 'Antigravity', 'Cursor', 'Devin Desktop']}>
                   {{
                     'VS Code': (
                       <div>
@@ -1303,16 +1279,13 @@ sudo ln -s $(pwd)/squashfs-root/resources/app/bin/cursor /usr/local/bin/cursor
 cursor --version`} />
                       </div>
                     ),
-                    'Windsurf': (
+                    'Devin Desktop': (
                       <div>
-                        <CodeBlock code={`# Download .deb from windsurf.com/download
-sudo dpkg -i windsurf_*.deb
-
-# Verify CLI
-windsurf --version
-
-# Open a project folder
-windsurf .`} />
+                        <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
+                          Go to <a href="https://devin.ai/download" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)' }}>devin.ai/download</a>{' '}
+                          and use the Linux download, which installs with apt or rpm. Then open its integrated
+                          terminal with <kbd>Ctrl+`</kbd> and type <code>claude</code>.
+                        </p>
                       </div>
                     ),
                   }}

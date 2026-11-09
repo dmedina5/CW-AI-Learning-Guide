@@ -82,7 +82,7 @@ export default function ChampionsPage() {
                 ['Production DB', 'MySQL read replica via MCP + db-query skill'],
                 ['Metabase', 'Username/password session'],
                 ['n8n', 'API key (n8n → Settings → API)'],
-                ['HubSpot', 'OAuth (MCP cloud plugin)'],
+                ['HubSpot', 'OAuth (Claude connector)'],
                 ['Google Workspace', 'OAuth (MCP server)'],
                 ['Microsoft 365', 'OAuth (MCP server)'],
                 ['GitHub', 'Personal access token (read-only)'],
@@ -109,7 +109,7 @@ export default function ChampionsPage() {
 
         <CodeBlock
           title="Clone the operational framework"
-          code={`cd ~/workspace
+          code={`mkdir -p ~/repos && cd ~/repos
 git clone git@github.com:CoverWhale/cw-operational-framework.git`}
         />
 
@@ -146,14 +146,14 @@ git clone git@github.com:CoverWhale/cw-policy-docs.git`}
           <Card>
             <h4 className="mb-2">Windows (PowerShell)</h4>
             <CodeBlock
-              code={`cd $env:USERPROFILE\\workspace\\cw-operational-framework
+              code={`cd $env:USERPROFILE\\repos\\cw-operational-framework
 copy .claude\\templates\\env.tools.local.tmpl .env.tools.local`}
             />
           </Card>
           <Card>
             <h4 className="mb-2">Mac / Linux</h4>
             <CodeBlock
-              code={`cd ~/workspace/cw-operational-framework
+              code={`cd ~/repos/cw-operational-framework
 cp .claude/templates/env.tools.local.tmpl .env.tools.local`}
             />
           </Card>
@@ -187,26 +187,29 @@ cp .claude/templates/env.tools.local.tmpl .env.tools.local`}
       <section className="mb-16" id="mcp-plugins">
         <div className="section-label">Step 3</div>
         <h2 className="mb-4">
-          Enable <span className="text-highlight">MCP Cloud Plugins</span>
+          Connect <span className="text-highlight">Cloud Connectors</span>
         </h2>
         <p className="mb-6">
           HubSpot, Slack, Atlassian, Google Workspace, and Microsoft 365 use
-          Anthropic&apos;s cloud plugins &mdash; OAuth-based, no credential files needed.
+          Claude connectors that you connect in the Claude app &mdash; OAuth-based, no credential
+          files needed. Once connected, they are available in Claude Code when you are signed in
+          with your Cover Whale Teams account.
         </p>
 
         <CodeBlock
-          title="Enable cloud plugins"
-          code={`# Inside Claude Code:
-/settings
-
-# Find the integrations / plugins section
-# Enable the plugins you need:
+          title="Connect the cloud connectors"
+          code={`# In the Claude app (claude.ai or the desktop app):
+#   Customize → Connectors
+# Connect the ones you need:
 #   - HubSpot
 #   - Slack
 #   - Atlassian (Jira + Confluence)
 #   - Google Workspace (Gmail, Drive, Calendar)
 #   - Microsoft 365 (Outlook, OneDrive, Teams)
-# Each plugin opens your browser for OAuth — log in with Cover Whale`}
+# Each connector opens your browser for OAuth — log in with Cover Whale
+
+# Then, inside Claude Code, check they are listed and connected:
+/mcp`}
         />
       </section>
 
@@ -219,7 +222,7 @@ cp .claude/templates/env.tools.local.tmpl .env.tools.local`}
 
         <CodeBlock
           title="One-command platform setup"
-          code={`cd ~/workspace/coverwhale
+          code={`cd ~/repos/coverwhale
 
 # Setup (Intel + Apple Silicon)
 make setup
@@ -261,7 +264,7 @@ make ports
 clasp login
 
 # Work with a GAS project
-cd ~/workspace/coverwhale/legislative-monitoring
+cd ~/repos/coverwhale/legislative-monitoring
 clasp pull   # Pull from Google
 clasp push   # Push local changes
 clasp open   # Open in browser`}
@@ -277,7 +280,7 @@ clasp open   # Open in browser`}
               Internal site at how-we-work.coverwhale.dev.
             </p>
             <CodeBlock
-              code={`cd ~/workspace/cw-how-we-work
+              code={`cd ~/repos/cw-how-we-work
 npm install
 npx vite dev    # Local dev
 npx vite build  # Production`}
@@ -342,7 +345,7 @@ npx vite build  # Production`}
 
         <Card>
           <CodeBlock
-            code={`~/workspace/
+            code={`~/repos/
 ├── coverwhale/                    # Main Laravel platform
 │   └── legislative-monitoring/    # GAS project (clasp)
 ├── cw-operational-framework/      # Ops framework

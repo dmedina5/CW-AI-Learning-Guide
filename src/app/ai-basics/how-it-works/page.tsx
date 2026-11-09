@@ -21,7 +21,8 @@ export default function HowItWorksPage() {
         </h2>
         <p className="mb-4">
           The model doesn&apos;t learn from you. Your context is a lens that focuses its predictions.
-          When the conversation ends, the lens goes away.
+          When the conversation ends, the lens goes away, except the details Claude&apos;s memory
+          or past-chat search carries forward, if your admin has them on.
         </p>
 
         <ContextLayers />

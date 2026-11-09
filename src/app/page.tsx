@@ -10,6 +10,7 @@ import { Callout } from '@/components/content/Callout';
 import { TierBadge } from '@/components/content/TierBadge';
 import { ClaudePlanNotice } from '@/components/content/ClaudePlanNotice';
 import { CHATGPT_END_DATE, TIERS } from '@/lib/constants';
+import { siteImage } from '@/lib/site-images';
 
 const LEARNING_PATH = [
   {
@@ -61,7 +62,7 @@ export default function HomePage() {
       {/* Hero */}
       <div className="text-center mb-16">
         <img
-          src="https://coverwhale.com/hubfs/CoverWhale_Purple.png"
+          src={siteImage('cover-whale-logo.png')}
           alt="Cover Whale"
           className="h-12 mx-auto mb-8 opacity-60"
           onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
@@ -110,8 +111,9 @@ export default function HomePage() {
         <Callout variant="warning">
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
             <strong>Moving from ChatGPT?</strong> Cover Whale&apos;s ChatGPT for Business
-            subscription ends {CHATGPT_END_DATE}. Move the memory, instructions, projects and chats
-            you still need into Claude before then.{' '}
+            subscription ended {CHATGPT_END_DATE}, and ChatGPT is prohibited under the AI Acceptable
+            Use Policy. If you still have memory, instructions, projects or chats to bring into
+            Claude, the steps still apply.{' '}
             <Link href="/moving-from-chatgpt" className="font-semibold underline" style={{ color: 'var(--cw-primary)' }}>
               Here is how
             </Link>

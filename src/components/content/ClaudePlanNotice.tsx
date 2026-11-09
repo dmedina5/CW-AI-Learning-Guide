@@ -15,8 +15,8 @@ export function ClaudePlanNotice({ compact = false, className = '' }: ClaudePlan
   return (
     <Callout variant="sage" className={className}>
       <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-        <strong>Use the {CLAUDE_PLAN}.</strong> Cover Whale is moving off the {LEGACY_CLAUDE_PLAN}{' '}
-        plan, so do all new Claude work there: chats, projects, Cowork and Claude Code.
+        <strong>Use the {CLAUDE_PLAN}.</strong> Cover Whale has moved off the {LEGACY_CLAUDE_PLAN}{' '}
+        plan, so do all Claude work there: chats, projects, Cowork and Claude Code.
         To check, click your name in the bottom-left corner of Claude and choose{' '}
         <strong>{CLAUDE_PLAN_WORKSPACE}</strong>. In Claude Code, run <code>/login</code> and pick
         the Teams plan.

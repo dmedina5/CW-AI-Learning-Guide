@@ -154,7 +154,13 @@ export default function RoadToAgenticEngineeringPage() {
 
         <CodeBlock
           title="Claude Code Installation"
-          code={`npm install -g @anthropic-ai/claude-code
+          code={`# macOS, Linux, or Ubuntu on Windows (WSL)
+curl -fsSL https://claude.ai/install.sh | bash
+
+# Windows PowerShell
+irm https://claude.ai/install.ps1 | iex
+
+# Then open a new terminal and start Claude Code
 claude`}
         />
       </section>

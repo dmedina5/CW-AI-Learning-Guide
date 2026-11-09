@@ -178,8 +178,8 @@ export default function SetupPage() {
 
         <CodeBlock
           title="Clone the Cover Whale repository"
-          code={`# Navigate to where you keep projects
-cd ~/workspace
+          code={`# Go to where you keep projects (creates the folder if it is missing)
+mkdir -p ~/repos && cd ~/repos
 
 # Clone the repo (requires org membership)
 git clone https://github.com/CoverWhale/coverwhale.git
@@ -261,7 +261,7 @@ cd coverwhale`}
 
         <CodeBlock
           title="Create your .env.tools.local file"
-          code={`# From the project root (e.g., ~/workspace/coverwhale)
+          code={`# From the project root (e.g., ~/repos/coverwhale)
 # Create the file — it should NOT already exist
 touch .env.tools.local`}
         />
@@ -422,9 +422,10 @@ HUBSPOT_API_KEY=your-hubspot-api-key`}
 git ls-remote https://github.com/CoverWhale/coverwhale.git
 
 # Verify .env.tools.local is gitignored
-cd ~/workspace/coverwhale
-git status .env.tools.local
-# Should show nothing (ignored)
+cd ~/repos/coverwhale
+git check-ignore -v .env.tools.local
+# Should print the .gitignore rule that ignores it.
+# No output means the file is NOT ignored: stop and fix that first.
 
 # Start Claude Code in the repo
 claude`}

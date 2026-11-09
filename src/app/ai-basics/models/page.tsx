@@ -7,8 +7,8 @@ import { TierBadge } from '@/components/content/TierBadge';
 import { AUP_REPORT_EMAIL, CHATGPT_END_DATE, CLAUDE_PLAN } from '@/lib/constants';
 
 const MODELS = [
-  { name: 'Claude', org: 'Anthropic · Opus, Sonnet, Haiku', color: '#D97706' },
-  { name: 'ChatGPT / GPT-5', org: 'OpenAI · 400K context window', color: '#10A37F' },
+  { name: 'Claude', org: 'Anthropic · Fable, Opus, Sonnet, Haiku', color: '#D97706' },
+  { name: 'ChatGPT / GPT-6', org: 'OpenAI · ~1M context window', color: '#10A37F' },
   { name: 'Gemini', org: 'Google DeepMind · 1M context', color: '#4285F4' },
   { name: 'Grok', org: 'xAI · Real-time X integration', color: '#1A1A2E' },
   { name: 'DeepSeek', org: 'Open-source challenger', color: '#0066FF' },
@@ -65,8 +65,8 @@ export default function ModelsPage() {
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
             <strong>Knowing a model is not the same as being cleared to use it.</strong> For Cover
             Whale work, use Claude on the {CLAUDE_PLAN}. DeepSeek and other Chinese-origin AI tools
-            are prohibited under the AI Acceptable Use Policy, and ChatGPT is not available for work
-            after {CHATGPT_END_DATE}. Not sure about a tool? Email {AUP_REPORT_EMAIL} before you
+            are prohibited under the AI Acceptable Use Policy, and so is ChatGPT: our ChatGPT for
+            Business subscription ended {CHATGPT_END_DATE}. Not sure about a tool? Email {AUP_REPORT_EMAIL} before you
             use it.
           </p>
         </Callout>

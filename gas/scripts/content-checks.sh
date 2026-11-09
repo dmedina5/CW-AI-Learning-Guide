@@ -77,6 +77,38 @@ check --export-all /token-efficiency \
   "Anthropic does not publish a multiplier"
 check /right-size-your-model "Token Efficiency"
 
+# ── November 2026: whole-guide review against official docs ─────────────────
+# Each '!' line is an instruction or fact the review found wrong or retired
+# (code.claude.com, platform.claude.com, support.claude.com, read 2026-11-09).
+# Claude Code track
+check --export-all /road-to-agentic-engineering/workflows \
+  "claude -w" '!claude --w' '!no interaction, full permissions' '!Max 10' '!Shift+Up'
+check --export-all /road-to-agentic-engineering/fundamentals '!/add path/to/file.ts'
+check --export-all /road-to-agentic-engineering/tips \
+  '!/add path' '!Quick context update' '!terminates the entire'
+check --export-all /road-to-agentic-engineering/cheatsheet '!/add ' '!CLAUDE_LOG_FILE'
+check --export-all /road-to-agentic-engineering/champions '!/settings'
+check --export-all /road-to-agentic-engineering/installation \
+  'apk add bash curl' 'Node.js 22' \
+  '!Open PowerShell as Administrator' '!Node.js 18' '!REQUIRED: Install Git for Windows' \
+  '!apk add libgcc libstdc++ ripgrep' '!Windsurf'
+# Foundations: prompting advice that now backfires on current models
+check --export-all /prompt-engineering \
+  '!Think through this step-by-step' '!delete self-check instructions' '!an example narrows'
+check --export-all /ai-basics/responsible-ai '!audit trail'
+check --export-all /resources '!200K token context window' '!NotebookLM is' 'Gemini Notebook'
+check --export-all /ai-basics/core-concepts '!carry context between sessions'
+check / '!is moving off'
+# Products and use cases
+check --export-all /choose-your-claude "The Claude app" '!you turn it on manually' '!Claude Cowork'
+check --export-all /moving-from-chatgpt '!Finish before' '!switch to Cowork' '!Next: Claude Cowork'
+check --export-all /agentic-ai '!--add src/' '!Swarm:' 'OpenAI Agents SDK'
+check --export-all /agentic-ai/skills 'SKILL.md' 'Customize'
+check --export-all /prompt-builder '!Next: Claude Cowork'
+# The logo pointed at a coverwhale.com/hubfs file that returns 404, and the
+# Harbor frame blocks outside images anyway: the logo ships inline there.
+check / 'src="data:image/png;base64' '!CoverWhale_Purple.png'
+
 # ── October 2026: the Cover Whale Teams plan is the plan to use ─────────────
 check / "Cover Whale Teams plan" "Moving from ChatGPT"
 check /road-to-agentic-engineering "Cover Whale Teams plan" '!Pro/Max account'

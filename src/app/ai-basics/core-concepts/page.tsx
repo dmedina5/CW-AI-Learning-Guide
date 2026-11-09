@@ -52,7 +52,7 @@ export default function CoreConceptsPage() {
             },
             {
               title: 'Not Remembering',
-              body: 'Each conversation starts fresh. AI doesn\'t learn from you or carry context between sessions.',
+              body: 'The model itself doesn\'t learn from you. On the Teams plan, Claude\'s memory and past-chat search, if your admin has them on, carry selected details forward, and you can review and edit them.',
             },
             {
               title: 'Not Creative',

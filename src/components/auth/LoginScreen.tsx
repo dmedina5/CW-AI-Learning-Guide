@@ -1,6 +1,7 @@
 'use client';
 
 import { getLoginUrl } from '@/lib/auth';
+import { siteImage } from '@/lib/site-images';
 
 export function LoginScreen() {
   const handleLogin = () => {
@@ -12,7 +13,7 @@ export function LoginScreen() {
       <div className="glass-card p-12 max-w-md w-full mx-4 text-center">
         <div className="mb-8">
           <img
-            src="https://coverwhale.com/hubfs/CoverWhale_Purple.png"
+            src={siteImage('cover-whale-logo.png')}
             alt="Cover Whale"
             className="h-12 mx-auto mb-6 opacity-80"
             onError={(e) => {

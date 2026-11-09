@@ -131,9 +131,9 @@ const CLAUDE5_SHIFT = [
     detail: 'Detailed prohibitions were written to compensate for weaker instruction-following. Newer models read intent and surrounding context well enough that rigid rules now fight their judgment instead of guiding it.',
   },
   {
-    then: 'Give Claude examples',
+    then: 'Give Claude tool-use examples',
     now: 'Design the interface',
-    detail: 'Few-shot examples constrain the model to the exploration space they demonstrate. Expressive tool parameters and clear enum values now steer behavior better than a sample of it.',
+    detail: 'Examples of how to use a tool now constrain the model to the exploration space they demonstrate. Expressive tool parameters and clear enum values steer tool use better than a sample of it. Examples in ordinary prompts still reliably set format, tone and structure.',
   },
   {
     then: 'Put it all upfront',
@@ -346,9 +346,9 @@ export default function ContextEngineeringPage() {
 
         <Callout variant="blue" className="mt-8">
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-            <strong>One of these has changed.</strong> Few-shot examples and heavy guardrails were
+            <strong>One of these has changed.</strong> Heavy guardrails and tool-use examples were
             load-bearing on older models. On the newest ones they can <em>narrow</em> the answer
-            rather than sharpen it &mdash; see{' '}
+            rather than sharpen it; examples of the output you want still help &mdash; see{' '}
             <Link href="#claude5" className="text-highlight" style={{ textDecoration: 'underline' }}>The Claude 5 Shift</Link> below.
           </p>
         </Callout>
@@ -491,7 +491,7 @@ match its comment density, naming, and idiom.`}
         <div className="section-label mt-4">In the Latest Claude</div>
         <h2 className="mb-4">Context engineering with today&apos;s Claude</h2>
         <p className="mb-8">
-          The current Claude models (Opus 5.5, Sonnet 5.5, and Fable 5.1) and the Claude Developer Platform ship
+          The current Claude models (Haiku 5.5, Opus 5.5, Sonnet 5.5, and Fable 5.1) and the Claude Developer Platform ship
           features built specifically to make context management easier. These turn the principles
           above into product capabilities.
         </p>
@@ -504,7 +504,7 @@ match its comment density, naming, and idiom.`}
               <TierBadge tier="advanced" size="sm" />
             </div>
             <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-              Opus 5.5, Sonnet 5.5, and Fable 5.1 all carry a <strong>1 million token</strong> window
+              Haiku 5.5, Opus 5.5, Sonnet 5.5, and Fable 5.1 all carry a <strong>1 million token</strong> window
               &mdash; and on these models it&apos;s the default, not a beta opt-in. That&apos;s large
               enough for entire codebases or document sets. But a bigger window raises the ceiling;
               it doesn&apos;t repeal the rules. Relevance and structure still decide quality. Use the
@@ -520,8 +520,8 @@ match its comment density, naming, and idiom.`}
             </div>
             <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
               Reuse a large, stable block of context &mdash; a system prompt, a knowledge base, a long
-              document &mdash; across calls and Claude caches it. Cached reads cost roughly a tenth of
-              fresh input, cutting cost up to ~90% and latency up to ~85% on long prompts. This makes
+              document &mdash; across calls and Claude caches it. Cached reads cost 2.5&ndash;10% of
+              fresh input, depending on the model, and long prompts start answering sooner. This makes
               it practical to give Claude rich background on <em>every</em> turn instead of trimming to
               save money.
             </p>
@@ -529,8 +529,8 @@ match its comment density, naming, and idiom.`}
               The catch is that caching is a <strong>prefix match</strong>: one changed byte anywhere
               early invalidates everything after it. Keep the stable content first and the volatile
               content (timestamps, the user&apos;s actual question) last. Writing to the cache costs a
-              premium over normal input, so it pays off from about the second reuse onward &mdash;
-              not on a one-off.
+              premium over normal input, but a five-minute cache pays for itself on the first reuse
+              &mdash; just not on a one-off.
             </p>
           </Card>
 
@@ -590,10 +590,10 @@ match its comment density, naming, and idiom.`}
         <div className="mt-8 p-5 rounded-xl text-sm" style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)' }}>
           <div className="font-semibold mb-2" style={{ color: 'var(--cw-ink-secondary)' }}>Sources &amp; further reading</div>
           <ul className="space-y-1" style={{ color: 'var(--cw-ink-muted)' }}>
-            <li>&bull; Anthropic, <a href="https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)', textDecoration: 'underline' }}>&ldquo;The New Rules of Context Engineering for Claude 5 Generation Models&rdquo;</a> &mdash; the source for The Claude 5 Shift section</li>
+            <li>&bull; Anthropic, <a href="https://claude.dev/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)', textDecoration: 'underline' }}>&ldquo;The New Rules of Context Engineering for Claude 5 Generation Models&rdquo;</a> &mdash; the source for The Claude 5 Shift section</li>
             <li>&bull; Addy Osmani, <a href="https://addyo.substack.com/p/context-engineering-bringing-engineering" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)', textDecoration: 'underline' }}>&ldquo;Context Engineering: Bringing Engineering Discipline to Prompts&rdquo;</a></li>
-            <li>&bull; Anthropic, <a href="https://www.anthropic.com/news/context-management" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)', textDecoration: 'underline' }}>Managing context on the Claude Developer Platform</a></li>
-            <li>&bull; Anthropic, <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)', textDecoration: 'underline' }}>Prompt caching</a> &amp; <a href="https://docs.claude.com/en/docs/agents-and-tools/tool-use/memory-tool" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)', textDecoration: 'underline' }}>Memory tool</a> docs</li>
+            <li>&bull; Anthropic, <a href="https://claude.com/resources/articles/context-management" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)', textDecoration: 'underline' }}>Managing context on the Claude Developer Platform</a></li>
+            <li>&bull; Anthropic, <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)', textDecoration: 'underline' }}>Prompt caching</a> &amp; <a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cw-primary)', textDecoration: 'underline' }}>Memory tool</a> docs</li>
           </ul>
         </div>
       </section>

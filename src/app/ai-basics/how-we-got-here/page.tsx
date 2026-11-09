@@ -64,7 +64,7 @@ const TIMELINE = [
   {
     when: 'October',
     title: 'Claude is our AI assistant',
-    body: `ChatGPT for Business ends ${CHATGPT_END_DATE}. From here, Claude on the ${CLAUDE_PLAN} is the AI assistant Cover Whale uses.`,
+    body: `ChatGPT for Business ended ${CHATGPT_END_DATE}, and ChatGPT is now prohibited under the AI Acceptable Use Policy. From here, Claude on the ${CLAUDE_PLAN} is the AI assistant Cover Whale uses.`,
   },
 ];
 

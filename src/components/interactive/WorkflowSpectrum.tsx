@@ -40,7 +40,7 @@ const patterns: PatternInfo[] = [
     subtitle: 'Claude runs sub-agents',
     description: 'Claude spawns and manages multiple sub-agents in parallel from a single terminal. Claude is the hub; sub-agents are the spokes.',
     manages: 'Claude (auto sub-agents)',
-    parallelism: 'Auto (up to 10)',
+    parallelism: 'Auto (up to 20)',
     cost: 'Medium',
     bestFor: 'Parallel research, builder-validator',
   },
@@ -51,7 +51,7 @@ const patterns: PatternInfo[] = [
     description: 'A Team Lead coordinates specialized Teammates with a shared task list. Full instances that build on each other\u2019s work.',
     manages: 'Team Lead Claude',
     parallelism: 'Specialists',
-    cost: 'High (4-7x)',
+    cost: 'High',
     bestFor: 'Complex cross-collaboration',
   },
   {

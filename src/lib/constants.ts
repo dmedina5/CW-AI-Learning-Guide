@@ -1,17 +1,17 @@
 export const AUTH_BACKEND = 'https://coverwhale-auth.vercel.app';
 
-// Served from downloads/ at the repo root: GitHub Pages builds this repo from
-// the root of main, so files under public/ are never served. The Harbor build
+// Served from public/downloads/ by the GitHub Pages build (the Actions workflow
+// deploys the Next build in out/, which copies public/). The Harbor build
 // cannot host files, so both builds link to this one address.
 export const WSL_SETUP_BUNDLE_URL =
   'https://dmedina5.github.io/CW-AI-Learning-Guide/downloads/wsl-claude-code-setup.zip';
 
-// Screenshots of the Claude app. GitHub Pages serves this repo from the root
-// of main (legacy build, not the Actions deploy of out/), so they live in
-// images/claude-app/ at the repo root and both builds link to them by URL.
-// The repo is public: every image is cropped and redacted before it lands.
-export const CLAUDE_APP_SHOTS_URL =
-  'https://dmedina5.github.io/CW-AI-Learning-Guide/images/claude-app';
+// Images under public/images/ (the logo, the Claude app screenshots), served by
+// the GitHub Pages build. The Harbor build inlines them instead (its frame will
+// not load images from other sites); see src/lib/site-images.ts.
+// The repo is public: every screenshot is cropped and redacted before it lands.
+export const SITE_IMAGES_URL =
+  'https://dmedina5.github.io/CW-AI-Learning-Guide/images';
 
 // The Claude plan Cover Whale works on. Claude's account switcher shows the
 // workspace as "Coverwhale Teams"; prose uses the plan name.
