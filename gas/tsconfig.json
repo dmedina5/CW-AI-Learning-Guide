@@ -14,5 +14,6 @@
     "types": ["vite/client"],
     "paths": { "@/*": ["../src/*"] }
   },
-  "include": ["src", "shims", "../src", "vite.config.ts"]
+  "include": ["src", "shims", "../src", "vite.config.ts"],
+  "exclude": ["../src/**/*.test.ts"]
 }

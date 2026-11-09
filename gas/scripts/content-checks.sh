@@ -52,6 +52,9 @@ check /claude-cowork \
   "Skills" "Connectors" "Plugins" \
   "Claude model picker with Haiku 5.5" \
   '!Open the Cowork tab' '!click the Cowork tab'
+# The Harbor frame does not load images from other sites (they showed broken
+# in the @HEAD preview), so the Harbor build must carry them inline.
+check /claude-cowork 'src="data:image/jpeg;base64' '!src="https://dmedina5.github.io'
 check /right-size-your-model \
   "Effort is in chat too" "Extra" \
   '!Effort levels and ultracode are Claude Code' \

@@ -18,7 +18,8 @@ import { TierBadge } from '@/components/content/TierBadge';
 import { StepList } from '@/components/content/StepList';
 import { PlatformTabs } from '@/components/content/PlatformTabs';
 import { ClaudePlanNotice } from '@/components/content/ClaudePlanNotice';
-import { AI_HELP_CONTACT, CLAUDE_APP_SHOTS_URL } from '@/lib/constants';
+import { AI_HELP_CONTACT } from '@/lib/constants';
+import { shotSrc } from '@/lib/claude-app-shots';
 
 /**
  * The Claude app on the Cover Whale Teams plan, November 2026.
@@ -36,7 +37,7 @@ function Shot({ file, alt, caption }: { file: string; alt: string; caption: stri
   return (
     <figure className="my-6">
       <img
-        src={`${CLAUDE_APP_SHOTS_URL}/${file}`}
+        src={shotSrc(file)}
         alt={alt}
         loading="lazy"
         className="rounded-xl w-full h-auto"

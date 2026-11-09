@@ -3,11 +3,11 @@
  * Regenerate with: npm run harbor:build
  */
 
-var BUNDLE_CHUNKS = ["Bundle0","Bundle1","Bundle2","Bundle3","Bundle4","Bundle5","Bundle6","Bundle7","Bundle8"];
+var BUNDLE_CHUNKS = ["Bundle0","Bundle1","Bundle2","Bundle3","Bundle4","Bundle5","Bundle6","Bundle7","Bundle8","Bundle9","Bundle10"];
 
 var FONT_URLS = [
   "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap",
   "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
 ];
 
-var BUILD_STAMP = "2026-11-09T03:57:29.957Z";
+var BUILD_STAMP = "2026-11-09T04:05:56.193Z";
