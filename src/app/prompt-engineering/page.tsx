@@ -512,12 +512,14 @@ the file.                                               [PROOF]`}
         >
           <h3 className="text-lg font-bold text-white mb-3">CRITICAL: Protecting Private Information</h3>
           <p className="text-sm text-white/90 mb-4">
-            AI tools process data on external servers. Never input actual personally identifiable information (PII) or sensitive business data.
+            Keep customer and claim data in the tools approved for it. Never put it into a personal
+            account or a tool that is not on the AI Acceptable Use Policy&apos;s approved list, and even
+            in an approved tool, share only what the task needs. These are the details to watch for:
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
             {['Real names', 'DOT numbers', 'SSN / EIN', 'Driver\'s licenses', 'Policy numbers', 'VIN numbers', 'Actual addresses', 'Phone numbers', 'Email addresses', 'Bank accounts', 'Claim numbers', 'MC numbers'].map(item => (
               <div key={item} className="px-3 py-2 rounded-md text-xs" style={{ background: 'rgba(255,255,255,0.15)' }}>
-                ❌ {item}
+                🔒 {item}
               </div>
             ))}
           </div>
@@ -526,7 +528,7 @@ the file.                                               [PROOF]`}
         <Card>
           <h3 className="mb-4">The Generalization Technique</h3>
           <p className="text-base mb-4" style={{ color: 'var(--cw-ink-secondary)' }}>
-            Convert specific data to categorical descriptions:
+            When the specifics don&apos;t change the answer, leave them out and use a category instead:
           </p>
           <div className="p-4 rounded-lg font-mono text-sm space-y-1" style={{ background: 'var(--cw-primary-light)' }}>
             <div>&ldquo;ABC Trucking&rdquo; → &ldquo;a regional carrier&rdquo;</div>

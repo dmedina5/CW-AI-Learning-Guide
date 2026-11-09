@@ -87,7 +87,7 @@ const usefulLinks = [
   {
     name: 'Gemini Notebook (formerly NotebookLM)',
     url: 'https://notebook.google.com/',
-    description: 'Google\'s AI-powered research and note-taking tool. Great for uploading documents and having AI conversations about your content.',
+    description: 'Google\'s AI-powered research and note-taking tool. Great for uploading documents and having AI conversations about your content. Approved under the AI Acceptable Use Policy.',
     color: '#4285F4',
   },
   {
@@ -345,11 +345,12 @@ export default function ResourcesPage() {
           <Card>
             <h3 className="mb-4" style={{ color: 'var(--cw-primary)' }}>PII Safety Quick Check</h3>
             <p className="text-base mb-4" style={{ color: 'var(--cw-ink-secondary)' }}>
-              Before submitting any prompt, scan for these items and replace with generalized descriptions.
+              Before you send a prompt, check where it is going. These details belong only in tools
+              approved for customer data, and only when the task needs them. Otherwise, generalize.
             </p>
             <CardGrid columns={3}>
               <div className="p-4 rounded-lg" style={{ background: 'rgba(217,85,80,0.06)', border: '1px solid rgba(217,85,80,0.15)' }}>
-                <div className="text-[11px] font-semibold uppercase mb-2" style={{ color: 'var(--cw-warning)' }}>Never Include</div>
+                <div className="text-[11px] font-semibold uppercase mb-2" style={{ color: 'var(--cw-warning)' }}>Approved tools only</div>
                 <div className="space-y-1 text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
                   <div>Real names</div>
                   <div>DOT / MC numbers</div>

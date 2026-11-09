@@ -285,11 +285,13 @@ DB_READONLY_USER=your-username
 DB_READONLY_PASSWORD=your-password
 DB_READONLY_DATABASE=coverwha_prod
 
-# Metabase API (for data queries and dashboards)
+# Metabase (for data queries and dashboards): an API key, not your login
+METABASE_URL=https://coverwhale.metabaseapp.com
 METABASE_API_KEY=your-metabase-api-key
 
-# HubSpot API (for CRM integration)
-HUBSPOT_API_KEY=your-hubspot-api-key`}
+# HubSpot: use the HubSpot connector in Claude (Customize → Connectors).
+# Only a script that calls HubSpot directly needs a token:
+# HUBSPOT_ACCESS_TOKEN=pat-your-private-app-token`}
           />
         </Card>
 
@@ -344,9 +346,9 @@ HUBSPOT_API_KEY=your-hubspot-api-key`}
               desc: 'Query dashboards and data programmatically for analysis and reporting',
             },
             {
-              tool: 'HubSpot API Key',
-              how: 'IT ticket required',
-              desc: 'Access CRM data for broker and submission lookups',
+              tool: 'HubSpot',
+              how: 'Claude connector',
+              desc: 'Connect it in the Claude app under Customize → Connectors with your HubSpot login. Only a script that calls HubSpot directly needs a private-app access token (HUBSPOT_ACCESS_TOKEN), requested through an IT ticket.',
             },
           ].map((item) => (
             <Card key={item.tool}>

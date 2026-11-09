@@ -109,6 +109,21 @@ check --export-all /prompt-builder '!Next: Claude Cowork'
 # Harbor frame blocks outside images anyway: the logo ships inline there.
 check / 'src="data:image/png;base64' '!CoverWhale_Purple.png'
 
+# ── November 2026: owner decisions after the review (2026-11-09) ────────────
+# Data rule: customer data stays in approved tools (not "never input PII").
+check --export-all /prompt-engineering \
+  "Keep customer and claim data in the tools approved for it" \
+  '!Never input actual personally identifiable information'
+check --export-all /context-engineering '!Never paste raw PII'
+check --export-all /resources '!Never Include' "Approved under the AI Acceptable Use Policy"
+# Credentials: Metabase is an API key (the framework forbids session logins);
+# HubSpot is the Claude connector, or HUBSPOT_ACCESS_TOKEN for scripts.
+check --export-all /road-to-agentic-engineering/setup \
+  "METABASE_API_KEY" "HUBSPOT_ACCESS_TOKEN" "Customize → Connectors" '!HUBSPOT_API_KEY'
+check --export-all /road-to-agentic-engineering/champions \
+  "METABASE_API_KEY" "HUBSPOT_ACCESS_TOKEN" \
+  '!Username/password session' '!Username &amp; password' '!Username & password'
+
 # ── October 2026: the Cover Whale Teams plan is the plan to use ─────────────
 check / "Cover Whale Teams plan" "Moving from ChatGPT"
 check /road-to-agentic-engineering "Cover Whale Teams plan" '!Pro/Max account'

@@ -631,10 +631,11 @@ match its comment density, naming, and idiom.`}
             </p>
           </Card>
           <Card>
-            <h3 className="mb-2">Never paste raw PII</h3>
+            <h3 className="mb-2">Customer data stays in approved tools</h3>
             <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              Context engineering is about the <em>right</em> information &mdash; which never includes
-              real names, DOT numbers, or policy numbers. Generalize first. See the{' '}
+              Context engineering is about the <em>right</em> information. Keep customer and claim
+              data in the tools approved for it, share only what the task needs, and generalize
+              names, DOT numbers and policy numbers when they don&apos;t change the answer. See the{' '}
               <Link href="/prompt-engineering#pii" className="text-highlight" style={{ textDecoration: 'underline' }}>PII Safety</Link> guide.
             </p>
           </Card>

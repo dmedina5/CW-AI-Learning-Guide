@@ -34,6 +34,11 @@ test('every image the Harbor build inlines exists under public/images', () => {
   for (const path of imported) assert.ok(existsSync(join(repoRoot, path)), `${path} missing`);
 });
 
+test('the champions allowlist does not include people who have left', () => {
+  // Jose Selemi left around 2026-10-10; removed at the owner's request 2026-11-09.
+  assert.doesNotMatch(constants, /jose\.selemi@coverwhale\.com/);
+});
+
 test('every linked file or folder exists under public/, where Pages serves it', () => {
   for (const path of linked) {
     assert.ok(existsSync(join(repoRoot, 'public', path)), `${path} is linked but not under public/`);

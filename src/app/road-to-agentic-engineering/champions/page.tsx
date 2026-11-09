@@ -80,9 +80,9 @@ export default function ChampionsPage() {
                 ['Jira', 'API token (id.atlassian.com → Security)'],
                 ['Slack', 'Bot token (lib/slack_api.py)'],
                 ['Production DB', 'MySQL read replica via MCP + db-query skill'],
-                ['Metabase', 'Username/password session'],
+                ['Metabase', 'API key (METABASE_API_KEY, IT ticket); the Metabase connector in the Claude app for chat'],
                 ['n8n', 'API key (n8n → Settings → API)'],
-                ['HubSpot', 'OAuth (Claude connector)'],
+                ['HubSpot', 'Claude connector (Customize → Connectors); HUBSPOT_ACCESS_TOKEN only for scripts'],
                 ['Google Workspace', 'OAuth (MCP server)'],
                 ['Microsoft 365', 'OAuth (MCP server)'],
                 ['GitHub', 'Personal access token (read-only)'],
@@ -169,7 +169,8 @@ cp .claude/templates/env.tools.local.tmpl .env.tools.local`}
           <div className="grid grid-cols-1 gap-y-2 text-sm">
             {[
               ['Jira', 'API token — id.atlassian.com → Security → API tokens'],
-              ['Metabase', 'Username & password (your normal Metabase login)'],
+              ['Metabase', 'METABASE_API_KEY, requested through an IT ticket (not your Metabase login)'],
+              ['HubSpot', 'Nothing here: use the HubSpot connector (Step 3). A script that calls HubSpot directly needs HUBSPOT_ACCESS_TOKEN from an IT ticket'],
               ['n8n', 'API key — n8n → Settings → API → Create API Key'],
               ['GitHub', 'Personal access token (read-only scope)'],
               ['Slack Bot', 'Bot token (xoxb-…) — ask your Slack admin'],

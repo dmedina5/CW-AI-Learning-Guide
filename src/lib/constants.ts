@@ -250,7 +250,6 @@ export const CHAMPION_EMAILS: readonly string[] = [
   'daniel.medina@coverwhale.com',
   'david.castellanos@coverwhale.com',
   'ian@coverwhale.com',
-  'jose.selemi@coverwhale.com',
   'ken@coverwhale.com',
   'kevin@coverwhale.com',
   'lennie.cohen@coverwhale.com',
