@@ -1,238 +1,324 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Monitor, FileText, FolderOpen, Zap, Users, Download, Shield } from 'lucide-react';
+import {
+  ArrowLeft,
+  ArrowRight,
+  Columns2,
+  FolderOpen,
+  Gauge,
+  LayoutList,
+  ListChecks,
+  MessagesSquare,
+  Shield,
+} from 'lucide-react';
 import { Card, CardGrid } from '@/components/content/Card';
 import { Callout } from '@/components/content/Callout';
 import { TierBadge } from '@/components/content/TierBadge';
 import { StepList } from '@/components/content/StepList';
 import { PlatformTabs } from '@/components/content/PlatformTabs';
 import { ClaudePlanNotice } from '@/components/content/ClaudePlanNotice';
+import { AI_HELP_CONTACT, CLAUDE_APP_SHOTS_URL } from '@/lib/constants';
+
+/**
+ * The Claude app on the Cover Whale Teams plan, November 2026.
+ *
+ * Route stays /claude-cowork so the hand-built Harbor page keeps working.
+ * The sidebar, model and effort menus, Projects, Artifacts, chat groups and
+ * Customize were checked on the Cover Whale Teams account in claude.ai on
+ * 2026-11-08 (screenshots in public/images/claude-app/, cropped and redacted
+ * for the public repo). Side chat, split view, the context card and nested
+ * sessions are desktop-app features taken from the November release
+ * walkthrough and not yet captured on our account.
+ */
+
+function Shot({ file, alt, caption }: { file: string; alt: string; caption: string }) {
+  return (
+    <figure className="my-6">
+      <img
+        src={`${CLAUDE_APP_SHOTS_URL}/${file}`}
+        alt={alt}
+        loading="lazy"
+        className="rounded-xl w-full h-auto"
+        style={{ border: '1px solid var(--cw-border)', maxWidth: 720 }}
+      />
+      <figcaption className="text-xs mt-2" style={{ color: 'var(--cw-ink-muted)' }}>
+        {caption}
+      </figcaption>
+    </figure>
+  );
+}
+
+const EFFORT_NAMES = [
+  { chat: 'Low', code: 'low', use: 'Quick answers, tidying text, simple lookups.' },
+  { chat: 'Medium', code: 'medium', use: 'The recommended starting point for everyday work.' },
+  { chat: 'High', code: 'high', use: 'Anything that matters, and the first step up when medium falls short.' },
+  { chat: 'Extra', code: 'xhigh', use: 'Hard analysis and long multi-step work.' },
+  { chat: 'Max', code: 'max', use: 'Correctness first. The app warns it can use 5× or more usage.' },
+];
+
+const SESSION_FEATURES = [
+  {
+    icon: ListChecks,
+    title: 'A to-do list you can watch',
+    body: 'When Claude makes a plan, it shows as a checklist in the chat and ticks each step off as it goes.',
+  },
+  {
+    icon: FolderOpen,
+    title: 'An outputs panel',
+    body: 'The panel button at the top right lists every file Claude made or used in this chat, so nothing gets lost in the scroll.',
+  },
+  {
+    icon: Gauge,
+    title: 'A context card',
+    body: 'In the desktop app, shows how full the chat is and what is filling it, with a button to compact it: Claude summarizes the chat so far to free up room.',
+  },
+  {
+    icon: MessagesSquare,
+    title: 'Side chat',
+    body: 'In the desktop app, open the three-dot menu at the top right and pick side chat. Ask a question about the work without interrupting it; nothing you ask there lands in the main chat unless you send it back.',
+  },
+  {
+    icon: Columns2,
+    title: 'Split view',
+    body: 'In the desktop app, drag a chat from the sidebar into the one you are in to keep an eye on two jobs side by side.',
+  },
+  {
+    icon: LayoutList,
+    title: 'Groups for your chats',
+    body: 'Open the three dots next to any chat in the sidebar, choose Move to group, and name the group. Drag related chats in.',
+  },
+];
 
 export default function ClaudeCoworkPage() {
   return (
     <div>
       <TierBadge tier="beginner" />
-      <h1 className="mt-4 mb-4">Claude Cowork</h1>
+      <h1 className="mt-4 mb-4">The Claude App</h1>
       <p className="mb-12">
-        An agentic AI assistant that works directly with your files, folders, and desktop
-        apps &mdash; handling multi-step knowledge work so you can focus on the decisions that matter.
+        Chat, Cowork and Claude Code used to be three places you had to choose between. Now there
+        is one app: you set your context once, and Claude uses it whether you are chatting, working
+        with files, or building.
       </p>
 
-      {/* Section: What is Cowork */}
-      <section className="mb-16" id="what-is-cowork">
+      {/* Section: What changed */}
+      <section className="mb-16" id="what-changed">
         <div className="section-label">The Big Idea</div>
         <h2 className="mb-6">
-          What is <span className="text-highlight">Claude Cowork?</span>
+          One app, <span className="text-highlight">not three</span>
         </h2>
         <p className="mb-6" style={{ color: 'var(--cw-ink-secondary)' }}>
-          Claude Cowork is a feature inside the Claude Desktop App that goes beyond
-          chat. Instead of answering one question at a time, Cowork autonomously executes
-          complete tasks &mdash; organizing files, synthesizing documents, extracting data,
-          and summarizing research across your local files and folders.
-        </p>
-        <p className="mb-8" style={{ color: 'var(--cw-ink-secondary)' }}>
-          Think of it as a knowledgeable assistant who already read every brief, memo, and
-          spreadsheet in your folder &mdash; and can produce real output files without you
-          coordinating each step.
+          Cowork is now part of the Claude app. You no longer pick a tool before you start. The
+          sidebar gives you everything in one place: <strong>New</strong>, <strong>Search</strong>,{' '}
+          <strong>Projects</strong>, <strong>Artifacts</strong>, <strong>Scheduled</strong> and{' '}
+          <strong>Customize</strong>, with a switch at the top between chat and code. The same app
+          runs in the browser at claude.ai, on your phone, and as the desktop app.
         </p>
 
         <Callout variant="sage">
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-            <strong>Every seat on the Cover Whale Teams plan includes Cowork.</strong> It&apos;s
-            built into the Claude Desktop App &mdash; just download it and switch to Cowork.
-            No additional license or approval needed.
+            <strong>Every seat on the Cover Whale Teams plan includes all of it.</strong> No extra
+            license or approval needed. Some newer features roll out to other plans first, and this
+            page says so wherever the Teams plan differs.
           </p>
         </Callout>
       </section>
 
-      {/* Section: Key Features */}
-      <section className="mb-16" id="features">
-        <div className="section-label">What It Can Do</div>
+      {/* Section: Model and effort */}
+      <section className="mb-16" id="model-and-effort">
+        <div className="section-label">Right-Size It</div>
         <h2 className="mb-6">
-          Key <span className="text-highlight">Features</span>
+          Pick the model <span className="text-highlight">and the effort</span>
         </h2>
-
-        <CardGrid columns={3}>
-          <Card>
-            <div className="flex items-center gap-3 mb-3">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: 'var(--cw-primary-light)' }}
-              >
-                <FolderOpen size={20} style={{ color: 'var(--cw-primary)' }} />
-              </div>
-              <h3 className="text-base font-bold" style={{ color: 'var(--cw-ink)' }}>
-                File & Folder Access
-              </h3>
+        <p className="mb-4" style={{ color: 'var(--cw-ink-secondary)' }}>
+          Click the model name under the message box. Four models are on the menu: Fable 5.1, Opus
+          5.5, Sonnet 5.5 and <strong>Haiku 5.5</strong>, the new fast model, which costs a tenth of
+          what Haiku 4.5 did.
+        </p>
+        <Shot
+          file="model-picker.jpg"
+          alt="Claude model picker with Haiku 5.5, Sonnet 5.5, Opus 5.5 and Fable 5.1"
+          caption="The model picker on the Cover Whale Teams plan."
+        />
+        <p className="mb-4" style={{ color: 'var(--cw-ink-secondary)' }}>
+          Chat now has an <strong>Effort</strong> setting in the same menu. Higher effort means
+          Claude thinks longer before it answers, which is more thorough but slower and uses your
+          limits faster. Chat names the levels slightly differently from Claude Code:
+        </p>
+        <div className="space-y-2 mb-4 max-w-3xl">
+          {EFFORT_NAMES.map(level => (
+            <div
+              key={level.chat}
+              className="flex items-baseline gap-3 p-3 rounded-lg text-sm"
+              style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)' }}
+            >
+              <strong className="w-16 flex-shrink-0" style={{ color: 'var(--cw-ink)' }}>
+                {level.chat}
+              </strong>
+              <code className="w-16 flex-shrink-0 text-xs" style={{ color: 'var(--cw-ink-muted)' }}>
+                {level.code}
+              </code>
+              <span style={{ color: 'var(--cw-ink-secondary)' }}>{level.use}</span>
             </div>
-            <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              Point Cowork at any folder on your computer. It reads your documents, spreadsheets,
-              and data files &mdash; then works with them directly.
-            </p>
-          </Card>
-
-          <Card>
-            <div className="flex items-center gap-3 mb-3">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: 'rgba(58, 158, 110, 0.1)' }}
-              >
-                <FileText size={20} style={{ color: 'var(--cw-success)' }} />
-              </div>
-              <h3 className="text-base font-bold" style={{ color: 'var(--cw-ink)' }}>
-                Creates Real Files
-              </h3>
-            </div>
-            <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              Output appears as actual files in your folders &mdash; ready to open, edit, or
-              share. No copy-pasting from a chat window.
-            </p>
-          </Card>
-
-          <Card>
-            <div className="flex items-center gap-3 mb-3">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: 'rgba(74, 111, 165, 0.1)' }}
-              >
-                <Zap size={20} style={{ color: 'var(--cw-info)' }} />
-              </div>
-              <h3 className="text-base font-bold" style={{ color: 'var(--cw-ink)' }}>
-                Multi-Step Tasks
-              </h3>
-            </div>
-            <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              Cowork handles entire workflows autonomously &mdash; renaming, sorting,
-              deduplicating, extracting, and synthesizing without you managing each step.
-            </p>
-          </Card>
-
-          <Card>
-            <div className="flex items-center gap-3 mb-3">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: 'rgba(217, 85, 80, 0.1)' }}
-              >
-                <Monitor size={20} style={{ color: 'var(--cw-warning)' }} />
-              </div>
-              <h3 className="text-base font-bold" style={{ color: 'var(--cw-ink)' }}>
-                Desktop Integration
-              </h3>
-            </div>
-            <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              Works alongside your desktop applications. Cowork can interact with files
-              from Word, Excel, PDF viewers, and other apps on your machine.
-            </p>
-          </Card>
-
-          <Card>
-            <div className="flex items-center gap-3 mb-3">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: 'var(--cw-primary-light)' }}
-              >
-                <Users size={20} style={{ color: 'var(--cw-primary)' }} />
-              </div>
-              <h3 className="text-base font-bold" style={{ color: 'var(--cw-ink)' }}>
-                Matches Your Voice
-              </h3>
-            </div>
-            <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              Drop writing samples or style notes into your folder. Cowork learns your tone
-              and produces drafts that sound like you wrote them.
-            </p>
-          </Card>
-
-          <Card>
-            <div className="flex items-center gap-3 mb-3">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: 'rgba(58, 158, 110, 0.1)' }}
-              >
-                <Shield size={20} style={{ color: 'var(--cw-success)' }} />
-              </div>
-              <h3 className="text-base font-bold" style={{ color: 'var(--cw-ink)' }}>
-                Human Oversight
-              </h3>
-            </div>
-            <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              Cowork completes tasks but keeps consequential decisions with you. You stay in
-              control of what gets finalized and shared.
-            </p>
-          </Card>
-        </CardGrid>
+          ))}
+        </div>
+        <Shot
+          file="effort-menu.jpg"
+          alt="Effort menu in Claude chat: Low, Medium (recommended), High, Extra, Max"
+          caption="Max carries a warning: 5× or more usage."
+        />
+        <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
+          Not sure which to pick?{' '}
+          <Link href="/right-size-your-model" className="underline">
+            Right-Size Your Model
+          </Link>{' '}
+          asks five questions about the task and recommends both.
+        </p>
       </section>
 
-      {/* Section: Who Should Use It */}
-      <section className="mb-16" id="who-should-use-it">
-        <div className="section-label">Is It For You?</div>
+      {/* Section: Projects */}
+      <section className="mb-16" id="projects">
+        <div className="section-label">Set Context Once</div>
         <h2 className="mb-6">
-          Who Should Use <span className="text-highlight">Cowork?</span>
+          <span className="text-highlight">Projects</span> carry your context
+        </h2>
+        <p className="mb-4" style={{ color: 'var(--cw-ink-secondary)' }}>
+          A project holds your instructions, your files and the chats about one piece of work. Put
+          the background in once, such as a style guide, a template or a sample of good output, and
+          every chat in the project starts with it. Open <strong>Projects</strong> in the sidebar,
+          then <strong>New project</strong>.
+        </p>
+        <Shot
+          file="projects.jpg"
+          alt="Claude Projects page with Your projects, Organization and Shared with you tabs"
+          caption="Projects: yours, ones shared across Cover Whale, and ones shared with you."
+        />
+        <Callout variant="blue">
+          <p className="text-base mb-2" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <strong>What the Teams plan gets.</strong> Anthropic&apos;s newest version of projects
+            runs one conversation that hands each task to its own thread, keeps running in the
+            cloud after you close your laptop, and shares one project memory across threads. That
+            version is on <strong>Pro and Max plans only</strong> for now.
+          </p>
+          <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+            On the Cover Whale Teams plan you get <strong>nested sessions</strong> instead. It is the
+            same idea, with two differences: each sub-session gets a written brief from the main
+            chat rather than a shared memory, and it runs on your own computer rather than in the
+            cloud, so leave the app open until it finishes.
+          </p>
+        </Callout>
+      </section>
+
+      {/* Section: Inside a chat */}
+      <section className="mb-16" id="inside-a-chat">
+        <div className="section-label">Less Intimidating</div>
+        <h2 className="mb-6">
+          See what Claude is <span className="text-highlight">doing</span>
         </h2>
         <p className="mb-6" style={{ color: 'var(--cw-ink-secondary)' }}>
-          Cowork is designed for non-technical knowledge workers &mdash; anyone who spends
-          their day working with documents, data, and files.
+          The chat itself was rebuilt so you can follow longer work without reading technical
+          detail.
         </p>
 
         <CardGrid columns={2}>
-          <Card>
-            <h3 className="text-lg font-bold mb-3" style={{ color: 'var(--cw-ink)' }}>
-              Great for
-            </h3>
-            <div className="space-y-2">
-              {[
-                'Underwriters reviewing submissions and loss runs',
-                'Operations teams organizing reports and data',
-                'Finance preparing analyses and reconciliations',
-                'Claims adjusters synthesizing case documents',
-                'Anyone drafting memos, proposals, or summaries',
-                'Researchers pulling insights from multiple sources',
-              ].map((item, i) => (
-                <div key={i} className="flex items-baseline gap-2 text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
-                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-1.5" style={{ background: 'var(--cw-success)' }} />
-                  <span>{item}</span>
+          {SESSION_FEATURES.map(feature => (
+            <Card key={feature.title}>
+              <div className="flex items-center gap-3 mb-3">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{ background: 'var(--cw-primary-light)' }}
+                >
+                  <feature.icon size={20} style={{ color: 'var(--cw-primary)' }} />
                 </div>
-              ))}
-            </div>
-          </Card>
-          <Card>
-            <h3 className="text-lg font-bold mb-3" style={{ color: 'var(--cw-ink)' }}>
-              Cowork vs. Claude Chat
-            </h3>
-            <div className="space-y-3">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: 'var(--cw-ink-muted)' }}>
-                  Use Cowork when
-                </p>
-                <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
-                  You need real files created, want to work with local documents, or have
-                  multi-step tasks that would take several chat exchanges.
-                </p>
+                <h3 className="text-base font-bold" style={{ color: 'var(--cw-ink)' }}>
+                  {feature.title}
+                </h3>
               </div>
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: 'var(--cw-ink-muted)' }}>
-                  Use Claude Chat when
-                </p>
-                <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
-                  You have quick questions, recurring tasks with saved context, or need
-                  access from your phone or any browser.
-                </p>
-              </div>
-            </div>
-          </Card>
+              <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
+                {feature.body}
+              </p>
+            </Card>
+          ))}
         </CardGrid>
+
+        <Shot
+          file="chat-groups.jpg"
+          alt="Chat menu in the Claude sidebar with Move to group"
+          caption="Move to group, from the three dots next to any chat."
+        />
+        <Callout variant="purple">
+          <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <strong>One chat per job.</strong> If you ask for something unrelated in the middle of
+            a chat, Claude may offer to start a new one. Say yes: a chat that stays on one job stays
+            sharp for longer.
+          </p>
+        </Callout>
+      </section>
+
+      {/* Section: Artifacts */}
+      <section className="mb-16" id="artifacts">
+        <div className="section-label">Where the Work Lives</div>
+        <h2 className="mb-6">
+          Everything you make, <span className="text-highlight">in one list</span>
+        </h2>
+        <p className="mb-4" style={{ color: 'var(--cw-ink-secondary)' }}>
+          Docs, slide decks and designs are now <strong>artifacts</strong>: pages you and Claude
+          edit together. They all sit in <strong>Artifacts</strong> in the sidebar, instead of being
+          buried in old chats.
+        </p>
+        <Shot
+          file="artifacts-view.jpg"
+          alt="Claude Artifacts view with Docs, Slides, Design, Dashboard and Motion"
+          caption="Make something new: Docs, Slides and Design, with Dashboard and Motion in beta."
+        />
+        <div className="space-y-2 mb-6 max-w-3xl text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
+          <p><strong>Docs</strong>: a shared document with tabs, like a Google Doc.</p>
+          <p><strong>Slides</strong>: a deck you can present from Claude or download as PowerPoint.</p>
+          <p><strong>Design</strong>: a canvas for a one-pager, a social post or a landing page.</p>
+          <p><strong>Dashboard</strong> (beta): pulls from your connectors and keeps the numbers current.</p>
+        </div>
+        <p className="mb-4" style={{ color: 'var(--cw-ink-secondary)' }}>
+          On any of them you can comment on one section and send it to Claude to fix, look back
+          through the version history, or share it with your team.
+        </p>
+        <Callout variant="coral">
+          <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <strong>Sharing is publishing.</strong> Treat a shared link like an email attachment:
+            keep customer, broker and claims data inside Cover Whale, and follow the AI Acceptable
+            Use Policy.
+          </p>
+        </Callout>
+      </section>
+
+      {/* Section: Customize */}
+      <section className="mb-16" id="customize">
+        <div className="section-label">Make It Yours</div>
+        <h2 className="mb-6">
+          <span className="text-highlight">Customize</span>: skills, connectors, plugins
+        </h2>
+        <p className="mb-4" style={{ color: 'var(--cw-ink-secondary)' }}>
+          <strong>Customize</strong> in the sidebar is where you add what Claude can use everywhere
+          in the app: <strong>Skills</strong> (packaged know-how, including ones Cover Whale
+          publishes to the organization library), <strong>Connectors</strong> (Jira, Google Drive,
+          Slack and more) and <strong>Plugins</strong>.
+        </p>
+        <Shot
+          file="customize-skills.jpg"
+          alt="Claude Customize page with Skills, Connectors and Plugins tabs"
+          caption="Turn a skill on here once, and every chat and project can use it."
+        />
       </section>
 
       {/* Section: Installation */}
       <section className="mb-16" id="installation">
         <div className="section-label">Get Started</div>
         <h2 className="mb-6">
-          Download & <span className="text-highlight">Install</span>
+          Get the <span className="text-highlight">desktop app</span>
         </h2>
         <p className="mb-6" style={{ color: 'var(--cw-ink-secondary)' }}>
-          Cowork is built into the Claude Desktop App. Install the app, sign in with your
-          Cover Whale Teams plan account, and switch to Cowork.
+          Everything above works at claude.ai in the browser. The desktop app adds side chat, split
+          view, the session cards, and work with the files on your computer. Sign in with your Cover
+          Whale Teams plan account.
         </p>
 
         <ClaudePlanNotice compact className="mb-6" />
@@ -284,12 +370,12 @@ export default function ClaudeCoworkPage() {
                     ),
                   },
                   {
-                    title: 'Open the Cowork tab',
+                    title: 'Start your first job',
                     description: (
                       <>
-                        Once signed in, click the <strong>Cowork</strong> tab in the left
-                        sidebar. Point it at a folder on your machine to give it context, then
-                        start your first task.
+                        Click <strong>New</strong>, pick a model under the message box, and describe
+                        the job. For anything you will come back to, start a{' '}
+                        <strong>project</strong> first so your context is set once.
                       </>
                     ),
                   },
@@ -341,12 +427,12 @@ export default function ClaudeCoworkPage() {
                     ),
                   },
                   {
-                    title: 'Open the Cowork tab',
+                    title: 'Start your first job',
                     description: (
                       <>
-                        Once signed in, click the <strong>Cowork</strong> tab in the left
-                        sidebar. Point it at a folder on your machine to give it context, then
-                        start your first task.
+                        Click <strong>New</strong>, pick a model under the message box, and describe
+                        the job. For anything you will come back to, start a{' '}
+                        <strong>project</strong> first so your context is set once.
                       </>
                     ),
                   },
@@ -356,8 +442,8 @@ export default function ClaudeCoworkPage() {
             Linux: (
               <Callout variant="blue">
                 <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-                  The Claude Desktop App is currently available for <strong>Windows and Mac</strong> only.
-                  Linux users can access Claude Chat at{' '}
+                  The Claude desktop app is available for <strong>Windows and Mac</strong> only.
+                  Linux users get the same app at{' '}
                   <a
                     href="https://claude.ai"
                     target="_blank"
@@ -367,7 +453,7 @@ export default function ClaudeCoworkPage() {
                   >
                     claude.ai
                   </a>{' '}
-                  in any browser.
+                  in any browser, without the desktop-only features.
                 </p>
               </Callout>
             ),
@@ -375,39 +461,39 @@ export default function ClaudeCoworkPage() {
         </PlatformTabs>
       </section>
 
-      {/* Section: Tips for Getting Started */}
+      {/* Section: Tips */}
       <section className="mb-16" id="tips">
         <div className="section-label">Pro Tips</div>
         <h2 className="mb-6">
-          Getting the Most from <span className="text-highlight">Cowork</span>
+          Getting the most from <span className="text-highlight">the app</span>
         </h2>
 
         <div className="space-y-4 max-w-3xl">
           {[
             {
-              title: 'Organize your context folder',
+              title: 'Set your context once, in a project',
               description:
-                'Create a dedicated folder with the documents Cowork needs. Include style guides, templates, or sample outputs so it understands your standards.',
+                'Instructions, style guides, templates and sample outputs go in the project, not pasted into every chat.',
             },
             {
-              title: 'Add identity files',
+              title: 'Start on the smallest model that could work',
               description:
-                'Drop a short .txt or .md file describing your role, preferences, and writing style. Cowork will reference it to match your voice.',
+                'Haiku 5.5 for lookups and tidying, Sonnet 5.5 for everyday work, and Opus 5.5 when the job is hard. Turn effort up before you change model.',
             },
             {
-              title: 'Start with a clear task',
+              title: 'Be specific about the output',
               description:
-                'Be specific about what you want produced. "Summarize these five loss runs into a single executive brief" works better than "help me with these files."',
+                '"Summarize these five loss runs into a one-page executive brief" works better than "help me with these files."',
             },
             {
               title: 'Review before sharing',
               description:
-                'Cowork keeps consequential decisions with you. Always review generated files before sending them externally &mdash; especially anything with numbers or client data.',
+                'Claude keeps consequential decisions with you. Always review generated files before sending them externally, especially anything with numbers or client data.',
             },
             {
               title: 'Use it for the assembly, not the judgment',
               description:
-                'Cowork excels at gathering, organizing, and drafting. Your expertise is the judgment calls, final review, and domain knowledge that makes the output trustworthy.',
+                'Claude excels at gathering, organizing and drafting. Your expertise is the judgment calls, final review and domain knowledge that make the output trustworthy.',
             },
           ].map((tip, i) => (
             <div
@@ -437,20 +523,21 @@ export default function ClaudeCoworkPage() {
         </div>
       </section>
 
-      {/* Section: Learn More */}
       <Callout variant="purple" className="mb-8">
-        <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-          <strong>Want the full picture?</strong> Visit the{' '}
-          <a
-            href="https://www.anthropic.com/product/claude-cowork"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold underline"
-            style={{ color: 'var(--cw-primary)' }}
-          >
-            official Claude Cowork page
-          </a>{' '}
-          for the latest features and updates from Anthropic.
+        <p className="text-base flex items-start gap-2" style={{ color: 'var(--cw-ink-secondary)' }}>
+          <Shield size={18} className="flex-shrink-0 mt-0.5" style={{ color: 'var(--cw-primary)' }} />
+          <span>
+            Features roll out plan by plan, and the Teams plan sometimes gets them later. If
+            something on this page is missing from your app, update the app first, then ask{' '}
+            <a
+              href={`mailto:${AI_HELP_CONTACT.email}`}
+              className="font-semibold underline"
+              style={{ color: 'var(--cw-primary)' }}
+            >
+              {AI_HELP_CONTACT.name}
+            </a>
+            .
+          </span>
         </p>
       </Callout>
 

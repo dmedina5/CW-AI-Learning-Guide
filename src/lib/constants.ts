@@ -5,6 +5,12 @@ export const AUTH_BACKEND = 'https://coverwhale-auth.vercel.app';
 export const WSL_SETUP_BUNDLE_URL =
   'https://dmedina5.github.io/CW-AI-Learning-Guide/downloads/wsl-claude-code-setup.zip';
 
+// Screenshots of the Claude app, served by the GitHub Pages build
+// (public/images/claude-app/) and linked from both builds, like the WSL bundle.
+// The repo is public: every image is cropped and redacted before it lands.
+export const CLAUDE_APP_SHOTS_URL =
+  'https://dmedina5.github.io/CW-AI-Learning-Guide/images/claude-app';
+
 // The Claude plan Cover Whale works on. Claude's account switcher shows the
 // workspace as "Coverwhale Teams"; prose uses the plan name.
 export const CLAUDE_PLAN = 'Cover Whale Teams plan';
@@ -127,7 +133,7 @@ export const NAV_ITEMS = [
     tier: 'beginner' as TierKey,
   },
   {
-    label: 'Claude Cowork',
+    label: 'The Claude App',
     href: '/claude-cowork',
     icon: 'MonitorSmartphone',
     tier: 'beginner' as TierKey,

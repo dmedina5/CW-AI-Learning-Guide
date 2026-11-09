@@ -184,7 +184,8 @@ export function TokenCostLadder() {
       <p className="text-[11px] mt-5" style={{ color: 'var(--cw-ink-muted)' }}>
         List API rates per 1M tokens. Effort scales the output side only, using illustrative
         thinking-token estimates — treat these as ratios to reason with, not a billing statement.
-        Haiku 4.5 has no effort dial, so the effort buttons do not move its bar. Prompt caching can
+        Haiku 5.5 bills a higher rate once a prompt passes 100K tokens, which the pile and codebase
+        options include. Prompt caching can
         cut the input side of repeated runs substantially, which is its own lever.
       </p>
     </div>

@@ -6,7 +6,9 @@
  * AI CoE Week 11 sync (Models, Effort & Org Skills, 2026-07-13). Model names,
  * prices and effort defaults are refreshed against the October 2026 lineup:
  * Opus 5.5, Sonnet 5.5 and Fable 5.1 replace Opus 5, Sonnet 5 and Fable 5, and
- * Opus 5.5 is the Claude Code default model on every Claude plan.
+ * Opus 5.5 is the Claude Code default model on every Claude plan. Claude Haiku
+ * 5.5 then replaced Haiku 4.5 (November 2026 refresh): a tenth of the price,
+ * a 1M window, and an effort dial, so the fast rung now thinks.
  *
  * Prices are Anthropic first-party API list rates per 1M tokens. Effort
  * defaults are Claude Code's (code.claude.com/docs/en/model-config).
@@ -30,6 +32,8 @@ export interface ClaudeModel {
   outputPrice: number;
   /** Cost per token relative to Haiku — the number worth remembering. */
   relativeCost: number;
+  /** A higher rate card for long prompts, where the model has one. */
+  longPrompt?: { overTokens: number; inputPrice: number; outputPrice: number };
   summary: string;
   bestFor: string;
   hasEffortDial: boolean;
@@ -39,20 +43,21 @@ export interface ClaudeModel {
 export const CLAUDE_MODELS: ClaudeModel[] = [
   {
     id: 'haiku',
-    name: 'Claude Haiku 4.5',
-    apiId: 'claude-haiku-4-5',
+    name: 'Claude Haiku 5.5',
+    apiId: 'claude-haiku-5-5',
     priceTier: '$',
-    label: 'Fastest',
+    label: 'Fastest · now thinks',
     color: '#3A9E6E',
-    context: '200K',
-    contextTokens: 200_000,
-    inputPrice: 1,
-    outputPrice: 5,
+    context: '1M',
+    contextTokens: 1_000_000,
+    inputPrice: 0.1,
+    outputPrice: 0.5,
     relativeCost: 1,
-    summary: 'Fastest and most cost-effective. Snappy on simple, repetitive work.',
-    bestFor: 'Quick lookups, classification, tidying text, first drafts, high-volume batches.',
-    hasEffortDial: false,
-    notes: 'No effort dial. Haiku answers rather than deliberates, which is exactly why it is fast and cheap.',
+    longPrompt: { overTokens: 100_000, inputPrice: 0.5, outputPrice: 2.5 },
+    summary: 'Fastest and by far the cheapest. Much better than Haiku 4.5 at following instructions and at running as a helper inside bigger jobs.',
+    bestFor: 'Lookups, classification, extraction, tidying text, first drafts, high-volume batches and sub-agent work.',
+    hasEffortDial: true,
+    notes: 'A tenth of Haiku 4.5\'s price, with a 1M window and an effort dial that starts at medium. Prompts above 100K tokens bill at $0.50 / $2.50, which is still a quarter of Sonnet.',
   },
   {
     id: 'sonnet',
@@ -65,11 +70,11 @@ export const CLAUDE_MODELS: ClaudeModel[] = [
     contextTokens: 1_000_000,
     inputPrice: 2,
     outputPrice: 10,
-    relativeCost: 2,
+    relativeCost: 20,
     summary: 'The current Sonnet: speed and capability for everyday writing, research, analysis and coding.',
     bestFor: 'Most day-to-day work: writing, research, analysis, routine coding.',
     hasEffortDial: true,
-    notes: 'Where most everyday work belongs, and only 2x Haiku per token. If you are unsure, this is the honest default.',
+    notes: 'Where most everyday work that needs judgment belongs. About 20x Haiku 5.5 per token, so try Haiku first on lookups and sorting.',
   },
   {
     id: 'opus',
@@ -82,11 +87,11 @@ export const CLAUDE_MODELS: ClaudeModel[] = [
     contextTokens: 1_000_000,
     inputPrice: 4,
     outputPrice: 20,
-    relativeCost: 4,
+    relativeCost: 40,
     summary: 'The current Opus. Built for long-running agentic coding and knowledge work, and cheaper than Opus 5 was.',
     bestFor: 'Hard reasoning, complex builds, long-horizon autonomous tasks.',
     hasEffortDial: true,
-    notes: 'Thinking is always on, so effort is the only control. Costs 4x Haiku per token before you touch the dial: worth it on hard problems, wasted on easy ones.',
+    notes: 'Thinking is always on, so effort is the only control. Costs 40x Haiku 5.5 per token before you touch the dial: worth it on hard problems, wasted on easy ones.',
   },
   {
     id: 'fable',
@@ -99,7 +104,7 @@ export const CLAUDE_MODELS: ClaudeModel[] = [
     contextTokens: 1_000_000,
     inputPrice: 10,
     outputPrice: 50,
-    relativeCost: 10,
+    relativeCost: 100,
     summary: 'Anthropic\'s most capable model, for the most demanding reasoning and work bigger than one sitting.',
     bestFor: 'The hardest, longest problems, when Opus genuinely is not enough.',
     hasEffortDial: true,
@@ -108,7 +113,7 @@ export const CLAUDE_MODELS: ClaudeModel[] = [
 ];
 
 /**
- * The models the ladder replaced in October 2026, with their list prices, so
+ * The models the ladder replaced this autumn, with their list prices, so
  * the page can say what changed. They are still served and may still appear
  * in a model picker; the newer model costs the same or less.
  *
@@ -132,7 +137,13 @@ export const PREVIOUS_MODELS: Array<{
     correction: 'This page used to show $3 / $15 for Sonnet, which was the older Sonnet 4.6 price.',
   },
   { name: 'Claude Fable 5', inputPrice: 10, outputPrice: 50, replacedBy: 'fable' },
+  { name: 'Claude Haiku 4.5', inputPrice: 1, outputPrice: 5, replacedBy: 'haiku' },
 ];
+
+/** A per-1M price as the page prints it: $0.10, $0.50, $2, $10. */
+export function formatPrice(n: number): string {
+  return n < 1 ? n.toFixed(2) : String(n);
+}
 
 export function getModel(id: ModelId): ClaudeModel {
   return CLAUDE_MODELS.find(m => m.id === id)!;
@@ -315,7 +326,7 @@ export const SIZER_QUESTIONS: SizerQuestion[] = [
         detail: 'Hundreds of thousands of tokens.',
         modelWeight: 1,
         effortWeight: 0.25,
-        because: 'This is past what Haiku can hold at all, and reading it costs real money on every model.',
+        because: 'Haiku 5.5 can hold this now, but staying consistent across hundreds of thousands of tokens is real work, and reading it costs money on every model.',
       },
     ],
   },
@@ -470,8 +481,10 @@ export interface SizerResult {
  */
 export function estimateCost(model: ClaudeModel, effort: EffortLevel, shape: TaskShape): number {
   const effortMultiplier = model.hasEffortDial ? effort.costMultiplier : 1;
-  const input = (shape.inputTokens / 1_000_000) * model.inputPrice;
-  const output = ((shape.outputTokens * effortMultiplier) / 1_000_000) * model.outputPrice;
+  const long = model.longPrompt && shape.inputTokens > model.longPrompt.overTokens;
+  const rate = long ? model.longPrompt! : model;
+  const input = (shape.inputTokens / 1_000_000) * rate.inputPrice;
+  const output = ((shape.outputTokens * effortMultiplier) / 1_000_000) * rate.outputPrice;
   return input + output;
 }
 
@@ -514,10 +527,10 @@ export function sizeIt(answers: Answers): SizerResult | null {
     });
   }
 
-  // Real thinking needs a model that can think. Haiku has no effort dial, so a
-  // high effort score has to carry the model up with it.
+  // Haiku 5.5 thinks, up to high effort. Work that asks for xhigh or max is
+  // deep enough to carry the model up to Sonnet with it.
   let modelIndex = clamp(Math.round(modelScore), 0, 2);
-  if (modelIndex === 0 && effortScore >= 2) modelIndex = 1;
+  if (modelIndex === 0 && effortScore >= 2.5) modelIndex = 1;
 
   const shape = TASK_SHAPES[answers.volume as string];
 

@@ -18,13 +18,13 @@ import { QuizBlock } from '@/components/interactive/QuizBlock';
 import { ModelRightSizer } from '@/components/interactive/ModelRightSizer';
 import { EffortDial } from '@/components/interactive/EffortDial';
 import { TokenCostLadder } from '@/components/interactive/TokenCostLadder';
-import { CLAUDE_MODELS, PREVIOUS_MODELS, getModel } from '@/lib/claude-models';
+import { CLAUDE_MODELS, PREVIOUS_MODELS, formatPrice, getModel } from '@/lib/claude-models';
 
 const OVERBUYING = [
   {
     habit: 'Opus 5.5 to rephrase an email',
     why: 'The answer is already in the text. You are paying for reasoning you will never read.',
-    instead: 'Haiku 4.5. It will finish before Opus has finished thinking.',
+    instead: 'Haiku 5.5. It will finish before Opus has finished thinking, at a fortieth of the price.',
   },
   {
     habit: 'max effort on a formatting job',
@@ -48,7 +48,7 @@ const OVERBUYING = [
   },
   {
     habit: 'Frontier-first, so it is definitely right',
-    why: 'Fable 5.1 costs ten times Haiku per token, and on easy work it produces the same answer.',
+    why: 'Fable 5.1 costs a hundred times Haiku 5.5 per token, and on easy work it produces the same answer.',
     instead: 'Start where the work sits on the ladder. Escalate on evidence.',
   },
 ];
@@ -57,7 +57,7 @@ const ESCALATION = [
   {
     step: 'Start at the cheapest rung that could plausibly work',
     detail:
-      'For most people, most days, that is Sonnet 5.5. For lookups, classification and tidying, it is Haiku 4.5.',
+      'For lookups, classification, extraction and tidying, it is Haiku 5.5. For work that needs judgment, it is Sonnet 5.5.',
   },
   {
     step: 'Read the answer before you judge the model',
@@ -87,7 +87,7 @@ const QUIZ_QUESTIONS = [
       'You need to rewrite a three-sentence email so it sounds warmer before sending it to a broker. Which is right-sized?',
     options: [
       'Opus 5.5 at xhigh — it goes to a customer, so it matters',
-      'Haiku 4.5 — the content already exists, you are just restating it',
+      'Haiku 5.5 — the content already exists, you are just restating it',
       'Fable 5.1 at max — never risk an external message',
       'Sonnet 5.5 at max — a compromise',
     ],
@@ -110,14 +110,14 @@ const QUIZ_QUESTIONS = [
   {
     question: 'You are debugging a bug that spans several files in a large repository. What is the default?',
     options: [
-      'Haiku 4.5 at low, to keep it cheap',
+      'Haiku 5.5 at low, to keep it cheap',
       'Opus 5.5 at xhigh — this is exactly what it is for',
       'Fable 5.1 at max, since bugs are expensive',
       'Sonnet 5.5 at low, then escalate immediately',
     ],
     correctIndex: 1,
     explanation:
-      'Long-horizon, multi-step tool use is the case Opus and xhigh were built for. Opus 5.5 is already the Claude Code default model, but it starts at medium effort, so turning it up to xhigh for a hard multi-file job is a deliberate choice. Haiku cannot even hold a large repository. Fable is the rung above, reached after Opus has actually fallen short.',
+      'Long-horizon, multi-step tool use is the case Opus and xhigh were built for. Opus 5.5 is already the Claude Code default model, but it starts at medium effort, so turning it up to xhigh for a hard multi-file job is a deliberate choice. Haiku 5.5 can now hold a large repository, but holding it is not the same as reasoning across it for an hour. Fable is the rung above, reached after Opus has actually fallen short.',
   },
   {
     question: 'Why does "would I notice if it was wrong?" change the recommendation so much?',
@@ -132,16 +132,17 @@ const QUIZ_QUESTIONS = [
       'If a bad answer fails loudly, the cheap model is a free bet — you lose seconds. If a bad answer looks exactly like a good one, you may act on it. Silent failure is the one place where spending more up front is genuinely the cheaper choice.',
   },
   {
-    question: 'Claude Haiku 4.5 has no effort dial. What does that tell you?',
+    question:
+      'Claude Haiku 5.5 now has an effort dial, a 1M window, and costs a tenth of Haiku 4.5. What should change in your habits?',
     options: [
-      'It is broken and should be avoided',
-      'Effort is a paid add-on you have to enable',
-      'It answers rather than deliberates — which is exactly why it is fast and cheap',
-      'You have to set effort in your prompt instead',
+      'Nothing — Haiku is still only for toy tasks',
+      'Use Haiku 5.5 for everything, including hard multi-step builds',
+      'Try Haiku 5.5 first on lookups, sorting, extraction and batches, and step up only when the answer shows it struggling',
+      'Always run Haiku 5.5 at max effort to make up the difference',
     ],
     correctIndex: 2,
     explanation:
-      'The dial is the model spending extra tokens thinking before it answers. Haiku is built to respond quickly on work that does not need deliberation. If your task genuinely needs thinking time, that is your signal to move up to Sonnet, not to fight Haiku.',
+      'More work now fits on the cheapest rung, and the dial lets Haiku think a little when a job needs it. It still is not the model for ambiguous judgment or long builds: when Haiku would need xhigh or max, that is your signal to move up to Sonnet.',
   },
 ];
 
@@ -191,8 +192,8 @@ export default function RightSizeYourModelPage() {
 
         <Callout variant="blue" className="mb-6">
           <p className="text-base mb-2" style={{ color: 'var(--cw-ink-secondary)' }}>
-            <strong>What changed in October 2026.</strong> Three newer models replaced the ones this
-            page used to list:
+            <strong>What changed this autumn.</strong> {PREVIOUS_MODELS.length} newer models replaced
+            the ones this page used to list:
           </p>
           <ul className="text-sm space-y-1 mb-2" style={{ color: 'var(--cw-ink-secondary)' }}>
             {PREVIOUS_MODELS.map(old => {
@@ -202,8 +203,8 @@ export default function RightSizeYourModelPage() {
                 <li key={old.name}>
                   <strong>{now.name}</strong> replaces {old.name}{' '}
                   {cheaper
-                    ? `and costs less: $${now.inputPrice} / $${now.outputPrice}, down from $${old.inputPrice} / $${old.outputPrice}.`
-                    : `at the same $${now.inputPrice} / $${now.outputPrice}.`}
+                    ? `and costs less: $${formatPrice(now.inputPrice)} / $${formatPrice(now.outputPrice)}, down from $${formatPrice(old.inputPrice)} / $${formatPrice(old.outputPrice)}.`
+                    : `at the same $${formatPrice(now.inputPrice)} / $${formatPrice(now.outputPrice)}.`}
                   {old.correction && ` ${old.correction}`}
                 </li>
               );
@@ -212,7 +213,8 @@ export default function RightSizeYourModelPage() {
           <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
             Opus 5.5 is the default model in Claude Code on the Cover Whale Teams plan, and Claude
             Code starts both 5.5 models at <code>medium</code> effort. If an older model still shows
-            in a picker, choose the newer one: it costs the same or less.
+            in a picker, choose the newer one: it costs the same or less. Haiku 5.5 now has an
+            effort dial too, which starts at <code>medium</code>.
           </p>
         </Callout>
 
@@ -255,7 +257,9 @@ export default function RightSizeYourModelPage() {
                     <strong>Context:</strong> {model.context}
                   </span>
                   <span>
-                    <strong>Rate:</strong> ${model.inputPrice} in / ${model.outputPrice} out per 1M
+                    <strong>Rate:</strong> ${formatPrice(model.inputPrice)} in / ${formatPrice(model.outputPrice)} out per 1M
+                    {model.longPrompt &&
+                      ` ($${formatPrice(model.longPrompt.inputPrice)} / $${formatPrice(model.longPrompt.outputPrice)} above ${model.longPrompt.overTokens / 1000}K tokens)`}
                   </span>
                   <span>
                     <strong>Per token vs Haiku:</strong> {model.relativeCost}×
@@ -277,7 +281,7 @@ export default function RightSizeYourModelPage() {
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
             Most everyday work is a great fit for <strong>Sonnet 5.5</strong>. Reach for{' '}
             <strong>Opus 5.5</strong> when a task is hard or long-running, and{' '}
-            <strong>Haiku 4.5</strong> when speed and volume matter most. Sonnet is not the timid
+            <strong>Haiku 5.5</strong> for lookups, sorting, extraction and anything at volume. Sonnet is not the timid
             choice — it is the correct one for the large middle of what we do.
           </p>
         </Callout>
@@ -313,8 +317,10 @@ export default function RightSizeYourModelPage() {
 
         <Callout variant="blue" className="mt-6">
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-            The number worth carrying around: <strong>Sonnet costs about 2× Haiku per token, Opus about 4×, and Fable about 10×</strong> — before the effort dial multiplies the
-            output side again. Nothing else on this page is as easy to remember or as useful.
+            The number worth carrying around: <strong>Sonnet costs about 20× Haiku per token, Opus about 40×, and Fable about 100×</strong> — before the effort dial multiplies the
+            output side again. On prompts above 100K tokens Haiku 5.5 moves to its higher rate and
+            the gap narrows to about 4×, 8× and 20×. Nothing else on this page is as easy to remember
+            or as useful.
           </p>
         </Callout>
       </section>
@@ -347,24 +353,25 @@ export default function RightSizeYourModelPage() {
             <MonitorSmartphone size={20} className="mb-3" style={{ color: 'var(--cw-info)' }} />
             <h4 className="mb-2" style={{ color: 'var(--cw-ink)' }}>Claude chat</h4>
             <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              Pick from the model dropdown on claude.ai, in the browser or the desktop app.
+              Click the model name under the message box, in the browser or the desktop app. The
+              same menu has <strong>Effort</strong>.
             </p>
           </Card>
           <Card>
             <Waypoints size={20} className="mb-3" style={{ color: 'var(--cw-success)' }} />
-            <h4 className="mb-2" style={{ color: 'var(--cw-ink)' }}>Cowork</h4>
+            <h4 className="mb-2" style={{ color: 'var(--cw-ink)' }}>Projects</h4>
             <p className="text-sm" style={{ color: 'var(--cw-ink-muted)' }}>
-              The same model selector as chat, inside Cowork in the Claude desktop app.
+              Every chat in a project has the same model and effort menu. Cowork is now part of
+              the Claude app, so there is no separate selector to find.
             </p>
           </Card>
         </CardGrid>
 
         <Callout variant="coral" className="mt-6">
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-            <strong>Models work everywhere. Effort levels and ultracode are Claude Code.</strong>{' '}
-            In chat and Cowork you still control depth — you just do it with your prompt. Asking
-            Claude to think it through before answering is the manual version of turning the dial
-            up.
+            <strong>Effort is in chat too.</strong> Chat names the levels Low, Medium, High, Extra
+            and Max, where Claude Code says <code>low</code> to <code>max</code> and calls Extra{' '}
+            <code>xhigh</code>. Ultracode is still Claude Code only.
           </p>
         </Callout>
       </section>
