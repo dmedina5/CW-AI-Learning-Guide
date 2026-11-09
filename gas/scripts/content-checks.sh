@@ -64,7 +64,8 @@ check /choose-your-claude '!click the Cowork tab'
 # ── November 2026: Token Efficiency guidelines ──────────────────────────────
 # Grounded in code.claude.com/docs/en/costs and /prompt-caching and the
 # help-center "Usage limit best practices" article, read 2026-11-09. The
-# video's three overstated claims are corrected on the page and must stay so.
+# habits state the documented behavior directly; the separate section
+# listing the video's claims was removed at the owner's request (2026-11-09).
 check --export-all /token-efficiency \
   "Token Efficiency" "Cover Whale Teams plan" "rolling five-hour window" \
   "shared across chat, Cowork and Claude Code" \
@@ -73,8 +74,7 @@ check --export-all /token-efficiency \
   "/rewind" "CLAUDE_CODE_SUBAGENT_PROMPT_CACHE_TTL" \
   "report only the failing tests" "Usage limit best practices" \
   "changing effort keeps the cache" "Switching model" \
-  "costs a fraction of what its size suggests" \
-  "Anthropic does not publish a multiplier"
+  '!What the popular advice' '!Claim: '
 check /right-size-your-model "Token Efficiency"
 
 # ── November 2026: whole-guide review against official docs ─────────────────

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, CircleCheck, CircleX } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Callout } from '@/components/content/Callout';
 import { CodeBlock } from '@/components/content/CodeBlock';
 import { TierBadge } from '@/components/content/TierBadge';
@@ -18,10 +18,9 @@ import { QuizBlock } from '@/components/interactive/QuizBlock';
  *   - support.claude.com/en/articles/9797557   (Usage limit best practices)
  *   - anthropic.com/engineering/effective-harnesses-for-long-running-agents
  * The habits are organized after Simon Scrapes' video "Claude Pros Don't Pay
- * for Max" (7 Nov 2026). Three of its claims are corrected against the docs:
- * /compact is cheap while the cache is warm; on the 5.5 models and Fable 5.1
- * changing effort keeps the cache; and Anthropic publishes no multiplier for
- * a cold cache on subscriptions. content-checks.sh pins all three.
+ * for Max" (7 Nov 2026), and state the documented behavior directly where the
+ * video overstated it (/compact is cheap while the cache is warm; on the 5.5
+ * models and Fable 5.1 changing effort keeps the cache).
  */
 
 const SOURCES = [
@@ -225,21 +224,6 @@ const HABITS = [
   },
 ];
 
-const CORRECTIONS = [
-  {
-    claim: 'Claim: /compact is one of the most expensive things you can do.',
-    fact: 'Only after a break. While the conversation is still cached, Anthropic says /compact costs a fraction of what its size suggests. Run it at natural breaks, not after lunch.',
-  },
-  {
-    claim: 'Claim: Changing effort halfway through throws the cache away, like changing the model.',
-    fact: 'True for model switches, and for effort on older models. On Opus 5.5, Sonnet 5.5, Haiku 5.5 and Fable 5.1 on our plan, changing effort keeps the cache.',
-  },
-  {
-    claim: 'Claim: After an hour your next message costs ten times as much.',
-    fact: 'The one-hour cache is right for the main Claude Code conversation on our plan. Anthropic does not publish a multiplier for subscription usage, so this guide does not either.',
-  },
-];
-
 const QUIZ_QUESTIONS = [
   {
     question: 'You worked with Claude Code all morning on a report and come back after lunch. What is the cheapest way to carry on?',
@@ -384,41 +368,6 @@ export default function TokenEfficiencyPage() {
               </h3>
               <div className="text-[15px] leading-relaxed" style={{ color: 'var(--cw-ink-secondary)' }}>
                 {habit.body}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Section: Corrections */}
-      <section className="mb-16" id="corrections">
-        <div className="section-label">Checked Against the Docs</div>
-        <h2 className="mb-4">
-          What the popular advice <span className="text-highlight">gets wrong</span>
-        </h2>
-        <p className="mb-6" style={{ color: 'var(--cw-ink-secondary)' }}>
-          These habits are popularized in Simon Scrapes&apos; video <em>Claude Pros Don&apos;t Pay for
-          Max</em>. In paraphrase, three of its claims do not match Anthropic&apos;s documentation for our plan and
-          models:
-        </p>
-        <div className="space-y-3 max-w-3xl">
-          {CORRECTIONS.map(item => (
-            <div
-              key={item.claim}
-              className="p-5 rounded-xl"
-              style={{ background: 'var(--cw-surface)', border: '1px solid var(--cw-border)' }}
-            >
-              <div className="flex items-start gap-3 mb-2">
-                <CircleX size={16} className="flex-shrink-0 mt-1" style={{ color: 'var(--cw-warning)' }} />
-                <p className="text-base font-semibold" style={{ color: 'var(--cw-ink)' }}>
-                  {item.claim}
-                </p>
-              </div>
-              <div className="flex items-start gap-3 pl-0">
-                <CircleCheck size={15} className="flex-shrink-0 mt-1" style={{ color: 'var(--cw-success)' }} />
-                <p className="text-sm" style={{ color: 'var(--cw-ink-secondary)' }}>
-                  {item.fact}
-                </p>
               </div>
             </div>
           ))}

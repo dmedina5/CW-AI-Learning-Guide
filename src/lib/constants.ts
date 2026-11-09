@@ -171,7 +171,6 @@ export const NAV_ITEMS = [
       { label: 'How the Meter Runs', href: '/token-efficiency#how-it-works', tier: 'beginner' as TierKey },
       { label: 'For Everyone', href: '/token-efficiency#everyone', tier: 'beginner' as TierKey },
       { label: 'For Claude Code', href: '/token-efficiency#claude-code', tier: 'intermediate' as TierKey },
-      { label: 'What the Advice Gets Wrong', href: '/token-efficiency#corrections', tier: 'intermediate' as TierKey },
       { label: 'The Efficiency Test', href: '/token-efficiency#check', tier: 'intermediate' as TierKey },
     ],
   },
