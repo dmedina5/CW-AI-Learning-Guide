@@ -102,9 +102,10 @@ export default function ChooseYourClaudePage() {
 
         <Callout variant="warning" className="mt-6">
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-            <strong>Cowork is desktop app only.</strong> If you only use Claude in the browser
-            or on your phone, Cowork is not available to you. Use Claude Chat (Browser) or
-            Claude Code instead.
+            <strong>Cowork is now part of the Claude app.</strong> Projects, artifacts, effort and
+            model choice work in the browser and on your phone too. Working directly with the files
+            on your computer still needs the desktop app. See{' '}
+            <Link href="/claude-cowork" className="underline">The Claude App</Link>.
           </p>
         </Callout>
       </section>
@@ -291,7 +292,7 @@ export default function ChooseYourClaudePage() {
           href="/claude-cowork"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all pill-btn"
         >
-          <ArrowLeft size={16} /> Claude Cowork
+          <ArrowLeft size={16} /> The Claude App
         </Link>
         <Link
           href="/right-size-your-model"

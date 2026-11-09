@@ -60,7 +60,7 @@ export const CLAUDE_PRODUCTS: ClaudeProduct[] = [
     name: 'Claude Cowork',
     tagline: 'It reads your files, creates new ones',
     vibe: 'Working with an assistant who read every brief',
-    access: 'Desktop app only (click the Cowork tab)',
+    access: 'Part of the Claude app; working with your local files needs the desktop app',
     setupTime: '~10 minutes',
     capabilities: {
       answerQuestions: 'Yes',

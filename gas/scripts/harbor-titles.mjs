@@ -21,7 +21,7 @@ export const TITLES = {
   '/prompt-builder': 'Prompt Builder',
   '/context-engineering': 'Context Engineering',
   '/moving-from-chatgpt': 'Moving from ChatGPT',
-  '/claude-cowork': 'Claude Cowork',
+  '/claude-cowork': 'The Claude App',
   '/choose-your-claude': 'Choose Your Claude',
   '/right-size-your-model': 'Right-Size Your Model',
   '/road-to-agentic-engineering': 'Road to Agentic Engineering',
