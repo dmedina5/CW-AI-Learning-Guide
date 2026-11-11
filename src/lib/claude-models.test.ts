@@ -40,10 +40,54 @@ test('Haiku 4.5 is listed as the model Haiku 5.5 replaced', () => {
   assert.equal(old.outputPrice, 5);
 });
 
+test('the frontier rung is Claude Fable 5.2', () => {
+  const fable = getModel('fable');
+  assert.equal(fable.name, 'Claude Fable 5.2');
+  assert.equal(fable.apiId, 'claude-fable-5-2');
+  assert.equal(fable.contextTokens, 1_000_000);
+  assert.equal(fable.inputPrice, 8);
+  assert.equal(fable.outputPrice, 40);
+  assert.equal(fable.hasEffortDial, true);
+});
+
+test('Fable 5.1 is listed as the model Fable 5.2 replaced, and Fable 5 is gone', () => {
+  const old = PREVIOUS_MODELS.find(m => m.name === 'Claude Fable 5.1');
+  assert.ok(old, 'Claude Fable 5.1 missing from PREVIOUS_MODELS');
+  assert.equal(old.replacedBy, 'fable');
+  assert.equal(old.inputPrice, 10);
+  assert.equal(old.outputPrice, 50);
+  assert.equal(PREVIOUS_MODELS.find(m => m.name === 'Claude Fable 5'), undefined);
+});
+
+test('Fable 5.2 costs twice Opus 5.5 per token', () => {
+  assert.equal(getModel('fable').inputPrice / getModel('opus').inputPrice, 2);
+  assert.equal(getModel('fable').outputPrice / getModel('opus').outputPrice, 2);
+});
+
+test('the frontier note names Fable 5.2, keeps Opus first, and starts it at high effort, not max', () => {
+  const r = sizeIt({ work: 'build', volume: 'corpus', stakes: 'binding', detect: 'silent', frequency: 'once' });
+  assert.ok(r?.fableNote, 'expected the frontier note for this combination');
+  assert.match(r.fableNote, /Claude Fable 5\.2/);
+  assert.match(r.fableNote, /Opus 5\.5/);
+  assert.match(r.fableNote, /\bhigh\b effort/);
+  assert.doesNotMatch(r.fableNote, /Fable 5\.1/);
+});
+
+test('every frontier note sits on a hard, ambiguous or long-running job', () => {
+  for (const answers of allAnswers()) {
+    const r = sizeIt(answers)!;
+    if (r.fableNote) assert.ok(['judge', 'build'].includes(answers.work!), JSON.stringify(answers));
+  }
+});
+
+test('medium effort is described as where Claude Code starts every current model', () => {
+  assert.equal(getEffort('medium').label, 'Where Claude Code starts every current model');
+});
+
 test('relative cost is measured against Haiku 5.5', () => {
   assert.deepEqual(
     CLAUDE_MODELS.map(m => [m.id, m.relativeCost]),
-    [['haiku', 1], ['sonnet', 20], ['opus', 40], ['fable', 100]],
+    [['haiku', 1], ['sonnet', 20], ['opus', 40], ['fable', 80]],
   );
 });
 

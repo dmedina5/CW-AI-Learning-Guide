@@ -48,7 +48,7 @@ const OVERBUYING = [
   },
   {
     habit: 'Frontier-first, so it is definitely right',
-    why: 'Fable 5.1 costs a hundred times Haiku 5.5 per token, and on easy work it produces the same answer.',
+    why: 'Fable 5.2 costs eighty times Haiku 5.5 per token, and twice Opus 5.5. On easy work it produces the same answer, after thinking about it first.',
     instead: 'Start where the work sits on the ladder. Escalate on evidence.',
   },
 ];
@@ -72,7 +72,7 @@ const ESCALATION = [
   {
     step: 'Step up one rung, not three',
     detail:
-      'Sonnet to Opus. If Opus genuinely stalls on a hard, long-horizon problem, that is when Fable 5.1 earns its price.',
+      'Sonnet to Opus. If Opus genuinely stalls on a hard, long-horizon problem, that is when Fable 5.2 earns its price. Start it at high effort, not max.',
   },
   {
     step: 'Remember what worked',
@@ -88,7 +88,7 @@ const QUIZ_QUESTIONS = [
     options: [
       'Opus 5.5 at xhigh — it goes to a customer, so it matters',
       'Haiku 5.5 — the content already exists, you are just restating it',
-      'Fable 5.1 at max — never risk an external message',
+      'Fable 5.2 at max — never risk an external message',
       'Sonnet 5.5 at max — a compromise',
     ],
     correctIndex: 1,
@@ -112,7 +112,7 @@ const QUIZ_QUESTIONS = [
     options: [
       'Haiku 5.5 at low, to keep it cheap',
       'Opus 5.5 at xhigh — this is exactly what it is for',
-      'Fable 5.1 at max, since bugs are expensive',
+      'Fable 5.2 at max, since bugs are expensive',
       'Sonnet 5.5 at low, then escalate immediately',
     ],
     correctIndex: 1,
@@ -143,6 +143,19 @@ const QUIZ_QUESTIONS = [
     correctIndex: 2,
     explanation:
       'More work now fits on the cheapest rung, and the dial lets Haiku think a little when a job needs it. It still is not the model for ambiguous judgment or long builds: when Haiku would need xhigh or max, that is your signal to move up to Sonnet.',
+  },
+  {
+    question:
+      'Claude Fable 5.2 is stronger than Fable 5.1 and costs less. Opus 5.5 has just stalled on a hard, multi-day problem. What is the right-sized next step?',
+    options: [
+      'Fable 5.2 at max — the problem is hard, so buy every token of thinking',
+      'Fable 5.2 at high, and step up to xhigh only if high visibly falls short',
+      'Use Fable 5.2 for everything from now on, since it is cheaper than it was',
+      'Stay on Opus 5.5 and turn it to max instead',
+    ],
+    correctIndex: 1,
+    explanation:
+      'This is the case Fable is for, so step up. But most of Fable 5.2\'s gain arrives by high effort; xhigh and max use many more tokens for uneven gains. Cheaper is not cheap: it is still twice Opus 5.5 per token, and from high up it thinks before almost every reply, so it stays the rung you reach after Opus has fallen short.',
   },
 ];
 
@@ -215,6 +228,13 @@ export default function RightSizeYourModelPage() {
             Code starts both 5.5 models at <code>medium</code> effort. If an older model still shows
             in a picker, choose the newer one: it costs the same or less. Haiku 5.5 now has an
             effort dial too, which starts at <code>medium</code>.
+          </p>
+          <p className="text-sm mt-2" style={{ color: 'var(--cw-ink-secondary)' }}>
+            <strong>Fable 5.2</strong> is the newest frontier model: stronger than Fable 5.1, and at
+            low effort it scores close to what Fable 5.1 scored at higher levels. Claude Code starts
+            it at <code>medium</code> too. It is never the default, so you pick it on purpose, and
+            on some plans its usage bills to usage credits instead of your included limits; the
+            model picker says &ldquo;Requires usage credits&rdquo; when it does.
           </p>
         </Callout>
 
@@ -317,9 +337,9 @@ export default function RightSizeYourModelPage() {
 
         <Callout variant="blue" className="mt-6">
           <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-            The number worth carrying around: <strong>Sonnet costs about 20× Haiku per token, Opus about 40×, and Fable about 100×</strong> — before the effort dial multiplies the
+            The number worth carrying around: <strong>Sonnet costs about 20× Haiku per token, Opus about 40×, and Fable about 80×</strong> — before the effort dial multiplies the
             output side again. On prompts above 100K tokens Haiku 5.5 moves to its higher rate and
-            the gap narrows to about 4×, 8× and 20×. Nothing else on this page is as easy to remember
+            the gap narrows to about 4×, 8× and 16×. Nothing else on this page is as easy to remember
             or as useful.
           </p>
         </Callout>

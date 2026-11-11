@@ -8,7 +8,11 @@
  * Opus 5.5, Sonnet 5.5 and Fable 5.1 replace Opus 5, Sonnet 5 and Fable 5, and
  * Opus 5.5 is the Claude Code default model on every Claude plan. Claude Haiku
  * 5.5 then replaced Haiku 4.5 (November 2026 refresh): a tenth of the price,
- * a 1M window, and an effort dial, so the fast rung now thinks.
+ * a 1M window, and an effort dial, so the fast rung now thinks. Claude Fable
+ * 5.2 then replaced Fable 5.1 (November 2026): $8 / $40 instead of $10 / $50,
+ * so the frontier is now twice Opus 5.5 per token rather than two and a half
+ * times, and at low effort it scores close to Fable 5.1 at higher levels.
+ * Claude Code starts it at medium, like the other current models.
  *
  * Prices are Anthropic first-party API list rates per 1M tokens. Effort
  * defaults are Claude Code's (code.claude.com/docs/en/model-config).
@@ -95,20 +99,20 @@ export const CLAUDE_MODELS: ClaudeModel[] = [
   },
   {
     id: 'fable',
-    name: 'Claude Fable 5.1',
-    apiId: 'claude-fable-5-1',
+    name: 'Claude Fable 5.2',
+    apiId: 'claude-fable-5-2',
     priceTier: '$$$$',
     label: 'The frontier',
     color: '#B45309',
     context: '1M',
     contextTokens: 1_000_000,
-    inputPrice: 10,
-    outputPrice: 50,
-    relativeCost: 100,
-    summary: 'Anthropic\'s most capable model, for the most demanding reasoning and work bigger than one sitting.',
+    inputPrice: 8,
+    outputPrice: 40,
+    relativeCost: 80,
+    summary: 'Anthropic\'s most capable model, for the most demanding reasoning and work bigger than one sitting. Stronger than Fable 5.1 and cheaper: at low effort it scores close to what Fable 5.1 scored at higher levels.',
     bestFor: 'The hardest, longest problems, when Opus genuinely is not enough.',
     hasEffortDial: true,
-    notes: 'Thinking is always on and cannot be switched off. It is never the default; you pick it on purpose, after Opus has fallen short.',
+    notes: 'Twice Opus 5.5 per token. Thinking is always on, and from high effort up it thinks before almost every reply, even a greeting, so easy turns waste tokens. Most of its gain arrives by high; xhigh and max use many more tokens for uneven gains. It is never the default: you pick it on purpose, after Opus has fallen short. On some plans its usage bills to usage credits, not your included limits.',
   },
 ];
 
@@ -136,7 +140,7 @@ export const PREVIOUS_MODELS: Array<{
     replacedBy: 'sonnet',
     correction: 'This page used to show $3 / $15 for Sonnet, which was the older Sonnet 4.6 price.',
   },
-  { name: 'Claude Fable 5', inputPrice: 10, outputPrice: 50, replacedBy: 'fable' },
+  { name: 'Claude Fable 5.1', inputPrice: 10, outputPrice: 50, replacedBy: 'fable' },
   { name: 'Claude Haiku 4.5', inputPrice: 1, outputPrice: 5, replacedBy: 'haiku' },
 ];
 
@@ -173,9 +177,9 @@ export const EFFORT_LEVELS: EffortLevel[] = [
   {
     id: 'medium',
     name: 'medium',
-    label: 'Where Opus 5.5 and Sonnet 5.5 start',
+    label: 'Where Claude Code starts every current model',
     color: '#5FA37A',
-    what: 'A short think before answering. Claude Code starts Opus 5.5 and Sonnet 5.5 here until you choose another level.',
+    what: 'A short think before answering. Claude Code starts Haiku 5.5, Sonnet 5.5, Opus 5.5 and Fable 5.2 here until you choose another level.',
     bestFor: 'Routine drafting, extraction, everyday questions and a lot of day-to-day coding.',
     costMultiplier: 1.7,
   },
@@ -557,7 +561,7 @@ export function sizeIt(answers: Answers): SizerResult | null {
   const work = answers.work;
   const fableNote =
     modelScore >= 3.5 && (work === 'judge' || work === 'build')
-      ? 'Your answers sit at the very top of the ladder: a hard, high-stakes problem where a wrong answer stays hidden. This is the narrow case where Claude Fable 5.1 earns its price, but only after Opus 5.5 has actually tried and fallen short. Going frontier-first is still over-buying.'
+      ? 'Your answers sit at the very top of the ladder: a hard, high-stakes problem where a wrong answer stays hidden. This is the narrow case where Claude Fable 5.2 earns its price, but only after Opus 5.5 has actually tried and fallen short. When you step up, start Fable 5.2 at high effort, not max: most of its gain arrives by high, and above it the tokens climb faster than the quality. At twice Opus 5.5 per token, going frontier-first is still over-buying.'
       : null;
 
   const reflexCost = estimateCost(getModel('opus'), getEffort('xhigh'), shape);
