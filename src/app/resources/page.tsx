@@ -75,7 +75,7 @@ const glossaryTerms = [
   },
   {
     term: 'Token',
-    definition: 'The basic unit of text that AI models process. On current Claude models, a token is roughly half a word. Models have token limits (context windows) that determine how much text they can consider at once. Current Claude models (Fable 5.1, Opus 5.5, Sonnet 5.5, Haiku 5.5) have a 1M-token context window.',
+    definition: 'The basic unit of text that AI models process. On current Claude models, a token is roughly half a word. Models have token limits (context windows) that determine how much text they can consider at once. Current Claude models (Fable 5.2, Opus 5.5, Sonnet 5.5, Haiku 5.5) have a 1M-token context window.',
   },
   {
     term: 'Vibe Coding',

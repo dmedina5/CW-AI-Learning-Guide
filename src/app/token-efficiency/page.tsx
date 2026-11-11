@@ -20,7 +20,7 @@ import { QuizBlock } from '@/components/interactive/QuizBlock';
  * The habits are organized after Simon Scrapes' video "Claude Pros Don't Pay
  * for Max" (7 Nov 2026), and state the documented behavior directly where the
  * video overstated it (/compact is cheap while the cache is warm; on the 5.5
- * models and Fable 5.1 changing effort keeps the cache).
+ * models and Fable 5.2 changing effort keeps the cache).
  */
 
 const SOURCES = [
@@ -151,7 +151,7 @@ const HABITS = [
           start.
         </p>
         <p>
-          Effort is gentler on our models. On Opus 5.5, Sonnet 5.5, Haiku 5.5 and Fable 5.1,
+          Effort is gentler on our models. On Opus 5.5, Sonnet 5.5, Haiku 5.5 and Fable 5.2,
           changing effort keeps the cache, so turning it down for a routine step is fine. Do not
           leave it on max for work that does not need it: you pay for thinking you never use.
         </p>
@@ -247,7 +247,7 @@ const QUIZ_QUESTIONS = [
     ],
     correctIndex: 1,
     explanation:
-      'On Opus 5.5, Sonnet 5.5, Haiku 5.5 and Fable 5.1, changing effort keeps the cache. A model switch, a break longer than the cache lifetime, and compacting a cold session all reread the history uncached.',
+      'On Opus 5.5, Sonnet 5.5, Haiku 5.5 and Fable 5.2, changing effort keeps the cache. A model switch, a break longer than the cache lifetime, and compacting a cold session all reread the history uncached.',
   },
   {
     question: 'Where do Claude Code, chat and Cowork usage go on the Cover Whale Teams plan?',

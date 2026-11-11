@@ -26,7 +26,6 @@ check /right-size-your-model \
   "/effort ultracode" \
   '!$3 in / $15 out' '!$5 in / $25 out' '!Sonnet costs about 3×' '!Fable 5 costs'
 
-check /context-engineering "Opus 5.5, Sonnet 5.5, and Fable 5.1"
 
 # ── November 2026: Claude Haiku 5.5 replaces Haiku 4.5 on the ladder ────────
 # Supersedes the October "2× / 4×" ratio line and the October callout heading.
@@ -53,6 +52,16 @@ check /right-size-your-model \
   '!Where Opus 5.5 and Sonnet 5.5 start' '!Fable 5.1 at max' \
   '!replaces Claude Fable 5 '
 
+# ── November 2026: Fable 5.2 named as current on every page ──────────────
+# Supersedes the October context-engineering "Fable 5.1" check. Picker facts
+# checked on the Cover Whale Teams account in claude.ai on 2026-11-11.
+check /context-engineering "Opus 5.5, Sonnet 5.5, and Fable 5.2" '!Fable 5.1'
+check /prompt-engineering "on Fable 5.2, Opus 5.5 and Sonnet 5.5" '!Fable 5.1'
+check /resources "Current Claude models (Fable 5.2" '!Fable 5.1'
+check /token-efficiency "Haiku 5.5 and Fable 5.2" '!Fable 5.1'
+check /claude-cowork "Four models are on the menu: Fable 5.2" \
+  "draws down usage much faster than Opus" '!Fable 5.1'
+
 # ── November 2026: Cowork folded into one Claude app (Teams plan view) ──────
 # Facts checked on the Cover Whale Teams account in claude.ai on 2026-11-08;
 # the screenshots are cropped and redacted for the public repo.
@@ -63,7 +72,7 @@ check /claude-cowork \
   "Move to group" "Side chat" "Split view" \
   "Docs" "Slides" "Design" "Dashboard" \
   "Skills" "Connectors" "Plugins" \
-  "Claude model picker with Haiku 5.5" \
+  "Claude model picker with Fable 5.2" \
   '!Open the Cowork tab' '!click the Cowork tab'
 # The Harbor frame does not load images from other sites (they showed broken
 # in the @HEAD preview), so the Harbor build must carry them inline.

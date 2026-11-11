@@ -491,7 +491,7 @@ match its comment density, naming, and idiom.`}
         <div className="section-label mt-4">In the Latest Claude</div>
         <h2 className="mb-4">Context engineering with today&apos;s Claude</h2>
         <p className="mb-8">
-          The current Claude models (Haiku 5.5, Opus 5.5, Sonnet 5.5, and Fable 5.1) and the Claude Developer Platform ship
+          The current Claude models (Haiku 5.5, Opus 5.5, Sonnet 5.5, and Fable 5.2) and the Claude Developer Platform ship
           features built specifically to make context management easier. These turn the principles
           above into product capabilities.
         </p>
@@ -504,7 +504,7 @@ match its comment density, naming, and idiom.`}
               <TierBadge tier="advanced" size="sm" />
             </div>
             <p className="text-base" style={{ color: 'var(--cw-ink-secondary)' }}>
-              Haiku 5.5, Opus 5.5, Sonnet 5.5, and Fable 5.1 all carry a <strong>1 million token</strong> window
+              Haiku 5.5, Opus 5.5, Sonnet 5.5, and Fable 5.2 all carry a <strong>1 million token</strong> window
               &mdash; and on these models it&apos;s the default, not a beta opt-in. That&apos;s large
               enough for entire codebases or document sets. But a bigger window raises the ceiling;
               it doesn&apos;t repeal the rules. Relevance and structure still decide quality. Use the

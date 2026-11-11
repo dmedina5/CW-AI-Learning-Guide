@@ -132,13 +132,14 @@ export default function ClaudeCoworkPage() {
           Pick the model <span className="text-highlight">and the effort</span>
         </h2>
         <p className="mb-4" style={{ color: 'var(--cw-ink-secondary)' }}>
-          Click the model name under the message box. Four models are on the menu: Fable 5.1, Opus
+          Click the model name under the message box. Four models are on the menu: Fable 5.2, Opus
           5.5, Sonnet 5.5 and <strong>Haiku 5.5</strong>, the new fast model, which costs a tenth of
-          what Haiku 4.5 did.
+          what Haiku 4.5 did. When you pick Fable 5.2, Claude warns that it draws down usage much
+          faster than Opus, so save it for the hardest jobs.
         </p>
         <Shot
           file="model-picker.jpg"
-          alt="Claude model picker with Haiku 5.5, Sonnet 5.5, Opus 5.5 and Fable 5.1"
+          alt="Claude model picker with Fable 5.2, Opus 5.5, Sonnet 5.5 and Haiku 5.5"
           caption="The model picker on the Cover Whale Teams plan."
         />
         <p className="mb-4" style={{ color: 'var(--cw-ink-secondary)' }}>

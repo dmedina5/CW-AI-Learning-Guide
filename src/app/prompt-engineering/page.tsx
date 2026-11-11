@@ -329,7 +329,7 @@ the file.                                               [PROOF]`}
             </p>
             <ThenNow
               then={'"Think it through step by step..." or "Walk me through your reasoning..."'}
-              now={'Built in now. Claude thinks before it answers, so don\'t ask it to — on Fable 5.1, Opus 5.5 and Sonnet 5.5 a request to write out its reasoning may even be declined. For a hard problem, raise the Effort setting instead.'}
+              now={'Built in now. Claude thinks before it answers, so don\'t ask it to — on Fable 5.2, Opus 5.5 and Sonnet 5.5 a request to write out its reasoning may even be declined. For a hard problem, raise the Effort setting instead.'}
             />
             <p className="text-sm mt-4" style={{ color: 'var(--cw-ink-muted)' }}>
               <strong>To check the logic,</strong> ask what the conclusion rests on and which
